@@ -21,3 +21,26 @@
    
   </tr>
 </table>
+
+### 📬커밋 종류
+> 수정한 종류에 따라 커밋 메시지를 선택
+
+|메시지명|설명|
+|---|---|
+|feat|새로운 기능 추가 관련|
+|fix|버그 수정|
+|test|테스트 코드, 리팩토링 테스트 코드 추가|
+|refactor|코드 리팩토링(기능향상)|
+|chore|빌드 업무 수정, 패키지 매니저 수정|
+|docs|문서 수정(md, git관련 파일, 이미지파일 수정)|
+|style|코드 formatting, 세미콜론(;) 누락, 코드 변경이 없는 경우|
+
+### 📢관련 이슈
+> 작성한 커밋과 관련된 이슈 번호를 매핑
+
+- 이슈 번호뒤에 아래에 써놓은 명령어를 붙여서 커밋 날리면 자동으로 이슈가 close 된다.   
+`close / closes / closed / fix / fixes / fixed / resolve /resolves / resolved`
+```
+< 예시 >
+[BE] feat: Flowing close #1
+```

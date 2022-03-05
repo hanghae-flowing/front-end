@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Main() {
-  return <div>주현 브랜치</div>;
+  return <div>Main</div>;
 }
 
 export default Main;

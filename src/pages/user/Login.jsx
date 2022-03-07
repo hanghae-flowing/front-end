@@ -5,11 +5,12 @@ import styled from 'styled-components';
 function Login() {
   return (
     <>
-      <div>
+      <BackgroundImage>
         <h1>카카오톡 간편로그인</h1>
         <br />
+
         <KaKaoBtn
-          token={String('6fbc2e5aa94d488c058f25c8a101c639')}
+          token={String(process.env.REACT_APP_KAKAO_TOKEN)}
           onSuccess={err => {
             console.log('로그인성공', err);
           }}
@@ -22,17 +23,17 @@ function Login() {
         >
           카카오 로그인
         </KaKaoBtn>
-      </div>
-
-      <div>
-        <img
-          src="https://www.popsci.com/uploads/2020/06/05/3NIEQB3SFVCMNHH6MHZ42FO6PA.jpg?auto=webp"
-          alt=""
-        />
-      </div>
+      </BackgroundImage>
     </>
   );
 }
+
+const BackgroundImage = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-image: url('https://hdwallpaperim.com/wp-content/uploads/2017/08/27/136801-city-Paris.jpg');
+  background-size: cover;
+`;
 
 const KaKaoBtn = styled(KakaoLogin)`
   padding: 0;

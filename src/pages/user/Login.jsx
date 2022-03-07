@@ -6,23 +6,23 @@ function Login() {
   return (
     <>
       <BackgroundImage>
-        <h1>카카오톡 간편로그인</h1>
-        <br />
-
-        <KaKaoBtn
-          token={String(process.env.REACT_APP_KAKAO_TOKEN)}
-          onSuccess={err => {
-            console.log('로그인성공', err);
-          }}
-          onFail={err => {
-            console.log('로그인실패', err);
-          }}
-          onLogout={() => {
-            console.log('로그아웃');
-          }}
-        >
-          카카오 로그인
-        </KaKaoBtn>
+        <BtnWrapper>
+          <KaKaoBtn
+            style={{ width: '300px', height: '50px' }}
+            token={String(process.env.REACT_APP_KAKAO_TOKEN)}
+            onSuccess={err => {
+              console.log('로그인성공', err);
+            }}
+            onFail={err => {
+              console.log('로그인실패', err);
+            }}
+            onLogout={() => {
+              console.log('로그아웃');
+            }}
+          >
+            카카오 로그인
+          </KaKaoBtn>
+        </BtnWrapper>
       </BackgroundImage>
     </>
   );
@@ -35,18 +35,24 @@ const BackgroundImage = styled.div`
   background-size: cover;
 `;
 
+const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  min-height: 100vh;
+  width: 20%;
+`;
+
 const KaKaoBtn = styled(KakaoLogin)`
-  padding: 0;
-  width: 190px;
-  height: 44px;
-  line-height: 44px;
-  color: #783c00;
-  background-color: #ffeb00;
+  margin: auto;
+  display: block;
   border: 1px solid transparent;
   border-radius: 3px;
-  font-size: 16px;
+  color: #783c00;
+  background-color: #ffeb00;
+  font-size: 20px;
   font-weight: bold;
-  text-align: center;
   cursor: pointer;
   &:hover {
     box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);

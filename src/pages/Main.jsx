@@ -32,8 +32,8 @@ const Title = styled.h1`
 `;
 
 const CreateBtn = styled.button`
-  width: 500px;
-  height: 500px;
+  width: 627px;
+  height: 570px;
   border-radius: 23px;
   border: none;
   background-color: #d9d9d9;
@@ -44,7 +44,7 @@ const WorkSpaceBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1024px;
+  width: 1280px;
 `;
 
 const WorkSpaceList = styled.div`

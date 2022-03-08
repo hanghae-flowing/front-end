@@ -31,16 +31,15 @@ const Wrapper = styled.div`
 const CreateWorkspaceDiv = styled.div`
   display: flex;
   flex-flow: row wrap;
-
   width: 50%;
   justify-content: flex-end;
   align-content: center;
 `;
 
 const MainTitle = styled.h1`
-  font-size: 36px;
+  margin-right: 26%;
+  font-size: 34px;
   font-weight: 400;
-  margin-bottom: 30px;
 `;
 
 const WorkSpaceBox = styled.div`
@@ -57,7 +56,7 @@ const MarkedToastDiv = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 50%;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   align-content: center;
 `;

@@ -14,13 +14,12 @@ const ToastGridForm = () => {
 };
 
 const Wrapper = styled.div`
-  margin-right: 20px;
-  margin-top: 80px;
+  margin: 8px;
   display: grid;
   position: relative;
   flex-wrap: wrap;
-  width: 300px;
-  height: 250px;
+  width: 303px;
+  height: 257px;
   cursor: pointer;
 `;
 const ToastImage = styled.div`

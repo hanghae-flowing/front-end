@@ -31,7 +31,7 @@ const ListDiv = styled.div`
   width: 100%;
   display: flex;
   flex-flow: row wrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-content: center;
 `;
 

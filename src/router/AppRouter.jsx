@@ -1,22 +1,23 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from '../components/Header';
-import SideNav from '../components/SideNav';
 import Landing from '../pages/Landing';
 import Main from '../pages/Main';
+import SideNav from '../pages/SideNav';
 import Login from '../pages/user/Login';
-import WorkSpace from '../pages/WorkSpace';
+import MindSpace from '../pages/workSpace/MindSpace';
 
 function AppRouter() {
   return (
     <BrowserRouter>
       <Header />
-      <SideNav />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="main" element={<Main />} />
         <Route path="login" element={<Login />} />
-        <Route path="workspace" element={<WorkSpace />} />
+        <Route path="space/*" element={<SideNav />}>
+          <Route index element={<MindSpace />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

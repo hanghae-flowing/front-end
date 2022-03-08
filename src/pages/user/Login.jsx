@@ -31,7 +31,7 @@ function Login() {
 const BackgroundImage = styled.div`
   width: 100%;
   height: 100vh;
-  background-image: url('https://hdwallpaperim.com/wp-content/uploads/2017/08/27/136801-city-Paris.jpg');
+  background-image: url('https://makcreates.com/wp-content/uploads/2018/03/black-background-mak-creates-web-design-services-1500-2500.jpg');
   background-size: cover;
 `;
 
@@ -49,7 +49,7 @@ const KaKaoBtn = styled(KakaoLogin)`
   display: block;
   border: 1px solid transparent;
   border-radius: 3px;
-  color: #783c00;
+  color: #1e1926;
   background-color: #ffeb00;
   font-size: 20px;
   font-weight: bold;

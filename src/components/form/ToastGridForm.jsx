@@ -14,7 +14,7 @@ const ToastGridForm = () => {
 };
 
 const Wrapper = styled.div`
-  margin: 8px;
+  margin: 15px 10px 7px 10px;
   display: grid;
   position: relative;
   flex-wrap: wrap;

@@ -1,5 +1,5 @@
 const MainPlus = () => {
-  return;
+  return <div></div>;
 };
 
 export default MainPlus;

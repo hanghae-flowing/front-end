@@ -7,7 +7,7 @@ const Main = () => {
   const navigate = useNavigate();
 
   const createsNewWorkspace = e => {
-    navigate('workspace');
+    navigate('/toast');
   };
 
   return (

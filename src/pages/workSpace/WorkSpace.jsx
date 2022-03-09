@@ -110,10 +110,11 @@ const SpaceWrap = styled.div`
 const Save = styled.button``;
 
 const Side = styled.div`
-  width: 300px;
   background-color: #e3e3e3;
   height: 100%;
   padding: 20px;
+  width: 300px;
+  flex-shrink: 0;
 `;
 
 const InfoTab = styled.div`

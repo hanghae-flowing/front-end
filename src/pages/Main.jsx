@@ -1,56 +1,72 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import ToastGridForm from '../components/form/ToastGridForm';
 
 const Main = () => {
+  const navigate = useNavigate();
+
+  const createsNewWorkspace = e => {
+    navigate('workspace');
+  };
+
   return (
     <Wrapper>
-      <ContentBox>
-        <Title>새로운 토스트를 시작해보세요.</Title>
-        <WorkSpaceBox>
-          <CreateBtn>워크스페이스 생성</CreateBtn>
-          <WorkSpaceList>목록</WorkSpaceList>
-        </WorkSpaceBox>
-      </ContentBox>
+      <CreateWorkspaceDiv>
+        <MainTitle>새로운 토스트를 구워보세요.</MainTitle>
+        <WorkSpaceBox onClick={createsNewWorkspace} />
+      </CreateWorkspaceDiv>
+      <MarkedToastDiv>
+        <ToastGridForm />
+        <ToastGridForm />
+        <ToastGridForm />
+        <ToastGridForm />
+      </MarkedToastDiv>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  height: 100%;
-  background-color: skyblue;
   display: flex;
-  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background: #f0f0f0;
   justify-content: center;
+  align-content: center;
 `;
 
-const ContentBox = styled.div``;
+const CreateWorkspaceDiv = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  width: 50%;
+  justify-content: flex-end;
+  align-content: center;
+`;
 
-const Title = styled.h1`
-  font-size: 36px;
+const MainTitle = styled.h1`
+  margin-right: 28%;
+  font-size: 34px;
   font-weight: 400;
-  margin-bottom: 30px;
-`;
-
-const CreateBtn = styled.button`
-  width: 627px;
-  height: 570px;
-  border-radius: 23px;
-  border: none;
-  background-color: #d9d9d9;
-  cursor: pointer;
+>>>>>>> 3ddaddc3d8dc0c97780116f58f0f791ca21ca4cd
 `;
 
 const WorkSpaceBox = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 1280px;
+  width: 627px;
+  height: 570px;
+  background-color: #909090;
+  cursor: pointer;
+  border-radius: 10px;
 `;
 
-const WorkSpaceList = styled.div`
-  width: 500px;
-  height: 500px;
-  background-color: #e3e3e3;
+const MarkedToastDiv = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  width: 50%;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
 `;
 
 export default Main;

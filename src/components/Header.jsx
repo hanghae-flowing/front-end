@@ -27,6 +27,7 @@ const HeadBox = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 99999;
 `;
 const HomeBtn = styled(Link)`
   border-radius: 8px;

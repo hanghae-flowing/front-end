@@ -47,7 +47,7 @@ const MainTitle = styled.h1`
   margin-right: 28%;
   font-size: 34px;
   font-weight: 400;
->>>>>>> origin/issue#10
+>>>>>>> 3ddaddc3d8dc0c97780116f58f0f791ca21ca4cd
 `;
 
 const WorkSpaceBox = styled.div`

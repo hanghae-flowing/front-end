@@ -1,13 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ToastGridForm from '../components/form/ToastGridForm';
 
 const Main = () => {
+  const navigate = useNavigate();
+
+  const createsNewWorkspace = e => {
+    navigate('workspace');
+  };
+
   return (
     <Wrapper>
       <CreateWorkspaceDiv>
         <MainTitle>새로운 토스트를 구워보세요.</MainTitle>
-        <WorkSpaceBox />
+        <WorkSpaceBox onClick={createsNewWorkspace} />
       </CreateWorkspaceDiv>
       <MarkedToastDiv>
         <ToastGridForm />
@@ -37,7 +44,7 @@ const CreateWorkspaceDiv = styled.div`
 `;
 
 const MainTitle = styled.h1`
-  margin-right: 26%;
+  margin-right: 28%;
   font-size: 34px;
   font-weight: 400;
 `;

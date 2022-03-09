@@ -1,26 +1,23 @@
 import React from 'react';
-import KakaoLogin from 'react-kakao-login';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+//https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code
 function Login() {
+  const navigate = useNavigate();
+
+  const CLIENT_ID = '57f694d3fc58142a330b8767269a5acf';
+  const REDIRECT_URI = 'http://localhost:3000/member/kakao/callback';
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  const onLogin = e => {};
+
   return (
     <>
       <BackgroundImage>
         <BtnWrapper>
-          <KaKaoBtn
-            style={{ width: '300px', height: '50px' }}
-            token={String(process.env.REACT_APP_KAKAO_TOKEN)}
-            onSuccess={err => {
-              console.log('로그인성공', err);
-            }}
-            onFail={err => {
-              console.log('로그인실패', err);
-            }}
-            onLogout={() => {
-              console.log('로그아웃');
-            }}
-          >
-            카카오 로그인
+          <KaKaoBtn href={KAKAO_AUTH_URL} onClick={onLogin}>
+            카카오 로그인하기
           </KaKaoBtn>
         </BtnWrapper>
       </BackgroundImage>
@@ -44,7 +41,9 @@ const BtnWrapper = styled.div`
   width: 20%;
 `;
 
-const KaKaoBtn = styled(KakaoLogin)`
+const KaKaoBtn = styled.a`
+  width: 300px;
+  height: 50px;
   margin: auto;
   display: block;
   border: 1px solid transparent;

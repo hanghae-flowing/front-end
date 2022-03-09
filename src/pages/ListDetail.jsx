@@ -1,6 +1,6 @@
 import ToastGridForm from '../components/form/ToastGridForm';
 import styled from 'styled-components';
-const MainPlus = () => {
+const ListDetail = () => {
   return (
     <ListDiv>
       <ToastGridForm />
@@ -35,4 +35,4 @@ const ListDiv = styled.div`
   align-content: center;
 `;
 
-export default MainPlus;
+export default ListDetail;

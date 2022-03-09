@@ -8,7 +8,7 @@ import Login from '../pages/user/Login';
 import MindSpace from '../pages/workSpace/MindSpace';
 import CoreSpace from '../pages/workSpace/CoreSpace';
 import OrganizeSpace from '../pages/workSpace/OrganizeSpace';
-import MainPlus from '../pages/MainPlus';
+import ListDetail from '../pages/ListDetail';
 
 function AppRouter() {
   return (
@@ -24,7 +24,7 @@ function AppRouter() {
           <Route path="core-space" element={<CoreSpace />} />
           <Route path="organize-space" element={<OrganizeSpace />} />
         </Route>
-        <Route path="mainplus" element={<MainPlus />} />
+        <Route path="listdetail" element={<ListDetail />} />
       </Routes>
     </BrowserRouter>
   );

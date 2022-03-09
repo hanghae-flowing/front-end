@@ -6,7 +6,7 @@ import styled from 'styled-components';
 function Login() {
   const navigate = useNavigate();
 
-  const CLIENT_ID = '57f694d3fc58142a330b8767269a5acf';
+  const CLIENT_ID = '';
   const REDIRECT_URI = 'http://localhost:3000/member/kakao/callback';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 

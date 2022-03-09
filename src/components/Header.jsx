@@ -27,6 +27,7 @@ const HeadBox = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 99999;
 `;
 const HomeBtn = styled(Link)`
   border-radius: 8px;
@@ -52,7 +53,7 @@ const LoginBtn = styled(Link)`
   font-size: 18px;
 `;
 const SearchBox = styled.div`
-  max-width: 1024px;
+  max-width: 1280px;
   flex-grow: 1;
 `;
 

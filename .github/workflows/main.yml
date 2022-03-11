@@ -29,6 +29,9 @@ jobs:
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
 
+      - name: Yarn upgrade
+        run: yarn upgrade
+
       - name: Install Dependencies
         run: yarn
 

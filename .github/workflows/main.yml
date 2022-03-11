@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout source code.
-        uses: actions/checkout@master
+        uses: actions/checkout@develop
 
       - name: Cache node modules
         uses: actions/cache@v1
@@ -26,11 +26,12 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
+
       - name: Install Dependencies
         run: yarn
 
       - name: Build
-        run: yarn build
+        run: yarn run build
 
       - name: Deploy
         env:
@@ -40,4 +41,4 @@ jobs:
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            dist s3://hanghae-toaster
+            build s3://hanghae-toaster

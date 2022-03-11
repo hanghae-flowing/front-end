@@ -48,6 +48,7 @@ export const RectangleBox = props => {
 const RectStyledBox = styled.div`
   width: ${props => props.width};
   height: ${props => props.height};
+  border: 1px solid #222;
   background-color: #fff;
   position: absolute;
 `;

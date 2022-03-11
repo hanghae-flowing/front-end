@@ -37,7 +37,6 @@ const ToolBox = styled.div`
 const ContentBox = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #40659b;
   position: relative;
 `;
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from '../components/Header';
 import Landing from '../pages/Landing';
@@ -10,11 +10,22 @@ import CoreSpace from '../pages/workSpace/CoreSpace';
 import OrganizeSpace from '../pages/workSpace/OrganizeSpace';
 import ListDetail from '../pages/ListDetail';
 import LoginProgress from '../pages/user/LoginProgress';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginCheck } from '../redux/slice/userSlice';
 
 function AppRouter() {
+  const dispatch = useDispatch();
+  const isLogin = useSelector(state => state.user.isLogin);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('user')) {
+      dispatch(loginCheck);
+    }
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
-      <Header />
+      <Header isLogin={isLogin} />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="main" element={<Main />} />

@@ -2,13 +2,27 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Header = props => {
+const Header = isLogin => {
+  console.log(isLogin);
+  if (isLogin.isLogin) {
+    return (
+      <HeadBox>
+        <HomeBtn to="main">home</HomeBtn>
+        <SearchBox>
+          <InputBox>
+            <Input type={'text'} placeholder="검색" />
+          </InputBox>
+        </SearchBox>
+        <LoginBtn to="login">Logout</LoginBtn>
+      </HeadBox>
+    );
+  }
   return (
     <HeadBox>
       <HomeBtn to="main">home</HomeBtn>
       <SearchBox>
         <InputBox>
-          <Input type={'text'} placeholder="ㅎㅇㅎㅇ" />
+          <Input type={'text'} placeholder="검색" />
         </InputBox>
       </SearchBox>
       <LoginBtn to="login">Login</LoginBtn>

@@ -9,6 +9,7 @@ import MindSpace from '../pages/workSpace/MindSpace';
 import CoreSpace from '../pages/workSpace/CoreSpace';
 import OrganizeSpace from '../pages/workSpace/OrganizeSpace';
 import ListDetail from '../pages/ListDetail';
+import LoginProgress from '../pages/user/LoginProgress';
 
 function AppRouter() {
   return (
@@ -18,6 +19,7 @@ function AppRouter() {
         <Route path="/" element={<Landing />} />
         <Route path="main" element={<Main />} />
         <Route path="login" element={<Login />} />
+        <Route path="/member/kakao/callback" element={<LoginProgress />} />
         <Route path="toast/*" element={<WorkSpace />}>
           <Route index element={<MindSpace />} />
           <Route path="mind-space" element={<MindSpace />} />

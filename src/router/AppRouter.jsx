@@ -24,13 +24,13 @@ function AppRouter() {
         <Route path="main" element={<Main />} />
         <Route path="login" element={<Login />} />
         <Route path="/member/kakao/callback" element={<LoginProgress />} />
+        <Route path="listdetail" element={<ListDetail />} />
         <Route path="toast/*" element={<WorkSpace />}>
           <Route index element={<MindSpace />} />
           <Route path="mind-space" element={<MindSpace />} />
           <Route path="core-space" element={<CoreSpace />} />
           <Route path="organize-space" element={<OrganizeSpace />} />
         </Route>
-        <Route path="listdetail" element={<ListDetail />} />
       </Routes>
     </BrowserRouter>
   );

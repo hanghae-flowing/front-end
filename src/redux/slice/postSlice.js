@@ -13,7 +13,6 @@ export const LoadPost = createAsyncThunk(
       .then(res => res.data)
       .catch(err => console.log(err));
 
-    console.log(result);
     return result;
   },
 );

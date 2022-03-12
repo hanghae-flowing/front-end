@@ -14,18 +14,29 @@ const Main = () => {
   }, [dispatch]);
 
   const projectList = useSelector(state => state.post.project);
-  console.log(projectList);
+
+  const createWorkspace = () => {
+    navigate('/toast');
+  };
 
   return (
     <Wrapper>
       <CreateWorkspaceDiv>
         <MainTitle>새로운 토스트를 구워보세요.</MainTitle>
-        <WorkSpaceBox />
+        <WorkSpaceBox onClick={createWorkspace} />
       </CreateWorkspaceDiv>
       <MarkedToastDiv>
-        <ToastGridForm project={projectList} />
-        {/* {projectList &&
-          projectList.map(project => <ToastGridForm project={project} />)} */}
+        {projectList.length > 0 &&
+          projectList.map((project, index) => (
+            <ToastGridForm
+              key={index}
+              projectName={project.projectName}
+              modifiedAt={project.modifiedAt}
+              memberList={project.memberList}
+              bookmark={project.bookmark}
+              thumbnailNum={project.thumbnailNum}
+            />
+          ))}
       </MarkedToastDiv>
     </Wrapper>
   );

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ToastGridForm = props => {
   const { projectName, modifiedAt, memberList, bookmark, thumbnailNum } = props;
-  console.log(props);
+
   const navigate = useNavigate();
 
   const onClickHandler = () => {
@@ -17,7 +17,10 @@ const ToastGridForm = props => {
       </ToastImage>
       <ToastTitle>{projectName}</ToastTitle>
       <ToastTime>{modifiedAt}</ToastTime>
-      <ToastMembers>{memberList}</ToastMembers>
+      <ToastMembers>
+        {memberList &&
+          memberList.map((member, index) => <span key={index}>{member} </span>)}
+      </ToastMembers>
     </Wrapper>
   );
 };

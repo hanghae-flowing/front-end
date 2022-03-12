@@ -2,7 +2,8 @@ import React from 'react';
 import SpaceWrap from '../../components/SpaceWrap';
 import styled from 'styled-components';
 import Rectangle from '../../components/tools/Rectangle';
-import { RectangleBox } from '../../components/modules/Module';
+import { CircleBox, RectangleBox } from '../../components/modules/Module';
+import Triangle from '../../components/tools/Triangle';
 
 const MindSpace = () => {
   return (
@@ -11,9 +12,18 @@ const MindSpace = () => {
         <RectangleBox width="100px" height="100px">
           <p>빌드 테스트</p>
         </RectangleBox>
+        <CircleBox
+          width="100px"
+          height="100px"
+          borderColor="black"
+          borderThick="2px"
+        >
+          <p>원형 테스트</p>
+        </CircleBox>
       </ContentBox>
       <ToolBox>
         <Rectangle></Rectangle>
+        <Triangle></Triangle>
       </ToolBox>
     </SpaceWrap>
   );
@@ -31,7 +41,7 @@ const ToolBox = styled.div`
   box-shadow: 0px 10px 30px -2px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: start;
 `;
 
 const ContentBox = styled.div`

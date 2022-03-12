@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Rectangle = props => {
+const Triangle = props => {
   let posX = 0;
   let posY = 0;
 
   const dragStartHandler = e => {
-    const img = new Image();
+    const img = new Image('');
     e.dataTransfer.setDragImage(img, 0, 0);
 
     posX = e.clientX;
@@ -18,7 +18,6 @@ const Rectangle = props => {
     e.target.style.top = `${e.target.offsetTop + e.clientY - posY}px`;
     posX = e.clientX;
     posY = e.clientY;
-    console.log(posX, posY);
   };
 
   const dragEndHandler = e => {
@@ -37,10 +36,11 @@ const Rectangle = props => {
 };
 
 const Rect = styled.div`
-  width: 40px;
-  height: 40px;
-  border: 2px solid #999;
-  background-color: #eee;
+  width: 0px;
+  height: 0px;
+  border-bottom: calc(24px * 1.732) solid #666666;
+  border-left: 24px solid transparent;
+  border-right: 24px solid transparent;
 `;
 
-export default Rectangle;
+export default Triangle;

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Header = isLogin => {
-  console.log(isLogin);
   if (isLogin.isLogin) {
     return (
       <HeadBox>
@@ -36,8 +35,6 @@ const HeadBox = styled.div`
   background-color: #dadada;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0px 20px;
   position: fixed;
   top: 0;
   left: 0;

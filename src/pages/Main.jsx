@@ -1,26 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ToastGridForm from '../components/form/ToastGridForm';
+import { LoadPost } from '../redux/slice/postSlice';
 
 const Main = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const createsNewWorkspace = e => {
-    navigate('/toast');
-  };
+  useEffect(() => {
+    dispatch(LoadPost());
+  }, [dispatch]);
+
+  const projectList = useSelector(state => state.post.project);
+  console.log(projectList);
 
   return (
     <Wrapper>
       <CreateWorkspaceDiv>
         <MainTitle>새로운 토스트를 구워보세요.</MainTitle>
-        <WorkSpaceBox onClick={createsNewWorkspace} />
+        <WorkSpaceBox />
       </CreateWorkspaceDiv>
       <MarkedToastDiv>
-        <ToastGridForm />
-        <ToastGridForm />
-        <ToastGridForm />
-        <ToastGridForm />
+        <ToastGridForm project={projectList} />
+        {/* {projectList &&
+          projectList.map(project => <ToastGridForm project={project} />)} */}
       </MarkedToastDiv>
     </Wrapper>
   );
@@ -44,10 +49,11 @@ const CreateWorkspaceDiv = styled.div`
 `;
 
 const MainTitle = styled.h1`
-  margin-right: 28%;
-  font-size: 34px;
-  font-weight: 400;
->>>>>>> 3ddaddc3d8dc0c97780116f58f0f791ca21ca4cd
+  position: relative;
+  right: 203px;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 43px;
 `;
 
 const WorkSpaceBox = styled.div`
@@ -57,7 +63,8 @@ const WorkSpaceBox = styled.div`
   height: 570px;
   background-color: #909090;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 40px;
+  margin-right: 20px;
 `;
 
 const MarkedToastDiv = styled.div`

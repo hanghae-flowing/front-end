@@ -14,14 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginCheck } from '../redux/slice/userSlice';
 
 function AppRouter() {
-  const dispatch = useDispatch();
   const isLogin = useSelector(state => state.user.isLogin);
-
-  useEffect(() => {
-    if (sessionStorage.getItem('user')) {
-      dispatch(loginCheck);
-    }
-  }, [dispatch]);
 
   return (
     <BrowserRouter>

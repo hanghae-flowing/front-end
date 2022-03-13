@@ -22,17 +22,30 @@ export const kakaoLogin = createAsyncThunk(
   },
 );
 
+export const kakaoLogout = createAsyncThunk(
+  'user/kakaoLogout',
+  async (data, thunkAPI) => {
+    await axios
+      .post(`http://13.209.41.157/api/logout`, data)
+      .then(res => {
+        console.log(res);
+        alert('로그아웃 완료');
+      })
+      .catch(err => console.log(err));
+  },
+);
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: userState,
-  reducer: {
-    loginCheck: state => {
-      state.isLogin = true;
-    },
-  },
+  reducer: {},
   extraReducers: {
     [kakaoLogin.fulfilled]: (state, action) => {
       state.isLogin = true;
+    },
+    [kakaoLogout.fulfilled]: (state, action) => {
+      sessionStorage.clear();
+      state.isLogin = false;
     },
   },
 });

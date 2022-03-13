@@ -16,6 +16,7 @@ const colors = {
 
 const theme = {
   device,
+  colors,
 };
 
 export default theme;

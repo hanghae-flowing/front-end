@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ToastGridForm from '../components/form/ToastGridForm';
-import { LoadPost } from '../redux/slice/postSlice';
+import { CreateNewProject, LoadPost } from '../redux/slice/postSlice';
 
 const Main = () => {
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ const Main = () => {
         <WorkSpaceBox onClick={createWorkspace} />
       </CreateWorkspaceDiv>
       <MarkedToastDiv>
+        {/* <ToListDetail>더보기</ToListDetail> */}
         {projectList.length > 0 &&
           projectList.map((project, index) => (
             <ToastGridForm
@@ -64,7 +65,8 @@ const MainTitle = styled.h1`
   right: 203px;
   font-size: 36px;
   font-weight: 700;
-  line-height: 43px;
+  line-height: 74px;
+  width: 444px;
 `;
 
 const WorkSpaceBox = styled.div`
@@ -86,5 +88,6 @@ const MarkedToastDiv = styled.div`
   align-items: center;
   align-content: center;
 `;
+const ToListDetail = styled.a``;
 
 export default Main;

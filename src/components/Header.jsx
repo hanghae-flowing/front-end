@@ -1,9 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { kakaoLogout } from '../redux/slice/userSlice';
 
 const Header = isLogin => {
-  console.log(isLogin);
+  const dispatch = useDispatch();
+
+  const Logout = e => {
+    const token = JSON.parse(sessionStorage.getItem('userInfo')).ACCESS_TOKEN;
+    dispatch(kakaoLogout(token));
+  };
+
   if (isLogin.isLogin) {
     return (
       <HeadBox>
@@ -13,7 +21,9 @@ const Header = isLogin => {
             <Input type={'text'} placeholder="검색" />
           </InputBox>
         </SearchBox>
-        <LoginBtn to="login">Logout</LoginBtn>
+        <LoginBtn onClick={Logout} to="login">
+          Logout
+        </LoginBtn>
       </HeadBox>
     );
   }

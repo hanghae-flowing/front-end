@@ -11,7 +11,7 @@ import OrganizeSpace from '../pages/workSpace/OrganizeSpace';
 import ListDetail from '../pages/ListDetail';
 import LoginProgress from '../pages/user/LoginProgress';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginCheck } from '../redux/slice/userSlice';
+import AddProject from '../pages/AddProject';
 
 function AppRouter() {
   const isLogin = useSelector(state => state.user.isLogin);
@@ -25,6 +25,7 @@ function AppRouter() {
         <Route path="login" element={<Login />} />
         <Route path="/member/kakao/callback" element={<LoginProgress />} />
         <Route path="listdetail" element={<ListDetail />} />
+        <Route path="/addnewtoast" element={<AddProject />} />
         <Route path="toast/*" element={<WorkSpace />}>
           <Route index element={<MindSpace />} />
           <Route path="mind-space" element={<MindSpace />} />

@@ -9,25 +9,26 @@ const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(LoadPost());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(LoadPost());
+  // }, [dispatch]);
 
-  const projectList = useSelector(state => state.post.project);
+  // const projectList = useSelector(state => state.post.project);
 
-  const createWorkspace = () => {
-    navigate('/toast');
-  };
+  // const createWorkspace = () => {
+  //   navigate('/toast');
+  // };
 
   return (
     <Wrapper>
       <CreateWorkspaceDiv>
         <MainTitle>새로운 토스트를 구워보세요.</MainTitle>
-        <WorkSpaceBox onClick={createWorkspace} />
+        {/* <WorkSpaceBox onClick={createWorkspace} /> */}
+        <WorkSpaceBox />
       </CreateWorkspaceDiv>
       <MarkedToastDiv>
         {/* <ToListDetail>더보기</ToListDetail> */}
-        {projectList.length > 0 &&
+        {/* {projectList.length > 0 &&
           projectList.map((project, index) => (
             <ToastGridForm
               key={index}
@@ -37,7 +38,7 @@ const Main = () => {
               bookmark={project.bookmark}
               thumbnailNum={project.thumbnailNum}
             />
-          ))}
+          ))} */}
       </MarkedToastDiv>
     </Wrapper>
   );

@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//hanghae-toaster.s3-website.ap-northeast-2.amazonaws.com
-//https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code
 function Login() {
   const REDIRECT_URI = 'http://localhost:3000/member/kakao/callback';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API}&redirect_uri=${REDIRECT_URI}&response_type=code`;

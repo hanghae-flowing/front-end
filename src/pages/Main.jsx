@@ -26,7 +26,7 @@ const Main = () => {
         <WorkSpaceBox onClick={createWorkspace} />
       </CreateWorkspaceDiv>
       <MarkedToastDiv>
-        {/* <ToListDetail>더보기</ToListDetail> */}
+        <ToListDetail>더보기</ToListDetail>
         {projectList.length > 0 &&
           projectList.map((project, index) => (
             <ToastGridForm

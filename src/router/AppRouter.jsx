@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from '../components/Header';
 import Landing from '../pages/Landing';
@@ -10,23 +10,28 @@ import CoreSpace from '../pages/workSpace/CoreSpace';
 import OrganizeSpace from '../pages/workSpace/OrganizeSpace';
 import ListDetail from '../pages/ListDetail';
 import LoginProgress from '../pages/user/LoginProgress';
+import { useDispatch, useSelector } from 'react-redux';
+import AddProject from '../pages/AddProject';
 
 function AppRouter() {
+  const isLogin = useSelector(state => state.user.isLogin);
+
   return (
     <BrowserRouter>
-      <Header />
+      <Header isLogin={isLogin} />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="main" element={<Main />} />
         <Route path="login" element={<Login />} />
         <Route path="/member/kakao/callback" element={<LoginProgress />} />
+        <Route path="listdetail" element={<ListDetail />} />
+        <Route path="/addnewtoast" element={<AddProject />} />
         <Route path="toast/*" element={<WorkSpace />}>
           <Route index element={<MindSpace />} />
           <Route path="mind-space" element={<MindSpace />} />
           <Route path="core-space" element={<CoreSpace />} />
           <Route path="organize-space" element={<OrganizeSpace />} />
         </Route>
-        <Route path="listdetail" element={<ListDetail />} />
       </Routes>
     </BrowserRouter>
   );

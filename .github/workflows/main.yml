@@ -33,7 +33,6 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          REACT_APP_REST_API: ${{secrets.REACT_APP_REST_API}}
           CI: ''
 
       - name: Deploy

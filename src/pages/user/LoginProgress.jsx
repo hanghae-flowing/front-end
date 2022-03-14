@@ -9,8 +9,8 @@ const LoginProgress = props => {
   const code = new URL(window.location.href).searchParams.get('code');
   console.log(code);
 
-  useEffect(async () => {
-    await dispatch(kakaoLogin(code));
+  useEffect(() => {
+    dispatch(kakaoLogin(code));
   }, [dispatch]);
 
   return <Main />;

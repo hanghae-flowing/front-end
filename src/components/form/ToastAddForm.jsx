@@ -10,11 +10,11 @@ const ToastAddForm = ({ open, onClose, children }) => {
   const projectNameRef = useRef();
 
   const createWorkspace = () => {
-    const kakaoId = JSON.parse(sessionStorage.getItem('userInfo')).kakaoId;
+    const kakaoId = JSON.parse(localStorage.getItem('userInfo')).kakaoId;
     const accessToken = JSON.parse(
-      sessionStorage.getItem('userInfo'),
+      localStorage.getItem('userInfo'),
     ).accessToken;
-    const userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
+    const userId = JSON.parse(localStorage.getItem('userInfo')).userId;
     const objectId = 1;
 
     const sendingData = {

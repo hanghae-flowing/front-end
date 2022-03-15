@@ -12,19 +12,25 @@ const Main = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  // const kakaoId = sessionStorage.getItem('userInfo').kakaoId;
-  // const accessToken = sessionStorage.getItem('userInfo').accessToken;
-  // const userId = sessionStorage.getItem('userInfo').userId;
+  const kakaoId =
+    localStorage.getItem('userInfo') &&
+    JSON.parse(localStorage.getItem('userInfo')).kakaoId;
+  const accessToken =
+    localStorage.getItem('userInfo') &&
+    JSON.parse(localStorage.getItem('userInfo')).accessToken;
+  const userId =
+    localStorage.getItem('userInfo') &&
+    JSON.parse(localStorage.getItem('userInfo')).userId;
 
-  // const sendingData = {
-  //   kakaoId,
-  //   accessToken,
-  //   userId,
-  // };
+  const sendingData = {
+    kakaoId,
+    accessToken,
+    userId,
+  };
 
-  // useEffect(() => {
-  //   dispatch(LoadPost(sendingData));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(LoadPost(sendingData));
+  }, [dispatch]);
 
   const projectList = useSelector(state => state.post.project);
 
@@ -35,7 +41,7 @@ const Main = () => {
         <WorkSpaceBox onClick={() => setIsOpen(true)} />
       </CreateWorkspaceDiv>
       <MarkedToastDiv>
-        {/* {projectList.length > 0 &&
+        {projectList.length > 0 &&
           projectList.map((project, index) => (
             <ToastGridForm
               key={index}
@@ -45,7 +51,7 @@ const Main = () => {
               bookmark={project.bookmark}
               thumbnailNum={project.thumbnailNum}
             />
-          ))} */}
+          ))}
       </MarkedToastDiv>
       <ToastAddForm open={isOpen} onClose={() => setIsOpen(false)} />
     </Wrapper>

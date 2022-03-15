@@ -8,11 +8,15 @@ import { useSelector } from 'react-redux';
 const ListDetail = () => {
   const dispatch = useDispatch();
 
-  const kakaoId = JSON.parse(sessionStorage.getItem('userInfo')).kakaoId;
-  const accessToken = JSON.parse(
-    sessionStorage.getItem('userInfo'),
-  ).accessToken;
-  const userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
+  const kakaoId =
+    localStorage.getItem('userInfo') &&
+    JSON.parse(localStorage.getItem('userInfo')).kakaoId;
+  const accessToken =
+    localStorage.getItem('userInfo') &&
+    JSON.parse(localStorage.getItem('userInfo')).accessToken;
+  const userId =
+    localStorage.getItem('userInfo') &&
+    JSON.parse(localStorage.getItem('userInfo')).userId;
 
   const sendingData = {
     kakaoId,

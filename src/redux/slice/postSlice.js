@@ -9,7 +9,7 @@ export const LoadPost = createAsyncThunk(
   'post/LoadPost',
   async (data, thunkAPI) => {
     const result = await axios
-      .get('http://13.209.41.157/api/project/read', JSON.stringify(data))
+      .post('http://13.209.41.157/api/project/read', data)
       .then(res => res.data)
       .catch(err => console.log(err));
 

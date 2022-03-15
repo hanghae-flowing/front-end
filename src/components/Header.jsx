@@ -8,9 +8,9 @@ const Header = ({ isLogin }) => {
   const dispatch = useDispatch();
 
   const Logout = e => {
-    const accessToken = JSON.parse(
-      sessionStorage.getItem('userInfo'),
-    ).accessToken;
+    const accessToken =
+      localStorage.getItem('userInfo') &&
+      JSON.parse(localStorage.getItem('userInfo')).accessToken;
 
     dispatch(kakaoLogout(accessToken));
   };

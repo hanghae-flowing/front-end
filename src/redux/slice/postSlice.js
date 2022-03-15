@@ -9,7 +9,7 @@ export const LoadPost = createAsyncThunk(
   'post/LoadPost',
   async (data, thunkAPI) => {
     const result = await axios
-      .post('http://3.39.10.246:8888/api/project/read', data)
+      .post('http://13.209.41.157/api/project/read', data)
       .then(res => res.data)
       .catch(err => console.log(err));
     console.log(result);
@@ -21,7 +21,7 @@ export const LoadAllPost = createAsyncThunk(
   'post/LoadAllPost',
   async (data, thunkAPI) => {
     const result = await axios
-      .post('http://3.39.10.246:8888/api/project/readAll', data)
+      .post('http://13.209.41.157/api/project/readAll', data)
       .then(res => res.data)
       .catch(err => console.log(err));
 
@@ -33,7 +33,7 @@ export const CreateNewProject = createAsyncThunk(
   'post/CreateNewProject',
   async (data, thunkAPI) => {
     await axios
-      .post('http://3.39.10.246:8888/api/project/create', data)
+      .post('http://13.209.41.157/api/project/create', data)
       .then(res => res)
       .catch(err => console.log(err));
   },

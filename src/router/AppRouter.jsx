@@ -15,7 +15,6 @@ import MyToast from '../pages/user/MyToast';
 
 function AppRouter() {
   const isLogin = useSelector(state => state.user.isLogin);
-  console.log(isLogin);
 
   return (
     <BrowserRouter>

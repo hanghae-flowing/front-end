@@ -1,10 +1,26 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Moment from 'react-moment';
+import 'moment/locale/ko';
 
 const ToastGridForm = props => {
   const { projectName, modifiedAt, memberList, bookmark, thumbnailNum } = props;
 
   const navigate = useNavigate();
+
+  const displayCreatedAt = createdAt => {
+    let startTime = new Date(createdAt);
+    let nowTime = Date.now();
+    if (parseInt(startTime - nowTime) > -60000) {
+      return <Moment format="방금 전">{startTime}</Moment>;
+    }
+    if (parseInt(startTime - nowTime) < -86400000) {
+      return <Moment format="MMM D일">{startTime}</Moment>;
+    }
+    if (parseInt(startTime - nowTime) > -86400000) {
+      return <Moment fromNow>{startTime}</Moment>;
+    }
+  };
 
   const onClickHandler = () => {
     navigate('/toast');
@@ -16,7 +32,7 @@ const ToastGridForm = props => {
         <ToastBookmark />
       </ToastImage>
       <ToastTitle>{projectName}</ToastTitle>
-      <ToastTime>{modifiedAt}</ToastTime>
+      <ToastTime>{displayCreatedAt(modifiedAt)}</ToastTime>
       <ToastMembers>
         이한솔
         {/* {memberList &&

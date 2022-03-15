@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 function Login() {
-  const REDIRECT_URI = process.env.REACT_APP_URL;
+  const REDIRECT_URI = `${process.env.REACT_APP_URL}/member/kakao/callback`;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   return (

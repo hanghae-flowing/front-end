@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { CreateNewProject, LoadPost } from '../../redux/slice/postSlice';
+import { CreateNewProject } from '../../redux/slice/postSlice';
 import { useNavigate } from 'react-router-dom';
 
 const ToastAddForm = ({ open, onClose, children }) => {

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ToastAddForm from '../components/form/ToastAddForm';
 import ToastGridForm from '../components/form/ToastGridForm';
 import { LoadPost } from '../redux/slice/postSlice';
 
 const Main = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);

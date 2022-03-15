@@ -9,7 +9,7 @@ const MindSpace = () => {
     <SpaceWrap>
       <ContentBox>
         <RectangleBox width="100px" height="100px">
-          <p>빌드 테스트</p>
+          <p>빌드 테스트4</p>
         </RectangleBox>
       </ContentBox>
       <ToolBox>

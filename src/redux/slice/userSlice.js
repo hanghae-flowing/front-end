@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const userState = {
   user: {},
-  isLogin: Boolean,
+  isLogin: Boolean(false),
 };
 
 export const kakaoLogin = createAsyncThunk(

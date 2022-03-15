@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const postState = {
   project: {},
@@ -12,7 +13,7 @@ export const LoadPost = createAsyncThunk(
       .post('http://13.209.41.157/api/project/read', data)
       .then(res => res.data)
       .catch(err => console.log(err));
-
+    console.log(result);
     return result;
   },
 );
@@ -34,7 +35,7 @@ export const CreateNewProject = createAsyncThunk(
   async (data, thunkAPI) => {
     await axios
       .post('http://13.209.41.157/api/project/create', data)
-      .then(res => console.log(res))
+      .then(res => res)
       .catch(err => console.log(err));
   },
 );

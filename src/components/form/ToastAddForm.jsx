@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { CreateNewProject } from '../../redux/slice/postSlice';
+import { CreateNewProject, LoadPost } from '../../redux/slice/postSlice';
+import { useNavigate } from 'react-router-dom';
 
 const ToastAddForm = ({ open, onClose, children }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [thumbNailNum, setThumbNailNum] = useState(0);
   const projectNameRef = useRef();
@@ -25,7 +27,9 @@ const ToastAddForm = ({ open, onClose, children }) => {
       userId,
       objectId,
     };
+
     dispatch(CreateNewProject(sendingData));
+    navigate('/toast/*');
   };
   if (!open) return null;
   else {

@@ -1,33 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import ToastAddForm from '../components/form/ToastAddForm';
 import ToastGridForm from '../components/form/ToastGridForm';
-import { CreateNewProject, LoadPost } from '../redux/slice/postSlice';
+import { LoadPost } from '../redux/slice/postSlice';
 
 const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(LoadPost());
-  }, [dispatch]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  // const kakaoId = sessionStorage.getItem('userInfo').kakaoId;
+  // const accessToken = sessionStorage.getItem('userInfo').accessToken;
+  // const userId = sessionStorage.getItem('userInfo').userId;
+
+  // const sendingData = {
+  //   kakaoId,
+  //   accessToken,
+  //   userId,
+  // };
+
+  // useEffect(() => {
+  //   dispatch(LoadPost(sendingData));
+  // }, [dispatch]);
 
   const projectList = useSelector(state => state.post.project);
-
-  const createWorkspace = () => {
-    navigate('/toast');
-  };
 
   return (
     <Wrapper>
       <CreateWorkspaceDiv>
         <MainTitle>새로운 토스트를 구워보세요.</MainTitle>
-        <WorkSpaceBox onClick={createWorkspace} />
+        <WorkSpaceBox onClick={() => setIsOpen(true)} />
       </CreateWorkspaceDiv>
       <MarkedToastDiv>
-        <ToListDetail>더보기</ToListDetail>
-        {projectList.length > 0 &&
+        {/* {projectList.length > 0 &&
           projectList.map((project, index) => (
             <ToastGridForm
               key={index}
@@ -37,8 +45,9 @@ const Main = () => {
               bookmark={project.bookmark}
               thumbnailNum={project.thumbnailNum}
             />
-          ))}
+          ))} */}
       </MarkedToastDiv>
+      <ToastAddForm open={isOpen} onClose={() => setIsOpen(false)} />
     </Wrapper>
   );
 };
@@ -88,6 +97,5 @@ const MarkedToastDiv = styled.div`
   align-items: center;
   align-content: center;
 `;
-const ToListDetail = styled.a``;
 
 export default Main;

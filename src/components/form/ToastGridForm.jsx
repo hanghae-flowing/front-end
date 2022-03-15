@@ -18,8 +18,9 @@ const ToastGridForm = props => {
       <ToastTitle>{projectName}</ToastTitle>
       <ToastTime>{modifiedAt}</ToastTime>
       <ToastMembers>
-        {memberList &&
-          memberList.map((member, index) => <span key={index}>{member} </span>)}
+        이한솔
+        {/* {memberList &&
+          memberList.map((member, index) => <span key={index}>{member} </span>)} */}
       </ToastMembers>
     </Wrapper>
   );

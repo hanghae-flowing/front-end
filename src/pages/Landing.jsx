@@ -11,7 +11,7 @@ const Landing = () => {
         height: '100%',
       }}
     >
-      <Link to="/main">go to home</Link>
+      <Link to="/login">go to login</Link>
     </div>
   );
 };

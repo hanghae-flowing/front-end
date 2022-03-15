@@ -39,7 +39,11 @@ export const kakaoLogout = createAsyncThunk(
 export const userSlice = createSlice({
   name: 'user',
   initialState: userState,
-  reducer: {},
+  reducer: {
+    setLogin: state => {
+      state.isLogin = true;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(kakaoLogin.fulfilled, (state, action) => {
@@ -51,5 +55,7 @@ export const userSlice = createSlice({
       });
   },
 });
+
+export const { setLogin } = userSlice.actions;
 
 export default userSlice.reducer;

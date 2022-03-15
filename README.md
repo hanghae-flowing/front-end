@@ -3,6 +3,10 @@
 항해5기 D반 5조 실전프로젝트 flowing
 
 브레인 스토밍을 기반으로 한 협업 워크 스페이스
+<br>
+
+ <image src="https://img.shields.io/website?down_message=DOWN&up_message=UP&label=server&url=http://3.39.10.246:8888/health"/>  
+ <image src="https://img.shields.io/website?down_message=DOWN&up_message=UP&label=testServer&url=http://13.209.41.157"/>
 
 <br>
 

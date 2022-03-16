@@ -3,18 +3,19 @@ import axios from 'axios';
 
 const userState = {
   user: {},
-  isLogin: false,
+  isLogin: Boolean(false),
 };
 
 export const kakaoLogin = createAsyncThunk(
   'user/kakaoLogin',
-  async (data, thunkAPI) => {
+  async ({ code, navigate }, thunkAPI) => {
     await axios
-      .get(`http://3.39.10.246:8888/member/kakao/callback?code=${data}`)
+      .get(`http://3.39.10.246:8888/member/kakao/callback?code=${code}`)
       .then(res => {
         alert('로그인 완료');
-        console.log(res.data.msg);
-        sessionStorage.setItem('userInfo', JSON.stringify(res.data));
+        console.log(res);
+        localStorage.setItem('userInfo', JSON.stringify(res.data));
+        navigate('/main');
       })
       .catch(err => {
         console.log(err);
@@ -45,7 +46,7 @@ export const userSlice = createSlice({
         state.isLogin = true;
       })
       .addCase(kakaoLogout.fulfilled, (state, action) => {
-        sessionStorage.clear();
+        localStorage.clear();
         state.isLogin = false;
       });
   },

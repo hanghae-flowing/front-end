@@ -1,27 +1,48 @@
 import ToastGridForm from '../components/form/ToastGridForm';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { LoadAllPost } from '../redux/slice/postSlice';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 const ListDetail = () => {
+  const dispatch = useDispatch();
+
+  const kakaoId =
+    localStorage.getItem('userInfo') &&
+    JSON.parse(localStorage.getItem('userInfo')).kakaoId;
+  const accessToken =
+    localStorage.getItem('userInfo') &&
+    JSON.parse(localStorage.getItem('userInfo')).accessToken;
+  const userId =
+    localStorage.getItem('userInfo') &&
+    JSON.parse(localStorage.getItem('userInfo')).userId;
+
+  const sendingData = {
+    kakaoId,
+    accessToken,
+    userId,
+  };
+
+  useEffect(() => {
+    dispatch(LoadAllPost(sendingData));
+  }, [dispatch]);
+
+  const projectList = useSelector(state => state.post.project);
+
   return (
     <ListDiv>
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
-      <ToastGridForm />
+      {projectList.length > 0 &&
+        projectList.map((project, index) => (
+          <ToastGridForm
+            key={index}
+            projectName={project.projectName}
+            modifiedAt={project.modifiedAt}
+            memberList={project.memberList}
+            bookmark={project.bookmark}
+            thumbnailNum={project.thumbnailNum}
+          />
+        ))}
     </ListDiv>
   );
 };

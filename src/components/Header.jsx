@@ -4,15 +4,18 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { kakaoLogout } from '../redux/slice/userSlice';
 
-const Header = props => {
+const Header = ({ isLogin }) => {
   const dispatch = useDispatch();
 
   const Logout = e => {
-    const token = JSON.parse(sessionStorage.getItem('userInfo')).ACCESS_TOKEN;
-    dispatch(kakaoLogout(token));
+    const accessToken =
+      localStorage.getItem('userInfo') &&
+      JSON.parse(localStorage.getItem('userInfo')).accessToken;
+
+    dispatch(kakaoLogout(accessToken));
   };
 
-  if (props.isLogin) {
+  if (isLogin) {
     return (
       <HeadBox>
         <HomeBtn to="main">home</HomeBtn>

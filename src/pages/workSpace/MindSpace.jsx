@@ -1,26 +1,20 @@
 import React from 'react';
-import SpaceWrap from '../../components/SpaceWrap';
+import SpaceWrap from '../../components/container/SpaceWrap';
 import styled from 'styled-components';
 import Rectangle from '../../components/tools/Rectangle';
-import { CircleBox, RectangleBox } from '../../components/modules/Module';
 import Triangle from '../../components/tools/Triangle';
+import Frame from '../../components/container/Frame';
+import Viewport from '../../components/container/Viewport';
+import Square from '../../components/modules/Square';
 
 const MindSpace = () => {
   return (
     <SpaceWrap>
-      <ContentBox>
-        <RectangleBox width="100px" height="100px">
-          <p>빌드 테스트4</p>
-        </RectangleBox>
-        <CircleBox
-          width="100px"
-          height="100px"
-          borderColor="black"
-          borderThick="2px"
-        >
-          <p>원형 테스트</p>
-        </CircleBox>
-      </ContentBox>
+      <Frame>
+        <Viewport>
+          <Square>테스트</Square>
+        </Viewport>
+      </Frame>
       <ToolBox>
         <Rectangle></Rectangle>
         <Triangle></Triangle>
@@ -42,12 +36,7 @@ const ToolBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
-`;
-
-const ContentBox = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
+  z-index: 11;
 `;
 
 export default MindSpace;

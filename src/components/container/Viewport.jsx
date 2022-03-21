@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const Vstyle = {
-  width: '200%',
-  height: '200%',
-  backgroundImage:
-    'url("https://images.unsplash.com/photo-1647185256036-ea35af4ade52?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80")',
+  width: '100%',
+  height: '100%',
+  // backgroundImage:
+  //   'url("https://images.unsplash.com/photo-1647185256036-ea35af4ade52?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80")',
   backgroundSize: 'cover',
   position: 'absolute',
   top: 0,
@@ -15,20 +15,41 @@ const Vstyle = {
 const Viewport = props => {
   const elRef = useRef(null);
   const [press, setPress] = useState(false);
+  const [hold, setHold] = useState(false);
+  const [wheel, setWheel] = useState(false);
   const [transX, setTransX] = useState(0);
   const [transY, setTransY] = useState(0);
   const [scale, setScale] = useState(1);
 
+  // document.body.onkeydown = function (e) {
+  //   if (e.keyCode === 32) {
+  //     setHold(true);
+  //   } else if (e.keyCode === 17) {
+  //     setWheel(true);
+  //     console.log('ㅎㅇ');
+  //   }
+  // };
+
+  // document.body.onkeyup = function (e) {
+  //   if (e.keyCode === 32) {
+  //     setHold(false);
+  //   } else if (e.keyCode === 17) {
+  //     setWheel(false);
+  //   }
+  // };
+
   const onWheelHandler = e => {
-    setScale(scale => (scale >= 0.2 ? scale + 0.001 * e.deltaY : 0.2));
+    if (wheel === true) {
+      setScale(scale => (scale >= 0.2 ? scale + 0.001 * e.deltaY : 0.2));
+    }
   };
 
-  const onMouseDown = e => {
+  const onMouseDown = () => {
     setPress(true);
   };
 
   const onMouseMove = e => {
-    if (press === true) {
+    if (press === true && hold === true) {
       const mouseX = e.clientX;
       const mouseY = e.clientY;
       console.log(mouseX, mouseY);
@@ -45,7 +66,7 @@ const Viewport = props => {
     }
   };
 
-  const onMouseUp = e => {
+  const onMouseUp = () => {
     setPress(false);
   };
 
@@ -59,7 +80,7 @@ const Viewport = props => {
       }}
       onWheel={onWheelHandler}
       onMouseDown={onMouseDown}
-      // onMouseMove={onMouseMove}
+      onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}
     >
       {props.children}

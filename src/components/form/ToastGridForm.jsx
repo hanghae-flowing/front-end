@@ -29,7 +29,7 @@ const ToastGridForm = props => {
   return (
     <Wrapper onClick={onClickHandler}>
       <ToastImage>
-        <ToastBookmark />
+        <ToastMenu />
       </ToastImage>
       <ToastTitle>{projectName}</ToastTitle>
       <ToastTime>{displayCreatedAt(modifiedAt)}</ToastTime>
@@ -42,83 +42,56 @@ const ToastGridForm = props => {
   );
 };
 
-ToastGridForm.defaultProps = {
-  projectName: '프로젝트 이름',
-  modifiedAt: '1시간전',
-  memberList: '이한솔, 이주현',
-  thumbnailNum: '1',
-  bookmark: 'false',
-};
+//@media ${({ theme }) => theme.device.tablet} {}
 
 const Wrapper = styled.div`
-  margin-right: 20px;
-  margin-top: 60px;
-  display: grid;
   position: relative;
-  flex-wrap: wrap;
   width: 303px;
   height: 253px;
   cursor: pointer;
-
-  @media ${({ theme }) => theme.device.tablet} {
-    width: 155px;
-    height: 135px;
-  }
 `;
 const ToastImage = styled.div`
+  position: relative;
   background: #909090;
   background-size: cover;
   border-radius: 40px;
   width: 303px;
   height: 180px;
   overflow: hidden;
-
-  @media ${({ theme }) => theme.device.tablet} {
-    width: 154px;
-    height: 96px;
-    boerder-radius: 23px;
-  }
 `;
 
 const ToastTitle = styled.h3`
   position: relative;
-  top: 12px;
+  font-weight: 600;
   font-size: 28px;
+  line-height: 34px;
+  letter-spacing: -0.04em;
+  top: 12px;
   color: #535353;
-
-  @media ${({ theme }) => theme.device.tablet} {
-    font-size: 14px;
-    top: 7px;
-  }
 `;
 
 const ToastTime = styled.p`
   position: absolute;
-  left: 242px;
+  left: 236px;
   top: 200px;
+  font-weight: 400;
   font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.05em;
   color: #d9d9d9;
-
-  @media ${({ theme }) => theme.device.tablet} {
-    font-size: 12px;
-    top: 107px;
-    left: 116px;
-  }
 `;
 
 const ToastMembers = styled.p`
   position: relative;
-  top: 8px;
+  top: 9px;
+  font-weight: 400;
   font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.05em;
   color: #d9d9d9;
-
-  @media ${({ theme }) => theme.device.tablet} {
-    font-size: 8px;
-    top: 4px;
-  }
 `;
 
-const ToastBookmark = styled.div`
+const ToastMenu = styled.div`
   position: relative;
   left: 238px;
   top: 15px;
@@ -127,14 +100,6 @@ const ToastBookmark = styled.div`
   height: 50px;
   background-color: #fff;
   border-radius: 50%;
-
-  @media ${({ theme }) => theme.device.tablet} {
-    width: 26px;
-    height: 25px;
-    top: 9px;
-    left: 119px;
-    right: 9px;
-  }
 `;
 
 export default ToastGridForm;

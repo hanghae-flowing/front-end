@@ -10,30 +10,19 @@ import CoreSpace from '../pages/workSpace/CoreSpace';
 import OrganizeSpace from '../pages/workSpace/OrganizeSpace';
 import ListDetail from '../pages/ListDetail';
 import LoginProgress from '../pages/user/LoginProgress';
-import { useDispatch, useSelector } from 'react-redux';
 import MyToast from '../pages/user/MyToast';
-import { setLogin } from '../redux/slice/userSlice';
 
 function AppRouter() {
-  const dispatch = useDispatch();
-  const isLogin = useSelector(state => state.user.isLogin);
-
-  useEffect(() => {
-    if (sessionStorage.getItem('userInfo')) {
-      dispatch(setLogin());
-    }
-  }, []);
-
   return (
     <BrowserRouter>
-      <Header isLogin={isLogin} />
+      <Header />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="main" element={<Main />} />
-        <Route path="login" element={<Login />} />
-        <Route path="mytoast" element={<MyToast />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/mytoast" element={<MyToast />} />
         <Route path="/member/kakao/callback" element={<LoginProgress />} />
-        <Route path="listdetail" element={<ListDetail />} isLogin={isLogin} />
+        <Route path="/listdetail" element={<ListDetail />} />
 
         <Route path="toast/*" element={<WorkSpace />}>
           <Route index element={<MindSpace />} />

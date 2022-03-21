@@ -19,7 +19,7 @@ function Login() {
 const BackgroundImage = styled.div`
   width: 100%;
   height: 100vh;
-  background-image: url('https://makcreates.com/wp-content/uploads/2018/03/black-background-mak-creates-web-design-services-1500-2500.jpg');
+  background-image: url('');
   background-size: cover;
 `;
 
@@ -29,20 +29,23 @@ const BtnWrapper = styled.div`
   align-items: center;
   margin: auto;
   min-height: 100vh;
-  width: 20%;
 `;
 
 const KaKaoBtn = styled.a`
-  width: 300px;
-  height: 50px;
-  margin: auto;
-  display: block;
-  border: 1px solid transparent;
-  border-radius: 3px;
-  color: #1e1926;
-  background-color: #ffeb00;
-  font-size: 20px;
-  font-weight: bold;
+  width: 320px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  color: #b67830;
+  background-color: #fff6d3;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 31px;
+  text-align: center;
+  letter-spacing: -0.04em;
+
   cursor: pointer;
   &:hover {
     box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);

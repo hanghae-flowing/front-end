@@ -63,7 +63,7 @@ export const userSlice = createSlice({
         return;
       })
       .addCase(kakaoLogout.fulfilled, (state, action) => {
-        localStorage.clear();
+        sessionStorage.clear();
         state.isLogin = false;
       })
       .addCase(LoadMyPage.fulfilled, (state, action) => {

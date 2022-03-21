@@ -30,6 +30,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: setting .env
+        run: |
+          echo "REACT_APP_REST_API=${{ secrets.REACT_APP_REST_API }}" >> .env
+          echo "REACT_APP_URL=${{ secrets.REACT_APP_URL }}" >> .env
+
       - name: Build
         run: npm run build
         env:

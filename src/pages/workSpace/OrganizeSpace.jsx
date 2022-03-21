@@ -1,7 +1,5 @@
 import React from 'react';
 
-const OrganizeSpace = () => {
-  return <div>OrganizeSpace</div>;
-};
+const OrganizeSpace = () => {};
 
 export default OrganizeSpace;

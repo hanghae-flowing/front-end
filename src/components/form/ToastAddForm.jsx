@@ -12,11 +12,11 @@ const ToastAddForm = ({ open, onClose, children }) => {
   const projectNameRef = useRef();
 
   const createWorkspace = () => {
-    const kakaoId = JSON.parse(localStorage.getItem('userInfo')).kakaoId;
+    const kakaoId = JSON.parse(sessionStorage.getItem('userInfo')).kakaoId;
     const accessToken = JSON.parse(
-      localStorage.getItem('userInfo'),
+      sessionStorage.getItem('userInfo'),
     ).accessToken;
-    const userId = JSON.parse(localStorage.getItem('userInfo')).userId;
+    const userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
     const objectId = 1;
 
     const sendingData = {
@@ -28,30 +28,26 @@ const ToastAddForm = ({ open, onClose, children }) => {
       objectId,
     };
 
-    dispatch(CreateNewProject(sendingData));
-    navigate('/toast/*');
+    dispatch(CreateNewProject({ sendingData, navigate }));
   };
   if (!open) return null;
   else {
     return (
       <Wrapper>
         <Modal>
+          <CloseButton onClick={onClose}>x</CloseButton>
+
           <ModalInner>
             {children}
-            <div>
-              <button onClick={onClose}>close</button>
-            </div>
 
             <TitleDiv>
               <TitleSpan>파일명</TitleSpan>
               <TitleInput placeholder="기존 토스트1" ref={projectNameRef} />
             </TitleDiv>
-
             <ThumbnailDiv>
               <ThumbnailBox
                 onClick={() => {
                   setThumbNailNum(1);
-                  console.log(thumbNailNum);
                 }}
               />
               <ThumbnailBox
@@ -101,6 +97,15 @@ const ToastAddForm = ({ open, onClose, children }) => {
   }
 };
 
+const CloseButton = styled.div`
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  left: 1167px;
+  top: 29px;
+  right: 48px;
+`;
+
 const Wrapper = styled.div`
   box-sizing: border-box;
   position: fixed;
@@ -111,39 +116,42 @@ const Wrapper = styled.div`
   background-color: rgba(0, 0, 0, 0);
   z-index: 999;
 `;
+
 const Modal = styled.div`
   box-sizing: border-box;
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  overflow: auto;
-  outline: 0;
-`;
-const ModalInner = styled.div`
-  box-sizing: border-box;
-  position: relative;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 40px;
   width: 1240px;
   max-width: 1240px;
   height: 678px;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0 auto;
-  padding: 40px 20px;
+  margin-top: 158px;
+  margin-left: 340px;
+  margin-right: 340px;
+`;
+
+const ModalInner = styled.div`
+  width: 1111px;
+  height: 558px;
+  margin: 60px 64px;
 `;
 
 const TitleDiv = styled.div`
   display: flex;
-  justify-content: center;
+  flex-flow: row wrap;
+  width: 909px;
+  heihgt: 41px;
+  margin-bottom: 40px;
 `;
 
 const TitleSpan = styled.span`
+  position: relative;
+  width: 61px;
+  font-weight: 600;
   font-size: 24px;
+  line-height: 29px;
+  letter-spacing: -0.04em;
 `;
 
 const TitleInput = styled.input`
@@ -154,12 +162,15 @@ const TitleInput = styled.input`
   outline: 0;
   background: transparent;
   font-size: 24px;
+  margin: 0 auto;
 `;
 const ThumbnailDiv = styled.div`
-  display: flex;
-  margin-top: 89px;
-  flex-flow: row wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 1111px;
+  height: 338px;
+  gap: 18px;
+  margin-top: 20px;
 `;
 
 const ThumbnailBox = styled.div`
@@ -167,8 +178,6 @@ const ThumbnailBox = styled.div`
   width: 264px;
   height: 160px;
   border-radius: 40px;
-  margin-right: 18px;
-  margin-bottom: 18px;
   zindex: 1005;
   cursor: pointer;
 `;

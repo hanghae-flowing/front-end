@@ -29,13 +29,43 @@ export const LoadAllPost = createAsyncThunk(
   },
 );
 
-export const CreateNewProject = createAsyncThunk(
-  'post/CreateNewProject',
+export const LoadMyPost = createAsyncThunk(
+  'post/LoadMyPost',
   async (data, thunkAPI) => {
     await axios
+      .post('http://3.39.10.246:8888/api/mytoast/create', data)
+      .then(res => res.data)
+      .catch(err => err);
+  },
+);
+
+export const LoadIncludedPost = createAsyncThunk(
+  'post/LoadMyPost',
+  async (data, thunkAPI) => {
+    await axios
+      .post('http://3.39.10.246:8888/api/mytoast/included', data)
+      .then(res => res.data)
+      .catch(err => err);
+  },
+);
+
+export const CreateNewProject = createAsyncThunk(
+  'post/CreateNewProject',
+  async ({ data, navigate }, thunkAPI) => {
+    await axios
       .post('http://3.39.10.246:8888/api/project/create', data)
-      .then(res => res)
+      .then(res => {
+        console.log(res);
+        navigate(`/toast/${res.data.projectId}`);
+      })
       .catch(err => console.log(err));
+  },
+);
+
+export const DeleteProject = createAsyncThunk(
+  'post/DeleteProject',
+  async ({ projectId }, thunkAPI) => {
+    await axios.delete(`http://3.39.10.246:8888/api/delete/${projectId}`);
   },
 );
 
@@ -73,6 +103,9 @@ export const postSlice = createSlice({
       })
       .addCase(CreateNewProject.rejected, () => {
         console.log('create rejected');
+      })
+      .addCase(DeleteProject.fulfilled, (state, action) => {
+        console.log('delete');
       });
   },
 });

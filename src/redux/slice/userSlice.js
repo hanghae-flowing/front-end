@@ -3,7 +3,8 @@ import axios from 'axios';
 
 const userState = {
   user: {},
-  isLogin: Boolean(false),
+
+  isLogin: false,
 };
 
 export const kakaoLogin = createAsyncThunk(
@@ -14,7 +15,7 @@ export const kakaoLogin = createAsyncThunk(
       .then(res => {
         alert('로그인 완료');
         console.log(res);
-        localStorage.setItem('userInfo', JSON.stringify(res.data));
+        sessionStorage.setItem('userInfo', JSON.stringify(res.data));
         navigate('/main');
       })
       .catch(err => {
@@ -36,6 +37,19 @@ export const kakaoLogout = createAsyncThunk(
   },
 );
 
+export const LoadMyPage = createAsyncThunk(
+  'user/loadMyPage',
+  async (data, thunkAPI) => {
+    const result = await axios
+      .post(`http://3.39.10.246:8888/api/mypage`, data)
+      .then(res => console.log(res))
+      .catch(err => err);
+    return result;
+  },
+);
+
+export const setLogin = createAsyncThunk('user/setLogin', async () => {});
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: userState,
@@ -45,9 +59,18 @@ export const userSlice = createSlice({
       .addCase(kakaoLogin.fulfilled, (state, action) => {
         state.isLogin = true;
       })
+      .addCase(kakaoLogin.rejected, (state, action) => {
+        return;
+      })
       .addCase(kakaoLogout.fulfilled, (state, action) => {
         localStorage.clear();
         state.isLogin = false;
+      })
+      .addCase(LoadMyPage.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(setLogin.fulfilled, state => {
+        state.isLogin = true;
       });
   },
 });

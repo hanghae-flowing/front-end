@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios';
+import { URL } from "../../API";
+
 
 const inviteState = {
 }
@@ -8,7 +9,7 @@ export const sendInvite = createAsyncThunk(
   'invite/send',
   async (sendData, {rejectWithValue}) => {
     try {
-      return await axios.post("http://52.79.250.142/invite", sendData).then((response) => {
+      return await URL.post("/invite", sendData).then((response) => {
         console.log(response);
       })
     } catch (error) {

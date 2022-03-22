@@ -19,16 +19,18 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "sockjs": "^0.3.24",
     "sockjs-client": "^1.6.0",
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "env-cmd -f .env.production react-scripts build",
+    "build": "react-scripts build",
+    "build:production": "env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync ./build s3://hanghae-toaster --profile=toaster-admin"
+    "deploy": "aws s3 sync ./build s3://hanghae-final5 --profile=final5-admin"
   },
   "eslintConfig": {
     "extends": [

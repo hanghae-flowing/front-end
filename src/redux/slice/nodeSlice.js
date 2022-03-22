@@ -9,13 +9,13 @@ export const nodeSlice = createSlice({
   initialState: nodeState,
   reducer:{
     createNode:(state, action) => {
-      return{
-        ...state,
-        projectId: [...state.projectId, action.payload]
-      }
-      // state.projectId.push({
-      //   node: action.payload
-      // });
+      // return{
+      //   ...state,
+      //   projectId: [...state.projectId, action.payload]
+      // }
+      state.projectId.push({
+        node: action.payload
+      });
     },
   },
   extraReducers: builder => {}

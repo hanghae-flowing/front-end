@@ -2,8 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { URL } from "../../API";
 
 
-const inviteState = {
-}
+const inviteState = {}
 
 export const sendInvite = createAsyncThunk(
   'invite/send',
@@ -21,7 +20,7 @@ export const sendInvite = createAsyncThunk(
 )
 
 export const inviteSlice = createSlice({
-  name: 'mind',
+  name: 'invite',
   initialState: inviteState,
   reducer:{
     
@@ -33,3 +32,5 @@ export const inviteSlice = createSlice({
       })
   }
 })
+
+export default inviteSlice.reducer;

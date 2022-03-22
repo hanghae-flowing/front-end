@@ -7,34 +7,32 @@ import ToolBox from '../../components/tools/ToolBox';
 import { useSelector } from 'react-redux';
 
 const MindSpace = () => {
-  // let nodeObject = useSelector(state => state.node.projectId);
-  let nodeObject = [
-    {
-      node_id: 1,
-      width: '100px',
-      height: '50px',
-      radius: '10px',
-      color: '#e3e3e3',
-      fontColor: '#222222',
-      fontSize: '16px',
-      text: '테스트1',
-      x_val: '500',
-      y_val: '300',
-    },
-    {
-      node_id: 2,
-      width: '100px',
-      height: '50px',
-      radius: '10px',
-      color: '#e3e3e3',
-      fontColor: '#222222',
-      fontSize: '16px',
-      text: '테스트2',
-      x_val: '100',
-      y_val: '300',
-    },
-  ];
+  let nodeObject = useSelector(state => state.node.node);
   console.log(nodeObject);
+  // let nodeObject = [
+  //   {
+  //     width: '100px',
+  //     height: '50px',
+  //     radius: '10px',
+  //     color: '#e3e3e3',
+  //     fontColor: '#222222',
+  //     fontSize: '16px',
+  //     text: '테스트1',
+  //     xval: '500',
+  //     yval: '300',
+  //   },
+  //   {
+  //     width: '100px',
+  //     height: '50px',
+  //     radius: '10px',
+  //     color: '#e3e3e3',
+  //     fontColor: '#222222',
+  //     fontSize: '16px',
+  //     text: '테스트2',
+  //     xval: '100',
+  //     yval: '300',
+  //   },
+  // ];
   return (
     <SpaceWrap>
       <Frame>
@@ -43,7 +41,6 @@ const MindSpace = () => {
             nodeObject.map((data, index) => (
               <Square
                 key={index}
-                node_id={data.node_id}
                 width={data.width}
                 height={data.height}
                 radius={data.radius}
@@ -51,8 +48,8 @@ const MindSpace = () => {
                 fontColor={data.fontColor}
                 fontSize={data.fontSize}
                 text={data.text}
-                x_val={data.x_val}
-                y_val={data.y_val}
+                xval={data.xval}
+                yval={data.yval}
               />
             ))}
         </Viewport>

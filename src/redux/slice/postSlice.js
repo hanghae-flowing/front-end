@@ -47,8 +47,8 @@ export const LoadIncludedPost = createAsyncThunk(
 
 export const CreateNewProject = createAsyncThunk(
   'post/CreateNewProject',
-  async ({ data, navigate }, thunkAPI) => {
-    await URL.post('/api/project/create', data)
+  async ({ sendingData, navigate }, thunkAPI) => {
+    await URL.post('/api/project/create', sendingData)
       .then(res => {
         console.log(res);
         navigate(`/toast/${res.data.projectId}`);

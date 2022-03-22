@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from '../components/Header';
 import Landing from '../pages/Landing';
@@ -24,7 +24,7 @@ function AppRouter() {
         <Route path="/member/kakao/callback" element={<LoginProgress />} />
         <Route path="/listdetail" element={<ListDetail />} />
 
-        <Route path="toast/*" element={<WorkSpace />}>
+        <Route path="toast/:projecId/*" element={<WorkSpace />}>
           <Route index element={<MindSpace />} />
           <Route path="mind-space" element={<MindSpace />} />
           <Route path="core-space" element={<CoreSpace />} />

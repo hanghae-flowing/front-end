@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { URL } from '../../API';
 
 const userState = {
   user: {},
@@ -10,8 +10,7 @@ const userState = {
 export const kakaoLogin = createAsyncThunk(
   'user/kakaoLogin',
   async ({ code, navigate }, thunkAPI) => {
-    await axios
-      .get(`http://52.79.250.142/member/kakao/callback?code=${code}`)
+    await URL.get(`/member/kakao/callback?code=${code}`)
       .then(res => {
         alert('로그인 완료');
         console.log(res);
@@ -27,8 +26,7 @@ export const kakaoLogin = createAsyncThunk(
 export const kakaoLogout = createAsyncThunk(
   'user/kakaoLogout',
   async (data, thunkAPI) => {
-    await axios
-      .post(`http://52.79.250.142/api/logout`, data)
+    await URL.post(`/api/logout`, data)
       .then(res => {
         console.log(res);
         alert('로그아웃 완료');
@@ -40,8 +38,7 @@ export const kakaoLogout = createAsyncThunk(
 export const LoadMyPage = createAsyncThunk(
   'user/loadMyPage',
   async (data, thunkAPI) => {
-    const result = await axios
-      .post(`http://52.79.250.142/api/mypage`, data)
+    const result = await URL.post(`/api/mypage`, data)
       .then(res => console.log(res))
       .catch(err => err);
     return result;

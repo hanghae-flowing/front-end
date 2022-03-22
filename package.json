@@ -29,7 +29,7 @@
     "build:production": "env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync ./build s3://hanghae-toaster --profile=toaster-admin"
+    "deploy": "aws s3 sync ./build s3://hanghae-final5 --profile=final5-admin"
   },
   "eslintConfig": {
     "extends": [

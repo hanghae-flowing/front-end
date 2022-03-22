@@ -88,11 +88,11 @@ const Header = () => {
   };
 
   const sendInviteHandler = () => {
-    // const sendData = {
-    //   senderId: userInfo.userId,
-    //   email: email,
-    // };
-    // dispatch(sendInvite(sendData));
+    const sendData = {
+      senderId: userInfo.userId,
+      email: email,
+    };
+    dispatch(sendInvite(sendData));
     publish(email);
     setEmail('');
   };

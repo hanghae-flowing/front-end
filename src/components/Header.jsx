@@ -108,7 +108,13 @@ const Header = () => {
         </SearchBox>
         <div style={{ display: 'flex' }}>
           <input type="text" onChange={inviteHandler} value={email} />
-          <button onClick={sendInviteHandler}>share</button>
+          <button
+            onClick={() => {
+              publish(email);
+            }}
+          >
+            share
+          </button>
           <LogoutBtn onClick={Logout} to="login">
             Logout
           </LogoutBtn>

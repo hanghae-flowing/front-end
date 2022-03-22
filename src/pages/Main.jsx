@@ -31,6 +31,7 @@ const MainPrac = () => {
   }, [dispatch]);
 
   const projectList = useSelector(state => state.post.project);
+  console.log(projectList);
 
   return (
     <>
@@ -50,6 +51,7 @@ const MainPrac = () => {
                 memberList={project.memberList}
                 bookmark={project.bookmark}
                 thumbnailNum={project.thumbnailNum}
+                projectId={project.projectId}
               />
             ))}
         </ProjectDiv>

@@ -3,7 +3,7 @@ import axios from "axios";
 export const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
 
 export const URL = axios.create({
-  baseURL: "http://3.39.10.246:8888",
+  baseURL: "http://13.209.41.157",
   headers: {},
 })
 

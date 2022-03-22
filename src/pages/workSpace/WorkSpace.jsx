@@ -25,6 +25,7 @@ const WorkSpace = props => {
       navigate('core-space');
     }
   };
+
   return (
     <SpaceWrap>
       <Side>

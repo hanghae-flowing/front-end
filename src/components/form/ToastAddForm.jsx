@@ -30,6 +30,7 @@ const ToastAddForm = ({ open, onClose, children }) => {
 
     dispatch(CreateNewProject({ sendingData, navigate }));
   };
+
   if (!open) return null;
   else {
     return (

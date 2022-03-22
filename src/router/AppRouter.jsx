@@ -15,7 +15,7 @@ import MyToast from '../pages/user/MyToast';
 function AppRouter() {
   return (
     <BrowserRouter>
-      <Header />
+      {/* <Header /> */}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/main" element={<Main />} />
@@ -23,7 +23,7 @@ function AppRouter() {
         <Route path="/mytoast" element={<MyToast />} />
         <Route path="/member/kakao/callback" element={<LoginProgress />} />
         <Route path="/listdetail" element={<ListDetail />} />
-        <Route path="toast/*" element={<WorkSpace />}>
+        <Route path="toast/:projectId/*" element={<WorkSpace />}>
           <Route index element={<MindSpace />} />
           <Route path="mind-space" element={<MindSpace />} />
           <Route path="core-space" element={<CoreSpace />} />

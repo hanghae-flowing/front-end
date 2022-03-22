@@ -4,6 +4,10 @@ import { ThemeProvider } from 'styled-components';
 import theme from './theme';
 import { useDispatch } from 'react-redux';
 import { setLogin } from './redux/slice/userSlice';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+
+const queryClient = new QueryClient();
 
 function App() {
   const dispatch = useDispatch();
@@ -16,11 +20,14 @@ function App() {
   }, [mytoken, dispatch]);
 
   return (
-    <div className="App">
-      <ThemeProvider theme={theme}>
-        <AppRouter />
-      </ThemeProvider>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        <ThemeProvider theme={theme}>
+          <AppRouter />
+        </ThemeProvider>
+      </div>
+      <ReactQueryDevtools initialIsOpem={false} position="bottom-right" />
+    </QueryClientProvider>
   );
 }
 

@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,7 +8,6 @@ import * as StompJs from '@stomp/stompjs';
 import { userInfo } from '../API';
 import { sendInvite } from '../redux/slice/inviteSlice';
 
-
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,16 +15,16 @@ const Header = () => {
   const client = useRef({});
   const [email, setEmail] = useState('');
 
+  const ToMyToast = () => {
+    navigate('/mytoast');
+  };
+
   const Logout = e => {
     const accessToken =
       sessionStorage.getItem('userInfo') &&
       JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
     dispatch(kakaoLogout(accessToken));
   };
-
-
-  const LoadMyToast = e => {
-    navigate('/mytoast');
 
   // console.log('userInfo', userInfo);
   // console.log('Email', userInfo.Email);
@@ -97,7 +95,6 @@ const Header = () => {
     dispatch(sendInvite(sendData));
     // publish(email);
     setEmail('');
-
   };
 
   if (isLogin) {
@@ -109,7 +106,6 @@ const Header = () => {
             <Input type={'text'} placeholder="검색" />
           </InputBox>
         </SearchBox>
-
         <div style={{ display: 'flex' }}>
           <input type="text" onChange={inviteHandler} value={email} />
           <button onClick={sendInviteHandler}>share</button>
@@ -117,9 +113,8 @@ const Header = () => {
             Logout
           </LogoutBtn>
           <Notification></Notification>
-          <ProfileImage onClick={LoadMyToast} />
+          <ProfileImage onClick={ToMyToast} />
         </div>
-
       </HeadBox>
     );
   }

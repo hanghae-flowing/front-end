@@ -4,7 +4,14 @@ import Moment from 'react-moment';
 import 'moment/locale/ko';
 
 const ToastGridForm = props => {
-  const { projectName, modifiedAt, memberList, bookmark, thumbnailNum } = props;
+  const {
+    projectName,
+    modifiedAt,
+    memberList,
+    bookmark,
+    thumbnailNum,
+    projectId,
+  } = props;
 
   const navigate = useNavigate();
 
@@ -23,7 +30,7 @@ const ToastGridForm = props => {
   };
 
   const onClickHandler = () => {
-    navigate('/toast');
+    navigate(`/toast/${projectId}`);
   };
 
   return (

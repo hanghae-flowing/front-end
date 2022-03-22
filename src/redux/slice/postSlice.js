@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { URL } from '../../API';
 
 const postState = {
@@ -47,11 +48,12 @@ export const LoadBookmarkedPost = createAsyncThunk(
 
 export const CreateNewProject = createAsyncThunk(
   'post/CreateNewProject',
-  async ({ data, navigate }, thunkAPI) => {
-    await URL.post('/api/project/create', data)
+  async ({ sendingData, navigate }, thunkAPI) => {
+    await axios
+      .post('http://13.209.41.157/api/project/create', sendingData)
       .then(res => {
         console.log(res);
-        navigate(`/toast/${res}`);
+        navigate(`/toast/${res.data.projectId}`);
       })
       .catch(err => console.log(err));
   },

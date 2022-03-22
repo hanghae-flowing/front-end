@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ToastAddForm from '../components/form/ToastAddForm';
 import ToastGridForm from '../components/form/ToastGridForm';
@@ -7,7 +8,7 @@ import { LoadPost } from '../redux/slice/postSlice';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const kakaoId =
@@ -32,6 +33,10 @@ const MainPrac = () => {
 
   const projectList = useSelector(state => state.post.project);
 
+  const ToListDetailHandler = () => {
+    navigate('/listdetail');
+  };
+
   return (
     <>
       <MainDiv>
@@ -39,7 +44,7 @@ const MainPrac = () => {
           <MainTitle>새로운 토스트를 구워보세요.</MainTitle>
           <WorkSpaceBox onClick={() => setIsOpen(true)} />
         </WorkSpaceDiv>
-        <ToListDetail href="/listdetail">더보기</ToListDetail>
+        <ToListDetail onClick={ToListDetailHandler}>더보기 </ToListDetail>
         <ProjectDiv>
           {projectList.length > 0 &&
             projectList.map((project, index) => (
@@ -62,7 +67,7 @@ const MainPrac = () => {
 const MainDiv = styled.div`
   width: 1277px;
   height: 646px;
-  margin-top: 161px;
+  margin-top: 247px;
   margin-left: auto;
   margin-right: auto;
 `;
@@ -75,6 +80,7 @@ const MainTitle = styled.h1`
   letter-spacing: -0.04em;
   width: 381px;
   height: 46px;
+  color: #59391e;
 `;
 
 const WorkSpaceDiv = styled.div`
@@ -86,7 +92,7 @@ const WorkSpaceDiv = styled.div`
 const WorkSpaceBox = styled.div`
   width: 627px;
   height: 570px;
-  background-color: #909090;
+  background-color: #daab74;
   cursor: pointer;
   border-radius: 40px;
 `;
@@ -101,14 +107,15 @@ const ProjectDiv = styled.div`
   float: right;
 `;
 
-const ToListDetail = styled.a`
-  width: 53px;
-  height: 25px;
+const ToListDetail = styled.div`
+  width: 81px;
+  height: 28px;
   font-weight: 500;
   font-size: 21px;
   line-height: 25px;
   letter-spacing: -0.05em;
   float: right;
+  color: #8b5726;
   margin-bottom: 25px;
 `;
 

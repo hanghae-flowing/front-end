@@ -1,16 +1,10 @@
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import {
-  LoadAllPost,
-  LoadIncludedPost,
-  LoadMyPost,
-} from '../../redux/slice/postSlice';
-import { useSelector } from 'react-redux';
 import ToastGridForm from '../../components/form/ToastGridForm';
-import { LoadMyPage } from '../../redux/slice/userSlice';
+import { LoadBookmarkedPost, LoadMyPost } from '../../redux/slice/postSlice';
 
-const MyToast = () => {
+const MyToast = props => {
   const dispatch = useDispatch();
   const [tab, setTab] = useState('');
 
@@ -30,47 +24,44 @@ const MyToast = () => {
     userId,
   };
 
-  useEffect(() => {
-    dispatch(LoadMyPage(sendingData));
-  }, [dispatch]);
-
-  const myProjectList = useSelector(state => state.post.project);
-  const userInfo = useSelector(state => state.user);
+  const projectList = useSelector(state => state.post.project);
+  const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
 
   return (
     <Wrapper>
       <Title>마이토스트</Title>
       <UserDiv>
-        <ProfileImage />
+        <ProfileImage background={userInfo.ProfileImageURL} />
         <UserInfoDiv>
-          <Name>이한솔</Name>
-          <UserEmail>eeee@eeee.com</UserEmail>
+          <Name>{userInfo.nickname}</Name>
+          <UserEmail>{userInfo.Email}</UserEmail>
         </UserInfoDiv>
       </UserDiv>
       <Menu>
-        <li>
-          <MenuList
-            onClick={() => {
-              setTab('included');
-            }}
-          >
-            나의 토스트
-          </MenuList>
-        </li>
-        <li>
+        <MenuItem>
           <MenuList
             onClick={() => {
               setTab('created');
             }}
           >
+            나의 토스트
+          </MenuList>
+        </MenuItem>
+        <MenuItem>
+          <MenuList
+            onClick={() => {
+              setTab('marked');
+            }}
+          >
             찜한 토스트
           </MenuList>
-        </li>
+        </MenuItem>
       </Menu>
-      {tab === 'included' && (
+
+      {tab === 'created' && (
         <ListDiv>
-          {myProjectList.length > 0 &&
-            myProjectList.map((project, index) => (
+          {projectList &&
+            projectList.map((project, index) => (
               <ToastGridForm
                 key={index}
                 projectName={project.projectName}
@@ -82,10 +73,11 @@ const MyToast = () => {
             ))}
         </ListDiv>
       )}
-      {tab === 'created' && (
+
+      {tab === 'marked' && (
         <ListDiv>
-          {myProjectList.length > 0 &&
-            myProjectList.map((project, index) => (
+          {projectList.length > 0 &&
+            projectList.map((project, index) => (
               <ToastGridForm
                 key={index}
                 projectName={project.projectName}
@@ -99,6 +91,11 @@ const MyToast = () => {
       )}
     </Wrapper>
   );
+};
+
+MyToast.defaultProps = {
+  background:
+    'https://images.mypetlife.co.kr/content/uploads/2019/05/09153834/adorable-animal-cat-1438503-scaled.jpg',
 };
 
 const Wrapper = styled.div``;
@@ -120,7 +117,7 @@ const UserDiv = styled.div`
 `;
 
 const ProfileImage = styled.div`
-  background-color: #777777;
+  background: ${props => `url(${props.background})`}
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -153,8 +150,24 @@ const UserEmail = styled.p`
 
 const Menu = styled.ul`
   list-style-type: none;
+  margin: 50px 10px 0 300px;
+  padding: 0;
+  overflow: hidden;
+`;
+
+const MenuItem = styled.li`
+  float: left;
+  margin: 0 10px 0 10px;
 `;
 const MenuList = styled.button`
+  display: block;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 34px;
+  letter-spacing: -0.05em;
+  padding: 14px 16px;
   text-decoration: none;
 `;
 

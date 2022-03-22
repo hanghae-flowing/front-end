@@ -27,16 +27,15 @@ const ToastGridForm = props => {
   };
 
   return (
-    <Wrapper onClick={onClickHandler}>
-      <ToastImage>
+    <Wrapper>
+      <ToastImage onClick={onClickHandler}>
         <ToastMenu />
       </ToastImage>
       <ToastTitle>{projectName}</ToastTitle>
       <ToastTime>{displayCreatedAt(modifiedAt)}</ToastTime>
       <ToastMembers>
-        이한솔
-        {/* {memberList &&
-          memberList.map((member, index) => <span key={index}>{member} </span>)} */}
+        {memberList &&
+          memberList.map((member, index) => <span key={index}>{member} </span>)}
       </ToastMembers>
     </Wrapper>
   );
@@ -52,7 +51,7 @@ const Wrapper = styled.div`
 `;
 const ToastImage = styled.div`
   position: relative;
-  background: #909090;
+  background: #daab74;
   background-size: cover;
   border-radius: 40px;
   width: 303px;
@@ -61,13 +60,17 @@ const ToastImage = styled.div`
 `;
 
 const ToastTitle = styled.h3`
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 147px;
   position: relative;
   font-weight: 600;
   font-size: 28px;
   line-height: 34px;
   letter-spacing: -0.04em;
   top: 12px;
-  color: #535353;
+  overflow: hidden;
+  color: #59391e;
 `;
 
 const ToastTime = styled.p`
@@ -78,7 +81,7 @@ const ToastTime = styled.p`
   font-size: 16px;
   line-height: 19px;
   letter-spacing: -0.05em;
-  color: #d9d9d9;
+  color: #8b5726;
 `;
 
 const ToastMembers = styled.p`
@@ -88,7 +91,7 @@ const ToastMembers = styled.p`
   font-size: 16px;
   line-height: 19px;
   letter-spacing: -0.05em;
-  color: #d9d9d9;
+  color: #8b5726;
 `;
 
 const ToastMenu = styled.div`
@@ -96,10 +99,13 @@ const ToastMenu = styled.div`
   left: 238px;
   top: 15px;
   right: 16px;
-  width: 50px;
-  height: 50px;
-  background-color: #fff;
-  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  background: url('img/Group_213.png');
+  border-radius: 12px;
+  &:hover {
+    background: url('img/Group_212.png');
+  }
 `;
 
 export default ToastGridForm;

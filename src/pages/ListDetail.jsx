@@ -55,7 +55,7 @@ const ListDetail = () => {
 
 const WrapperDiv = styled.div`
   width: 1274px;
-  margin-top: 124px;
+  margin-top: 164px;
   margin-left: auto;
   margin-right: auto;
 `;

@@ -6,9 +6,7 @@
 html,
 body {
   height: 100vh;
-
-  max-width: 1920px;
-  max-height: 1080px;
+  background-color: #fff6d3;
 }
 a {
   color: #000;

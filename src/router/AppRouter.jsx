@@ -23,7 +23,6 @@ function AppRouter() {
         <Route path="/mytoast" element={<MyToast />} />
         <Route path="/member/kakao/callback" element={<LoginProgress />} />
         <Route path="/listdetail" element={<ListDetail />} />
-
         <Route path="toast/*" element={<WorkSpace />}>
           <Route index element={<MindSpace />} />
           <Route path="mind-space" element={<MindSpace />} />

@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { kakaoLogout } from '../redux/slice/userSlice';
+import MyToast from '../pages/user/MyToast';
+import { kakaoLogout, LoadMyPage } from '../redux/slice/userSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLogin = useSelector(state => state.user.isLogin);
 
-  const ToMyToast = () => {
-    navigate('/mytoast');
-  };
-
   const Logout = e => {
     const accessToken =
       sessionStorage.getItem('userInfo') &&
       JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
     dispatch(kakaoLogout(accessToken));
+  };
+
+  const LoadMyToast = e => {
+    navigate('/mytoast');
   };
 
   if (isLogin) {
@@ -33,7 +34,7 @@ const Header = () => {
           Logout
         </LogoutBtn>
         <Notification></Notification>
-        <ProfileImage onClick={ToMyToast} />
+        <ProfileImage onClick={LoadMyToast} />
       </HeadBox>
     );
   }

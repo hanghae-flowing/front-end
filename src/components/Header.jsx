@@ -93,7 +93,7 @@ const Header = () => {
       email: email,
     };
     dispatch(sendInvite(sendData));
-    publish(email);
+    // publish(email);
     setEmail('');
   };
 

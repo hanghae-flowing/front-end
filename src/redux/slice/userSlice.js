@@ -11,7 +11,7 @@ export const kakaoLogin = createAsyncThunk(
   'user/kakaoLogin',
   async ({ code, navigate }, thunkAPI) => {
     await axios
-      .get(`http://3.39.10.246:8888/member/kakao/callback?code=${code}`)
+      .get(`http://52.79.250.142/member/kakao/callback?code=${code}`)
       .then(res => {
         alert('로그인 완료');
         console.log(res);
@@ -28,7 +28,7 @@ export const kakaoLogout = createAsyncThunk(
   'user/kakaoLogout',
   async (data, thunkAPI) => {
     await axios
-      .post(`http://3.39.10.246:8888/api/logout`, data)
+      .post(`http://52.79.250.142/api/logout`, data)
       .then(res => {
         console.log(res);
         alert('로그아웃 완료');
@@ -41,7 +41,7 @@ export const LoadMyPage = createAsyncThunk(
   'user/loadMyPage',
   async (data, thunkAPI) => {
     const result = await axios
-      .post(`http://3.39.10.246:8888/api/mypage`, data)
+      .post(`http://52.79.250.142/api/mypage`, data)
       .then(res => console.log(res))
       .catch(err => err);
     return result;

@@ -9,7 +9,7 @@ export const LoadPost = createAsyncThunk(
   'post/LoadPost',
   async (data, thunkAPI) => {
     const result = await axios
-      .post('http://3.39.10.246:8888/api/project/read', data)
+      .post('http://52.79.250.142/api/project/read', data)
       .then(res => res.data)
       .catch(err => console.log(err));
     console.log(result);
@@ -21,7 +21,7 @@ export const LoadAllPost = createAsyncThunk(
   'post/LoadAllPost',
   async (data, thunkAPI) => {
     const result = await axios
-      .post('http://3.39.10.246:8888/api/project/readAll', data)
+      .post('http://52.79.250.142/api/project/readAll', data)
       .then(res => res.data)
       .catch(err => console.log(err));
 
@@ -33,7 +33,7 @@ export const LoadMyPost = createAsyncThunk(
   'post/LoadMyPost',
   async (data, thunkAPI) => {
     await axios
-      .post('http://3.39.10.246:8888/api/mytoast/create', data)
+      .post('http://52.79.250.142/api/mytoast/create', data)
       .then(res => res.data)
       .catch(err => err);
   },
@@ -43,7 +43,7 @@ export const LoadIncludedPost = createAsyncThunk(
   'post/LoadMyPost',
   async (data, thunkAPI) => {
     await axios
-      .post('http://3.39.10.246:8888/api/mytoast/included', data)
+      .post('http://52.79.250.142/api/mytoast/included', data)
       .then(res => res.data)
       .catch(err => err);
   },
@@ -53,7 +53,7 @@ export const CreateNewProject = createAsyncThunk(
   'post/CreateNewProject',
   async ({ data, navigate }, thunkAPI) => {
     await axios
-      .post('http://3.39.10.246:8888/api/project/create', data)
+      .post('http://52.79.250.142/api/project/create', data)
       .then(res => {
         console.log(res);
         navigate(`/toast/${res.data.projectId}`);
@@ -65,7 +65,7 @@ export const CreateNewProject = createAsyncThunk(
 export const DeleteProject = createAsyncThunk(
   'post/DeleteProject',
   async ({ projectId }, thunkAPI) => {
-    await axios.delete(`http://3.39.10.246:8888/api/delete/${projectId}`);
+    await axios.delete(`http://52.79.250.142/api/delete/${projectId}`);
   },
 );
 

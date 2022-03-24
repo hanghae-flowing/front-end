@@ -44,12 +44,12 @@ const Header = () => {
       connectHeaders: {
         Accept: 'application/json',
       },
-      debug: function (str) {
-        console.log(str);
-      },
+      // debug: function (str) {
+      //   console.log(str);
+      // },
       onConnect: frame => {
         subscribe();
-        console.log(frame);
+        // console.log(frame);
       },
       onStompError: frame => {
         console.error(frame);
@@ -64,7 +64,7 @@ const Header = () => {
 
   const subscribe = () => {
     client.current.subscribe(`/sub/invite/${userInfo.userId}`, res => {
-      res = JSON.parse(res);
+      res = JSON.parse(res.body);
       console.log(res);
     });
   };
@@ -84,7 +84,7 @@ const Header = () => {
     };
     client.current.publish({
       destination: `/pub/invite`,
-      body: JSON.stringify({ content }),
+      body: JSON.stringify(content),
     });
     setEmail('');
   };

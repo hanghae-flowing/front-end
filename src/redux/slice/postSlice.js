@@ -66,8 +66,7 @@ export const OpenWorkSpace = createAsyncThunk(
 export const CreateNewProject = createAsyncThunk(
   'post/CreateNewProject',
   async ({ sendingData, navigate }, thunkAPI) => {
-    await axios
-      .post('http://13.209.41.157/api/project/create', sendingData)
+    await URL.post('/api/project/create', sendingData)
       .then(res => {
         console.log(res);
         navigate(`/toast/${res.data.projectId}`);

@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
-import { useMutation } from 'react-query';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { updateProjectId } from '../../redux/slice/spaceSlice';
 
 const WorkSpace = props => {
   const [tab, setTab] = useState('mind');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const projectId = useLocation().state.projectId;
+
+  useEffect(() => {
+    dispatch(updateProjectId(projectId));
+  }, []);
 
   const onNext = () => {
     if (tab === 'mind') {

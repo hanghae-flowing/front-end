@@ -27,12 +27,11 @@ export const getNode = createAsyncThunk(
 
 export const editNode = createAsyncThunk(
   "node/edit",
-  async(updateData, nodeId, { rejectWithValue }) => {
+  async({updateData, nodeId}) => {
     try {
       return await URL.put(`/api/node/edit/${nodeId}`, updateData).then((response) => console.log(response));
     } catch (error) {
       console.error(error);
-      return rejectWithValue(error.response);
     }
   }
 )
@@ -65,7 +64,7 @@ export const spaceSlice = createSlice({
         state.node = action.payload;
       })
       .addCase(editNode.fulfilled, (state, action) => {
-        state.node = action.payload;
+        console.log("edit")
       })
   }
 })

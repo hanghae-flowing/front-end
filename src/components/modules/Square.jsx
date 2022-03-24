@@ -9,7 +9,6 @@ const Square = props => {
   const [transY, setTransY] = useState(props.yval);
   const [text, setText] = useState(props.text);
   const dispatch = useDispatch();
-
   const onChange = e => {
     setText(e.target.value);
   };
@@ -23,8 +22,8 @@ const Square = props => {
       fontColor: '#222222',
       fontSize: '16px',
       text: text,
-      xval: transX,
-      yval: transY,
+      xval: `${transX}`,
+      yval: `${transY}`,
       projectId: props.projectId,
       nodeId: props.nodeId,
     };
@@ -33,9 +32,7 @@ const Square = props => {
   };
 
   const onMouseDown = () => {
-    // console.log('mouseDown');
     setOnPress(true);
-    // console.log(e.target);
   };
 
   const onMouseMove = e => {
@@ -60,16 +57,17 @@ const Square = props => {
   };
 
   const onMouseUp = () => {
-    console.log('mouseUp');
     setOnPress(false);
   };
 
   return (
     <div
+      contentEditable={true}
+      suppressContentEditableWarning={true}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}
-      onFocus={updateNode}
+      onBlur={updateNode}
       style={{
         transform: `translate(${transX}px,${transY}px)`,
         position: 'absolute',

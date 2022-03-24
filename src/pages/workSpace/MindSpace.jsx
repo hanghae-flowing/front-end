@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SpaceWrap from '../../components/container/SpaceWrap';
 import Frame from '../../components/container/Frame';
 import Viewport from '../../components/container/Viewport';
 import Square from '../../components/modules/Square';
 import ToolBox from '../../components/tools/ToolBox';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getNode } from '../../redux/slice/spaceSlice';
 
 const MindSpace = () => {
-  let nodeObject = useSelector(state => state.node.node);
-  console.log(nodeObject);
+  const dispatch = useDispatch();
+  const projectId = useSelector(state => state.space.projectId);
+  useEffect(() => {
+    dispatch(getNode(projectId)).then(res => console.log(res));
+  }, []);
+
+  let nodeObject = useSelector(state => state.space.node);
   // let nodeObject = [
   //   {
   //     width: '100px',
@@ -33,6 +39,7 @@ const MindSpace = () => {
   //     yval: '300',
   //   },
   // ];
+  console.log(nodeObject);
   return (
     <SpaceWrap>
       <Frame>
@@ -50,11 +57,13 @@ const MindSpace = () => {
                 text={data.text}
                 xval={data.xval}
                 yval={data.yval}
+                nodeId={data.nodeId}
+                projectId={data.projectId}
               />
             ))}
         </Viewport>
       </Frame>
-      <ToolBox />
+      <ToolBox projectId={projectId} />
     </SpaceWrap>
   );
 };

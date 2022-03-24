@@ -40,7 +40,7 @@ const Header = () => {
 
   const connect = () => {
     client.current = new StompJs.Client({
-      webSocketFactory: () => new SockJS('http://52.79.250.142/websocket'),
+      // webSocketFactory: () => new SockJS('http://52.79.250.142/websocket'),
       connectHeaders: {
         Accept: 'application/json',
       },

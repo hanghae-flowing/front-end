@@ -1,10 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import addNode, { postNode } from '../../redux/slice/nodeSlice';
+import { addNode, postNode } from '../../redux/slice/spaceSlice';
 
 const Rectangle = props => {
   const dispatch = useDispatch();
+  const projectId = useSelector(state => state.space.projectId);
+  console.log(projectId);
   const node = {
     width: '100px',
     height: '50px',
@@ -12,14 +14,17 @@ const Rectangle = props => {
     color: '#e3e3e3',
     fontColor: '#222222',
     fontSize: '16px',
-    text: '테스트1',
-    xval: '500',
-    yval: '300',
-    projectId: '',
+    text: 'node',
+    xval: '200',
+    yval: '200',
+    projectId: `${projectId}`,
+    isChecked: '0',
   };
 
   const onCreate = () => {
-    dispatch(addNode(node));
+    dispatch(postNode(node)).then(res => {
+      dispatch(addNode(res.payload));
+    });
   };
 
   let posX = 0;
@@ -52,9 +57,7 @@ const Rectangle = props => {
       // onDragStart={dragStartHandler}
       // onDrag={dragHandler}
       // onDragEnd={dragEndHandler}
-      onClick={() => {
-        dispatch(addNode(node));
-      }}
+      onClick={onCreate}
     ></Rect>
   );
 };

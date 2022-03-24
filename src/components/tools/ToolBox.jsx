@@ -5,7 +5,7 @@ import Rectangle from './Rectangle';
 const ToolBox = props => {
   return (
     <StyledDiv>
-      <Rectangle />
+      <Rectangle projectId={props.projectId} />
     </StyledDiv>
   );
 };

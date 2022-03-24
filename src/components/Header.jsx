@@ -84,7 +84,7 @@ const Header = () => {
     };
     client.current.publish({
       destination: `/pub/invite`,
-      body: JSON.stringify(content),
+      body: JSON.stringify({ content }),
     });
     setEmail('');
   };

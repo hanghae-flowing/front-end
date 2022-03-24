@@ -46,6 +46,23 @@ export const LoadBookmarkedPost = createAsyncThunk(
   },
 );
 
+export const OpenWorkSpace = createAsyncThunk(
+  'post/OpenWorkSpace',
+  async (data, thunkAPI) => {
+    await axios
+      .get(`http://13.209.41.157/api/detail/${data}`)
+      .then(res => {
+        sessionStorage.getItem('projectInfo') &&
+          sessionStorage.removeItem('projectInfo');
+        sessionStorage.setItem(
+          'projectInfo',
+          JSON.stringify(res.data.info.projectId),
+        );
+      })
+      .catch(err => console.log(err));
+  },
+);
+
 export const CreateNewProject = createAsyncThunk(
   'post/CreateNewProject',
   async ({ sendingData, navigate }, thunkAPI) => {

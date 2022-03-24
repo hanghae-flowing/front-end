@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
+import { useDispatch } from 'react-redux';
+import { OpenWorkSpace } from '../../redux/slice/postSlice';
 
 const ToastGridForm = props => {
   const {
@@ -14,6 +16,7 @@ const ToastGridForm = props => {
   } = props;
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const displayCreatedAt = createdAt => {
     let startTime = new Date(createdAt);
@@ -30,7 +33,8 @@ const ToastGridForm = props => {
   };
 
   const onClickHandler = () => {
-    navigate(`/toast/${projectId}`);
+    navigate(`/toast/${projectId}`, { state: props });
+    dispatch(OpenWorkSpace(projectId));
   };
 
   return (

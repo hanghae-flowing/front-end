@@ -36,6 +36,18 @@ export const editNode = createAsyncThunk(
   }
 )
 
+export const deleteNode = createAsyncThunk(
+  "node/delete",
+  async(nodeId, {rejectWithValue}) => {
+    try {
+      return await URL.delete(`/api/node/delete/${nodeId}`).then((response) => console.log(response));
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue(error.response);
+    }
+  }
+)
+
 export const spaceSlice = createSlice({
   name: "space",
   initialState:{
@@ -54,6 +66,14 @@ export const spaceSlice = createSlice({
       state.projectId = action.payload;
       console.log(state.projectId)
     },
+    deleteAction: (state, action) => {
+      const nodeId = action.payload;
+      console.log("nodeId ",nodeId);
+      return {
+        ...state,
+        node: state.node.filter((node) => node.nodeId !== nodeId)
+      };
+    }
   },
   extraReducers: builder => {
     builder
@@ -66,9 +86,12 @@ export const spaceSlice = createSlice({
       .addCase(editNode.fulfilled, (state, action) => {
         console.log("edit")
       })
+      .addCase(deleteNode.fulfilled, (state, action) => {
+        console.log(action.payload);
+      })
   }
 })
 
-export const { addNode, updateProjectId } = spaceSlice.actions;
+export const { addNode, updateProjectId, deleteAction } = spaceSlice.actions;
 
 export default spaceSlice.reducer;

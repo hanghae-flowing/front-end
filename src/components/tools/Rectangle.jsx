@@ -8,15 +8,15 @@ const Rectangle = props => {
   const projectId = useSelector(state => state.space.projectId);
   console.log(projectId);
   const node = {
-    width: '100px',
-    height: '50px',
-    radius: '10px',
+    width: '120px',
+    height: '60px',
+    radius: '80px',
     color: '#e3e3e3',
     fontColor: '#222222',
     fontSize: '16px',
     text: 'node',
-    xval: '200',
-    yval: '200',
+    xval: '400',
+    yval: '400',
     projectId: `${projectId}`,
     isChecked: '0',
   };
@@ -43,7 +43,7 @@ const Rectangle = props => {
     e.target.style.top = `${e.target.offsetTop + e.clientY - posY}px`;
     posX = e.clientX;
     posY = e.clientY;
-    console.log(posX, posY);
+    console.log(e.target.style.left, e.target.style.top);
   };
 
   const dragEndHandler = e => {
@@ -53,10 +53,10 @@ const Rectangle = props => {
 
   return (
     <Rect
-      // draggable
-      // onDragStart={dragStartHandler}
-      // onDrag={dragHandler}
-      // onDragEnd={dragEndHandler}
+      draggable
+      onDragStart={dragStartHandler}
+      onDrag={dragHandler}
+      onDragEnd={dragEndHandler}
       onClick={onCreate}
     ></Rect>
   );

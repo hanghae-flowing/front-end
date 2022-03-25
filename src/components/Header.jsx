@@ -7,6 +7,7 @@ import * as SockJS from 'sockjs-client';
 import * as StompJs from '@stomp/stompjs';
 import { userInfo } from '../API';
 import { sendInvite } from '../redux/slice/inviteSlice';
+import { toggleTab } from '../redux/slice/navSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,10 @@ const Header = () => {
   const isLogin = useSelector(state => state.user.isLogin);
   const client = useRef({});
   const [email, setEmail] = useState('');
+
+  const handleToggle = () => {
+    dispatch(toggleTab());
+  };
 
   const ToMyToast = () => {
     navigate('/mytoast');
@@ -102,12 +107,10 @@ const Header = () => {
   if (isLogin) {
     return (
       <HeadBox>
-        <HomeBtn to="main">home</HomeBtn>
-        <SearchBox>
-          <InputBox>
-            <Input type={'text'} placeholder="검색" />
-          </InputBox>
-        </SearchBox>
+        <div style={{ display: 'flex' }}>
+          {/* <HomeBtn to="main">home</HomeBtn> */}
+          <MenuBtn onClick={handleToggle}>menu</MenuBtn>
+        </div>
         <div style={{ display: 'flex' }}>
           <input type="text" onChange={inviteHandler} value={email} />
           <button
@@ -117,9 +120,9 @@ const Header = () => {
           >
             share
           </button>
-          <LogoutBtn onClick={Logout} to="login">
+          {/* <LogoutBtn onClick={Logout} to="login">
             Logout
-          </LogoutBtn>
+          </LogoutBtn> */}
           <Notification></Notification>
           <ProfileImage onClick={ToMyToast} />
         </div>
@@ -137,7 +140,7 @@ const Header = () => {
 const HeadBox = styled.div`
   width: 100%;
   height: 84px;
-  background-color: #dadada;
+  background-color: #221d7e;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -145,6 +148,7 @@ const HeadBox = styled.div`
   top: 0;
   left: 0;
   z-index: 99999;
+  padding: 0 60px;
 `;
 const HomeBtn = styled(Link)`
   width: 56.97px;
@@ -158,6 +162,8 @@ const HomeBtn = styled(Link)`
   color: #fff;
   font-size: 18px;
 `;
+
+const MenuBtn = styled.button``;
 
 const LoginBtn = styled(Link)`
   position: absolute;
@@ -188,31 +194,6 @@ const LogoutBtn = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const SearchBox = styled.div`
-  position: absolute;
-  width: 304px;
-  height: 50px;
-  left: 323px;
-  top: 17px;
-`;
-
-const InputBox = styled.div`
-  background-color: #e7e7e7;
-  border-radius: 60px;
-`;
-
-const Input = styled.input`
-  height: 50px;
-  width: 100%;
-  border: none;
-  background: none;
-  font-size: 18px;
-  padding: 0 20px;
-  &:focus {
-    outline: none;
-  }
 `;
 
 const Notification = styled.button`

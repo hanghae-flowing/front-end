@@ -41,7 +41,9 @@ const Header = () => {
   const connect = () => {
     client.current = new StompJs.Client({
       // webSocketFactory: () => new SockJS('http://52.79.250.142/websocket'),
-      connectHeaders: {},
+      connectHeaders: {
+        Accept: 'application/json',
+      },
       debug: function (str) {
         console.log(str);
       },
@@ -61,7 +63,7 @@ const Header = () => {
   };
 
   const subscribe = () => {
-    client.current.subscribe(`/sub/${userInfo.userId}`, res => {
+    client.current.subscribe(`/sub/invite/${userInfo.userId}`, res => {
       res = JSON.parse(res);
       console.log(res);
     });
@@ -77,12 +79,12 @@ const Header = () => {
       return;
     }
     let content = {
-      // senderId: userInfo.userId,
-      email: email,
+      senderEmail: `${userInfo.Email}`,
+      receiverEmail: email,
     };
     client.current.publish({
-      destination: `/pub/invite/${userInfo.userId}`,
-      body: JSON.stringify(content),
+      destination: `/pub/invite`,
+      body: JSON.stringify({ content }),
     });
     setEmail('');
   };

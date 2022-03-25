@@ -52,8 +52,8 @@ const ToastGridForm = props => {
 
 const Wrapper = styled.div`
   position: relative;
-  width: 275px;
-  height: 247px;
+  width: 94%;
+  height: 26%;
   cursor: pointer;
 `;
 const ToastImage = styled.div`
@@ -61,8 +61,8 @@ const ToastImage = styled.div`
   background: #c4c4c4;
   background-size: cover;
   border-radius: 25px;
-  width: 17.2 em;
-  height: 11.2em;
+  width: 100%;
+  height: 71%;
   overflow: hidden;
 `;
 
@@ -72,9 +72,9 @@ const ToastTitle = styled.h3`
   max-width: 147px;
   position: relative;
   font-weight: 400;
-  font-size: 21px;
-  line-height: 25px;
-  top: 16px;
+  font-size: 1.4rem;
+  line-height: 1.7em;
+  top: 0.5em;
   overflow: hidden;
   color: #818181;
 `;
@@ -82,37 +82,46 @@ const ToastTitle = styled.h3`
 const ToastTime = styled.p`
   position: absolute;
   width: 88px;
-  left: 187px;
-  top: 198px;
+  left: 60%;
+  top: 79%;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 1.1em;
+  line-height: 1.3em;
   text-align: right;
   color: #c4c4c4;
+
+  @media ${({ theme }) => theme.device.tablet} {
+    left: 30%;
+  }
 `;
 
 const ToastDate = styled.p`
   position: relative;
-  top: 4px;
+  top: 0.4em;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 1.1em;
+  line-height: 1.3em;
   color: #c4c4c4;
 `;
 
 const ToastMenu = styled.div`
   position: absolute;
-  left: 234px;
-  top: 12px;
-  right: 12px;
-  width: 29px;
-  height: 29px;
+  left: 81%;
+  top: 6%;
+  width: 1.8em;
+  height: 1.8em;
   background: #fff;
   border-radius: 6px;
   &:hover {
     background: #000;
   }
   z-index: 10;
+  @media ${({ theme }) => theme.device.middle} {
+    left: 75%;
+  }
+  @media ${({ theme }) => theme.device.tablet} {
+    left: 63%;
+  }
 `;
 
 export default ToastGridForm;

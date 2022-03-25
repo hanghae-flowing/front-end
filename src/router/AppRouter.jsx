@@ -8,9 +8,7 @@ import Login from '../pages/user/Login';
 import MindSpace from '../pages/workSpace/MindSpace';
 import CoreSpace from '../pages/workSpace/CoreSpace';
 import OrganizeSpace from '../pages/workSpace/OrganizeSpace';
-import ListDetail from '../pages/ListDetail';
 import LoginProgress from '../pages/user/LoginProgress';
-import MyToast from '../pages/user/MyToast';
 import Nav from '../components/Nav';
 import Notice from '../pages/Notice';
 
@@ -23,9 +21,7 @@ function AppRouter() {
         <Route path="/" element={<Landing />} />
         <Route path="/main" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/mytoast" element={<MyToast />} />
         <Route path="/member/kakao/callback" element={<LoginProgress />} />
-        <Route path="/listdetail" element={<ListDetail />} />
         <Route path="/notice" element={<Notice />} />
 
         <Route path="toast/:projecId/*" element={<WorkSpace />}>

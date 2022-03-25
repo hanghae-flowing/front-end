@@ -35,7 +35,7 @@ export const kakaoLogout = createAsyncThunk(
   },
 );
 
-export const LoadMyPage = createAsyncThunk(
+export const LoadMyInfo = createAsyncThunk(
   'user/loadMyPage',
   async (data, thunkAPI) => {
     const result = await URL.post(`/api/mypage`, data)
@@ -63,7 +63,7 @@ export const userSlice = createSlice({
         sessionStorage.clear();
         state.isLogin = false;
       })
-      .addCase(LoadMyPage.fulfilled, (state, action) => {
+      .addCase(LoadMyInfo.fulfilled, (state, action) => {
         state.user = action.payload;
       })
       .addCase(setLogin.fulfilled, state => {

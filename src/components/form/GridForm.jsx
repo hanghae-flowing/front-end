@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
+import { useDispatch } from 'react-redux';
+import { OpenWorkSpace } from '../../redux/slice/postSlice';
 
 const ToastGridForm = props => {
   const {
@@ -14,6 +16,7 @@ const ToastGridForm = props => {
   } = props;
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const displayCreatedAt = createdAt => {
     let startTime = new Date(createdAt);
@@ -31,20 +34,16 @@ const ToastGridForm = props => {
 
   const onClickHandler = () => {
     navigate(`/toast/${projectId}`, { state: props });
+    dispatch(OpenWorkSpace(projectId));
   };
 
   return (
-    <Wrapper onClick={onClickHandler}>
-      <ToastImage>
-        <ToastMenu />
-      </ToastImage>
+    <Wrapper>
+      <ToastMenu />
+      <ToastImage onClick={onClickHandler}></ToastImage>
       <ToastTitle>{projectName}</ToastTitle>
       <ToastTime>{displayCreatedAt(modifiedAt)}</ToastTime>
-      <ToastMembers>
-        이한솔
-        {/* {memberList &&
-          memberList.map((member, index) => <span key={index}>{member} </span>)} */}
-      </ToastMembers>
+      <ToastDate>{memberList}</ToastDate>
     </Wrapper>
   );
 };
@@ -53,60 +52,76 @@ const ToastGridForm = props => {
 
 const Wrapper = styled.div`
   position: relative;
-  width: 303px;
-  height: 253px;
+  width: 94%;
+  height: 26%;
   cursor: pointer;
 `;
 const ToastImage = styled.div`
   position: relative;
-  background: #909090;
+  background: #c4c4c4;
   background-size: cover;
-  border-radius: 40px;
-  width: 303px;
-  height: 180px;
+  border-radius: 25px;
+  width: 100%;
+  height: 71%;
   overflow: hidden;
 `;
 
 const ToastTitle = styled.h3`
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 147px;
   position: relative;
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: -0.04em;
-  top: 12px;
-  color: #535353;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.7em;
+  top: 0.5em;
+  overflow: hidden;
+  color: #818181;
 `;
 
 const ToastTime = styled.p`
   position: absolute;
-  left: 236px;
-  top: 200px;
+  width: 88px;
+  left: 60%;
+  top: 79%;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  letter-spacing: -0.05em;
-  color: #d9d9d9;
+  font-size: 1.1em;
+  line-height: 1.3em;
+  text-align: right;
+  color: #c4c4c4;
+
+  @media ${({ theme }) => theme.device.tablet} {
+    left: 30%;
+  }
 `;
 
-const ToastMembers = styled.p`
+const ToastDate = styled.p`
   position: relative;
-  top: 9px;
+  top: 0.4em;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  letter-spacing: -0.05em;
-  color: #d9d9d9;
+  font-size: 1.1em;
+  line-height: 1.3em;
+  color: #c4c4c4;
 `;
 
 const ToastMenu = styled.div`
-  position: relative;
-  left: 238px;
-  top: 15px;
-  right: 16px;
-  width: 50px;
-  height: 50px;
-  background-color: #fff;
-  border-radius: 50%;
+  position: absolute;
+  left: 81%;
+  top: 6%;
+  width: 1.8em;
+  height: 1.8em;
+  background: #fff;
+  border-radius: 6px;
+  &:hover {
+    background: #000;
+  }
+  z-index: 10;
+  @media ${({ theme }) => theme.device.middle} {
+    left: 75%;
+  }
+  @media ${({ theme }) => theme.device.tablet} {
+    left: 63%;
+  }
 `;
 
 export default ToastGridForm;

@@ -70,9 +70,9 @@ const MainPrac = () => {
 
 const NewProjectDiv = styled.div`
   width: 100%;
-  height: 284px;
-  margin-top: 84px;
-  padding-top: 62px;
+  height: 29%;
+  margin-top: 5em;
+  padding-top: 4em;
   background-color: #e3e0ff;
 `;
 
@@ -80,7 +80,7 @@ const NewProjectGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   width: 77%;
-  height: 180px;
+  height: 82%;
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;
@@ -90,18 +90,15 @@ const SplitDiv = styled.div`
   display: flex;
   widhth: 77%;
   height: 46px;
-  justify-content: space-between;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 `;
 
 const CurrentDoc = styled.span`
   width: 89px;
   height: 29px;
-
   font-weight: 700;
-  font-size: 24px;
-  line-height: 29px;
+  font-size: 1.4em;
+  line-height: 2em;
 
   color: #818181;
 `;
@@ -123,10 +120,11 @@ const DropdownMenu = styled.button`
 const ProjectDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  margin-top: 28px;
+  margin-top: 1.7rem;
   margin-left: auto;
   margin-right: auto;
   width: 77%;
+  height: 100%;
 `;
 
 const SampleGrid = styled.div`
@@ -135,7 +133,8 @@ const SampleGrid = styled.div`
   background-size: cover;
   border-radius: 25px;
   width: 92.5%;
-  height: 180px;
+  min-width: 106px;
+  height: 100%;
   overflow: hidden;
   z-index: 99;
   cursor: pointer;

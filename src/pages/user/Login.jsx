@@ -6,17 +6,21 @@ function Login() {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   return (
-    <>
-      <BackgroundImage>
-        <BtnWrapper>
-          <KaKaoBtn href={KAKAO_AUTH_URL}>카카오 로그인하기</KaKaoBtn>
-        </BtnWrapper>
-      </BackgroundImage>
-    </>
+    <BackgroundImage>
+      <BtnWrapper>
+        <KaKaoBtn href={KAKAO_AUTH_URL}>카카오 로그인하기</KaKaoBtn>
+      </BtnWrapper>
+    </BackgroundImage>
   );
 }
 
 const BackgroundImage = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
   width: 100%;
   height: 100vh;
   background-image: url('');

@@ -79,7 +79,6 @@ const NewProjectDiv = styled.div`
 const NewProjectGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-
   width: 77%;
   height: 82%;
   margin-left: auto;
@@ -91,8 +90,7 @@ const SplitDiv = styled.div`
   display: flex;
   widhth: 77%;
   height: 46px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 `;
 
 const CurrentDoc = styled.span`

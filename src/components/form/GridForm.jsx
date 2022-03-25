@@ -43,7 +43,7 @@ const ToastGridForm = props => {
       <ToastImage onClick={onClickHandler}></ToastImage>
       <ToastTitle>{projectName}</ToastTitle>
       <ToastTime>{displayCreatedAt(modifiedAt)}</ToastTime>
-      <ToastDate>{modifiedAt}</ToastDate>
+      <ToastDate>{memberList}</ToastDate>
     </Wrapper>
   );
 };

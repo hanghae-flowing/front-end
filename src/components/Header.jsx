@@ -108,8 +108,7 @@ const Header = () => {
     return (
       <HeadBox>
         <div style={{ display: 'flex' }}>
-          {/* <HomeBtn to="main">home</HomeBtn> */}
-          <MenuBtn onClick={handleToggle}>menu</MenuBtn>
+          <MenuBtn onClick={handleToggle}></MenuBtn>
         </div>
         <div style={{ display: 'flex' }}>
           <input type="text" onChange={inviteHandler} value={email} />
@@ -158,6 +157,7 @@ const MenuBtn = styled.div`
   top: 32px;
   background-image: url('img/Menu.png');
   background-size: cover;
+  cursor: pointer;
 `;
 
 const LoginBtn = styled(Link)`

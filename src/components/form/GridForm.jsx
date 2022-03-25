@@ -39,15 +39,11 @@ const ToastGridForm = props => {
 
   return (
     <Wrapper>
-      <ToastImage onClick={onClickHandler}>
-        <ToastMenu />
-      </ToastImage>
+      <ToastMenu />
+      <ToastImage onClick={onClickHandler}></ToastImage>
       <ToastTitle>{projectName}</ToastTitle>
       <ToastTime>{displayCreatedAt(modifiedAt)}</ToastTime>
-      <ToastMembers>
-        {memberList &&
-          memberList.map((member, index) => <span key={index}>{member} </span>)}
-      </ToastMembers>
+      <ToastDate>{modifiedAt}</ToastDate>
     </Wrapper>
   );
 };
@@ -56,17 +52,17 @@ const ToastGridForm = props => {
 
 const Wrapper = styled.div`
   position: relative;
-  width: 303px;
-  height: 253px;
+  width: 275px;
+  height: 247px;
   cursor: pointer;
 `;
 const ToastImage = styled.div`
   position: relative;
-  background: #daab74;
+  background: #c4c4c4;
   background-size: cover;
-  border-radius: 40px;
-  width: 303px;
-  height: 180px;
+  border-radius: 25px;
+  width: 17.2 em;
+  height: 11.2em;
   overflow: hidden;
 `;
 
@@ -75,48 +71,48 @@ const ToastTitle = styled.h3`
   white-space: nowrap;
   max-width: 147px;
   position: relative;
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: -0.04em;
-  top: 12px;
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 25px;
+  top: 16px;
   overflow: hidden;
-  color: #59391e;
+  color: #818181;
 `;
 
 const ToastTime = styled.p`
   position: absolute;
-  left: 236px;
-  top: 200px;
+  width: 88px;
+  left: 187px;
+  top: 198px;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  letter-spacing: -0.05em;
-  color: #8b5726;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: right;
+  color: #c4c4c4;
 `;
 
-const ToastMembers = styled.p`
+const ToastDate = styled.p`
   position: relative;
-  top: 9px;
+  top: 4px;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  letter-spacing: -0.05em;
-  color: #8b5726;
+  font-size: 18px;
+  line-height: 22px;
+  color: #c4c4c4;
 `;
 
 const ToastMenu = styled.div`
-  position: relative;
-  left: 238px;
-  top: 15px;
-  right: 16px;
-  width: 48px;
-  height: 48px;
-  background: url('img/Group_213.png');
-  border-radius: 12px;
+  position: absolute;
+  left: 234px;
+  top: 12px;
+  right: 12px;
+  width: 29px;
+  height: 29px;
+  background: #fff;
+  border-radius: 6px;
   &:hover {
-    background: url('img/Group_212.png');
+    background: #000;
   }
+  z-index: 10;
 `;
 
 export default ToastGridForm;

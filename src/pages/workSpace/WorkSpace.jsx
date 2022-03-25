@@ -8,11 +8,11 @@ const WorkSpace = props => {
   const [tab, setTab] = useState('mind');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const projectId = useLocation().state.projectId;
+  // const projectId = useLocation().state.projectId;
 
-  useEffect(() => {
-    dispatch(updateProjectId(projectId));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(updateProjectId(projectId));
+  // }, []);
 
   const onNext = () => {
     if (tab === 'mind') {

@@ -1,25 +1,30 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import createNode from '../../redux/slice/nodeSlice';
+import { addNode, postNode } from '../../redux/slice/spaceSlice';
 
 const Rectangle = props => {
   const dispatch = useDispatch();
+  const projectId = useSelector(state => state.space.projectId);
+  console.log(projectId);
   const node = {
-    node_id: 1,
     width: '100px',
     height: '50px',
     radius: '10px',
     color: '#e3e3e3',
     fontColor: '#222222',
     fontSize: '16px',
-    text: '테스트1',
-    x_val: '500',
-    y_val: '300',
+    text: 'node',
+    xval: '200',
+    yval: '200',
+    projectId: `${projectId}`,
+    isChecked: '0',
   };
 
-  const addNode = () => {
-    dispatch(createNode(node));
+  const onCreate = () => {
+    dispatch(postNode(node)).then(res => {
+      dispatch(addNode(res.payload));
+    });
   };
 
   let posX = 0;
@@ -48,11 +53,11 @@ const Rectangle = props => {
 
   return (
     <Rect
-      draggable
-      onDragStart={dragStartHandler}
-      onDrag={dragHandler}
-      onDragEnd={dragEndHandler}
-      onClick={addNode}
+      // draggable
+      // onDragStart={dragStartHandler}
+      // onDrag={dragHandler}
+      // onDragEnd={dragEndHandler}
+      onClick={onCreate}
     ></Rect>
   );
 };

@@ -82,6 +82,16 @@ export const DeleteProject = createAsyncThunk(
   },
 );
 
+export const TestPost = createAsyncThunk(
+  'post/TestPost',
+  async (text, thunkAPI) => {
+    await axios
+      .post(`http://13.209.41.157/api/test/text?data=${text}`, text)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  },
+);
+
 export const postSlice = createSlice({
   name: 'post',
   initialState: postState,

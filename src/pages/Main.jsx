@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import AddForm from '../components/form/AddForm';
 import GridForm from '../components/form/GridForm';
 import { LoadPost } from '../redux/slice/postSlice';
+import { switchPage } from '../redux/slice/navSlice';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const MainPrac = () => {
 
   useEffect(() => {
     dispatch(LoadPost(sendingData));
+    dispatch(switchPage('main'));
   }, [dispatch]);
 
   const projectList = useSelector(state => state.post.project);

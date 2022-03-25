@@ -7,6 +7,7 @@ import * as SockJS from 'sockjs-client';
 import * as StompJs from '@stomp/stompjs';
 import { userInfo } from '../API';
 import { sendInvite } from '../redux/slice/inviteSlice';
+import { toggleTab } from '../redux/slice/navSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,10 @@ const Header = () => {
   const isLogin = useSelector(state => state.user.isLogin);
   const client = useRef({});
   const [email, setEmail] = useState('');
+
+  const handleToggle = () => {
+    dispatch(toggleTab());
+  };
 
   const ToMyToast = () => {
     navigate('/mytoast');
@@ -44,12 +49,12 @@ const Header = () => {
       connectHeaders: {
         Accept: 'application/json',
       },
-      debug: function (str) {
-        console.log(str);
-      },
+      // debug: function (str) {
+      //   console.log(str);
+      // },
       onConnect: frame => {
         subscribe();
-        console.log(frame);
+        // console.log(frame);
       },
       onStompError: frame => {
         console.error(frame);
@@ -64,7 +69,7 @@ const Header = () => {
 
   const subscribe = () => {
     client.current.subscribe(`/sub/invite/${userInfo.userId}`, res => {
-      res = JSON.parse(res);
+      res = JSON.parse(res.body);
       console.log(res);
     });
   };
@@ -84,7 +89,7 @@ const Header = () => {
     };
     client.current.publish({
       destination: `/pub/invite`,
-      body: JSON.stringify({ content }),
+      body: JSON.stringify(content),
     });
     setEmail('');
   };
@@ -102,12 +107,9 @@ const Header = () => {
   if (isLogin) {
     return (
       <HeadBox>
-        <MenuBtn></MenuBtn>
-        <SearchBox>
-          <InputBox>
-            <Input type={'text'} placeholder="검색" />
-          </InputBox>
-        </SearchBox>
+        <div style={{ display: 'flex' }}>
+          <MenuBtn onClick={handleToggle}></MenuBtn>
+        </div>
         <div style={{ display: 'flex' }}>
           <input type="text" onChange={inviteHandler} value={email} />
           <button
@@ -117,9 +119,9 @@ const Header = () => {
           >
             share
           </button>
-          <LogoutBtn onClick={Logout} to="login">
+          {/* <LogoutBtn onClick={Logout} to="login">
             Logout
-          </LogoutBtn>
+          </LogoutBtn> */}
           <Notification></Notification>
           <ProfileImage onClick={ToMyToast} />
         </div>
@@ -145,6 +147,7 @@ const HeadBox = styled.div`
   top: 0;
   left: 0;
   z-index: 99999;
+  padding: 0 60px;
 `;
 const MenuBtn = styled.div`
   display: absolute;
@@ -154,6 +157,7 @@ const MenuBtn = styled.div`
   top: 32px;
   background-image: url('img/Menu.png');
   background-size: cover;
+  cursor: pointer;
 `;
 
 const LoginBtn = styled(Link)`
@@ -186,31 +190,6 @@ const LogoutBtn = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const SearchBox = styled.div`
-  position: absolute;
-  width: 304px;
-  height: 50px;
-  left: 323px;
-  top: 17px;
-`;
-
-const InputBox = styled.div`
-  background-color: #e7e7e7;
-  border-radius: 60px;
-`;
-
-const Input = styled.input`
-  height: 50px;
-  width: 100%;
-  border: none;
-  background: none;
-  font-size: 18px;
-  padding: 0 20px;
-  &:focus {
-    outline: none;
-  }
 `;
 
 const Notification = styled.button`

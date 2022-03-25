@@ -30,6 +30,7 @@ const ToastAddForm = ({ open, onClose, children }) => {
 
     dispatch(CreateNewProject({ sendingData, navigate }));
   };
+
   if (!open) return null;
   else {
     return (
@@ -120,7 +121,7 @@ const Wrapper = styled.div`
 const Modal = styled.div`
   box-sizing: border-box;
   position: fixed;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   border-radius: 40px;
   width: 1240px;
@@ -156,12 +157,15 @@ const TitleSpan = styled.span`
 
 const TitleInput = styled.input`
   width: 627px;
-  height: 50px;
+  height: 41px;
   border: 0;
-  border-bottom: 2px solid black;
+  border-bottom: 3px solid black;
   outline: 0;
   background: transparent;
+  font-weight: 400;
   font-size: 24px;
+  line-height: 29px;
+  letter-spacing: -0.04em;
   margin: 0 auto;
 `;
 const ThumbnailDiv = styled.div`
@@ -185,7 +189,7 @@ const ThumbnailBox = styled.div`
 const ButtonDiv = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 22px;
+  margin-top: 40px;
 `;
 
 const CreateButton = styled.button`

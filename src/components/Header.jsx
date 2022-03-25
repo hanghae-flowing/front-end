@@ -102,7 +102,7 @@ const Header = () => {
   if (isLogin) {
     return (
       <HeadBox>
-        <HomeBtn to="main">home</HomeBtn>
+        <MenuBtn></MenuBtn>
         <SearchBox>
           <InputBox>
             <Input type={'text'} placeholder="검색" />
@@ -128,7 +128,7 @@ const Header = () => {
   }
   return (
     <HeadBox>
-      <HomeBtn to="/">home</HomeBtn>
+      <MenuBtn></MenuBtn>
       <LoginBtn to="login">Login</LoginBtn>
     </HeadBox>
   );
@@ -137,7 +137,7 @@ const Header = () => {
 const HeadBox = styled.div`
   width: 100%;
   height: 84px;
-  background-color: #dadada;
+  background-color: #221d7e;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -146,27 +146,24 @@ const HeadBox = styled.div`
   left: 0;
   z-index: 99999;
 `;
-const HomeBtn = styled(Link)`
-  width: 56.97px;
-  height: 40px;
-  left: 20.88px;
-  top: 21px;
-  background-color: #9e9e9e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 18px;
+const MenuBtn = styled.div`
+  display: absolute;
+  width: 50px;
+  height: 23px;
+  left: 60px;
+  top: 32px;
+  background-image: url('img/Menu.png');
+  background-size: cover;
 `;
 
 const LoginBtn = styled(Link)`
   position: absolute;
   width: 100px;
   height: 50px;
-  left: 1800px;
+  left: 1760px;
   top: 17px;
-  border-radius: 25px;
-  background-color: #9e9e9e;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -174,6 +171,7 @@ const LoginBtn = styled(Link)`
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
+  text-align: center;
 `;
 
 const LogoutBtn = styled(Link)`

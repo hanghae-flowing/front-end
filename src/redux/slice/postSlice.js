@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { URL } from '../../API';
 
 const postState = {
@@ -36,12 +37,29 @@ export const LoadMyPost = createAsyncThunk(
   },
 );
 
-export const LoadIncludedPost = createAsyncThunk(
-  'post/LoadMyPost',
+export const LoadBookmarkedPost = createAsyncThunk(
+  'post/LoadBookmarkedPost',
   async (data, thunkAPI) => {
     await URL.post('/api/mytoast/included', data)
       .then(res => res.data)
       .catch(err => err);
+  },
+);
+
+export const OpenWorkSpace = createAsyncThunk(
+  'post/OpenWorkSpace',
+  async (data, thunkAPI) => {
+    await axios
+      .get(`http://13.209.41.157/api/detail/${data}`)
+      .then(res => {
+        sessionStorage.getItem('projectInfo') &&
+          sessionStorage.removeItem('projectInfo');
+        sessionStorage.setItem(
+          'projectInfo',
+          JSON.stringify(res.data.info.projectId),
+        );
+      })
+      .catch(err => console.log(err));
   },
 );
 
@@ -61,6 +79,16 @@ export const DeleteProject = createAsyncThunk(
   'post/DeleteProject',
   async ({ projectId }, thunkAPI) => {
     await URL.delete(`/api/delete/${projectId}`);
+  },
+);
+
+export const TestPost = createAsyncThunk(
+  'post/TestPost',
+  async (text, thunkAPI) => {
+    await axios
+      .post(`http://13.209.41.157/api/test/text?data=${text}`, text)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   },
 );
 
@@ -89,7 +117,13 @@ export const postSlice = createSlice({
         state.project = action.payload;
       })
       .addCase(LoadAllPost.rejected, () => {})
-
+      .addCase(LoadMyPost.pending, (state, action) => {
+        console.log('pending');
+      })
+      .addCase(LoadMyPost.fulfilled, (state, action) => {
+        state.project = action.payload;
+      })
+      .addCase(LoadMyPost.rejected, () => {})
       .addCase(CreateNewProject.pending, (state, action) => {
         console.log('pending');
       })

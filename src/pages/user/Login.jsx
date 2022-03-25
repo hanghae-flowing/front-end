@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 function Login() {
-  const REDIRECT_URI = `${process.env.REACT_APP_URL}/member/kakao/callback`;
+  const REDIRECT_URI = `http://localhost:3000/member/kakao/callback`;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   return (
@@ -26,20 +26,20 @@ const BackgroundImage = styled.div`
 const BtnWrapper = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: auto;
-  min-height: 100vh;
+  margin-top: 776px;
+  margin-right: auto;
+  margin-left: auto;
 `;
 
 const KaKaoBtn = styled.a`
-  width: 320px;
-  height: 60px;
+  width: 420px;
+  height: 68px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50px;
-  color: #b67830;
-  background-color: #fff6d3;
+  border-radius: 34px;
+  color: #fff;
+  background: #221d7e;
   font-weight: 700;
   font-size: 21px;
   line-height: 31px;

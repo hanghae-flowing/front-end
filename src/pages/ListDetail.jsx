@@ -1,4 +1,4 @@
-import ToastGridForm from '../components/form/ToastGridForm';
+import GridForm from '../components/form/GridForm';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { LoadAllPost } from '../redux/slice/postSlice';
@@ -39,7 +39,7 @@ const ListDetail = () => {
       <ListDiv>
         {projectList.length > 0 &&
           projectList.map((project, index) => (
-            <ToastGridForm
+            <GridForm
               key={index}
               projectName={project.projectName}
               modifiedAt={project.modifiedAt}
@@ -55,7 +55,7 @@ const ListDetail = () => {
 
 const WrapperDiv = styled.div`
   width: 1274px;
-  margin-top: 124px;
+  margin-top: 164px;
   margin-left: auto;
   margin-right: auto;
 `;

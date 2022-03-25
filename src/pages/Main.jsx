@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import ToastAddForm from '../components/form/ToastAddForm';
-import ToastGridForm from '../components/form/ToastGridForm';
+import AddForm from '../components/form/AddForm';
+import GridForm from '../components/form/GridForm';
 import { LoadPost } from '../redux/slice/postSlice';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const kakaoId =
@@ -35,83 +36,109 @@ const MainPrac = () => {
 
   return (
     <>
-      <MainDiv>
-        <WorkSpaceDiv>
-          <MainTitle>새로운 토스트를 구워보세요.</MainTitle>
-          <WorkSpaceBox onClick={() => setIsOpen(true)} />
-        </WorkSpaceDiv>
-        <ToListDetail href="/listdetail">더보기</ToListDetail>
-        <ProjectDiv>
-          {projectList.length > 0 &&
-            projectList.map((project, index) => (
-              <ToastGridForm
-                key={index}
-                projectName={project.projectName}
-                modifiedAt={project.modifiedAt}
-                memberList={project.memberList}
-                bookmark={project.bookmark}
-                thumbnailNum={project.thumbnailNum}
-                projectId={project.projectId}
-              />
-            ))}
-        </ProjectDiv>
-      </MainDiv>
-      <ToastAddForm open={isOpen} onClose={() => setIsOpen(false)} />
+      <NewProjectDiv>
+        <NewProjectGrid>
+          <SampleGrid onClick={() => setIsOpen(true)} />
+          <SampleGrid />
+          <SampleGrid />
+          <SampleGrid />
+          <SampleGrid />
+        </NewProjectGrid>
+      </NewProjectDiv>
+      <SplitDiv>
+        <CurrentDoc>최근문서</CurrentDoc>
+        <DropdownMenu></DropdownMenu>
+      </SplitDiv>
+      <ProjectDiv>
+        {projectList.length > 0 &&
+          projectList.map((project, index) => (
+            <GridForm
+              key={index}
+              projectName={project.projectName}
+              modifiedAt={project.modifiedAt}
+              memberList={project.memberList}
+              bookmark={project.bookmark}
+              thumbnailNum={project.thumbnailNum}
+              projectId={project.projectId}
+            />
+          ))}
+      </ProjectDiv>
+      <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 };
 
-const MainDiv = styled.div`
-  width: 1277px;
-  height: 646px;
-  margin-top: 161px;
+const NewProjectDiv = styled.div`
+  width: 100%;
+  height: 284px;
+  margin-top: 84px;
+  padding-top: 62px;
+  background-color: #e3e0ff;
+`;
+
+const NewProjectGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 77%;
+  height: 180px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+`;
+
+const SplitDiv = styled.div`
+  display: flex;
+  widhth: 77%;
+  height: 46px;
+  justify-content: space-between;
   margin-left: auto;
   margin-right: auto;
 `;
 
-const MainTitle = styled.h1`
-  font-weight: 600;
-  font-size: 36px;
-  margin-bottom: 30px;
-  line-height: 46px;
-  letter-spacing: -0.04em;
-  width: 381px;
+const CurrentDoc = styled.span`
+  width: 89px;
+  height: 29px;
+
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+
+  color: #818181;
+`;
+
+const DropdownMenu = styled.button`
+  width: 122px;
   height: 46px;
-`;
 
-const WorkSpaceDiv = styled.div`
-  width: 627px;
-  height: 646px;
-  float: left;
-`;
+  background: #ffffff;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 9px;
 
-const WorkSpaceBox = styled.div`
-  width: 627px;
-  height: 570px;
-  background-color: #909090;
-  cursor: pointer;
-  border-radius: 40px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #818181;
 `;
 
 const ProjectDiv = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   margin-top: 28px;
-  gap: 60px 24px;
-  width: 630px;
-  height: 567px;
-  float: right;
+  margin-left: auto;
+  margin-right: auto;
+  width: 77%;
 `;
 
-const ToListDetail = styled.a`
-  width: 53px;
-  height: 25px;
-  font-weight: 500;
-  font-size: 21px;
-  line-height: 25px;
-  letter-spacing: -0.05em;
-  float: right;
-  margin-bottom: 25px;
+const SampleGrid = styled.div`
+  position: relative;
+  background: #fff;
+  background-size: cover;
+  border-radius: 25px;
+  width: 92.5%;
+  height: 180px;
+  overflow: hidden;
+  z-index: 99;
+  cursor: pointer;
 `;
 
 export default MainPrac;

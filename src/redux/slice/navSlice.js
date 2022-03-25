@@ -4,7 +4,7 @@ const navSlice = createSlice({
   name:"nav",
   initialState:{
     tabbed:false,
-    currentPage:"hi",
+    currentPage:"",
   },
   reducers:{
     toggleTab: (state, action) => {
@@ -16,6 +16,6 @@ const navSlice = createSlice({
   },
 })
 
-export const { toggleTab } = navSlice.actions;
+export const { toggleTab, switchPage } = navSlice.actions;
 
 export default navSlice.reducer;

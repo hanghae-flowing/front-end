@@ -6,6 +6,7 @@ import { ReactComponent as LogoutImg } from '../assets/icons/Expand_down.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { kakaoLogout } from '../redux/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { switchPage } from '../redux/slice/navSlice';
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,9 @@ const Nav = () => {
           onClick={() => {
             navigate('/main');
           }}
+          style={{
+            backgroundColor: crtPage === 'main' ? '#150f84' : '#5432d3',
+          }}
         >
           <TabIcon></TabIcon>
           <p>전체</p>
@@ -52,6 +56,9 @@ const Nav = () => {
         <Tab
           onClick={() => {
             navigate('/notice');
+          }}
+          style={{
+            backgroundColor: crtPage === 'notice' ? '#150f84' : '#5432d3',
           }}
         >
           <TabIcon></TabIcon>

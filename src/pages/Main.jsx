@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ToastAddForm from '../components/form/ToastAddForm';
 import ToastGridForm from '../components/form/ToastGridForm';
+import { switchPage } from '../redux/slice/navSlice';
 import { LoadPost } from '../redux/slice/postSlice';
 
 const MainPrac = () => {
@@ -28,6 +29,7 @@ const MainPrac = () => {
 
   useEffect(() => {
     dispatch(LoadPost(sendingData));
+    dispatch(switchPage('main'));
   }, [dispatch]);
 
   const projectList = useSelector(state => state.post.project);

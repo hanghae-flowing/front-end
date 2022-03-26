@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-export const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+export const userInfo = sessionStorage.getItem('userInfo') && JSON.parse(sessionStorage.getItem('userInfo'));
+export const projectInfo = sessionStorage.getItem('projectInfo') && JSON.parse(sessionStorage.getItem('projectInfo'));
 
 export const URL = axios.create({
-  baseURL: "http://13.209.41.157",
+  baseURL: "http://13.125.34.241:8888",
   headers: {},
 });
 

@@ -5,7 +5,7 @@ export const postNode = createAsyncThunk(
   "node/post",
   async(_, { rejectWithValue}) => {
     try {
-      return await URL.post("/api/node/create", _).then((response) => response.data.nodeInfo);
+      return await URL.post("/node", _).then((response) => response.data.nodeInfo);
     } catch (error) {
       console.error(error);
       return rejectWithValue(error.response);
@@ -17,7 +17,7 @@ export const getNode = createAsyncThunk(
   "node/get",
   async(projectId, { rejectWithValue }) => {
     try {
-      return await URL.get(`/api/node/showall/${projectId}`).then((response) => response.data);
+      return await URL.get(`/node/all/${projectId}`).then((response) => response.data);
     } catch (error) {
       console.error(error);
       return rejectWithValue(error.response);
@@ -29,7 +29,7 @@ export const editNode = createAsyncThunk(
   "node/edit",
   async({updateData, nodeId}) => {
     try {
-      return await URL.put(`/api/node/edit/${nodeId}`, updateData).then((response) => console.log(response));
+      return await URL.put(`/node/${nodeId}`, updateData).then((response) => console.log(response));
     } catch (error) {
       console.error(error);
     }
@@ -40,7 +40,7 @@ export const deleteNode = createAsyncThunk(
   "node/delete",
   async(nodeId, {rejectWithValue}) => {
     try {
-      return await URL.delete(`/api/node/delete/${nodeId}`).then((response) => console.log(response));
+      return await URL.delete(`/node/${nodeId}`).then((response) => console.log(response));
     } catch (error) {
       console.error(error);
       return rejectWithValue(error.response);

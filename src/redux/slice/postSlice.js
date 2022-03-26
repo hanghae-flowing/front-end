@@ -9,7 +9,7 @@ const postState = {
 export const LoadPost = createAsyncThunk(
   'post/LoadPost',
   async (data, thunkAPI) => {
-    const result = await URL.post('/api/project/read', data)
+    const result = await URL.post('/myproject', data)
       .then(res => res.data)
       .catch(err => console.log(err));
     console.log(result);
@@ -20,7 +20,7 @@ export const LoadPost = createAsyncThunk(
 export const LoadAllPost = createAsyncThunk(
   'post/LoadAllPost',
   async (data, thunkAPI) => {
-    const result = await URL.post('/api/project/readAll', data)
+    const result = await URL.post('/project', data)
       .then(res => res.data)
       .catch(err => console.log(err));
 
@@ -49,8 +49,7 @@ export const LoadBookmarkedPost = createAsyncThunk(
 export const OpenWorkSpace = createAsyncThunk(
   'post/OpenWorkSpace',
   async (data, thunkAPI) => {
-    await axios
-      .get(`http://13.209.41.157/api/detail/${data}`)
+    await URL.get(`/project/${data}`)
       .then(res => {
         sessionStorage.getItem('projectInfo') &&
           sessionStorage.removeItem('projectInfo');
@@ -66,7 +65,7 @@ export const OpenWorkSpace = createAsyncThunk(
 export const CreateNewProject = createAsyncThunk(
   'post/CreateNewProject',
   async ({ sendingData, navigate }, thunkAPI) => {
-    await URL.post('/api/project/create', sendingData)
+    await URL.post('/project', sendingData)
       .then(res => {
         console.log(res);
         navigate(`/toast/${res.data.projectId}`);
@@ -78,7 +77,7 @@ export const CreateNewProject = createAsyncThunk(
 export const DeleteProject = createAsyncThunk(
   'post/DeleteProject',
   async ({ projectId }, thunkAPI) => {
-    await URL.delete(`/api/delete/${projectId}`);
+    await URL.delete(`/project/${projectId}`);
   },
 );
 

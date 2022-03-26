@@ -8,11 +8,13 @@ const WorkSpace = props => {
   const [tab, setTab] = useState('mind');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const projectId = useLocation().state.projectId;
+  const location = useLocation();
+  console.log(location);
+  const projectId = useLocation().state.projectId;
 
-  // useEffect(() => {
-  //   dispatch(updateProjectId(projectId));
-  // }, []);
+  useEffect(() => {
+    dispatch(updateProjectId(projectId));
+  }, []);
 
   const onNext = () => {
     if (tab === 'mind') {
@@ -109,7 +111,6 @@ const WorkSpace = props => {
 };
 
 const SpaceWrap = styled.div`
-  padding-top: 84px;
   display: flex;
   align-items: start;
   justify-content: start;

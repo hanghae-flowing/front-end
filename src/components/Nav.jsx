@@ -2,11 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { userInfo } from '../API';
 import { ReactComponent as SearchImg } from '../assets/icons/Search_duotone_line.svg';
-import { ReactComponent as LogoutImg } from '../assets/icons/Expand_down.svg';
+import { ReactComponent as LogoutImg } from '../assets/icons/Sign_out.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { kakaoLogout } from '../redux/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { switchPage } from '../redux/slice/navSlice';
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -15,10 +14,9 @@ const Nav = () => {
   const isLogin = useSelector(state => state.user.isLogin);
   const tabbed = useSelector(state => state.nav.tabbed);
   const crtPage = useSelector(state => state.nav.currentPage);
-  console.log(crtPage);
 
   const Logout = () => {
-    dispatch(kakaoLogout(userInfo.accesToken)).then(() => {
+    dispatch(kakaoLogout(userInfo.accessToken)).then(() => {
       navigate('login');
     });
   };
@@ -26,8 +24,12 @@ const Nav = () => {
     <StyledWrap toggle={tabbed}>
       {isLogin ? (
         <FlexDiv padding="0 0 20px 0">
-          <ProfileCircle></ProfileCircle>
-          <FlexDiv column={true} justify="space-between" padding="6px 0 0 12px">
+          {/* <ProfileCircle>
+            <ProfileImage
+              bgImg={isLogin ? `url(${userInfo.ProfileImageURL})` : `none`}
+            ></ProfileImage>
+          </ProfileCircle> */}
+          <FlexDiv column={true} justify="space-between">
             <Nickname>{userInfo.nickname}</Nickname>
             <Email>{userInfo.Email}</Email>
           </FlexDiv>
@@ -43,42 +45,40 @@ const Nav = () => {
       </FlexDiv>
       <FlexDiv grow="1" column={true}>
         <Tab
+          tab={crtPage === 'main' ? true : false}
           onClick={() => {
             navigate('/main');
           }}
-          style={{
-            backgroundColor: crtPage === 'main' ? '#150f84' : '#5432d3',
-          }}
         >
-          <TabIcon></TabIcon>
           <p>전체</p>
+          <TabIcon></TabIcon>
         </Tab>
         <Tab
+          tab={crtPage === 'folder' ? true : false}
           onClick={() => {
-            navigate('/notice');
-          }}
-          style={{
-            backgroundColor: crtPage === 'notice' ? '#150f84' : '#5432d3',
+            navigate('/folder');
           }}
         >
-          <TabIcon></TabIcon>
-          <p>알림</p>
-        </Tab>
-        <Tab>
-          <TabIcon></TabIcon>
           <p>폴더</p>
-        </Tab>
-        <Tab>
           <TabIcon></TabIcon>
-          <p>환경설정</p>
         </Tab>
-        <Tab>
-          <TabIcon></TabIcon>
-          <p>내 설정</p>
-        </Tab>
-        <Tab>
-          <TabIcon></TabIcon>
+        <Tab
+          tab={crtPage === 'garbage' ? true : false}
+          onClick={() => {
+            navigate('/garbage');
+          }}
+        >
           <p>휴지통</p>
+          <TabIcon></TabIcon>
+        </Tab>
+        <Tab
+          tab={crtPage === 'setting' ? true : false}
+          onClick={() => {
+            navigate('/setting');
+          }}
+        >
+          <p>환경설정</p>
+          <TabIcon></TabIcon>
         </Tab>
       </FlexDiv>
       <FlexDiv>
@@ -94,15 +94,16 @@ const Nav = () => {
 const StyledWrap = styled.div`
   position: fixed;
   top: 0;
-  left: ${props => (props.toggle ? '0' : '-360px')};
+  left: ${props => (props.toggle ? '0' : '-260px')};
   background-color: #5432d3;
   height: 100vh;
-  width: 360px;
-  padding: 120px 60px 60px;
+  width: 258px;
+  padding: 80px 20px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  z-index: 9999;
+  z-index: 999;
+  transition: all 0.2s ease-in-out;
 `;
 const FlexDiv = styled.div`
   display: flex;
@@ -118,6 +119,14 @@ const ProfileCircle = styled.div`
   height: 60px;
   border-radius: 60px;
   background-color: #4222b9;
+  overflow: hidden;
+`;
+
+const ProfileImage = styled.div`
+  background-image: ${props => props.bgImg};
+  background-size: cover;
+  width: 100%;
+  height: 100%;
 `;
 
 const Nickname = styled.p`
@@ -159,11 +168,12 @@ const Search = styled.input`
 const Tab = styled.div`
   width: 100%;
   height: 57px;
-  background-color: #5432d3;
+  background-color: ${props => (props.tab ? '#150f84' : '#5432d3')};
   cursor: pointer;
   border-radius: 10px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding-left: 16px;
   margin-bottom: 13px;
   &:hover {
@@ -184,9 +194,10 @@ const TabIcon = styled.div`
 `;
 
 const LogoutBtn = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
   cursor: pointer;
   p {
     color: #fff;

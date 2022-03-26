@@ -54,7 +54,7 @@ const Square = props => {
       const shiftX = mouseX - posX;
       const shiftY = mouseY - posY;
       const currentX = mouseX - pos.width / 2 - 300;
-      const currentY = mouseY - pos.height / 2 - 84;
+      const currentY = mouseY - pos.height / 2;
       // console.log(posX, posY);
       // console.log(mouseX, mouseY);
       setTransX(currentX);
@@ -189,9 +189,9 @@ const Delete = styled.div`
 `;
 
 Square.defaultProps = {
-  width: '150px',
-  height: '80px',
-  radius: '0px',
+  width: '120px',
+  height: '60px',
+  radius: '80px',
   color: '#f2f2f2',
   fontSize: '16px',
   fontColor: '#222222',

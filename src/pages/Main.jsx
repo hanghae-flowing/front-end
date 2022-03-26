@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import AddForm from '../components/form/AddForm';
 import GridForm from '../components/form/GridForm';
 import { LoadPost } from '../redux/slice/postSlice';
 import { switchPage } from '../redux/slice/navSlice';
 import NewTemplateForm from '../components/form/NewTemplateForm';
+import { userInfo } from '../API';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
-  const kakaoId =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).kakaoId;
-  const accessToken =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
-  const userId =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).userId;
+  const kakaoId = userInfo.kakaoId;
+  const accessToken = userInfo.accessToken;
+  const userId = userInfo.userId;
 
   const sendingData = {
     kakaoId,
@@ -39,15 +32,6 @@ const MainPrac = () => {
 
   return (
     <>
-      {/* <NewProjectDiv>
-        <NewProjectGrid>
-          <SampleGrid onClick={() => setIsOpen(true)} />
-          <SampleGrid />
-          <SampleGrid />
-          <SampleGrid />
-          <SampleGrid />
-        </NewProjectGrid>
-      </NewProjectDiv> */}
       <NewTemplateForm />
       <SplitDiv>
         <CurrentDoc>최근문서</CurrentDoc>
@@ -71,24 +55,6 @@ const MainPrac = () => {
     </>
   );
 };
-
-const NewProjectDiv = styled.div`
-  width: 100%;
-  height: 29%;
-  margin-top: 5em;
-  padding-top: 4em;
-  background-color: #e3e0ff;
-`;
-
-const NewProjectGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  width: 77%;
-  height: 82%;
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
-`;
 
 const SplitDiv = styled.div`
   display: flex;
@@ -129,19 +95,6 @@ const ProjectDiv = styled.div`
   margin-right: auto;
   width: 77%;
   height: 100%;
-`;
-
-const SampleGrid = styled.div`
-  position: relative;
-  background: #fff;
-  background-size: cover;
-  border-radius: 25px;
-  width: 92.5%;
-  min-width: 106px;
-  height: 100%;
-  overflow: hidden;
-  z-index: 3;
-  cursor: pointer;
 `;
 
 export default MainPrac;

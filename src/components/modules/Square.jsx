@@ -53,7 +53,7 @@ const Square = props => {
       let mouseY = e.clientY;
       const shiftX = mouseX - posX;
       const shiftY = mouseY - posY;
-      const currentX = mouseX - pos.width / 2 - 300;
+      const currentX = mouseX - pos.width / 2;
       const currentY = mouseY - pos.height / 2;
       // console.log(posX, posY);
       // console.log(mouseX, mouseY);

@@ -68,7 +68,7 @@ export const CreateNewProject = createAsyncThunk(
     await URL.post('/project', sendingData)
       .then(res => {
         console.log(res);
-        navigate(`/toast/${res.data.projectId}`);
+        navigate(`/workspace/${res.data.projectId}`);
       })
       .catch(err => console.log(err));
   },

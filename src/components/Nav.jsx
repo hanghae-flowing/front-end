@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { userInfo } from '../API';
 import { ReactComponent as SearchImg } from '../assets/icons/Search_duotone_line.svg';
 import { ReactComponent as LogoutImg } from '../assets/icons/Sign_out.svg';
+import { ReactComponent as SettingImg } from '../assets/icons/Setting_line_light.svg';
+import { ReactComponent as GarbageImg } from '../assets/icons/Trash_light.svg';
+import { ReactComponent as AllImg } from '../assets/icons/Widget_light.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { kakaoLogout } from '../redux/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +20,7 @@ const Nav = () => {
 
   const Logout = () => {
     dispatch(kakaoLogout(userInfo.accessToken)).then(() => {
-      navigate('login');
+      navigate('/login');
     });
   };
   return (
@@ -51,16 +54,9 @@ const Nav = () => {
           }}
         >
           <p>전체</p>
-          <TabIcon></TabIcon>
-        </Tab>
-        <Tab
-          tab={crtPage === 'folder' ? true : false}
-          onClick={() => {
-            navigate('/folder');
-          }}
-        >
-          <p>폴더</p>
-          <TabIcon></TabIcon>
+          <TabIcon>
+            <AllImg />
+          </TabIcon>
         </Tab>
         <Tab
           tab={crtPage === 'garbage' ? true : false}
@@ -69,7 +65,9 @@ const Nav = () => {
           }}
         >
           <p>휴지통</p>
-          <TabIcon></TabIcon>
+          <TabIcon>
+            <GarbageImg />
+          </TabIcon>
         </Tab>
         <Tab
           tab={crtPage === 'setting' ? true : false}
@@ -78,14 +76,16 @@ const Nav = () => {
           }}
         >
           <p>환경설정</p>
-          <TabIcon></TabIcon>
+          <TabIcon>
+            <SettingImg />
+          </TabIcon>
         </Tab>
-      </FlexDiv>
-      <FlexDiv>
-        <LogoutBtn onClick={Logout}>
+        <Tab onClick={Logout}>
           <p>로그아웃</p>
-          <LogoutImg />
-        </LogoutBtn>
+          <TabIcon>
+            <LogoutImg />
+          </TabIcon>
+        </Tab>
       </FlexDiv>
     </StyledWrap>
   );
@@ -167,14 +167,14 @@ const Search = styled.input`
 
 const Tab = styled.div`
   width: 100%;
-  height: 57px;
+  height: 38px;
   background-color: ${props => (props.tab ? '#150f84' : '#5432d3')};
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 16px;
+  padding: 10px;
   margin-bottom: 13px;
   &:hover {
     background-color: #150f84;
@@ -186,11 +186,10 @@ const Tab = styled.div`
 `;
 
 const TabIcon = styled.div`
-  width: 29px;
-  height: 29px;
   border-radius: 50px;
-  background-color: #423d9f;
-  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const LogoutBtn = styled.div`

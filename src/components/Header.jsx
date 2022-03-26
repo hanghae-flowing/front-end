@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { kakaoLogout } from '../redux/slice/userSlice';
 import * as SockJS from 'sockjs-client';
@@ -10,8 +10,9 @@ import { sendInvite } from '../redux/slice/inviteSlice';
 import { toggleTab } from '../redux/slice/navSlice';
 
 const Header = () => {
+  const location = useLocation();
+  console.log(location.pathname);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const isLogin = useSelector(state => state.user.isLogin);
   const client = useRef({});
   const [email, setEmail] = useState('');
@@ -20,20 +21,12 @@ const Header = () => {
     dispatch(toggleTab());
   };
 
-  const ToMyToast = () => {
-    navigate('/mytoast');
-  };
-
   const Logout = e => {
     const accessToken =
       sessionStorage.getItem('userInfo') &&
       JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
     dispatch(kakaoLogout(accessToken));
   };
-
-  // console.log('userInfo', userInfo);
-  // console.log('Email', userInfo.Email);
-  // console.log('userId', userInfo.userId);
 
   useEffect(() => {
     if (userInfo) {
@@ -95,11 +88,6 @@ const Header = () => {
   };
 
   const sendInviteHandler = () => {
-    // const sendData = {
-    //   senderId: userInfo.userId,
-    //   email: email,
-    // };
-    // dispatch(sendInvite(sendData));
     publish(email);
     setEmail('');
   };
@@ -108,29 +96,35 @@ const Header = () => {
     return (
       <HeadBox>
         <div style={{ display: 'flex' }}>
-          <MenuBtn onClick={handleToggle}></MenuBtn>
+          <MenuBtn onClick={handleToggle}>
+            <Line line="0px"></Line>
+            <Line line="9px"></Line>
+            <Line line="18px"></Line>
+          </MenuBtn>
         </div>
         <div style={{ display: 'flex' }}>
-          <input type="text" onChange={inviteHandler} value={email} />
+          {/* <input type="text" onChange={inviteHandler} value={email} />
           <button
             onClick={() => {
               publish(email);
             }}
           >
             share
-          </button>
+          </button> */}
           {/* <LogoutBtn onClick={Logout} to="login">
             Logout
           </LogoutBtn> */}
-          <Notification></Notification>
-          <ProfileImage onClick={ToMyToast} />
+          {/* <Notification></Notification> */}
+          <ProfileImage
+            bgImg={isLogin ? `url(${userInfo.ProfileImageURL})` : `none`}
+          />
         </div>
       </HeadBox>
     );
   }
   return (
     <HeadBox>
-      <MenuBtn></MenuBtn>
+      <MenuBtn onClick={handleToggle}></MenuBtn>
       <LoginBtn to="login">Login</LoginBtn>
     </HeadBox>
   );
@@ -138,7 +132,7 @@ const Header = () => {
 
 const HeadBox = styled.div`
   width: 100%;
-  height: 84px;
+  height: 45px;
   background-color: #221d7e;
   display: flex;
   align-items: center;
@@ -147,25 +141,27 @@ const HeadBox = styled.div`
   top: 0;
   left: 0;
   z-index: 99999;
-  padding: 0 60px;
+  padding: 0 20px;
 `;
 const MenuBtn = styled.div`
-  display: absolute;
-  width: 50px;
-  height: 23px;
-  left: 60px;
-  top: 32px;
-  background-image: url('img/Menu.png');
-  background-size: cover;
+  width: 30px;
+  height: 20px;
   cursor: pointer;
+  position: relative;
+`;
+
+const Line = styled.div`
+  width: 30px;
+  height: 2px;
+  background-color: #fff;
+  position: absolute;
+  top: ${props => props.line};
+  left: 0;
 `;
 
 const LoginBtn = styled(Link)`
-  position: absolute;
   width: 100px;
   height: 50px;
-  left: 1760px;
-  top: 17px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.25);
   display: flex;
@@ -178,32 +174,22 @@ const LoginBtn = styled(Link)`
   text-align: center;
 `;
 
-const LogoutBtn = styled(Link)`
-  width: 96px;
-  height: 50px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  color: #fff;
-  border-radius: 25px;
-  background-color: #9e9e9e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const Notification = styled.button`
   backgorund-color: #fff;
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  border: none;
 `;
 
 const ProfileImage = styled.button`
-  width: 50px;
-  height: 50px;
+  width: 24px;
+  height: 24px;
   backgorund-color: #fff;
+  background-image: ${props => props.bgImg};
+  background-size: cover;
   border-radius: 50%;
+  border: none;
 `;
 
 export default Header;

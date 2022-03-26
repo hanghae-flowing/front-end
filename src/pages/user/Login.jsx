@@ -28,11 +28,11 @@ const BackgroundImage = styled.div`
 `;
 
 const BtnWrapper = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 776px;
-  margin-right: auto;
-  margin-left: auto;
+  align-items: center;
 `;
 
 const KaKaoBtn = styled.a`

@@ -8,7 +8,7 @@ export const sendInvite = createAsyncThunk(
   'invite/send',
   async (sendData, {rejectWithValue}) => {
     try {
-      return await URL.post("/invite", sendData).then((response) => {
+      return await URL.post("/invitation", sendData).then((response) => {
         console.log(response);
       })
     } catch (error) {

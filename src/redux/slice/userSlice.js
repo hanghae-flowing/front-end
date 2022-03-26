@@ -26,7 +26,7 @@ export const kakaoLogin = createAsyncThunk(
 export const kakaoLogout = createAsyncThunk(
   'user/kakaoLogout',
   async (data, thunkAPI) => {
-    await URL.post(`/api/logout`, data)
+    await URL.post(`/logout`, data)
       .then(res => {
         console.log(res);
         alert('로그아웃 완료');
@@ -38,7 +38,7 @@ export const kakaoLogout = createAsyncThunk(
 export const LoadMyInfo = createAsyncThunk(
   'user/loadMyPage',
   async (data, thunkAPI) => {
-    const result = await URL.post(`/api/mypage`, data)
+    const result = await URL.post(`/mypage`, data)
       .then(res => console.log(res))
       .catch(err => err);
     return result;

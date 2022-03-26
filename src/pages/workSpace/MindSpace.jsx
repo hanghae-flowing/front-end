@@ -15,30 +15,6 @@ const MindSpace = () => {
   }, []);
 
   let nodeObject = useSelector(state => state.space.node);
-  // let nodeObject = [
-  //   {
-  //     width: '100px',
-  //     height: '50px',
-  //     radius: '10px',
-  //     color: '#e3e3e3',
-  //     fontColor: '#222222',
-  //     fontSize: '16px',
-  //     text: '테스트1',
-  //     xval: '500',
-  //     yval: '300',
-  //   },
-  //   {
-  //     width: '100px',
-  //     height: '50px',
-  //     radius: '10px',
-  //     color: '#e3e3e3',
-  //     fontColor: '#222222',
-  //     fontSize: '16px',
-  //     text: '테스트2',
-  //     xval: '100',
-  //     yval: '300',
-  //   },
-  // ];
   console.log(nodeObject);
   return (
     <SpaceWrap>

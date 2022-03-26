@@ -6,6 +6,7 @@ import AddForm from '../components/form/AddForm';
 import GridForm from '../components/form/GridForm';
 import { LoadPost } from '../redux/slice/postSlice';
 import { switchPage } from '../redux/slice/navSlice';
+import NewTemplateForm from '../components/form/NewTemplateForm';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const MainPrac = () => {
 
   return (
     <>
-      <NewProjectDiv>
+      {/* <NewProjectDiv>
         <NewProjectGrid>
           <SampleGrid onClick={() => setIsOpen(true)} />
           <SampleGrid />
@@ -46,7 +47,8 @@ const MainPrac = () => {
           <SampleGrid />
           <SampleGrid />
         </NewProjectGrid>
-      </NewProjectDiv>
+      </NewProjectDiv> */}
+      <NewTemplateForm />
       <SplitDiv>
         <CurrentDoc>최근문서</CurrentDoc>
         <DropdownMenu></DropdownMenu>
@@ -90,7 +92,7 @@ const NewProjectGrid = styled.div`
 
 const SplitDiv = styled.div`
   display: flex;
-  widhth: 77%;
+  width: 77%;
   height: 46px;
   margin: 0 auto;
 `;
@@ -138,7 +140,7 @@ const SampleGrid = styled.div`
   min-width: 106px;
   height: 100%;
   overflow: hidden;
-  z-index: 99;
+  z-index: 3;
   cursor: pointer;
 `;
 

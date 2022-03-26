@@ -102,7 +102,7 @@ const StyledWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  z-index: 10;
+  z-index: 9999;
 `;
 const FlexDiv = styled.div`
   display: flex;

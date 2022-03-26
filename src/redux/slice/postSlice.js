@@ -5,6 +5,8 @@ import { URL } from '../../API';
 const postState = {
   project: {},
 };
+const textId =
+  sessionStorage.getItem('textInfo') && sessionStorage.getItem('textInfo');
 
 export const LoadPost = createAsyncThunk(
   'post/LoadPost',
@@ -65,10 +67,14 @@ export const OpenWorkSpace = createAsyncThunk(
 
 export const CreateNewProject = createAsyncThunk(
   'post/CreateNewProject',
-  async ({ sendingData, navigate }, thunkAPI) => {
+  async ({ sendingData, navigate }, { dispatch }, thunkAPI) => {
     await URL.post('/api/project/create', sendingData)
       .then(res => {
         console.log(res);
+        const data = {
+          text: '시작',
+        };
+        dispatch(TestPost(data));
         navigate(`/toast/${res.data.projectId}`);
       })
       .catch(err => console.log(err));
@@ -84,10 +90,22 @@ export const DeleteProject = createAsyncThunk(
 
 export const TestPost = createAsyncThunk(
   'post/TestPost',
-  async (text, thunkAPI) => {
+  async (data, thunkAPI) => {
     await axios
-      .post(`http://13.209.41.157/api/test/text?data=${text}`, text)
-      .then(res => console.log(res))
+      .post(`http://13.209.41.157/api/test/text`, data)
+      .then(res => {
+        sessionStorage.setItem('textInfo', res.data.textId);
+      })
+      .catch(err => console.log(err));
+  },
+);
+
+export const TestPut = createAsyncThunk(
+  'post/TestPut',
+  async (sendingData, thunkAPI) => {
+    await axios
+      .put(`http://13.209.41.157/api/test/textput/${textId}`, sendingData)
+      .then(res => res)
       .catch(err => console.log(err));
   },
 );

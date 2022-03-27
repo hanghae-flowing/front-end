@@ -6,21 +6,27 @@ import GridForm from '../components/form/GridForm';
 import { LoadPost } from '../redux/slice/postSlice';
 import { switchPage } from '../redux/slice/navSlice';
 import NewTemplateForm from '../components/form/NewTemplateForm';
-import { userInfo } from '../API';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
-  const kakaoId = userInfo.kakaoId;
-  const accessToken = userInfo.accessToken;
-  const userId = userInfo.userId;
+  const kakaoId =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).kakaoId;
+  const accessToken =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
+  const userId =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).userId;
 
   const sendingData = {
     kakaoId,
     accessToken,
     userId,
   };
+  console.log(sendingData);
 
   useEffect(() => {
     dispatch(LoadPost(sendingData));

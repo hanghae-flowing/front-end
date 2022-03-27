@@ -101,7 +101,7 @@ export const MainHeader = () => {
             <Line line="14px"></Line>
           </MenuBtn>
         </FlexDiv>
-        <FlexDiv>
+        <FlexDiv justify="end">
           <Notification>
             <NotiImg />
           </Notification>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const userInfo = sessionStorage.getItem('userInfo') && JSON.parse(sessionStorage.getItem('userInfo'));
+export const userInfo = sessionStorage.getItem('userInfo');
 export const projectInfo = sessionStorage.getItem('projectInfo') && JSON.parse(sessionStorage.getItem('projectInfo'));
 
 export const URL = axios.create({

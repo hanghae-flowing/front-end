@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from '../components/Header';
+import { MainHeader } from '../components/Header';
 import Landing from '../pages/Landing';
 import Main from '../pages/Main';
 import WorkSpace from '../pages/workSpace/WorkSpace';
@@ -19,7 +19,7 @@ import ProposalPage from '../pages/workSpace/ProposalPage';
 function AppRouter() {
   return (
     <BrowserRouter>
-      <Header />
+      <MainHeader />
       <Nav />
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -31,7 +31,7 @@ function AppRouter() {
         <Route path="/garbage" element={<Garbage />} />
         <Route path="/setting" element={<Setting />} />
 
-        <Route path="toast/:projecId/*" element={<WorkSpace />}>
+        <Route path="workspace/:projecId/*" element={<WorkSpace />}>
           <Route path="proposal" element={<ProposalPage />} />
           <Route index element={<MindSpace />} />
           <Route path="mind-space" element={<MindSpace />} />

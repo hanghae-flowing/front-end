@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { CreateNewProject } from '../../redux/slice/postSlice';
 import { useNavigate } from 'react-router-dom';
 
-const ToastAddForm = ({ open, onClose, children }) => {
+const AddForm = ({ open, onClose, children }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ const ToastAddForm = ({ open, onClose, children }) => {
     return (
       <Wrapper>
         <Modal>
-          <CloseButton onClick={onClose}>x</CloseButton>
+          <CloseButton onClick={onClose}>닫기</CloseButton>
 
           <ModalInner>
             {children}
@@ -100,11 +100,9 @@ const ToastAddForm = ({ open, onClose, children }) => {
 
 const CloseButton = styled.div`
   position: absolute;
-  width: 25px;
-  height: 25px;
-  left: 1167px;
-  top: 29px;
-  right: 48px;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
 `;
 
 const Wrapper = styled.div`
@@ -114,49 +112,45 @@ const Wrapper = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0);
-  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
 `;
 
 const Modal = styled.div`
   box-sizing: border-box;
   position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  border-radius: 40px;
-  width: 1240px;
-  max-width: 1240px;
-  height: 678px;
-  margin-top: 158px;
-  margin-left: 340px;
-  margin-right: 340px;
+  border-radius: 25px;
+  width: 700px;
+  height: 500px;
 `;
 
 const ModalInner = styled.div`
-  width: 1111px;
-  height: 558px;
-  margin: 60px 64px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
 `;
 
 const TitleDiv = styled.div`
   display: flex;
-  flex-flow: row wrap;
-  width: 909px;
-  heihgt: 41px;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 40px;
 `;
 
 const TitleSpan = styled.span`
-  position: relative;
-  width: 61px;
+  display: block;
+  width: 100px;
   font-weight: 600;
   font-size: 24px;
-  line-height: 29px;
-  letter-spacing: -0.04em;
 `;
 
 const TitleInput = styled.input`
-  width: 627px;
+  width: 100%;
   height: 41px;
   border: 0;
   border-bottom: 3px solid black;
@@ -171,18 +165,14 @@ const TitleInput = styled.input`
 const ThumbnailDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  width: 1111px;
-  height: 338px;
-  gap: 18px;
-  margin-top: 20px;
+  width: 100%;
+  height: 220px;
+  gap: 10px;
 `;
 
 const ThumbnailBox = styled.div`
   background: #777777;
-  width: 264px;
-  height: 160px;
-  border-radius: 40px;
-  zindex: 1005;
+  border-radius: 10px;
   cursor: pointer;
 `;
 
@@ -196,6 +186,7 @@ const CreateButton = styled.button`
   width: 232px;
   height: 50px;
   border-radius: 40px;
+  border: none;
 `;
 
-export default ToastAddForm;
+export default AddForm;

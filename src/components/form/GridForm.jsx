@@ -33,7 +33,7 @@ const ToastGridForm = props => {
   };
 
   const onClickHandler = () => {
-    navigate(`/toast/${projectId}`, { state: props });
+    navigate(`/workspace/${projectId}`, { state: props });
     dispatch(OpenWorkSpace(projectId));
   };
 

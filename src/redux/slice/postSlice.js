@@ -76,7 +76,7 @@ export const CreateNewProject = createAsyncThunk(
         };
         sessionStorage.setItem('projectInfo', res.data.projectId);
         dispatch(createNewDocument(secondSendingData));
-        navigate(`/toast/${res.data.projectId}`);
+        navigate(`/workspace/${res.data.projectId}`);
       })
       .catch(err => console.log(err));
   },

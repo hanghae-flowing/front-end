@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import AddForm from '../components/form/AddForm';
 import GridForm from '../components/form/GridForm';
@@ -11,7 +10,6 @@ import { sendTokenForHJ } from '../redux/slice/userSlice';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const kakaoId =
@@ -29,6 +27,7 @@ const MainPrac = () => {
     accessToken,
     userId,
   };
+  console.log(sendingData);
 
   useEffect(() => {
     dispatch(LoadPost(sendingData));
@@ -40,15 +39,6 @@ const MainPrac = () => {
 
   return (
     <>
-      <NewProjectDiv>
-        <NewProjectGrid>
-          <SampleGrid onClick={() => setIsOpen(true)} />
-          <SampleGrid onClick={() => dispatch(sendTokenForHJ(accessToken))} />
-          <SampleGrid />
-          <SampleGrid />
-          <SampleGrid />
-        </NewProjectGrid>
-      </NewProjectDiv>
       <NewTemplateForm />
       <SplitDiv>
         <CurrentDoc>최근문서</CurrentDoc>
@@ -72,37 +62,6 @@ const MainPrac = () => {
     </>
   );
 };
-
-const NewProjectDiv = styled.div`
-  width: 100%;
-  height: 29%;
-  margin-top: 5em;
-  padding-top: 4em;
-  background-color: #e3e0ff;
-`;
-
-const NewProjectGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  width: 77%;
-  height: 82%;
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
-`;
-
-const SampleGrid = styled.div`
-  position: relative;
-  background: #fff;
-  background-size: cover;
-  border-radius: 25px;
-  width: 92.5%;
-  min-width: 106px;
-  height: 100%;
-  overflow: hidden;
-  z-index: 3;
-  cursor: pointer;
-`;
 
 const SplitDiv = styled.div`
   display: flex;

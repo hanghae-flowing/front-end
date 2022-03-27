@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { TestPut } from '../../redux/slice/postSlice';
 import { useRef } from 'react';
+import Heading from '../../components/textEditor/Heading';
 
 const fetch = () => {
   const textId =
@@ -39,12 +40,16 @@ const OrganizeSpace = () => {
     dispatch(TestPut(sendingData));
   };
 
-  return <TextDiv></TextDiv>;
+  return (
+    <TextDiv>
+      <Heading />
+    </TextDiv>
+  );
 };
 
 const TextDiv = styled.div`
   width: 1190px;
-  margin: 144px auto;
+  margin: 300px;
 `;
 
 export default OrganizeSpace;

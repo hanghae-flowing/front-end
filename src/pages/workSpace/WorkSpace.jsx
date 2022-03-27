@@ -10,11 +10,11 @@ const WorkSpace = props => {
   const dispatch = useDispatch();
   const location = useLocation();
   console.log(location);
-  const projectId = useLocation().state.projectId;
+  // const projectId = useLocation().state.projectId;
 
-  useEffect(() => {
-    dispatch(updateProjectId(projectId));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(updateProjectId(projectId));
+  // }, []);
 
   const onNext = () => {
     if (tab === 'mind') {

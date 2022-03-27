@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { URL } from '../../API';
 
 const userState = {
@@ -42,6 +43,16 @@ export const LoadMyInfo = createAsyncThunk(
       .then(res => console.log(res))
       .catch(err => err);
     return result;
+  },
+);
+
+export const sendTokenForHJ = createAsyncThunk(
+  'user/sendTokenForHJ',
+  async (data, thunkAPI) => {
+    await axios
+      .post('http://52.79.250.142', data)
+      .then(res => console.log(res))
+      .catch(err => err);
   },
 );
 

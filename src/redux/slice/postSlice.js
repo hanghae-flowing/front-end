@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { URL } from '../../API';
+import { createNewDocument } from './docSlice';
 
 const postState = {
   project: {},
@@ -70,10 +71,11 @@ export const CreateNewProject = createAsyncThunk(
     await URL.post('/project', sendingData)
       .then(res => {
         console.log(res);
-        const data = {
-          text: '시작',
+        const secondSendingData = {
+          projectId: parseInt(res.data.projectId),
         };
-        dispatch(TestPost(data));
+        sessionStorage.setItem('projectInfo', res.data.projectId);
+        dispatch(createNewDocument(secondSendingData));
         navigate(`/toast/${res.data.projectId}`);
       })
       .catch(err => console.log(err));

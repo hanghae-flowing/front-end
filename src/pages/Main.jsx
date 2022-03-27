@@ -7,6 +7,7 @@ import GridForm from '../components/form/GridForm';
 import { LoadPost } from '../redux/slice/postSlice';
 import { switchPage } from '../redux/slice/navSlice';
 import NewTemplateForm from '../components/form/NewTemplateForm';
+import { sendTokenForHJ } from '../redux/slice/userSlice';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
@@ -39,15 +40,15 @@ const MainPrac = () => {
 
   return (
     <>
-      {/* <NewProjectDiv>
+      <NewProjectDiv>
         <NewProjectGrid>
           <SampleGrid onClick={() => setIsOpen(true)} />
-          <SampleGrid />
+          <SampleGrid onClick={() => dispatch(sendTokenForHJ(accessToken))} />
           <SampleGrid />
           <SampleGrid />
           <SampleGrid />
         </NewProjectGrid>
-      </NewProjectDiv> */}
+      </NewProjectDiv>
       <NewTemplateForm />
       <SplitDiv>
         <CurrentDoc>최근문서</CurrentDoc>
@@ -90,6 +91,19 @@ const NewProjectGrid = styled.div`
   overflow: hidden;
 `;
 
+const SampleGrid = styled.div`
+  position: relative;
+  background: #fff;
+  background-size: cover;
+  border-radius: 25px;
+  width: 92.5%;
+  min-width: 106px;
+  height: 100%;
+  overflow: hidden;
+  z-index: 3;
+  cursor: pointer;
+`;
+
 const SplitDiv = styled.div`
   display: flex;
   width: 77%;
@@ -129,19 +143,6 @@ const ProjectDiv = styled.div`
   margin-right: auto;
   width: 77%;
   height: 100%;
-`;
-
-const SampleGrid = styled.div`
-  position: relative;
-  background: #fff;
-  background-size: cover;
-  border-radius: 25px;
-  width: 92.5%;
-  min-width: 106px;
-  height: 100%;
-  overflow: hidden;
-  z-index: 3;
-  cursor: pointer;
 `;
 
 export default MainPrac;

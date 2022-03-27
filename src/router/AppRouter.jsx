@@ -14,6 +14,7 @@ import Notice from '../pages/Notice';
 import Garbage from '../pages/Garbage';
 import Setting from '../pages/Setting';
 import Folder from '../pages/Folder';
+import ProposalPage from '../pages/workSpace/ProposalPage';
 
 function AppRouter() {
   return (
@@ -31,6 +32,7 @@ function AppRouter() {
         <Route path="/setting" element={<Setting />} />
 
         <Route path="toast/:projecId/*" element={<WorkSpace />}>
+          <Route path="proposal" element={<ProposalPage />} />
           <Route index element={<MindSpace />} />
           <Route path="mind-space" element={<MindSpace />} />
           <Route path="core-space" element={<CoreSpace />} />

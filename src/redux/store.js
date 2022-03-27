@@ -4,6 +4,7 @@ import navSlice from './slice/navSlice';
 import postSlice from './slice/postSlice';
 import spaceSlice from './slice/spaceSlice';
 import userSlice from './slice/userSlice';
+import docSlice from './slice/docSlice';
 
 export default configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export default configureStore({
     invite: inviteSlice,
     space: spaceSlice,
     nav: navSlice,
+    doc: docSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

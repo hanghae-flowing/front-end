@@ -3,6 +3,7 @@ import inviteSlice from './slice/inviteSlice';
 import navSlice from './slice/navSlice';
 import postSlice from './slice/postSlice';
 import spaceSlice from './slice/spaceSlice';
+import tampSlice from './slice/tampSlice';
 import userSlice from './slice/userSlice';
 
 export default configureStore({
@@ -12,6 +13,7 @@ export default configureStore({
     invite: inviteSlice,
     space: spaceSlice,
     nav: navSlice,
+    tamplate: tampSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

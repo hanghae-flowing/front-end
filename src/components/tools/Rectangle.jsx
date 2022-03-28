@@ -6,7 +6,6 @@ import { addNode, postNode } from '../../redux/slice/spaceSlice';
 const Rectangle = props => {
   const dispatch = useDispatch();
   const projectId = useSelector(state => state.space.projectId);
-  console.log(projectId);
   const node = {
     width: '120px',
     height: '60px',

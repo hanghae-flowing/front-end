@@ -13,7 +13,7 @@ import { ReactComponent as BackImg } from '../assets/icons/Back_light.svg';
 import { ReactComponent as ReturnImg } from '../assets/icons/Return_light.svg';
 import { ReactComponent as OutImg } from '../assets/icons/Out_light.svg';
 import { ReactComponent as LoginImg } from '../assets/icons/Sign_in.svg';
-import PopupMenu from './PopupMenu';
+import PopupMenu from './menu/PopupMenu';
 
 export const MainHeader = () => {
   const location = useLocation();

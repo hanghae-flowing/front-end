@@ -22,11 +22,16 @@ const NewTemplateForm = props => {
       ) : null}
       <StyledDiv>
         <GridWrap>
-          <NewProject onClick={handleToggle} />
-          <TemplateProject />
-          <TemplateProject />
-          <TemplateProject />
-          <TemplateProject />
+          <NewProject
+            onClick={handleToggle}
+            width="275px"
+            height="100%"
+            marginRight="25px"
+          />
+          <TemplateProject width="275px" height="100%" marginRight="25px" />
+          <TemplateProject width="275px" height="100%" marginRight="25px" />
+          <TemplateProject width="275px" height="100%" marginRight="25px" />
+          <TemplateProject width="275px" height="100%" marginRight="25px" />
         </GridWrap>
       </StyledDiv>
     </>

@@ -1,12 +1,19 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { createNewDocument } from '../../redux/slice/docSlice';
 import { NewProject, TemplateProject } from '../cards/NewProject';
 
 const TamplateList = () => {
   const isOpen = useSelector(state => state.tamplate.tampOpen);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const docSendingData = {
+    projectId: sessionStorage.getItem('projectInfo'),
+  };
+
   return (
     <StyledWrap toggle={isOpen}>
       <TemplateProject
@@ -32,6 +39,9 @@ const TamplateList = () => {
         height="180px"
         marginBottom="20px"
         title="기획서"
+        onClick={() => {
+          dispatch(createNewDocument({ docSendingData, navigate }));
+        }}
       />
       <NewProject
         onClick={() => console.log('클릭')}

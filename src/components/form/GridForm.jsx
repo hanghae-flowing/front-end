@@ -62,7 +62,7 @@ const ToastImage = styled.div`
   background-size: cover;
   border-radius: 25px;
   width: 100%;
-  height: 71%;
+  height: 150px;
   overflow: hidden;
 `;
 

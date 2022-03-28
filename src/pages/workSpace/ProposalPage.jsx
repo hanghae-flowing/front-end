@@ -1,15 +1,10 @@
+import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import AddingButton from '../../components/textEditor/AddingButton';
-import Heading from '../../components/textEditor/Heading';
-import HeadingMiddle from '../../components/textEditor/HeadingMiddle';
-import HeadingSmall from '../../components/textEditor/HeadingSmall';
-import ParagraphText from '../../components/textEditor/ParagraphText';
-import { createNewLine } from '../../redux/slice/docSlice';
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import { createNewLine } from '../../redux/slice/docSlice';
 import DefaultText from '../../components/textEditor/DefaultText';
-import { useState } from 'react';
 
 const fetch = () => {
   const documentId =
@@ -19,7 +14,7 @@ const fetch = () => {
 
 const ProposalPage = () => {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
+  const testRef = useRef();
 
   const { isLoading, data, isError, error, isFetching, isSuccess } = useQuery(
     'data',
@@ -29,6 +24,8 @@ const ProposalPage = () => {
     },
   );
 
+  // const [lineIndex, setLineIndex] = useState([data.data]);
+
   if (isLoading) {
     return <h2>Loading....</h2>;
   }
@@ -36,37 +33,62 @@ const ProposalPage = () => {
     return <h2>{error.message}</h2>;
   }
 
-  const createNewLineHandler = () => {
+  const h1Value = {
+    text: ' ',
+    weight: 700,
+    fontSize: 64,
+    color: '#7a7a7a',
+  };
+
+  const createNewLineHandler = val => {
+    const { text, weight, fontSize, color } = val;
+
     const sendingData = {
       documentId: sessionStorage.getItem('docInfo'),
-      text: '마마~~',
-      weight: 700,
-      fontSize: 64,
-      color: '#7a7a7a',
-      indexNum: 4,
+      text,
+      weight,
+      fontSize,
+      color,
+      indexNum: 0,
     };
     dispatch(createNewLine(sendingData));
   };
+  //api 수정 시급~ 프로젝트 오픈시 docInfo 받아와야함
 
   return (
     <TextBoxDiv>
-      <TextEditorDiv>
+      <TextEditorDiv ref={testRef}>
         {data.data &&
-          data.data.map(props => (
+          data.data.map((props, index) => (
             <DefaultText
-              key={props.indexNum}
+              key={index}
               lineId={props.lineId}
               documentId={props.documentId}
               text={props.text}
               weight={props.weight}
               fontSize={props.fontSize}
               color={props.color}
-              indexNum={props.indexNum}
+              indexNum={index}
             />
           ))}
       </TextEditorDiv>
-      <TestButton onClick={createNewLineHandler} />
-      <PlusButton onClick={createNewLineHandler} />
+      <AddingNewLineDiv>
+        <button
+          onClick={() => {
+            createNewLineHandler(h1Value);
+          }}
+        >
+          h1
+        </button>
+        <button>h2</button>
+        <button>ph1</button>
+        <button>ph2</button>
+        <button>date</button>
+        <button>p</button>
+        <button>l1</button>
+        <button>l2</button>
+        <button>l3</button>
+      </AddingNewLineDiv>
     </TextBoxDiv>
   );
 };
@@ -80,19 +102,18 @@ const TextBoxDiv = styled.div`
 
 const TextEditorDiv = styled.div`
   width: 945px;
-  margin: 155px, auto;
+  margin: 155px auto;
 `;
 
-const TestButton = styled.div`
-  background-color: #770000;
-  width: 24px;
-  height: 24px;
-`;
-
-const PlusButton = styled.div`
+const AddingNewLineDiv = styled.div`
   width: 380px;
   height: 100px;
   background-color: #4a4a4a;
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 18px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 30px;
+  cursor: pointer;
 `;
+
 export default ProposalPage;

@@ -9,6 +9,7 @@ import { updateProjectId } from '../../redux/slice/spaceSlice';
 const WorkSpace = props => {
   const dispatch = useDispatch();
   const location = useLocation();
+
   const projectInfo = useSelector(state => state.post.projectInfo);
 
   useEffect(() => {

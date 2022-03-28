@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { URL } from '../../API';
+import { createNewDocument } from './docSlice';
 
 const postState = {
   project: {},
@@ -50,19 +51,24 @@ export const OpenWorkSpace = createAsyncThunk(
   'post/OpenWorkSpace',
   async (projectId, thunkAPI) => {
     try {
-      return await URL.get(`/project/${projectId}`).then(res => res.data.info)
+      return await URL.get(`/project/${projectId}`).then(res => res.data.info);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   },
 );
 
 export const CreateNewProject = createAsyncThunk(
   'post/CreateNewProject',
-  async ({ sendingData, navigate }, thunkAPI) => {
+  async ({ sendingData, navigate }, { dispatch }, thunkAPI) => {
     await URL.post('/project', sendingData)
       .then(res => {
         console.log(res);
+        const secondSendingData = {
+          projectId: parseInt(res.data.projectId),
+        };
+        sessionStorage.setItem('projectInfo', res.data.projectId);
+        dispatch(createNewDocument(secondSendingData));
         navigate(`/workspace/${res.data.projectId}`);
       })
       .catch(err => console.log(err));
@@ -73,16 +79,6 @@ export const DeleteProject = createAsyncThunk(
   'post/DeleteProject',
   async ({ projectId }, thunkAPI) => {
     await URL.delete(`/project/${projectId}`);
-  },
-);
-
-export const TestPost = createAsyncThunk(
-  'post/TestPost',
-  async (text, thunkAPI) => {
-    await axios
-      .post(`http://13.209.41.157/api/test/text?data=${text}`, text)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
   },
 );
 
@@ -132,7 +128,7 @@ export const postSlice = createSlice({
       })
       .addCase(OpenWorkSpace.fulfilled, (state, action) => {
         state.projectInfo = action.payload;
-      })
+      });
   },
 });
 export const { setThumbnail } = postSlice.actions;

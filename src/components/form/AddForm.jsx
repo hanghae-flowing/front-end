@@ -28,7 +28,7 @@ const AddForm = ({ open, onClose, children }) => {
       objectId,
     };
 
-    dispatch(CreateNewProject({ sendingData, navigate }));
+    dispatch(CreateNewProject({ sendingData, navigate }, { dispatch }));
   };
 
   if (!open) return null;

@@ -64,7 +64,6 @@ export const spaceSlice = createSlice({
     },
     updateProjectId: (state, action) => {
       state.projectId = action.payload;
-      console.log(state.projectId)
     },
     deleteAction: (state, action) => {
       const nodeId = action.payload;

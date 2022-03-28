@@ -5,6 +5,7 @@ import { createNewDocument } from './docSlice';
 
 const postState = {
   project: {},
+  projectInfo: {},
 };
 const textId =
   sessionStorage.getItem('textInfo') && sessionStorage.getItem('textInfo');
@@ -15,7 +16,6 @@ export const LoadPost = createAsyncThunk(
     const result = await URL.post('/myproject', data)
       .then(res => res.data)
       .catch(err => console.log(err));
-    console.log(result);
     return result;
   },
 );
@@ -51,17 +51,12 @@ export const LoadBookmarkedPost = createAsyncThunk(
 
 export const OpenWorkSpace = createAsyncThunk(
   'post/OpenWorkSpace',
-  async (data, thunkAPI) => {
-    await URL.get(`/project/${data}`)
-      .then(res => {
-        sessionStorage.getItem('projectInfo') &&
-          sessionStorage.removeItem('projectInfo');
-        sessionStorage.setItem(
-          'projectInfo',
-          JSON.stringify(res.data.info.projectId),
-        );
-      })
-      .catch(err => console.log(err));
+  async (projectId, thunkAPI) => {
+    try {
+      return await URL.get(`/project/${projectId}`).then(res => res.data.info)
+    } catch (error) {
+      console.error(error)
+    }
   },
 );
 
@@ -154,7 +149,10 @@ export const postSlice = createSlice({
       })
       .addCase(DeleteProject.fulfilled, (state, action) => {
         console.log('delete');
-      });
+      })
+      .addCase(OpenWorkSpace.fulfilled, (state, action) => {
+        state.projectInfo = action.payload;
+      })
   },
 });
 export const { setThumbnail } = postSlice.actions;

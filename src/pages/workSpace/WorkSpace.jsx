@@ -8,9 +8,8 @@ import { updateProjectId } from '../../redux/slice/spaceSlice';
 const WorkSpace = props => {
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location);
-  const title = location.state.projectName;
-  console.log(title);
+
+  const title = 'title';
 
   useEffect(() => {
     const projectId = location.pathname.split('/')[2];

@@ -8,19 +8,7 @@ import axios from 'axios';
 const DefaultText = props => {
   const dispatch = useDispatch();
   const textRef = useRef();
-  const sendingData = {
-    text: textRef.current.value + ' ',
-    indexNum: props.indexNum,
-    weight: props.weight,
-    fontSize: props.fontSize,
-    color: props.color,
-  };
-  const { data } = useMutation(
-    axios.post(`/documentLines/${props.lineId}`, sendingData),
-    {
-      refetchInterval: 2000,
-    },
-  );
+
   const onChangeHandler = () => {
     const lineId = props.lineId;
     const sendingData = {

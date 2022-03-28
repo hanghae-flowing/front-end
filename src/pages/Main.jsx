@@ -31,7 +31,6 @@ const MainPrac = () => {
 
   useEffect(() => {
     dispatch(LoadPost(sendingData));
-    dispatch(switchPage('main'));
   }, [dispatch]);
 
   const projectList = useSelector(state => state.post.project);

@@ -2,13 +2,17 @@ import { useRef } from 'react';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { editLine } from '../../redux/slice/docSlice';
+import { deleteLine, editLine } from '../../redux/slice/docSlice';
 import axios from 'axios';
 import { queryClient } from '../../App';
 
 const DefaultText = props => {
   const dispatch = useDispatch();
   const textRef = useRef();
+
+  if (textRef.current.value.length === 0) {
+    dispatch(deleteLine(props.lineId));
+  }
   //마운트랜더링될때 언마운트될때 주소가같은 언마운트일때
   const onChangeHandler = () => {
     const lineId = props.lineId;
@@ -19,7 +23,6 @@ const DefaultText = props => {
       fontSize: props.fontSize,
       color: props.color,
     };
-    console.log(sendingData);
     dispatch(editLine({ sendingData, lineId }));
   };
 

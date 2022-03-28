@@ -45,6 +45,28 @@ export const editLine = createAsyncThunk(
   },
 );
 
+export const openDoc = createAsyncThunk(
+  'doc/openDoc',
+  async ({ docSendingData, navigate }, thunkAPI) => {
+    try {
+      const result = await URL.get(`/document/${docSendingData.projectId}`);
+      navigate('proposal');
+      return result;
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
+
+export const deleteLine = createAsyncThunk(
+  'doc/deleteLine',
+  async (sendingData, thunkAPI) => {
+    await URL.delete(`documentLines/${sendingData}`)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  },
+);
+
 export const docSlice = createSlice({
   name: 'doc',
   initialState: docState,

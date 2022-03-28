@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { createNewDocument } from '../../redux/slice/docSlice';
+import { createNewDocument, openDoc } from '../../redux/slice/docSlice';
 import { NewProject, TemplateProject } from '../cards/NewProject';
 
 const TamplateList = () => {
@@ -40,7 +40,7 @@ const TamplateList = () => {
         marginBottom="20px"
         title="기획서"
         onClick={() => {
-          dispatch(createNewDocument({ docSendingData, navigate }));
+          dispatch(openDoc({ docSendingData, navigate }));
         }}
       />
       <NewProject

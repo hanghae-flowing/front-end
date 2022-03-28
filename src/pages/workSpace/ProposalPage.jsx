@@ -14,7 +14,6 @@ const fetch = () => {
 
 const ProposalPage = () => {
   const dispatch = useDispatch();
-  const testRef = useRef();
 
   const { isLoading, data, isError, error, isFetching, isSuccess } = useQuery(
     'data',
@@ -23,8 +22,6 @@ const ProposalPage = () => {
       refetchInterval: 2000,
     },
   );
-
-  // const [lineIndex, setLineIndex] = useState([data.data]);
 
   if (isLoading) {
     return <h2>Loading....</h2>;
@@ -57,7 +54,7 @@ const ProposalPage = () => {
 
   return (
     <TextBoxDiv>
-      <TextEditorDiv ref={testRef}>
+      <TextEditorDiv>
         {data.data &&
           data.data.map((props, index) => (
             <DefaultText

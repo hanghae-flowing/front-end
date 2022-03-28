@@ -64,6 +64,11 @@ export const CreateNewProject = createAsyncThunk(
     await URL.post('/project', sendingData)
       .then(res => {
         console.log(res);
+        const secondSendingData = {
+          projectId: parseInt(res.data.projectId),
+        };
+        sessionStorage.setItem('projectInfo', res.data.projectId);
+        dispatch(createNewDocument(secondSendingData));
         navigate(`/workspace/${res.data.projectId}`);
       })
       .catch(err => console.log(err));

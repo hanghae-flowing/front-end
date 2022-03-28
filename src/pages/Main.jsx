@@ -26,7 +26,6 @@ const MainPrac = () => {
     accessToken,
     userId,
   };
-  console.log(sendingData);
 
   useEffect(() => {
     dispatch(LoadPost(sendingData));

@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as SaveImg } from '../assets/icons/Save_light.svg';
-import { ReactComponent as DownloadImg } from '../assets/icons/Download_light.svg';
-import { ReactComponent as TamplateImg } from '../assets/icons/Tamplate_line.svg';
-import { ReactComponent as LogoutImg } from '../assets/icons/Sign_out.svg';
+import { ReactComponent as SaveImg } from '../../assets/icons/Save_light.svg';
+import { ReactComponent as DownloadImg } from '../../assets/icons/Download_light.svg';
+import { ReactComponent as TamplateImg } from '../../assets/icons/Tamplate_line.svg';
+import { ReactComponent as LogoutImg } from '../../assets/icons/Sign_out.svg';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { kakaoLogout } from '../redux/slice/userSlice';
-import { userInfo } from '../API';
+import { kakaoLogout } from '../../redux/slice/userSlice';
+import { userInfo } from '../../API';
+import { isOpen } from '../../redux/slice/tampSlice';
 
 const PopupMenu = props => {
   const dispatch = useDispatch();
@@ -19,8 +20,12 @@ const PopupMenu = props => {
     });
   };
 
+  const opneTamplate = () => {
+    dispatch(isOpen());
+  };
+
   return (
-    <StyledWrap onClick={props.onClick}>
+    <StyledWrap>
       <Tab>
         <p>저장하기</p>
         <SaveImg />
@@ -29,7 +34,7 @@ const PopupMenu = props => {
         <p>다운로드</p>
         <DownloadImg />
       </Tab>
-      <Tab>
+      <Tab onClick={opneTamplate}>
         <p>템플릿</p>
         <TamplateImg />
       </Tab>

@@ -3,7 +3,13 @@ import styled from 'styled-components';
 
 export const NewProject = props => {
   return (
-    <StyledWrap onClick={props.onClick}>
+    <StyledWrap
+      onClick={props.onClick}
+      width={props.width}
+      height={props.height}
+      marginRight={props.marginRight}
+      marginBottom={props.marginBottom}
+    >
       <div>새 프로젝트</div>
     </StyledWrap>
   );
@@ -11,18 +17,25 @@ export const NewProject = props => {
 
 export const TemplateProject = props => {
   return (
-    <StyledWrap onClick={props.onClick}>
-      <div>템플릿</div>
+    <StyledWrap
+      onClick={props.onClick}
+      width={props.width}
+      height={props.height}
+      marginRight={props.marginRight}
+      marginBottom={props.marginBottom}
+    >
+      <div>{props.title}</div>
     </StyledWrap>
   );
 };
 
 const StyledWrap = styled.div`
-  width: 275px;
-  height: 180px;
+  width: ${props => props.width};
+  height: ${props => props.height};
   background-color: #fff;
   border-radius: 25px;
-  margin-right: 25px;
+  margin-right: ${props => props.marginRight};
+  margin-bottom: ${props => props.marginBottom};
   cursor: pointer;
   display: flex;
   align-items: center;

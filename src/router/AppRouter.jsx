@@ -5,15 +5,15 @@ import Landing from '../pages/Landing';
 import Main from '../pages/Main';
 import WorkSpace from '../pages/workSpace/WorkSpace';
 import Login from '../pages/user/Login';
-import MindSpace from '../pages/workSpace/MindSpace';
-import CoreSpace from '../pages/workSpace/CoreSpace';
+import MindMap from '../pages/workSpace/MindMap';
 import OrganizeSpace from '../pages/workSpace/OrganizeSpace';
 import LoginProgress from '../pages/user/LoginProgress';
-import Nav from '../components/Nav';
+import Nav from '../components/menu/Nav';
 import Notice from '../pages/Notice';
 import Garbage from '../pages/Garbage';
 import Setting from '../pages/Setting';
 import Folder from '../pages/Folder';
+import GapAnalysis from '../pages/workSpace/GapAnalysis';
 
 function AppRouter() {
   return (
@@ -31,10 +31,10 @@ function AppRouter() {
         <Route path="/setting" element={<Setting />} />
 
         <Route path="workspace/:projecId/*" element={<WorkSpace />}>
-          <Route index element={<MindSpace />} />
-          <Route path="mind-space" element={<MindSpace />} />
-          <Route path="core-space" element={<CoreSpace />} />
-          <Route path="organize-space" element={<OrganizeSpace />} />
+          <Route index element={<MindMap />} />
+          <Route path="mindmap" element={<MindMap />} />
+          <Route path="gap" element={<GapAnalysis />} />
+          <Route path="organize-space/:Id" element={<OrganizeSpace />} />
         </Route>
       </Routes>
     </BrowserRouter>

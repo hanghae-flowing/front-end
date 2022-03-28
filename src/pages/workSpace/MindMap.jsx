@@ -7,7 +7,7 @@ import ToolBox from '../../components/tools/ToolBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNode } from '../../redux/slice/spaceSlice';
 
-const MindSpace = () => {
+const MindMap = () => {
   const dispatch = useDispatch();
   const projectId = useSelector(state => state.space.projectId);
   useEffect(() => {
@@ -44,4 +44,4 @@ const MindSpace = () => {
   );
 };
 
-export default MindSpace;
+export default MindMap;

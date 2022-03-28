@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { userInfo } from '../API';
-import { ReactComponent as SearchImg } from '../assets/icons/Search_duotone_line.svg';
-import { ReactComponent as LogoutImg } from '../assets/icons/Sign_out.svg';
-import { ReactComponent as SettingImg } from '../assets/icons/Setting_line_light.svg';
-import { ReactComponent as GarbageImg } from '../assets/icons/Trash_light.svg';
-import { ReactComponent as AllImg } from '../assets/icons/Widget_light.svg';
+import { userInfo } from '../../API';
+import { ReactComponent as SearchImg } from '../../assets/icons/Search_duotone_line.svg';
+import { ReactComponent as LogoutImg } from '../../assets/icons/Sign_out.svg';
+import { ReactComponent as SettingImg } from '../../assets/icons/Setting_line_light.svg';
+import { ReactComponent as GarbageImg } from '../../assets/icons/Trash_light.svg';
+import { ReactComponent as AllImg } from '../../assets/icons/Widget_light.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { kakaoLogout } from '../redux/slice/userSlice';
+import { kakaoLogout } from '../../redux/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 const Nav = () => {
@@ -23,18 +23,29 @@ const Nav = () => {
       navigate('/login');
     });
   };
+
+  const nickname =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).nickname;
+  const email =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).Email;
+  const profileImg =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).ProfileImageURL;
+
   return (
     <StyledWrap toggle={tabbed}>
       {isLogin ? (
         <FlexDiv padding="0 0 20px 0">
-          {/* <ProfileCircle>
+          <ProfileCircle>
             <ProfileImage
-              bgImg={isLogin ? `url(${userInfo.ProfileImageURL})` : `none`}
+              bgImg={isLogin ? `url(${profileImg})` : `none`}
             ></ProfileImage>
-          </ProfileCircle> */}
-          <FlexDiv column={true} justify="space-between">
-            <Nickname>{userInfo.nickname}</Nickname>
-            <Email>{userInfo.Email}</Email>
+          </ProfileCircle>
+          <FlexDiv column={true} justify="space-between" padding="0 0 0 10px;">
+            <Nickname>{nickname}</Nickname>
+            <Email>{email}</Email>
           </FlexDiv>
         </FlexDiv>
       ) : (
@@ -115,8 +126,8 @@ const FlexDiv = styled.div`
 `;
 
 const ProfileCircle = styled.div`
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   border-radius: 60px;
   background-color: #4222b9;
   overflow: hidden;

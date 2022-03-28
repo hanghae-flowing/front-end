@@ -4,14 +4,21 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { createNewDocument, openDoc } from '../../redux/slice/docSlice';
 import { NewProject, TemplateProject } from '../cards/NewProject';
+import { useLocation } from 'react-router-dom';
 
 const TamplateList = () => {
   const isOpen = useSelector(state => state.tamplate.tampOpen);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
-  const docSendingData = {
-    projectId: sessionStorage.getItem('projectInfo'),
+  const docOpenHandler = () => {
+    const projectId = location.pathname.split('/')[2];
+    console.log(projectId);
+    const docSendingData = {
+      projectId,
+    };
+    dispatch(openDoc({ docSendingData, navigate }));
   };
 
   return (
@@ -39,9 +46,7 @@ const TamplateList = () => {
         height="180px"
         marginBottom="20px"
         title="기획서"
-        onClick={() => {
-          dispatch(openDoc({ docSendingData, navigate }));
-        }}
+        onClick={docOpenHandler}
       />
       <NewProject
         onClick={() => console.log('클릭')}

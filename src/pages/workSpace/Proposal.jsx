@@ -30,12 +30,12 @@ const ProposalPage = () => {
     return <h2>{error.message}</h2>;
   }
 
-  const h1Value = {
-    text: ' ',
-    weight: 700,
-    fontSize: 64,
-    color: '#7a7a7a',
-  };
+  // const h1Value = {
+  //   text: ' ',
+  //   weight: 700,
+  //   fontSize: 64,
+  //   color: '#7a7a7a',
+  // };
 
   const createNewLineHandler = val => {
     const { text, weight, fontSize, color } = val;
@@ -69,7 +69,7 @@ const ProposalPage = () => {
             />
           ))}
       </TextEditorDiv>
-      <AddingNewLineDiv>
+      {/* <AddingNewLineDiv>
         <button
           onClick={() => {
             createNewLineHandler(h1Value);
@@ -85,7 +85,7 @@ const ProposalPage = () => {
         <button>l1</button>
         <button>l2</button>
         <button>l3</button>
-      </AddingNewLineDiv>
+      </AddingNewLineDiv> */}
     </TextBoxDiv>
   );
 };

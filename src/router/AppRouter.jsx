@@ -12,7 +12,7 @@ import Notice from '../pages/Notice';
 import Garbage from '../pages/Garbage';
 import Setting from '../pages/Setting';
 import Folder from '../pages/Folder';
-import ProposalPage from '../pages/workSpace/ProposalPage';
+import Proposal from '../pages/workSpace/Proposal';
 import GapAnalysis from '../pages/workSpace/GapAnalysis';
 
 function AppRouter() {
@@ -33,7 +33,7 @@ function AppRouter() {
           <Route index element={<MindMap />} />
           <Route path="mindmap" element={<MindMap />} />
           <Route path="gap" element={<GapAnalysis />} />
-          <Route path="proposal" element={<ProposalPage />} />
+          <Route path="proposal" element={<Proposal />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -42,8 +42,7 @@ const ToastGridForm = props => {
       <ToastMenu />
       <ToastImage onClick={onClickHandler}></ToastImage>
       <ToastTitle>{projectName}</ToastTitle>
-      <ToastTime>{displayCreatedAt(modifiedAt)}</ToastTime>
-      <ToastDate>{memberList}</ToastDate>
+      <ToastDate>{displayCreatedAt(modifiedAt)}</ToastDate>
     </Wrapper>
   );
 };
@@ -77,22 +76,6 @@ const ToastTitle = styled.h3`
   top: 0.5em;
   overflow: hidden;
   color: #818181;
-`;
-
-const ToastTime = styled.p`
-  position: absolute;
-  width: 88px;
-  left: 60%;
-  top: 79%;
-  font-weight: 400;
-  font-size: 1.1em;
-  line-height: 1.3em;
-  text-align: right;
-  color: #c4c4c4;
-
-  @media ${({ theme }) => theme.device.tablet} {
-    left: 30%;
-  }
 `;
 
 const ToastDate = styled.p`

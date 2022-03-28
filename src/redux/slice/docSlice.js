@@ -51,7 +51,8 @@ export const openDoc = createAsyncThunk(
     try {
       const result = await URL.get(`/document/${docSendingData.projectId}`);
       navigate('proposal');
-      return result;
+      console.log(result.data);
+      sessionStorage.setItem('docInfo', result.data);
     } catch (err) {
       console.log(err);
     }
@@ -73,4 +74,5 @@ export const docSlice = createSlice({
   reducer: {},
   extraReducers: builder => {},
 });
+
 export default docSlice.reducer;

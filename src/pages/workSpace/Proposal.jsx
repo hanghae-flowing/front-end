@@ -8,7 +8,9 @@ import DefaultText from '../../components/textEditor/DefaultText';
 
 const fetch = () => {
   const documentId =
-    sessionStorage.getItem('docInfo') && sessionStorage.getItem('docInfo');
+    sessionStorage.getItem('docInfo') &&
+    JSON.parse(sessionStorage.getItem('docInfo')).documentId;
+
   return axios.get(`http://13.209.41.157/documentLines/${documentId}`);
 };
 
@@ -22,6 +24,7 @@ const ProposalPage = () => {
       refetchInterval: 2000,
     },
   );
+  console.log(data);
 
   if (isLoading) {
     return <h2>Loading....</h2>;
@@ -30,18 +33,18 @@ const ProposalPage = () => {
     return <h2>{error.message}</h2>;
   }
 
-  // const h1Value = {
-  //   text: ' ',
-  //   weight: 700,
-  //   fontSize: 64,
-  //   color: '#7a7a7a',
-  // };
+  const h1Value = {
+    text: ' ',
+    weight: 700,
+    fontSize: 64,
+    color: '#7a7a7a',
+  };
 
   const createNewLineHandler = val => {
     const { text, weight, fontSize, color } = val;
 
     const sendingData = {
-      documentId: sessionStorage.getItem('docInfo'),
+      documentId: JSON.parse(sessionStorage.getItem('docInfo')).documentId,
       text,
       weight,
       fontSize,
@@ -50,7 +53,6 @@ const ProposalPage = () => {
     };
     dispatch(createNewLine(sendingData));
   };
-  //api 수정 시급~ 프로젝트 오픈시 docInfo 받아와야함
 
   return (
     <TextBoxDiv>
@@ -69,7 +71,7 @@ const ProposalPage = () => {
             />
           ))}
       </TextEditorDiv>
-      {/* <AddingNewLineDiv>
+      <AddingNewLineDiv>
         <button
           onClick={() => {
             createNewLineHandler(h1Value);
@@ -85,7 +87,7 @@ const ProposalPage = () => {
         <button>l1</button>
         <button>l2</button>
         <button>l3</button>
-      </AddingNewLineDiv> */}
+      </AddingNewLineDiv>
     </TextBoxDiv>
   );
 };

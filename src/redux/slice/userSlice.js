@@ -46,16 +46,6 @@ export const LoadMyInfo = createAsyncThunk(
   },
 );
 
-export const sendTokenForHJ = createAsyncThunk(
-  'user/sendTokenForHJ',
-  async (data, thunkAPI) => {
-    await axios
-      .post('http://52.79.250.142', data)
-      .then(res => console.log(res))
-      .catch(err => err);
-  },
-);
-
 export const setLogin = createAsyncThunk('user/setLogin', async () => {});
 
 export const userSlice = createSlice({

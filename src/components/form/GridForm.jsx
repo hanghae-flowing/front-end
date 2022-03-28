@@ -60,9 +60,10 @@ const ToastImage = styled.div`
   background: #c4c4c4;
   background-size: cover;
   border-radius: 25px;
-  width: 100%;
+  width: 230px;
   height: 150px;
   overflow: hidden;
+  margin-right: 25px;
 `;
 
 const ToastTitle = styled.h3`

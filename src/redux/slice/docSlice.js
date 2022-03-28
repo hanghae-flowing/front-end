@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { URL } from '../../API';
+
 const docState = {
   docs: [],
 };
@@ -52,7 +53,11 @@ export const openDoc = createAsyncThunk(
       const result = await URL.get(`/document/${docSendingData.projectId}`);
       navigate('proposal');
       console.log(result.data);
-      sessionStorage.setItem('docInfo', result.data);
+
+      sessionStorage.setItem(
+        'docInfo',
+        JSON.stringify(result.data.documentIdList[0]),
+      );
     } catch (err) {
       console.log(err);
     }
@@ -72,7 +77,11 @@ export const docSlice = createSlice({
   name: 'doc',
   initialState: docState,
   reducer: {},
-  extraReducers: builder => {},
+  extraReducers: builder => {
+    builder.addCase(openDoc.fulfilled, (state, action) => {
+      state.docs = action.payload;
+    });
+  },
 });
 
 export default docSlice.reducer;

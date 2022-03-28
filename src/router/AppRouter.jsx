@@ -14,6 +14,7 @@ import Setting from '../pages/Setting';
 import Folder from '../pages/Folder';
 import Proposal from '../pages/workSpace/Proposal';
 import GapAnalysis from '../pages/workSpace/GapAnalysis';
+import SwotAnalysis from '../pages/workSpace/SwotAnalysis';
 
 function AppRouter() {
   return (
@@ -33,7 +34,8 @@ function AppRouter() {
           <Route index element={<MindMap />} />
           <Route path="mindmap" element={<MindMap />} />
           <Route path="gap" element={<GapAnalysis />} />
-          <Route path="proposal" element={<Proposal />} />
+          <Route path="proposal/:documentId" element={<Proposal />} />
+          <Route path="swot:/swotId" element={<SwotAnalysis />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -6,7 +6,6 @@ import GridForm from '../components/form/GridForm';
 import { LoadPost } from '../redux/slice/postSlice';
 import { switchPage } from '../redux/slice/navSlice';
 import NewTemplateForm from '../components/form/NewTemplateForm';
-import { sendTokenForHJ } from '../redux/slice/userSlice';
 
 const MainPrac = () => {
   const dispatch = useDispatch();

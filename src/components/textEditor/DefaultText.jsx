@@ -10,9 +10,9 @@ const DefaultText = props => {
   const dispatch = useDispatch();
   const textRef = useRef();
 
-  if (textRef.current.value.length === 0) {
-    dispatch(deleteLine(props.lineId));
-  }
+  // if (textRef != null && textRef.current.value.length === 0) {
+  //   dispatch(deleteLine(props.lineId));
+  // }
   //마운트랜더링될때 언마운트될때 주소가같은 언마운트일때
   const onChangeHandler = () => {
     const lineId = props.lineId;
@@ -35,7 +35,7 @@ const DefaultText = props => {
       weight={props.weight}
       fontSize={props.fontSize}
       id={props.documnetId}
-      placeholder="선주짱"
+      placeholder="type"
     />
   );
 };

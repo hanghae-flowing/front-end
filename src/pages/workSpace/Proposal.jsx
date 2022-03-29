@@ -24,7 +24,6 @@ const ProposalPage = () => {
       refetchInterval: 2000,
     },
   );
-  console.log(data);
 
   if (isLoading) {
     return <h2>Loading....</h2>;

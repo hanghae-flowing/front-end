@@ -6,6 +6,7 @@ import spaceSlice from './slice/spaceSlice';
 import tampSlice from './slice/tampSlice';
 import userSlice from './slice/userSlice';
 import docSlice from './slice/docSlice';
+import { swotSlice } from './slice/swotSlice';
 
 export default configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export default configureStore({
     nav: navSlice,
     doc: docSlice,
     tamplate: tampSlice,
+    swot: swotSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

@@ -90,10 +90,10 @@ const ToastDate = styled.p`
 
 const ToastMenu = styled.div`
   position: absolute;
-  left: 81%;
+  left: 70%;
   top: 6%;
-  width: 1.8em;
-  height: 1.8em;
+  width: 24px;
+  height: 24px;
   background: #fff;
   border-radius: 6px;
   &:hover {

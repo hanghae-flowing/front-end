@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { GapToolBox } from '../../components/tools/ToolBox';
 
 const GapAnalysis = () => {
   return (
@@ -12,6 +13,7 @@ const GapAnalysis = () => {
           <p>TO-BE</p>
         </GapWrap>
       </StyledWrap>
+      <GapToolBox />
     </StyledDiv>
   );
 };
@@ -24,6 +26,8 @@ const StyledDiv = styled.div`
 
 const StyledWrap = styled.div`
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
   background-color: #e3e3e3;
   display: flex;
   justify-content: space-between;

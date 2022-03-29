@@ -3,18 +3,18 @@ import SpaceWrap from '../../components/container/SpaceWrap';
 import Frame from '../../components/container/Frame';
 import Viewport from '../../components/container/Viewport';
 import Square from '../../components/modules/Square';
-import ToolBox from '../../components/tools/ToolBox';
+import { MindMapToolBox } from '../../components/tools/ToolBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNode } from '../../redux/slice/spaceSlice';
+import { getNode } from '../../redux/slice/nodeSlice';
 
 const MindMap = () => {
   const dispatch = useDispatch();
-  const projectId = useSelector(state => state.space.projectId);
+  const projectId = useSelector(state => state.node.projectId);
   useEffect(() => {
     dispatch(getNode(projectId)).then(res => console.log(res));
   }, []);
 
-  let nodeObject = useSelector(state => state.space.node);
+  let nodeObject = useSelector(state => state.node.node);
   console.log(nodeObject);
   return (
     <SpaceWrap>
@@ -39,7 +39,7 @@ const MindMap = () => {
             ))}
         </Viewport>
       </Frame>
-      <ToolBox projectId={projectId} />
+      <MindMapToolBox projectId={projectId} />
     </SpaceWrap>
   );
 };

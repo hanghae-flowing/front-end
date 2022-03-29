@@ -5,7 +5,7 @@ import {
   editNode,
   deleteAction,
   deleteNode,
-} from '../../redux/slice/spaceSlice';
+} from '../../redux/slice/nodeSlice';
 
 const Square = props => {
   const [onPress, setOnPress] = useState(false);

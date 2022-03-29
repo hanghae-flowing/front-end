@@ -1,14 +1,28 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { getTemplate, isModal } from '../../redux/slice/tempSlice';
 import { NewProject, TemplateProject } from '../cards/NewProject';
+import AddTemplate from '../form/AddTemplate';
 
-const TamplateList = () => {
-  const isOpen = useSelector(state => state.tamplate.tampOpen);
+const TemplateList = props => {
+  const isOpen = useSelector(state => state.template.tempOpen);
+  const addOpen = useSelector(state => state.template.addOpen);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTemplate(props.projectId));
+  }, [dispatch]);
   return (
     <StyledWrap toggle={isOpen}>
+      {addOpen ? (
+        <AddTemplate
+          onClick={() => dispatch(isModal(false))}
+          projectId={props.projectId}
+        />
+      ) : null}
       <TemplateProject
         width="100%"
         height="180px"
@@ -34,7 +48,7 @@ const TamplateList = () => {
         title="기획서"
       />
       <NewProject
-        onClick={() => console.log('클릭')}
+        onClick={() => dispatch(isModal(true))}
         width="100%"
         height="180px"
         marginBottom="20px"
@@ -69,4 +83,4 @@ const StyledWrap = styled.div`
   }
 `;
 
-export default TamplateList;
+export default TemplateList;

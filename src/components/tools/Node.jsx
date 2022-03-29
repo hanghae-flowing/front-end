@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { addNode, postNode } from '../../redux/slice/spaceSlice';
+import { addNode, postNode } from '../../redux/slice/nodeSlice';
 
-const Rectangle = props => {
+const Node = props => {
   const dispatch = useDispatch();
-  const projectId = useSelector(state => state.space.projectId);
+  const projectId = useSelector(state => state.node.projectId);
   const node = {
     width: '120px',
     height: '60px',
@@ -68,4 +68,4 @@ const Rect = styled.div`
   background-color: #eee;
 `;
 
-export default Rectangle;
+export default Node;

@@ -2,8 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import inviteSlice from './slice/inviteSlice';
 import navSlice from './slice/navSlice';
 import postSlice from './slice/postSlice';
-import spaceSlice from './slice/spaceSlice';
-import tampSlice from './slice/tampSlice';
+import nodeSlice from './slice/nodeSlice';
+import tempSlice from './slice/tempSlice';
 import userSlice from './slice/userSlice';
 
 export default configureStore({
@@ -11,9 +11,9 @@ export default configureStore({
     user: userSlice,
     post: postSlice,
     invite: inviteSlice,
-    space: spaceSlice,
+    node: nodeSlice,
     nav: navSlice,
-    tamplate: tampSlice,
+    template: tempSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

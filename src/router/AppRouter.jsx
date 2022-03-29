@@ -6,7 +6,6 @@ import Main from '../pages/Main';
 import WorkSpace from '../pages/workSpace/WorkSpace';
 import Login from '../pages/user/Login';
 import MindMap from '../pages/workSpace/MindMap';
-import OrganizeSpace from '../pages/workSpace/OrganizeSpace';
 import LoginProgress from '../pages/user/LoginProgress';
 import Nav from '../components/menu/Nav';
 import Notice from '../pages/Notice';
@@ -31,10 +30,8 @@ function AppRouter() {
         <Route path="/setting" element={<Setting />} />
 
         <Route path="workspace/:projecId/*" element={<WorkSpace />}>
-          <Route index element={<MindMap />} />
-          <Route path="mindmap" element={<MindMap />} />
+          <Route path="mindmap/:id" element={<MindMap />} />
           <Route path="gap" element={<GapAnalysis />} />
-          <Route path="organize-space/:Id" element={<OrganizeSpace />} />
         </Route>
       </Routes>
     </BrowserRouter>

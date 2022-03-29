@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { WorkHeader } from '../../components/Header';
-import TamplateList from '../../components/menu/TamplateList';
-import { updateProjectId } from '../../redux/slice/spaceSlice';
+import TemplateList from '../../components/menu/TemplateList';
+import { updateProjectId } from '../../redux/slice/nodeSlice';
 
 const WorkSpace = props => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const projectInfo = useSelector(state => state.post.projectInfo);
+  console.log(projectInfo);
 
   useEffect(() => {
-    const projectId = location.pathname.split('/')[2];
-    dispatch(updateProjectId(projectId));
+    dispatch(updateProjectId(projectInfo.projectId));
   }, []);
 
   return (
     <SpaceWrap>
       <WorkHeader title={projectInfo.projectName} />
-      <TamplateList />
+      <TemplateList projectId={projectInfo.projectId} />
       <Outlet />
     </SpaceWrap>
   );

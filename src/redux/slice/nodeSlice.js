@@ -1,6 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { URL } from '../../API';
 
+export const postNodeTable = createAsyncThunk(
+  "node/table/post",
+  async(projectId, {rejectWithValue}) => {
+    try {
+      return await URL.post(`/nodeTable/${projectId}`).then((response) => response.data);
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue(error.response);
+    };
+  }
+);
+
 export const postNode = createAsyncThunk(
   "node/post",
   async(_, { rejectWithValue}) => {
@@ -48,8 +60,8 @@ export const deleteNode = createAsyncThunk(
   }
 )
 
-export const spaceSlice = createSlice({
-  name: "space",
+export const nodeSlice = createSlice({
+  name: "node",
   initialState:{
     projectId:"",
     nodeId:"",
@@ -88,9 +100,12 @@ export const spaceSlice = createSlice({
       .addCase(deleteNode.fulfilled, (state, action) => {
         console.log(action.payload);
       })
+      .addCase(postNodeTable.fulfilled, (state, action) => {
+        console.log(action.payload);
+      })
   }
 })
 
-export const { addNode, updateProjectId, deleteAction } = spaceSlice.actions;
+export const { addNode, updateProjectId, deleteAction } = nodeSlice.actions;
 
-export default spaceSlice.reducer;
+export default nodeSlice.reducer;

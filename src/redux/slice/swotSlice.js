@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { URL } from '../../API';
 
 const swotState = {
@@ -9,19 +10,25 @@ export const createNewSwot = createAsyncThunk(
   'swot/createNewSwot',
   async (swotSendingData, thunkAPI) => {
     try {
-      return await URL.post(`/swot/${swotSendingData.projectId}`).then(res => {
-        console.log(res);
-        sessionStorage.setItem('swotInfo', res);
-      });
+      return await axios
+        .post(`http://52.79.250.142/swot/${swotSendingData.projectId}`)
+        .then(res => {
+          console.log(res);
+          sessionStorage.setItem('swotInfo', res.data.swotId);
+        });
     } catch (err) {
       console.error(err);
     }
   },
 );
 
-export const docSlice = createSlice({
+export const swotSlice = createSlice({
   name: 'doc',
   initialState: swotState,
   reducer: {},
-  extraReducers: builder => {},
+  extraReducers: builder => {
+    builder.addCase(createNewSwot.fulfilled, (state, action) => {
+      state.swot = action.payload;
+    });
+  },
 });

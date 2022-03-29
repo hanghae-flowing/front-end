@@ -29,6 +29,7 @@ const TamplateList = () => {
       projectId,
     };
     dispatch(createNewSwot(swotSendingData));
+    navigate('swot');
   };
 
   return (

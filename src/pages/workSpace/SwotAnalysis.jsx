@@ -1,11 +1,36 @@
 import axios from 'axios';
 import styled from 'styled-components';
+import { useQuery } from 'react-query';
+import { useSelector } from 'react-redux';
 
 const fetch = () => {
-  return axios.get(``);
+  const swotId = sessionStorage.getItem('swotInfo');
+
+  return axios.get(`http://52.79.250.142/swot/${swotId}`);
 };
 
 const SwotAnalysis = () => {
+  const { isLoading, data, isError, error, isFetching, isSuccess } = useQuery(
+    'data',
+    fetch,
+    {
+      refetchInterval: 2000,
+    },
+  );
+
+  console.log(data);
+
+  if (isLoading) {
+    return <h2>Loading....</h2>;
+  }
+  if (isError) {
+    return <h2>{error.message}</h2>;
+  }
+
+  const swotStrengthList = data.data.strengthDtoList[0];
+  const swotWeaknessList = data.data.weaknessDtoList[0];
+  const swotOpportunityhList = data.data.opportunityDtoList[0];
+  const swotThreatList = data.data.threatDtoList[0];
   return (
     <Wrapper>
       <ColWrapper>
@@ -27,35 +52,31 @@ const SwotAnalysis = () => {
       <GridWrapper>
         <SwotDiv>
           <TableTitle>Strength 내부 강점을 적어주세요</TableTitle>
-          <TableText></TableText>
-          <TableText></TableText>
-          <TableText></TableText>
-          <TableText></TableText>
-          <TableText></TableText>
+          {swotStrengthList &&
+            swotStrengthList.map((props, index) => (
+              <TableText key={index} defaultValue={props.text}></TableText>
+            ))}
         </SwotDiv>
         <SwotDiv>
           <TableTitle>Weakness 내부 약점을 적어주세요</TableTitle>
-          <TableText></TableText>
-          <TableText></TableText>
-          <TableText></TableText>
-          <TableText></TableText>
-          <TableText></TableText>
+          {swotWeaknessList &&
+            swotWeaknessList.map((props, index) => (
+              <TableText key={index} defaultValue={props.text}></TableText>
+            ))}
         </SwotDiv>
         <SwotDiv>
           <TableTitle>Opportunity 외부 기회를 적어주세요</TableTitle>
-          <TableText></TableText>
-          <TableText></TableText>
-          <TableText></TableText>
-          <TableText></TableText>
-          <TableText></TableText>
+          {swotOpportunityhList &&
+            swotOpportunityhList.map((props, index) => (
+              <TableText key={index} defaultValue={props.text}></TableText>
+            ))}
         </SwotDiv>
         <SwotDiv>
           <TableTitle>Treat 외부 위협을 적어주세요</TableTitle>
-          <TableText></TableText>
-          <TableText></TableText>
-          <TableText></TableText>
-          <TableText></TableText>
-          <TableText></TableText>
+          {swotThreatList &&
+            swotThreatList.map((props, index) => (
+              <TableText key={index} defaultValue={props.text}></TableText>
+            ))}
         </SwotDiv>
       </GridWrapper>
     </Wrapper>
@@ -138,13 +159,16 @@ const TableTitle = styled.h3`
 
   color: #6c6c6c;
 `;
-const TableText = styled.p`
+const TableText = styled.input`
   font-weight: 400;
   font-size: 21px;
   line-height: 25px;
-
   color: #6c6c6c;
-
+  margin-top: 18px;
   opacity: 0.3;
+  border: none;
+  &:focus {
+    outline: none;
+  }
 `;
 export default SwotAnalysis;

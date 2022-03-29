@@ -12,7 +12,9 @@ import Notice from '../pages/Notice';
 import Garbage from '../pages/Garbage';
 import Setting from '../pages/Setting';
 import Folder from '../pages/Folder';
+import Proposal from '../pages/workSpace/Proposal';
 import GapAnalysis from '../pages/workSpace/GapAnalysis';
+import SwotAnalysis from '../pages/workSpace/SwotAnalysis';
 
 function AppRouter() {
   return (
@@ -28,10 +30,11 @@ function AppRouter() {
         <Route path="/folder" element={<Folder />} />
         <Route path="/garbage" element={<Garbage />} />
         <Route path="/setting" element={<Setting />} />
-
         <Route path="workspace/:projecId/*" element={<WorkSpace />}>
           <Route path="mindmap/:id" element={<MindMap />} />
           <Route path="gap" element={<GapAnalysis />} />
+          <Route path="proposal" element={<Proposal />} />
+          <Route path="swot" element={<SwotAnalysis />} />
         </Route>
       </Routes>
     </BrowserRouter>

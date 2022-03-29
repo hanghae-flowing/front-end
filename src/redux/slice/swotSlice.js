@@ -22,6 +22,55 @@ export const createNewSwot = createAsyncThunk(
   },
 );
 
+export const editStrTableText = createAsyncThunk(
+  'swot/editSwotTableText',
+  async ({ swotSendingData, lineId }, thunkAPI) => {
+    try {
+      return await axios
+        .put(`http://52.79.250.142/swot/strength/${lineId}`, swotSendingData)
+        .then(res => console.log(res));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
+export const editWeakTableText = createAsyncThunk(
+  'swot/editSwotTableText',
+  async ({ swotSendingData, lineId }, thunkAPI) => {
+    try {
+      return await axios
+        .put(`http://52.79.250.142/swot/weakness/${lineId}`, swotSendingData)
+        .then(res => console.log(res));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
+export const editOpporTableText = createAsyncThunk(
+  'swot/editSwotTableText',
+  async ({ swotSendingData, lineId }, thunkAPI) => {
+    try {
+      return await axios
+        .put(`http://52.79.250.142/swot/opportunity/${lineId}`, swotSendingData)
+        .then(res => console.log(res));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
+export const editThreatTableText = createAsyncThunk(
+  'swot/editSwotTableText',
+  async ({ swotSendingData, lineId }, thunkAPI) => {
+    try {
+      return await axios
+        .put(`http://52.79.250.142/swot/threat/${lineId}`, swotSendingData)
+        .then(res => console.log(res));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
+
 export const swotSlice = createSlice({
   name: 'doc',
   initialState: swotState,

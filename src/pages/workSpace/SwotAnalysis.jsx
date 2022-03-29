@@ -2,10 +2,13 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
+import StrengthTableText from '../../components/swot/StrengthTableText';
+import WeaknessTableText from '../../components/swot/WeaknessTableText';
+import OpporTableText from '../../components/swot/OpporTableText';
+import ThreatTableText from '../../components/swot/ThreatTableText';
 
 const fetch = () => {
   const swotId = sessionStorage.getItem('swotInfo');
-
   return axios.get(`http://52.79.250.142/swot/${swotId}`);
 };
 
@@ -54,28 +57,44 @@ const SwotAnalysis = () => {
           <TableTitle>Strength 내부 강점을 적어주세요</TableTitle>
           {swotStrengthList &&
             swotStrengthList.map((props, index) => (
-              <TableText key={index} defaultValue={props.text}></TableText>
+              <StrengthTableText
+                key={index}
+                lineId={props.lineId}
+                text={props.text}
+              ></StrengthTableText>
             ))}
         </SwotDiv>
         <SwotDiv>
           <TableTitle>Weakness 내부 약점을 적어주세요</TableTitle>
           {swotWeaknessList &&
             swotWeaknessList.map((props, index) => (
-              <TableText key={index} defaultValue={props.text}></TableText>
+              <WeaknessTableText
+                key={index}
+                lineId={props.lineId}
+                text={props.text}
+              ></WeaknessTableText>
             ))}
         </SwotDiv>
         <SwotDiv>
           <TableTitle>Opportunity 외부 기회를 적어주세요</TableTitle>
           {swotOpportunityhList &&
             swotOpportunityhList.map((props, index) => (
-              <TableText key={index} defaultValue={props.text}></TableText>
+              <OpporTableText
+                key={index}
+                lineId={props.lineId}
+                text={props.text}
+              ></OpporTableText>
             ))}
         </SwotDiv>
         <SwotDiv>
           <TableTitle>Treat 외부 위협을 적어주세요</TableTitle>
           {swotThreatList &&
             swotThreatList.map((props, index) => (
-              <TableText key={index} defaultValue={props.text}></TableText>
+              <ThreatTableText
+                key={index}
+                lineId={props.lineId}
+                text={props.text}
+              ></ThreatTableText>
             ))}
         </SwotDiv>
       </GridWrapper>
@@ -163,6 +182,7 @@ const TableText = styled.input`
   font-weight: 400;
   font-size: 21px;
   line-height: 25px;
+  width: 450px;
   color: #6c6c6c;
   margin-top: 18px;
   opacity: 0.3;

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { getNodeTableId } from '../../redux/slice/nodeSlice';
 import { getTemplate, isModal } from '../../redux/slice/tempSlice';
 import { NewProject, TemplateProject } from '../cards/NewProject';
 import AddTemplate from '../form/AddTemplate';
@@ -9,6 +10,8 @@ import AddTemplate from '../form/AddTemplate';
 const TemplateList = props => {
   const isOpen = useSelector(state => state.template.tempOpen);
   const addOpen = useSelector(state => state.template.addOpen);
+  const nodeTableList = useSelector(state => state.template.nodeTableList);
+  console.log(nodeTableList);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -23,7 +26,23 @@ const TemplateList = props => {
           projectId={props.projectId}
         />
       ) : null}
-      <TemplateProject
+      {nodeTableList &&
+        nodeTableList.map((data, index) => (
+          <TemplateProject
+            key={index}
+            width="100%"
+            height="180px"
+            marginBottom="20px"
+            title={`마인드맵 ${data.nodeTableId}번`}
+            onClick={() => {
+              navigate(`mindmap/${data.nodeTableId}`, {
+                state: data.nodeTableId,
+              });
+              dispatch(getNodeTableId(data.nodeTableId));
+            }}
+          />
+        ))}
+      {/* <TemplateProject
         width="100%"
         height="180px"
         marginBottom="20px"
@@ -46,7 +65,7 @@ const TemplateList = props => {
         height="180px"
         marginBottom="20px"
         title="기획서"
-      />
+      /> */}
       <NewProject
         onClick={() => dispatch(isModal(true))}
         width="100%"

@@ -30,8 +30,7 @@ const Square = props => {
       text: text,
       xval: `${transX}`,
       yval: `${transY}`,
-      projectId: props.projectId,
-      nodeId: props.nodeId,
+      nodeTableId: props.nodeTableId,
     };
     const nodeId = props.nodeId;
     dispatch(editNode({ updateData, nodeId }));

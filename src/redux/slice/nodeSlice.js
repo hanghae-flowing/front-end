@@ -65,6 +65,7 @@ export const nodeSlice = createSlice({
   initialState:{
     projectId:"",
     nodeId:"",
+    nodeTableId:"",
     node:[],
   },
   reducers: {
@@ -84,6 +85,9 @@ export const nodeSlice = createSlice({
         ...state,
         node: state.node.filter((node) => node.nodeId !== nodeId)
       };
+    },
+    getNodeTableId: (state, action) => {
+      state.nodeTableId = action.payload;
     }
   },
   extraReducers: builder => {
@@ -106,6 +110,6 @@ export const nodeSlice = createSlice({
   }
 })
 
-export const { addNode, updateProjectId, deleteAction } = nodeSlice.actions;
+export const { addNode, updateProjectId, deleteAction, getNodeTableId } = nodeSlice.actions;
 
 export default nodeSlice.reducer;

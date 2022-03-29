@@ -5,7 +5,9 @@ export const getTemplate = createAsyncThunk(
   "template/get",
   async(projectId, {rejectWithValue}) => {
     try {
-      return await URL.get(`/project/${projectId}/templates`).then((response) => console.log(response));
+      return await URL
+      .get(`/project/${projectId}/templates`)
+      .then((response) => response.data);
     } catch (error) {
       console.error(error);
       return rejectWithValue(error.response);
@@ -19,6 +21,8 @@ const tempSlice = createSlice({
   initialState:{
     tempOpen:false,
     addOpen:false,
+    nodeTableList:[],
+    documentTableList:[],
   },
   reducers:{
     isOpen:(state, action) => {
@@ -27,6 +31,14 @@ const tempSlice = createSlice({
     isModal: (state, action) => {
       state.addOpen = !state.addOpen;
     }
+  },
+  extraReducers: builder => {
+    builder
+    .addCase(getTemplate.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.documentTableList = action.payload.documentTableIdList;
+      state.nodeTableList = action.payload.nodeTableIdList;
+    })
   }
 })
 

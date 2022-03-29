@@ -6,6 +6,8 @@ import { addNode, postNode } from '../../redux/slice/nodeSlice';
 const Node = props => {
   const dispatch = useDispatch();
   const projectId = useSelector(state => state.node.projectId);
+  const nodeTableId = useSelector(state => state.node.nodeTableId);
+  console.log(nodeTableId);
   const node = {
     width: '120px',
     height: '60px',
@@ -16,7 +18,7 @@ const Node = props => {
     text: 'node',
     xval: '400',
     yval: '400',
-    projectId: `${projectId}`,
+    nodeTableId: `${nodeTableId}`,
     isChecked: '0',
   };
 

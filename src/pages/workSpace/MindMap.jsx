@@ -6,13 +6,17 @@ import Square from '../../components/modules/Square';
 import { MindMapToolBox } from '../../components/tools/ToolBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNode } from '../../redux/slice/nodeSlice';
+import { useLocation } from 'react-router-dom';
 
 const MindMap = () => {
   const dispatch = useDispatch();
   const projectId = useSelector(state => state.node.projectId);
+  const nodeTableId = useLocation().state;
+  // const nodeTableId = useSelector(state => state.node.nodeTableId);
+  console.log(nodeTableId);
   useEffect(() => {
-    dispatch(getNode(projectId)).then(res => console.log(res));
-  }, []);
+    dispatch(getNode(nodeTableId)).then(res => console.log(res));
+  }, [dispatch]);
 
   let nodeObject = useSelector(state => state.node.node);
   console.log(nodeObject);
@@ -34,7 +38,7 @@ const MindMap = () => {
                 xval={data.xval}
                 yval={data.yval}
                 nodeId={data.nodeId}
-                projectId={data.projectId}
+                nodeTableId={data.nodeTableId}
               />
             ))}
         </Viewport>

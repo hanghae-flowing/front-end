@@ -31,8 +31,7 @@ function AppRouter() {
         <Route path="/garbage" element={<Garbage />} />
         <Route path="/setting" element={<Setting />} />
         <Route path="workspace/:projecId/*" element={<WorkSpace />}>
-          <Route index element={<MindMap />} />
-          <Route path="mindmap" element={<MindMap />} />
+          <Route path="mindmap/:id" element={<MindMap />} />
           <Route path="gap" element={<GapAnalysis />} />
           <Route path="proposal" element={<Proposal />} />
           <Route path="swot" element={<SwotAnalysis />} />

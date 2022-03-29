@@ -3,19 +3,19 @@ import SpaceWrap from '../../components/container/SpaceWrap';
 import Frame from '../../components/container/Frame';
 import Viewport from '../../components/container/Viewport';
 import Square from '../../components/modules/Square';
-import ToolBox from '../../components/tools/ToolBox';
+import { MindMapToolBox } from '../../components/tools/ToolBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNode } from '../../redux/slice/spaceSlice';
+import { getNode } from '../../redux/slice/nodeSlice';
 
 const MindMap = () => {
   const dispatch = useDispatch();
-  const projectId = useSelector(state => state.space.projectId);
+  const nodeTableId = useSelector(state => state.node.nodeTableId);
   useEffect(() => {
-    dispatch(getNode(projectId)).then(res => console.log(res));
-  }, []);
+    if (!nodeTableId) return;
+    dispatch(getNode(nodeTableId));
+  }, [nodeTableId]);
 
-  let nodeObject = useSelector(state => state.space.node);
-  console.log(nodeObject);
+  let nodeObject = useSelector(state => state.node.node);
   return (
     <SpaceWrap>
       <Frame>
@@ -34,12 +34,12 @@ const MindMap = () => {
                 xval={data.xval}
                 yval={data.yval}
                 nodeId={data.nodeId}
-                projectId={data.projectId}
+                nodeTableId={data.nodeTableId}
               />
             ))}
         </Viewport>
       </Frame>
-      <ToolBox projectId={projectId} />
+      <MindMapToolBox nodeTableId={nodeTableId} />
     </SpaceWrap>
   );
 };

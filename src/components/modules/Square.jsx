@@ -5,7 +5,7 @@ import {
   editNode,
   deleteAction,
   deleteNode,
-} from '../../redux/slice/spaceSlice';
+} from '../../redux/slice/nodeSlice';
 
 const Square = props => {
   const [onPress, setOnPress] = useState(false);
@@ -30,8 +30,7 @@ const Square = props => {
       text: text,
       xval: `${transX}`,
       yval: `${transY}`,
-      projectId: props.projectId,
-      nodeId: props.nodeId,
+      nodeTableId: props.nodeTableId,
     };
     const nodeId = props.nodeId;
     dispatch(editNode({ updateData, nodeId }));

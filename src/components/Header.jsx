@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import * as SockJS from 'sockjs-client';
 import * as StompJs from '@stomp/stompjs';
 import { userInfo } from '../API';
-import { sendInvite } from '../redux/slice/inviteSlice';
 import { toggleTab } from '../redux/slice/navSlice';
 import { ReactComponent as NotiImg } from '../assets/icons/Bell_light.svg';
 import { ReactComponent as SaveImg } from '../assets/icons/Save_light.svg';
@@ -17,7 +16,7 @@ import PopupMenu from './menu/PopupMenu';
 
 export const MainHeader = () => {
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.user.isLogin);
   const client = useRef({});
@@ -41,12 +40,12 @@ export const MainHeader = () => {
   //     connectHeaders: {
   //       Accept: 'application/json',
   //     },
-  //     // debug: function (str) {
-  //     //   console.log(str);
-  //     // },
+  //     debug: function (str) {
+  //       console.log(str);
+  //     },
   //     onConnect: frame => {
   //       subscribe();
-  //       // console.log(frame);
+  //       console.log(frame);
   //     },
   //     onStompError: frame => {
   //       console.error(frame);
@@ -83,7 +82,6 @@ export const MainHeader = () => {
   //     destination: `/pub/invite`,
   //     body: JSON.stringify(content),
   //   });
-  //   setEmail('');
   // };
 
   // const sendInviteHandler = () => {
@@ -102,6 +100,10 @@ export const MainHeader = () => {
           </MenuBtn>
         </FlexDiv>
         <FlexDiv justify="end">
+          {/* <FlexDiv>
+            <input type="text" onChange={inviteHandler} />
+            <button onClick={() => publish(email)}>share</button>
+          </FlexDiv> */}
           <Notification>
             <NotiImg />
           </Notification>
@@ -126,6 +128,27 @@ export const MainHeader = () => {
 export const WorkHeader = props => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const client = useRef({});
+  client.current = new StompJs.Client({
+    webSocketFactory: () => new SockJS('http://52.79.250.142/websocket'),
+    connectHeaders: {
+      Accept: 'application/json',
+    },
+  });
+  const publish = () => {
+    if (!client.current.connected) {
+      return;
+    }
+    let content = {
+      senderEmail: `${userInfo.Email}`,
+      receiverEmail: 'wngus1473@naver.com',
+    };
+    client.current.publish({
+      destination: `/pub/invite`,
+      body: JSON.stringify(content),
+    });
+  };
+
   return (
     <HeadBox>
       {isOpen ? <PopupMenu /> : null}
@@ -149,6 +172,7 @@ export const WorkHeader = props => {
         <ProjectTitle>{props.title}</ProjectTitle>
       </FlexDiv>
       <FlexDiv justify="end">
+        {/* <button onClick={() => publish()}>버튼</button> */}
         <Notification>
           <NotiImg />
         </Notification>

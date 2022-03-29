@@ -1,30 +1,38 @@
 import React from 'react';
 import styled from 'styled-components';
-import Rectangle from './Rectangle';
+import GapNode from './GapNode';
+import MileStone from './MileStone';
+import Node from './Node';
 
-const ToolBox = props => {
+export const MindMapToolBox = props => {
   return (
     <StyledDiv>
-      <Rectangle projectId={props.projectId} />
+      <Node nodeTableId={props.nodeTableId} />
+    </StyledDiv>
+  );
+};
+
+export const GapToolBox = props => {
+  return (
+    <StyledDiv>
+      <GapNode />
+      <MileStone />
     </StyledDiv>
   );
 };
 
 const StyledDiv = styled.div`
-  width: 500px;
-  height: 80px;
-  background-color: #fff;
+  height: 64px;
+  background-color: #4a4a4a;
   position: fixed;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 50px;
+  border-radius: 20px;
   box-shadow: 0px 10px 30px -2px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
   padding: 0 40px;
   z-index: 11;
 `;
-
-export default ToolBox;

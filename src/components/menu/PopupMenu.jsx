@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { kakaoLogout } from '../../redux/slice/userSlice';
 import { userInfo } from '../../API';
-import { isOpen } from '../../redux/slice/tampSlice';
+import { isOpen } from '../../redux/slice/tempSlice';
 
 const PopupMenu = props => {
   const dispatch = useDispatch();

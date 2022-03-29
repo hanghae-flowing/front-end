@@ -35,7 +35,7 @@ function AppRouter() {
           <Route path="mindmap" element={<MindMap />} />
           <Route path="gap" element={<GapAnalysis />} />
           <Route path="proposal" element={<Proposal />} />
-          <Route path="swot:/swotId" element={<SwotAnalysis />} />
+          <Route path="swot" element={<SwotAnalysis />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { createNewDocument, openDoc } from '../../redux/slice/docSlice';
 import { NewProject, TemplateProject } from '../cards/NewProject';
 import { useLocation } from 'react-router-dom';
+import { createNewSwot } from '../../redux/slice/swotSlice';
 
 const TamplateList = () => {
   const isOpen = useSelector(state => state.tamplate.tampOpen);
@@ -19,6 +20,15 @@ const TamplateList = () => {
       projectId,
     };
     dispatch(openDoc({ docSendingData, navigate }));
+  };
+
+  const swotOpenHandler = () => {
+    const projectId = sessionStorage.getItem('projectInfo');
+    console.log(projectId);
+    const swotSendingData = {
+      projectId,
+    };
+    dispatch(createNewSwot(swotSendingData));
   };
 
   return (
@@ -47,6 +57,13 @@ const TamplateList = () => {
         marginBottom="20px"
         title="기획서"
         onClick={docOpenHandler}
+      />
+      <TemplateProject
+        width="100%"
+        height="180px"
+        marginBottom="20px"
+        title="SWOT"
+        onClick={swotOpenHandler}
       />
       <NewProject
         onClick={() => console.log('클릭')}

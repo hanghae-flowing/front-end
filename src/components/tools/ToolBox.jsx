@@ -7,7 +7,7 @@ import Node from './Node';
 export const MindMapToolBox = props => {
   return (
     <StyledDiv>
-      <Node projectId={props.projectId} />
+      <Node nodeTableId={props.nodeTableId} />
     </StyledDiv>
   );
 };

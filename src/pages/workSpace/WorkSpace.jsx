@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { WorkHeader } from '../../components/Header';
 import TemplateList from '../../components/menu/TemplateList';
@@ -8,12 +8,15 @@ import { updateProjectId } from '../../redux/slice/nodeSlice';
 
 const WorkSpace = props => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const projectInfo = useSelector(state => state.post.projectInfo);
-  console.log(projectInfo);
+
+  const projectId = projectInfo.projectId;
 
   useEffect(() => {
-    dispatch(updateProjectId(projectInfo.projectId));
-  }, []);
+    if (!projectId) return;
+    dispatch(updateProjectId(projectId));
+  }, [projectId]);
 
   return (
     <SpaceWrap>

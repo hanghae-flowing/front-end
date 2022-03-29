@@ -21,7 +21,6 @@ export const MainHeader = () => {
   const isLogin = useSelector(state => state.user.isLogin);
   const client = useRef({});
   const [email, setEmail] = useState('');
-  console.log(userInfo);
 
   const handleToggle = () => {
     dispatch(toggleTab());

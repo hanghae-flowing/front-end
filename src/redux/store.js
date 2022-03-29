@@ -6,7 +6,7 @@ import nodeSlice from './slice/nodeSlice';
 import tempSlice from './slice/tempSlice';
 import userSlice from './slice/userSlice';
 import docSlice from './slice/docSlice';
-import { swotSlice } from './slice/swotSlice';
+import swotSlice from './slice/swotSlice';
 
 export default configureStore({
   reducer: {

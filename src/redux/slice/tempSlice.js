@@ -22,7 +22,9 @@ const tempSlice = createSlice({
     tempOpen:false,
     addOpen:false,
     nodeTableList:[],
-    documentTableList:[],
+    documentList:[],
+    gapTableList:[],
+    swotList:[],
   },
   reducers:{
     isOpen:(state, action) => {
@@ -36,8 +38,10 @@ const tempSlice = createSlice({
     builder
     .addCase(getTemplate.fulfilled, (state, action) => {
       console.log(action.payload);
-      state.documentTableList = action.payload.documentTableIdList;
+      state.documentList = action.payload.documentIdList;
       state.nodeTableList = action.payload.nodeTableIdList;
+      state.gapTableList = action.payload.gapTableIdList;
+      state.swotList = action.payload.swotIdList;
     })
   }
 })

@@ -11,13 +11,22 @@ const TemplateList = props => {
   const isOpen = useSelector(state => state.template.tempOpen);
   const addOpen = useSelector(state => state.template.addOpen);
   const nodeTableList = useSelector(state => state.template.nodeTableList);
-  console.log(nodeTableList);
+  const documentList = useSelector(state => state.template.documentList);
+  const gapTableList = useSelector(state => state.template.gapTableList);
+  const swotList = useSelector(state => state.template.swotList);
+  console.log('nodeTableList', nodeTableList);
+  console.log('documentList', documentList);
+  console.log('gapTableList', gapTableList);
+  console.log('swotList', swotList);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const projectId = props.projectId;
 
   useEffect(() => {
-    dispatch(getTemplate(props.projectId));
-  }, [dispatch]);
+    if (!projectId) return;
+    dispatch(getTemplate(projectId));
+  }, [projectId]);
+
   return (
     <StyledWrap toggle={isOpen}>
       {addOpen ? (
@@ -35,37 +44,11 @@ const TemplateList = props => {
             marginBottom="20px"
             title={`마인드맵 ${data.nodeTableId}번`}
             onClick={() => {
-              navigate(`mindmap/${data.nodeTableId}`, {
-                state: data.nodeTableId,
-              });
+              navigate(`mindmap/${data.nodeTableId}`);
               dispatch(getNodeTableId(data.nodeTableId));
             }}
           />
         ))}
-      {/* <TemplateProject
-        width="100%"
-        height="180px"
-        marginBottom="20px"
-        title="마인드맵"
-        onClick={() => {
-          navigate('mindmap');
-        }}
-      />
-      <TemplateProject
-        width="100%"
-        height="180px"
-        marginBottom="20px"
-        title="갭분석"
-        onClick={() => {
-          navigate('gap');
-        }}
-      />
-      <TemplateProject
-        width="100%"
-        height="180px"
-        marginBottom="20px"
-        title="기획서"
-      /> */}
       <NewProject
         onClick={() => dispatch(isModal(true))}
         width="100%"

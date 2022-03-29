@@ -3,18 +3,35 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { postNodeTable } from '../../redux/slice/nodeSlice';
+import { createNewDocument, openDoc } from '../../redux/slice/docSlice';
+import { createNewSwot } from '../../redux/slice/swotSlice';
 
 const AddTemplate = props => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const projectId = props.projectId;
 
   const addNodeTable = () => {
-    dispatch(postNodeTable(props.projectId)).then(res => {
-      navigate(
-        `/workspace/${props.projectId}/mindmap/${res.payload.nodeTableId}`,
-      );
+    dispatch(postNodeTable(projectId)).then(res => {
+      navigate(`/workspace/${projectId}/mindmap/${res.payload.nodeTableId}`);
     });
   };
+
+  const docOpenHandler = () => {
+    const docSendingData = {
+      projectId,
+    };
+    dispatch(openDoc({ docSendingData, navigate }));
+  };
+
+  const swotOpenHandler = () => {
+    const swotSendingData = {
+      projectId,
+    };
+    dispatch(createNewSwot(swotSendingData));
+    navigate('swot');
+  };
+
   return (
     <StyledDiv>
       <StyledWrap>
@@ -22,8 +39,8 @@ const AddTemplate = props => {
         <AddDiv>
           <AddBox>갭분석</AddBox>
           <AddBox onClick={addNodeTable}>마인드맵</AddBox>
-          <AddBox>SWOT</AddBox>
-          <AddBox>기획서</AddBox>
+          <AddBox onClick={swotOpenHandler}>SWOT</AddBox>
+          <AddBox onClick={docOpenHandler}>기획서</AddBox>
         </AddDiv>
       </StyledWrap>
     </StyledDiv>

@@ -81,3 +81,5 @@ export const swotSlice = createSlice({
     });
   },
 });
+
+export default swotSlice.reducer;

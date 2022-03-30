@@ -19,14 +19,14 @@ const AddTemplate = props => {
 
   const docOpenHandler = () => {
     const docSendingData = {
-      projectId,
+      projectId: sessionStorage.getItem('projectInfo'),
     };
     dispatch(openDoc({ docSendingData, navigate }));
   };
 
   const swotOpenHandler = () => {
     const swotSendingData = {
-      projectId,
+      projectId: sessionStorage.getItem('projectInfo'),
     };
     dispatch(createNewSwot(swotSendingData));
     navigate('swot');

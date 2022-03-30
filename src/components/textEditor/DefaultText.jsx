@@ -1,36 +1,30 @@
-import { useRef } from 'react';
-import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { deleteLine, editLine } from '../../redux/slice/docSlice';
-import axios from 'axios';
-import { queryClient } from '../../App';
+
+import _ from 'lodash';
 
 const DefaultText = props => {
   const dispatch = useDispatch();
-  const textRef = useRef();
 
-  // if (textRef != null && textRef.current.value.length === 0) {
-  //   dispatch(deleteLine(props.lineId));
-  // }
-  //마운트랜더링될때 언마운트될때 주소가같은 언마운트일때
-  const onChangeHandler = () => {
+  const throttle = _.throttle(e => {
     const lineId = props.lineId;
     const sendingData = {
-      text: textRef.current.value + ' ',
+      text: e.target.value + ' ',
       indexNum: props.indexNum,
       weight: props.weight,
       fontSize: props.fontSize,
       color: props.color,
     };
     dispatch(editLine({ sendingData, lineId }));
-  };
+  }, 7000);
+
+  //마운트랜더링될때 언마운트될때 주소가같은 언마운트일때
 
   return (
     <InputText
-      onChange={onChangeHandler}
+      onChange={throttle}
       defaultValue={props.text}
-      ref={textRef}
       color={props.color}
       weight={props.weight}
       fontSize={props.fontSize}

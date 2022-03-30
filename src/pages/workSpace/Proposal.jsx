@@ -5,13 +5,14 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { createNewLine } from '../../redux/slice/docSlice';
 import DefaultText from '../../components/textEditor/DefaultText';
+import { URL } from '../../API';
 
 const fetch = () => {
   const documentId =
     sessionStorage.getItem('docInfo') &&
     JSON.parse(sessionStorage.getItem('docInfo')).documentId;
 
-  return axios.get(`http://13.209.41.157/documentLines/${documentId}`);
+  return URL.get(`/documentLines/${documentId}`);
 };
 
 const ProposalPage = () => {

@@ -24,13 +24,14 @@ const PopupMenu = props => {
 
   const invitationHandler = () => {
     const projectId = sessionStorage.getItem('projectInfo');
-    const userId = sessionStorage.getItem('userInfo').userId;
+    const userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
     const addingUser = emailToSendInvitationRef.current.value;
     const invitationData = {
       projectId,
       userId,
-      addingUser,
+      email: addingUser,
     };
+    console.log(invitationData);
     dispatch(sendInvite(invitationData));
 
     // 초대할사람이메일 초대한사람유저아이디 프로젝트아이디
@@ -54,8 +55,8 @@ const PopupMenu = props => {
         <p>템플릿</p>
         <TamplateImg />
       </Tab>
-      <Tab onClick={invitationHandler}>
-        <p>초대하기</p>
+      <Tab>
+        <p onClick={invitationHandler}>초대하기</p>
         <input ref={emailToSendInvitationRef} placeholder="email"></input>
       </Tab>
       <Tab>

@@ -25,12 +25,21 @@ const MindMap = () => {
     return await URL.get(`/node/path/${nodeTableId}`);
   };
 
-  const nodeQuery = useQuery('nodeData', fetchNodsList);
+  const nodeQuery = useQuery('nodeData', fetchNodsList, {
+    refetchInterval: 5000,
+  });
   const { isLoading, data: nodeList, isError, error } = nodeQuery;
   const pathQurey = useQuery('pathData', fetchPathList);
   const { data: pathList } = pathQurey;
 
-  console.log(pathList);
+  // console.log(pathList.data);
+
+  const pathArr = [
+    {
+      parentNode: 2,
+      childNode: 6,
+    },
+  ];
 
   const [table, setTable] = useState('');
 
@@ -69,7 +78,7 @@ const MindMap = () => {
               />
             ))}
         </Viewport>
-        <Path />
+        {/* <Path /> */}
       </Frame>
       <MindMapToolBox nodeTableId={nodeTableId} />
     </SpaceWrap>

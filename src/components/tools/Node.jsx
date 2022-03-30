@@ -22,6 +22,7 @@ const Node = props => {
 
   const onCreate = () => {
     dispatch(postNode(node)).then(res => {
+      console.log(res);
       dispatch(addNode(res.payload));
     });
   };

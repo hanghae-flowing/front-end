@@ -8,40 +8,36 @@ import { MindMapToolBox } from '../../components/tools/ToolBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNode } from '../../redux/slice/nodeSlice';
 import { URL } from '../../API';
+import Path from '../../components/modules/Path';
 
 const MindMap = () => {
   // const dispatch = useDispatch();
   const nodeTableId = useSelector(state => state.node.nodeTableId);
   // console.log(nodeTableId);
 
-  const fetch = async () => {
+  const fetchNodsList = async () => {
     if (!nodeTableId) return;
     return await URL.get(`/node/all/${nodeTableId}`);
   };
 
-  const { isLoading, data, isError, error, isFetching } = useQuery(
-    'nodeData',
-    fetch,
-    {
-      refetchInterval: 2000,
-    },
-  );
-  // console.log(data);
+  const fetchPathList = async () => {
+    if (!nodeTableId) return;
+    return await URL.get(`/node/path/${nodeTableId}`);
+  };
+
+  const nodeQuery = useQuery('nodeData', fetchNodsList);
+  const { isLoading, data: nodeList, isError, error } = nodeQuery;
+  const pathQurey = useQuery('pathData', fetchPathList);
+  const { data: pathList } = pathQurey;
+
+  console.log(pathList);
 
   const [table, setTable] = useState('');
-  // console.log(table);
-
-  // useEffect(() => {
-  //   if (!nodeTableId) return;
-  //   dispatch(getNode(nodeTableId));
-  // }, [nodeTableId]);
-
-  // let nodeObject = useSelector(state => state.node.node);
 
   useEffect(() => {
-    if (!data) return;
-    setTable(data.data);
-  }, [data]);
+    if (!nodeList) return;
+    setTable(nodeList.data);
+  }, [nodeList]);
 
   if (isLoading) {
     return <h2>Loading</h2>;
@@ -73,6 +69,7 @@ const MindMap = () => {
               />
             ))}
         </Viewport>
+        <Path />
       </Frame>
       <MindMapToolBox nodeTableId={nodeTableId} />
     </SpaceWrap>

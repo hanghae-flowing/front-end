@@ -14,10 +14,10 @@ const TemplateList = props => {
   const documentList = useSelector(state => state.template.documentList);
   const gapTableList = useSelector(state => state.template.gapTableList);
   const swotList = useSelector(state => state.template.swotList);
-  // console.log('nodeTableList', nodeTableList);
-  // console.log('documentList', documentList);
-  // console.log('gapTableList', gapTableList);
-  // console.log('swotList', swotList);
+  console.log('nodeTableList', nodeTableList);
+  console.log('documentList', documentList);
+  console.log('gapTableList', gapTableList);
+  console.log('swotList', swotList);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const projectId = props.projectId;
@@ -47,6 +47,19 @@ const TemplateList = props => {
               navigate(`mindmap/${data.nodeTableId}`);
               dispatch(getNodeTableId(data.nodeTableId));
               sessionStorage.setItem('nodeTableId', data.nodeTableId);
+            }}
+          />
+        ))}
+      {swotList &&
+        swotList.map((data, index) => (
+          <TemplateProject
+            key={index}
+            width="100%"
+            height="180px"
+            marginBottom="20px"
+            title={`Swot ${data.swotId}번`}
+            onClick={() => {
+              navigate(`swot`);
             }}
           />
         ))}

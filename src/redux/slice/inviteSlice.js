@@ -7,14 +7,13 @@ const inviteState = {
 
 export const sendInvite = createAsyncThunk(
   'invite/sendInvite',
-  async (sendData, { rejectWithValue }) => {
+  async (invitationData, thunkAPI) => {
     try {
-      return await URL.post('/inviting', sendData).then(response => {
+      return await URL.post('/inviting', invitationData).then(response => {
         console.log(response);
       });
     } catch (error) {
       console.error(error);
-      return rejectWithValue(error.response);
     }
   },
 );

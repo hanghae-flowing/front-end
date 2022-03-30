@@ -27,9 +27,9 @@ export const postNode = createAsyncThunk(
 
 export const getNode = createAsyncThunk(
   "node/get",
-  async(projectId, { rejectWithValue }) => {
+  async(nodeTableId, { rejectWithValue }) => {
     try {
-      return await URL.get(`/node/all/${projectId}`).then((response) => response.data);
+      return await URL.get(`/node/all/${nodeTableId}`).then((response) => response.data);
     } catch (error) {
       console.error(error);
       return rejectWithValue(error.response);
@@ -96,7 +96,7 @@ export const nodeSlice = createSlice({
         console.log(action.payload);
       })
       .addCase(getNode.fulfilled, (state, action) => {
-        state.node = action.payload;
+        // state.node = action.payload;
       })
       .addCase(editNode.fulfilled, (state, action) => {
         console.log("edit")

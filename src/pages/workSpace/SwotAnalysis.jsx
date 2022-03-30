@@ -1,6 +1,7 @@
 import axios from 'axios';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
+import { URL } from '../../API';
 import { useSelector } from 'react-redux';
 import StrengthTableText from '../../components/swot/StrengthTableText';
 import WeaknessTableText from '../../components/swot/WeaknessTableText';
@@ -9,7 +10,7 @@ import ThreatTableText from '../../components/swot/ThreatTableText';
 
 const fetch = () => {
   const swotId = sessionStorage.getItem('swotInfo');
-  return axios.get(`http://52.79.250.142/swot/${swotId}`);
+  return URL.get(`/swot/${swotId}`);
 };
 
 const SwotAnalysis = () => {

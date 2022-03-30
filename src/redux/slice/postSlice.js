@@ -10,8 +10,11 @@ const postState = {
 export const LoadPost = createAsyncThunk(
   'post/LoadPost',
   async (data, thunkAPI) => {
-    const result = await URL.post('/myproject', data)
-      .then(res => res.data)
+    const result = await URL.post('/project/detail', data)
+      .then(res => {
+        console.log(res);
+        return res.data;
+      })
       .catch(err => console.log(err));
     return result;
   },

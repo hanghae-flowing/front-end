@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as SaveImg } from '../../assets/icons/Save_light.svg';
 import { ReactComponent as DownloadImg } from '../../assets/icons/Download_light.svg';
@@ -9,15 +9,32 @@ import { useNavigate } from 'react-router-dom';
 import { kakaoLogout } from '../../redux/slice/userSlice';
 import { userInfo } from '../../API';
 import { isOpen } from '../../redux/slice/tempSlice';
+import { sendInvite } from '../../redux/slice/inviteSlice';
 
 const PopupMenu = props => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const emailToSendInvitationRef = useRef();
 
   const Logout = () => {
     dispatch(kakaoLogout(userInfo.accessToken)).then(() => {
       navigate('/login');
     });
+  };
+
+  const invitationHandler = () => {
+    const projectId = sessionStorage.getItem('projectInfo');
+    const userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
+    const addingUser = emailToSendInvitationRef.current.value;
+    const invitationData = {
+      projectId,
+      userId,
+      email: addingUser,
+    };
+    console.log(invitationData);
+    dispatch(sendInvite(invitationData));
+
+    // 초대할사람이메일 초대한사람유저아이디 프로젝트아이디
   };
 
   const opneTamplate = () => {
@@ -37,6 +54,10 @@ const PopupMenu = props => {
       <Tab onClick={opneTamplate}>
         <p>템플릿</p>
         <TamplateImg />
+      </Tab>
+      <Tab>
+        <p onClick={invitationHandler}>초대하기</p>
+        <input ref={emailToSendInvitationRef} placeholder="email"></input>
       </Tab>
       <Tab>
         <p>히스토리</p>

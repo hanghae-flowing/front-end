@@ -41,7 +41,7 @@ export const editNode = createAsyncThunk(
   "node/edit",
   async({updateData, nodeId}) => {
     try {
-      return await URL.put(`/node/${nodeId}`, updateData).then((response) => console.log(response));
+      return await URL.put(`/node/${nodeId}`, updateData).then((response) => response.data);
     } catch (error) {
       console.error(error);
     }
@@ -60,6 +60,19 @@ export const deleteNode = createAsyncThunk(
   }
 )
 
+export const addPath = createAsyncThunk(
+  "path/post",
+  async(data, {rejectWithValue}) => {
+    try {
+      return await URL.post(`/node/path`, data).then((response) => response.data);
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue(error.response);
+    }
+  }
+)
+
+
 export const nodeSlice = createSlice({
   name: "node",
   initialState:{
@@ -67,6 +80,7 @@ export const nodeSlice = createSlice({
     nodeId:"",
     nodeTableId:"",
     node:[],
+    path:[],
   },
   reducers: {
     addNode: (state, action) => {
@@ -99,12 +113,15 @@ export const nodeSlice = createSlice({
         // state.node = action.payload;
       })
       .addCase(editNode.fulfilled, (state, action) => {
-        console.log("edit")
+        console.log(action.payload);
       })
       .addCase(deleteNode.fulfilled, (state, action) => {
         console.log(action.payload);
       })
       .addCase(postNodeTable.fulfilled, (state, action) => {
+        console.log(action.payload);
+      })
+      .addCase(addPath.fulfilled, (state, action) => {
         console.log(action.payload);
       })
   }

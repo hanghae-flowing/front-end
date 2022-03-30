@@ -21,10 +21,10 @@ const tempSlice = createSlice({
   initialState:{
     tempOpen:false,
     addOpen:false,
-    nodeTableList:[],
-    documentList:[],
-    gapTableList:[],
-    swotList:[],
+    nodeTableList:{},
+    documentList:{},
+    gapTableList:{},
+    swotList:{},
   },
   reducers:{
     isOpen:(state, action) => {

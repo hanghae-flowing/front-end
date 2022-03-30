@@ -14,10 +14,10 @@ const TemplateList = props => {
   const documentList = useSelector(state => state.template.documentList);
   const gapTableList = useSelector(state => state.template.gapTableList);
   const swotList = useSelector(state => state.template.swotList);
-  console.log('nodeTableList', nodeTableList);
-  console.log('documentList', documentList);
-  console.log('gapTableList', gapTableList);
-  console.log('swotList', swotList);
+  console.log('nodeTableList', nodeTableList[0].nodeTableId);
+  console.log('documentList', documentList[0].documentId);
+  console.log('gapTableList', gapTableList[0].gapTableId);
+  console.log('swotList', swotList[0]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const projectId = props.projectId;
@@ -35,7 +35,7 @@ const TemplateList = props => {
           projectId={props.projectId}
         />
       ) : null}
-      {nodeTableList &&
+      {/* {nodeTableList &&
         nodeTableList.map((data, index) => (
           <TemplateProject
             key={index}
@@ -49,26 +49,43 @@ const TemplateList = props => {
               sessionStorage.setItem('nodeTableId', data.nodeTableId);
             }}
           />
-        ))}
-      {swotList &&
-        swotList.map((data, index) => (
-          <TemplateProject
-            key={index}
-            width="100%"
-            height="180px"
-            marginBottom="20px"
-            title={`Swot ${data.swotId}번`}
-            onClick={() => {
-              navigate(`swot`);
-            }}
-          />
-        ))}
-      <NewProject
+        ))} */}
+      <TemplateProject
+        width="100%"
+        height="180px"
+        marginBottom="20px"
+        title="마인드맵"
+        onClick={() => {
+          navigate(`mindmap/${nodeTableList[0].nodeTableId}`);
+          dispatch(getNodeTableId(nodeTableList[0].nodeTableId));
+          sessionStorage.setItem('nodeTableId', nodeTableList[0].nodeTableId);
+        }}
+      />
+      <TemplateProject
+        width="100%"
+        height="180px"
+        marginBottom="20px"
+        title="갭분석"
+        onClick={() => {
+          navigate(`gap/${gapTableList[0].gapTableId}`);
+          // dispatch(getNodeTableId(nodeTableList[0].nodeTableId));
+        }}
+      />
+      <TemplateProject
+        width="100%"
+        height="180px"
+        marginBottom="20px"
+        title="기획서"
+        onClick={() => {
+          navigate(`proposal/${documentList[0].documentId}`);
+        }}
+      />
+      {/* <NewProject
         onClick={() => dispatch(isModal(true))}
         width="100%"
         height="180px"
         marginBottom="20px"
-      />
+      /> */}
     </StyledWrap>
   );
 };

@@ -16,7 +16,7 @@ const fetch = () => {
 };
 
 const ProposalPage = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const { isLoading, data, isError, error, isFetching, isSuccess } = useQuery(
     'data',

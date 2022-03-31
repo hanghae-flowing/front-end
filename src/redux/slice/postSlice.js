@@ -5,6 +5,9 @@ import { createNewDocument } from './docSlice';
 const postState = {
   project: {},
   projectInfo: {},
+  documentId: 0,
+  gapTableId: 0,
+  nodeTable: 0,
 };
 
 export const LoadPost = createAsyncThunk(
@@ -36,7 +39,7 @@ export const OpenWorkSpace = createAsyncThunk(
       return await URL.get(`/project/${projectId}`).then(res => {
         console.log(res);
         sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
-        return res;
+        return res.data;
       });
     } catch (error) {
       console.error(error);
@@ -92,7 +95,10 @@ export const postSlice = createSlice({
         console.log('delete');
       })
       .addCase(OpenWorkSpace.fulfilled, (state, action) => {
-        state.projectInfo = action.payload;
+        state.projectInfo = action.payload.projectInfo;
+        state.documentId = action.payload.documentId;
+        state.gapTableId = action.payload.gapTableId;
+        state.nodeTable = action.payload.nodeTable;
       });
   },
 });

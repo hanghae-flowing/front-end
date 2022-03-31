@@ -11,18 +11,17 @@ import { openDoc } from '../../redux/slice/docSlice';
 const TemplateList = props => {
   const isOpen = useSelector(state => state.template.tempOpen);
   const addOpen = useSelector(state => state.template.addOpen);
-  const nodeTableList = useSelector(state => state.template.nodeTableList);
-  const documentList = useSelector(state => state.template.documentList);
-  const gapTableList = useSelector(state => state.template.gapTableList);
+  // const nodeTableList = useSelector(state => state.template.nodeTableList);
+  // const documentList = useSelector(state => state.template.documentList);
+  // const gapTableList = useSelector(state => state.template.gapTableList);
   // const swotList = useSelector(state => state.template.swotList);
-  console.log('nodeTableList', nodeTableList);
-  console.log('documentList', documentList);
-  console.log('gapTableList', gapTableList);
-  // console.log('swotList', swotList[0]);
+  const documentId = useSelector(state => state.post.documentId);
+  const gapTableId = useSelector(state => state.post.gapTableId);
+  const nodeTableId = useSelector(state => state.post.nodeTable);
+  console.log(documentId);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const projectId = props.projectId;
-  //
   const docOpenHandler = () => {
     const docSendingData = {
       projectId: sessionStorage.getItem('projectInfo'),
@@ -34,7 +33,9 @@ const TemplateList = props => {
 
   useEffect(() => {
     if (!projectId) return;
-    dispatch(getTemplate(projectId));
+    dispatch(getTemplate(projectId)).then(res => {
+      console.log(res);
+    });
   }, [projectId]);
 
   return (
@@ -66,9 +67,9 @@ const TemplateList = props => {
         marginBottom="20px"
         title="마인드맵"
         onClick={() => {
-          navigate(`mindmap/${nodeTableList[0].nodeTableId}`);
-          dispatch(getNodeTableId(nodeTableList[0].nodeTableId));
-          sessionStorage.setItem('nodeTableId', nodeTableList[0].nodeTableId);
+          navigate(`mindmap/${nodeTableId}`);
+          dispatch(getNodeTableId(nodeTableId));
+          sessionStorage.setItem('nodeTableId', nodeTableId);
         }}
       />
       <TemplateProject
@@ -77,8 +78,7 @@ const TemplateList = props => {
         marginBottom="20px"
         title="갭분석"
         onClick={() => {
-          navigate(`gap/${gapTableList[0].gapTableId}`);
-          // dispatch(getNodeTableId(nodeTableList[0].nodeTableId));
+          navigate(`gap/${gapTableId}`);
         }}
       />
       <TemplateProject
@@ -87,7 +87,7 @@ const TemplateList = props => {
         marginBottom="20px"
         title="기획서"
         onClick={() => {
-          navigate(`proposal/`);
+          navigate(`proposal/${documentId}`);
           docOpenHandler();
         }}
       />

@@ -5,6 +5,9 @@ import { createNewDocument } from './docSlice';
 const postState = {
   project: {},
   projectInfo: {},
+  documentId:0,
+  gapTableId:0,
+  nodeTable:0,
 };
 
 export const LoadPost = createAsyncThunk(
@@ -34,7 +37,7 @@ export const OpenWorkSpace = createAsyncThunk(
   async (projectId, thunkAPI) => {
     try {
       return await URL.get(`/project/${projectId}`).then(res => {
-        console.log(res);
+        res = res.data;
         sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
         return res;
       });
@@ -91,7 +94,11 @@ export const postSlice = createSlice({
         console.log('delete');
       })
       .addCase(OpenWorkSpace.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.projectInfo = action.payload;
+        state.documentId = action.payload.documentId;
+        state.gapTableId = action.payload.gapTableId;
+        state.nodeTable = action.payload.nodeTable;
       });
   },
 });

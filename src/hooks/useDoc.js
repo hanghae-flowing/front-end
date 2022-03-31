@@ -7,7 +7,7 @@ const fetchDoc = async documentId => {
 };
 
 export const useDoc = documentId => {
-  return useQuery(['path', documentId], () => fetchDoc(documentId), {
+  return useQuery(['docs', documentId], () => fetchDoc(documentId), {
     enabled: !!documentId,
     refetchInterval: 4000,
   });

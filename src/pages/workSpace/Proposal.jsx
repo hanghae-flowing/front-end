@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { createNewLine } from '../../redux/slice/docSlice';
 import DefaultText from '../../components/textEditor/DefaultText';
 import { URL } from '../../API';
@@ -13,15 +13,7 @@ import { useCallback } from 'react';
 const ProposalPage = () => {
   const documentId = useSelector(state => state.post.documentId);
 
-  const {
-    status,
-    data: docList,
-    error,
-    isFetching,
-    onSuccess,
-  } = useDoc(documentId);
-
-  const mutation = useMutation(newTodo => URL.post('', newTodo));
+  const { status, data: docList, error, isFetching } = useDoc(documentId);
 
   const renderByStatus = useCallback(() => {
     switch (status) {

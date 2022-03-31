@@ -14,6 +14,7 @@ import { ReactComponent as OutImg } from '../assets/icons/Out_light.svg';
 import { ReactComponent as LoginImg } from '../assets/icons/Sign_in.svg';
 import PopupMenu from './menu/PopupMenu';
 import NotificationModal from './menu/NotificationModal';
+import { checkMyInvitation } from '../redux/slice/inviteSlice';
 
 export const MainHeader = () => {
   const location = useLocation();
@@ -27,6 +28,13 @@ export const MainHeader = () => {
   const isLogin = useSelector(state => state.user.isLogin);
   const client = useRef({});
   const [email, setEmail] = useState('');
+
+  const checkMyInvitationHandler = () => {
+    const checkData = {
+      userId: JSON.parse(sessionStorage.getItem('userInfo')).userId,
+    };
+    dispatch(checkMyInvitation(checkData));
+  };
 
   const handleToggle = () => {
     dispatch(toggleTab());
@@ -111,7 +119,12 @@ export const MainHeader = () => {
             <input type="text" onChange={inviteHandler} />
             <button onClick={() => publish(email)}>share</button>
           </FlexDiv> */}
-            <Notification onClick={() => setIsNotiOpen(true)}>
+            <Notification
+              onClick={() => {
+                setIsNotiOpen(true);
+                checkMyInvitationHandler();
+              }}
+            >
               <NotiImg />
             </Notification>
           </FlexDiv>

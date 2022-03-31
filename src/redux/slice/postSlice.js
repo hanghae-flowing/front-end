@@ -36,7 +36,10 @@ export const OpenWorkSpace = createAsyncThunk(
   'post/OpenWorkSpace',
   async (projectId, thunkAPI) => {
     try {
-      return await URL.get(`/project/${projectId}`).then(res => res.data);
+      return await URL.get(`/project/${projectId}`).then(res => {
+        sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
+        return res.data;
+      });
     } catch (error) {
       console.error(error);
     }
@@ -48,6 +51,7 @@ export const CreateNewProject = createAsyncThunk(
   async ({ sendingData, navigate }, { dispatch }, thunkAPI) => {
     return await URL.post('/project', sendingData)
       .then(res => {
+        sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
         navigate(`/workspace/${res.data.projectId}`);
         return res.data;
       })
@@ -59,6 +63,13 @@ export const DeleteProject = createAsyncThunk(
   'post/DeleteProject',
   async ({ projectId }, thunkAPI) => {
     await URL.delete(`/project/${projectId}`);
+  },
+);
+
+export const setProjectInfo = createAsyncThunk(
+  'post/setProjectInfo',
+  async (data, thunkAPI) => {
+    return data;
   },
 );
 
@@ -94,7 +105,14 @@ export const postSlice = createSlice({
       })
       .addCase(OpenWorkSpace.fulfilled, (state, action) => {
         console.log(action.payload);
-        state.projectInfo = action.payload;
+        state.projectInfo = action.payload.projectInfo;
+        state.documentId = action.payload.documentId;
+        state.gapTableId = action.payload.gapTableId;
+        state.nodeTable = action.payload.nodeTable;
+      })
+      .addCase(setProjectInfo.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.projectInfo = action.payload.projectInfo;
         state.documentId = action.payload.documentId;
         state.gapTableId = action.payload.gapTableId;
         state.nodeTable = action.payload.nodeTable;

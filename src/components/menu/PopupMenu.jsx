@@ -15,9 +15,7 @@ const PopupMenu = props => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailToSendInvitationRef = useRef();
-  const projectId = useSelector(
-    state => state.post.projectInfo.projectInfo.projectId,
-  );
+  const projectId = useSelector(state => state.post.projectInfo.projectId);
 
   const Logout = () => {
     dispatch(kakaoLogout(userInfo.accessToken)).then(() => {

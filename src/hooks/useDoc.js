@@ -1,0 +1,14 @@
+import { URL } from '../API';
+import { useQuery } from 'react-query';
+
+const fetchDoc = async documentId => {
+  const { data } = await URL.get(`/documentLines/${documentId}`);
+  return data;
+};
+
+export const useDoc = documentId => {
+  return useQuery(['path', documentId], () => fetchDoc(documentId), {
+    enabled: !!documentId,
+    refetchInterval: 4000,
+  });
+};

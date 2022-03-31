@@ -4,7 +4,7 @@ import { ReactComponent as SaveImg } from '../../assets/icons/Save_light.svg';
 import { ReactComponent as DownloadImg } from '../../assets/icons/Download_light.svg';
 import { ReactComponent as TamplateImg } from '../../assets/icons/Tamplate_line.svg';
 import { ReactComponent as LogoutImg } from '../../assets/icons/Sign_out.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { kakaoLogout } from '../../redux/slice/userSlice';
 import { userInfo } from '../../API';
@@ -15,6 +15,9 @@ const PopupMenu = props => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailToSendInvitationRef = useRef();
+  const projectId = useSelector(
+    state => state.post.projectInfo.projectInfo.projectId,
+  );
 
   const Logout = () => {
     dispatch(kakaoLogout(userInfo.accessToken)).then(() => {
@@ -23,7 +26,6 @@ const PopupMenu = props => {
   };
 
   const invitationHandler = () => {
-    const projectId = sessionStorage.getItem('projectInfo');
     const userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
     const addingUser = emailToSendInvitationRef.current.value;
     const invitationData = {

@@ -53,7 +53,10 @@ export const OpenWorkSpace = createAsyncThunk(
   'post/OpenWorkSpace',
   async (projectId, thunkAPI) => {
     try {
-      return await URL.get(`/project/${projectId}`).then(res => res.data.info);
+      return await URL.get(`/project/${projectId}`).then(res => {
+        console.log(res);
+        return res.data.info;
+      });
     } catch (error) {
       console.error(error);
     }

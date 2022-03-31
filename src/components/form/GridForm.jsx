@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
 import { useDispatch } from 'react-redux';
-import { OpenWorkSpace } from '../../redux/slice/postSlice';
+import { DeleteProject, OpenWorkSpace } from '../../redux/slice/postSlice';
 
 const ToastGridForm = props => {
   const {
@@ -32,6 +32,26 @@ const ToastGridForm = props => {
     }
   };
 
+  const kakaoId =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).kakaoId;
+  const accessToken =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
+  const userId =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).userId;
+
+  const deleteProjectHandler = () => {
+    const sendingData = {
+      userId,
+      kakaoId,
+      accessToken,
+    };
+    console.log(sendingData);
+    dispatch(DeleteProject({ sendingData, projectId }));
+  };
+
   const onClickHandler = () => {
     navigate(`/workspace/${projectId}`, { state: props });
     dispatch(OpenWorkSpace(projectId));
@@ -39,7 +59,7 @@ const ToastGridForm = props => {
 
   return (
     <Wrapper>
-      <ToastMenu />
+      <ToastMenu onClick={deleteProjectHandler} />
       <ToastImage onClick={onClickHandler}></ToastImage>
       <ToastTitle>{projectName}</ToastTitle>
       <ToastDate>{displayCreatedAt(modifiedAt)}</ToastDate>

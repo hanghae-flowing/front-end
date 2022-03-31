@@ -13,15 +13,7 @@ import { useCallback } from 'react';
 const ProposalPage = () => {
   const documentId = useSelector(state => state.post.documentId);
 
-  const {
-    status,
-    data: docList,
-    error,
-    isFetching,
-    onSuccess,
-  } = useDoc(documentId);
-
-  const mutation = useMutation(newTodo => URL.post('', newTodo));
+  const { status, data: docList, error, isFetching } = useDoc(documentId);
 
   const renderByStatus = useCallback(() => {
     switch (status) {
@@ -51,7 +43,7 @@ const ProposalPage = () => {
           </>
         );
     }
-  }, [status, isFetching]);
+  }, [isFetching]);
   // const h1Value = {
   //   text: ' ',
   //   weight: 700,

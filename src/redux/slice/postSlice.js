@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { URL } from '../../API';
 import { createNewDocument } from './docSlice';
 
@@ -62,8 +63,12 @@ export const CreateNewProject = createAsyncThunk(
 
 export const DeleteProject = createAsyncThunk(
   'post/DeleteProject',
-  async ({ projectId }, thunkAPI) => {
-    await URL.delete(`/project/${projectId}`);
+  async ({ sendingData, projectId }, thunkAPI) => {
+    console.log(sendingData);
+    await axios
+      .delete(`http://52.79.250.142/project/${projectId}`, sendingData)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   },
 );
 

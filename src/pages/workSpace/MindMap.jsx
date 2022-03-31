@@ -16,13 +16,6 @@ const MindMap = () => {
   // console.log(nodeList);
   // const { data: pathList } = usePath(nodeTableId);
 
-  const pathArr = [
-    {
-      parentNode: 2,
-      childNode: 6,
-    },
-  ];
-
   const renderByStatus = useCallback(() => {
     switch (status) {
       case 'loading':

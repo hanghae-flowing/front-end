@@ -49,7 +49,7 @@ const Square = props => {
     color: '#e3e3e3',
     fontColor: '#222222',
     fontSize: '16px',
-    text: 'node',
+    text: '키워드',
     xval: `${transX + 20}`,
     yval: `${transY + 20}`,
     nodeTableId: `${props.nodeTableId}`,
@@ -58,7 +58,7 @@ const Square = props => {
 
   const onCreate = () => {
     dispatch(postNode(node)).then(res => {
-      dispatch(addNode(res.payload));
+      // dispatch(addNode(res.payload));
       const data = {
         nodeTableId: nodeTableId,
         parentNode: nodeId,
@@ -84,8 +84,8 @@ const Square = props => {
       let mouseY = e.clientY;
       const shiftX = mouseX - posX;
       const shiftY = mouseY - posY;
-      const currentX = mouseX - pos.width / 2;
-      const currentY = mouseY - pos.height / 2;
+      const currentX = mouseX - pos.width / 2 + 60;
+      const currentY = mouseY - pos.height / 2 + 30;
       // console.log(posX, posY);
       // console.log(mouseX, mouseY);
       setTransX(currentX);
@@ -120,16 +120,14 @@ const Square = props => {
       style={{
         transform: `translate(${transX}px,${transY}px)`,
         position: 'absolute',
-        top: 0,
-        left: 0,
+        top: '-30px',
+        left: '-60px',
       }}
     >
       <Delete
         visible={visible}
         onClick={() => {
-          dispatch(deleteNode(props.nodeId)).then(() => {
-            dispatch(deleteAction(props.nodeId));
-          });
+          dispatch(deleteNode(props.nodeId));
         }}
       >
         <span

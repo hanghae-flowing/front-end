@@ -13,7 +13,7 @@ const Node = props => {
     color: '#e3e3e3',
     fontColor: '#222222',
     fontSize: '16px',
-    text: 'node',
+    text: '키워드',
     xval: '400',
     yval: '400',
     nodeTableId: `${props.nodeTableId}`,
@@ -21,10 +21,7 @@ const Node = props => {
   };
 
   const onCreate = () => {
-    dispatch(postNode(node)).then(res => {
-      console.log(res);
-      dispatch(addNode(res.payload));
-    });
+    dispatch(postNode(node));
   };
 
   let posX = 0;

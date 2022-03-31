@@ -19,26 +19,13 @@ const Notice = () => {
     dispatch(checkMyInvitation(checkData));
   };
 
-  const acceptInvitationHandler = () => {
-    const sendData = {
-      invitingId: sessionStorage.getItem('invitingInfo').data.invitingId,
-    };
-    dispatch(acceptInvitation(sendData));
-  };
-
-  const declineInvitationHandler = () => {
-    const sendData = {
-      invitingId: sessionStorage.getItem('invitingInfo').data.invitingId,
-    };
-    dispatch(declineInvitation(sendData));
-  };
+  
 
   return (
     <Wrapper>
       <NotificationModal></NotificationModal>
       <Button onClick={checkMyInvitationHandler}>hahaha</Button>
-      <button onClick={acceptInvitationHandler}>수락</button>
-      <button onClick={declineInvitationHandler}>거절</button>
+      
     </Wrapper>
   );
 };

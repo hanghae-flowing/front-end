@@ -6,6 +6,7 @@ import { getNodeTableId } from '../../redux/slice/nodeSlice';
 import { getTemplate, isModal } from '../../redux/slice/tempSlice';
 import { NewProject, TemplateProject } from '../cards/NewProject';
 import AddTemplate from '../form/AddTemplate';
+import { openDoc } from '../../redux/slice/docSlice';
 
 const TemplateList = props => {
   const isOpen = useSelector(state => state.template.tempOpen);
@@ -21,6 +22,15 @@ const TemplateList = props => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const projectId = props.projectId;
+  //
+  const docOpenHandler = () => {
+    const docSendingData = {
+      projectId: sessionStorage.getItem('projectInfo'),
+    };
+    console.log(docSendingData);
+    dispatch(openDoc({ docSendingData, navigate }));
+  };
+  //한솔 dont touch
 
   useEffect(() => {
     if (!projectId) return;
@@ -77,7 +87,8 @@ const TemplateList = props => {
         marginBottom="20px"
         title="기획서"
         onClick={() => {
-          navigate(`proposal/${documentList[0].documentId}`);
+          navigate(`proposal/`);
+          docOpenHandler();
         }}
       />
       {/* <NewProject

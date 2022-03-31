@@ -40,7 +40,6 @@ const MainPrac = () => {
       <NewTemplateForm />
       <SplitDiv>
         <CurrentDoc>최근문서</CurrentDoc>
-        <DropdownMenu></DropdownMenu>
       </SplitDiv>
       <ProjectDiv>
         {projectList.length > 0 &&

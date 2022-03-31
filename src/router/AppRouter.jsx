@@ -32,9 +32,9 @@ function AppRouter() {
         <Route path="/setting" element={<Setting />} />
         <Route path="workspace/:projecId/*" element={<WorkSpace />}>
           <Route path="mindmap/:id" element={<MindMap />} />
-          <Route path="gap" element={<GapAnalysis />} />
-          <Route path="proposal" element={<Proposal />} />
-          <Route path="swot" element={<SwotAnalysis />} />
+          <Route path="gap/:id" element={<GapAnalysis />} />
+          <Route path="proposal/:id" element={<Proposal />} />
+          <Route path="swot/:id" element={<SwotAnalysis />} />
         </Route>
       </Routes>
     </BrowserRouter>

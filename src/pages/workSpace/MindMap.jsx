@@ -7,15 +7,14 @@ import { MindMapToolBox } from '../../components/tools/ToolBox';
 import { useSelector } from 'react-redux';
 import Path from '../../components/modules/Path';
 import { useNode } from '../../hooks/useNode';
-import { usePath } from '../../hooks/usePath';
+// import { usePath } from '../../hooks/usePath';
 
 const MindMap = () => {
   const nodeTableId = useSelector(state => state.node.nodeTableId);
 
   const { status, data: nodeList, error, isFetching } = useNode(nodeTableId);
   // console.log(nodeList);
-  const { data: pathList } = usePath(nodeTableId);
-  console.log(pathList);
+  // const { data: pathList } = usePath(nodeTableId);
 
   const pathArr = [
     {

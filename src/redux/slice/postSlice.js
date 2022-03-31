@@ -37,7 +37,7 @@ export const OpenWorkSpace = createAsyncThunk(
   async (projectId, thunkAPI) => {
     try {
       return await URL.get(`/project/${projectId}`).then(res => {
-        console.log(res);
+        res = res.data;
         sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
         return res.data;
       });
@@ -84,7 +84,6 @@ export const postSlice = createSlice({
         state.project = action.payload;
       })
       .addCase(LoadPost.rejected, () => {})
-
       .addCase(CreateNewProject.fulfilled, (state, action) => {
         console.log('create fulfiled');
       })
@@ -95,7 +94,8 @@ export const postSlice = createSlice({
         console.log('delete');
       })
       .addCase(OpenWorkSpace.fulfilled, (state, action) => {
-        state.projectInfo = action.payload.projectInfo;
+        console.log(action.payload);
+        state.projectInfo = action.payload;
         state.documentId = action.payload.documentId;
         state.gapTableId = action.payload.gapTableId;
         state.nodeTable = action.payload.nodeTable;

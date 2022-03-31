@@ -46,11 +46,10 @@ export const OpenWorkSpace = createAsyncThunk(
 export const CreateNewProject = createAsyncThunk(
   'post/CreateNewProject',
   async ({ sendingData, navigate }, { dispatch }, thunkAPI) => {
-    await URL.post('/project', sendingData)
+    return await URL.post('/project', sendingData)
       .then(res => {
-        console.log(res);
-        sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
         navigate(`/workspace/${res.data.projectId}`);
+        return res.data;
       })
       .catch(err => console.log(err));
   },
@@ -81,6 +80,10 @@ export const postSlice = createSlice({
       })
       .addCase(LoadPost.rejected, () => {})
       .addCase(CreateNewProject.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.documentId = action.payload.documentId;
+        state.gapTableId = action.payload.gapTableId;
+        state.nodeTable = action.payload.nodeTableId;
         console.log('create fulfiled');
       })
       .addCase(CreateNewProject.rejected, () => {

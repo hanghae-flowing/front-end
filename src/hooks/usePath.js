@@ -9,6 +9,6 @@ const fetchPathList = async (nodeTableId) => {
 export const usePath = (nodeTableId) => {
   return useQuery(['path', nodeTableId], () => fetchPathList(nodeTableId), {
     enabled: !!nodeTableId,
-    refetchInterval: 5000,
+    refetchInterval: 2000,
   })
 }

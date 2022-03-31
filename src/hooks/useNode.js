@@ -10,6 +10,6 @@ const fetchNodeList = async (nodeTableId) => {
 export const useNode = (nodeTableId) => {
   return useQuery(['node', nodeTableId], () => fetchNodeList(nodeTableId), {
     enabled: !!nodeTableId,
-    refetchInterval: 5000,
+    refetchInterval: 2000,
   });
 };

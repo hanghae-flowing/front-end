@@ -20,26 +20,6 @@ export const LoadPost = createAsyncThunk(
   },
 );
 
-export const LoadAllPost = createAsyncThunk(
-  'post/LoadAllPost',
-  async (data, thunkAPI) => {
-    const result = await URL.post('/project', data)
-      .then(res => res.data)
-      .catch(err => console.log(err));
-
-    return result;
-  },
-);
-
-export const LoadMyPost = createAsyncThunk(
-  'post/LoadMyPost',
-  async (data, thunkAPI) => {
-    await URL.post('/api/mytoast/create', data)
-      .then(res => res.data)
-      .catch(err => err);
-  },
-);
-
 export const LoadBookmarkedPost = createAsyncThunk(
   'post/LoadBookmarkedPost',
   async (data, thunkAPI) => {
@@ -101,21 +81,6 @@ export const postSlice = createSlice({
         state.project = action.payload;
       })
       .addCase(LoadPost.rejected, () => {})
-
-      .addCase(LoadAllPost.pending, (state, action) => {
-        console.log('pending');
-      })
-      .addCase(LoadAllPost.fulfilled, (state, action) => {
-        state.project = action.payload;
-      })
-      .addCase(LoadAllPost.rejected, () => {})
-      .addCase(LoadMyPost.pending, (state, action) => {
-        console.log('pending');
-      })
-      .addCase(LoadMyPost.fulfilled, (state, action) => {
-        state.project = action.payload;
-      })
-      .addCase(LoadMyPost.rejected, () => {})
       .addCase(CreateNewProject.pending, (state, action) => {
         console.log('pending');
       })

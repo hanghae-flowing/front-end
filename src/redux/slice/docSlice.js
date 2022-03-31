@@ -51,7 +51,7 @@ export const openDoc = createAsyncThunk(
   async (docSendingData, thunkAPI) => {
     try {
       const result = await URL.get(`/document/${docSendingData.projectId}`);
-      console = result;
+
       return result;
     } catch (err) {
       console.log(err);

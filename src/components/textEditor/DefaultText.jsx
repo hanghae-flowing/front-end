@@ -2,38 +2,37 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { deleteLine, editLine } from '../../redux/slice/docSlice';
 import _ from 'lodash';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { URL } from '../../API';
 
 const DefaultText = props => {
-  const dispatch = useDispatch();
-  const [value, setValue] = useState(props.text);
   const lineId = props.lineId;
+  const [value, setValue] = useState(props.text);
 
   const mutation = useMutation(newTodo =>
     URL.put(`/documentLines/${lineId}`, newTodo),
   );
+  useEffect(() => {
+    setValue(props.text);
+  }, [props.text]);
 
   const throttle = _.throttle(e => {
     setValue(e.target.value);
     const sendingData = {
-      text: value + ' ',
+      text: e.target.value,
       indexNum: props.indexNum,
       weight: props.weight,
       fontSize: props.fontSize,
       color: props.color,
     };
     mutation.mutate(sendingData);
-    // dispatch(editLine({ sendingData, lineId }));
   }, 3000);
-
-  //마운트랜더링될때 언마운트될때 주소가같은 언마운트일때
 
   return (
     <InputText
       onChange={throttle}
-      defaultValue={value}
+      value={value}
       color={props.color}
       weight={props.weight}
       fontSize={props.fontSize}

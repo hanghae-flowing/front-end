@@ -68,7 +68,7 @@ const SplitDiv = styled.div`
 `;
 
 const CurrentDoc = styled.span`
-  width: 89px;
+  width: 100px;
   height: 29px;
   font-weight: 700;
   font-size: 1.4em;

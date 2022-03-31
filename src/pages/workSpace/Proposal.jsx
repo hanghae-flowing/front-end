@@ -43,7 +43,7 @@ const ProposalPage = () => {
           </>
         );
     }
-  }, [status, isFetching]);
+  }, [isFetching]);
   // const h1Value = {
   //   text: ' ',
   //   weight: 700,

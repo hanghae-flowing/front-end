@@ -52,7 +52,8 @@ export const CreateNewProject = createAsyncThunk(
     return await URL.post('/project', sendingData)
       .then(res => {
         sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
-        navigate(`/workspace/${res.data.projectId}`);
+        navigate(`/workspace/${res.data.projectInfo.projectId}`);
+        console.log(res.data);
         return res.data;
       })
       .catch(err => console.log(err));

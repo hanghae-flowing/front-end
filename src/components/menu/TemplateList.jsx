@@ -70,7 +70,6 @@ const TemplateList = props => {
         onClick={() => {
           navigate(`mindmap/${nodeTableId}`);
           dispatch(getNodeTableId(nodeTableId));
-          sessionStorage.setItem('nodeTableId', nodeTableId);
         }}
       />
       <TemplateProject

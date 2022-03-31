@@ -28,7 +28,6 @@ const DefaultText = props => {
     <InputText
       onChange={throttle}
       defaultValue={value}
-      value={value}
       color={props.color}
       weight={props.weight}
       fontSize={props.fontSize}

@@ -13,14 +13,28 @@ import { ReactComponent as ReturnImg } from '../assets/icons/Return_light.svg';
 import { ReactComponent as OutImg } from '../assets/icons/Out_light.svg';
 import { ReactComponent as LoginImg } from '../assets/icons/Sign_in.svg';
 import PopupMenu from './menu/PopupMenu';
+import NotificationModal from './menu/NotificationModal';
+import { checkMyInvitation } from '../redux/slice/inviteSlice';
 
 export const MainHeader = () => {
   const location = useLocation();
+
+  const [isNotiOpen, setIsNotiOpen] = useState(false);
+  const handleNotification = () => {
+    setIsNotiOpen(!isNotiOpen);
+  };
   // console.log(location.pathname);
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.user.isLogin);
   const client = useRef({});
   const [email, setEmail] = useState('');
+
+  const checkMyInvitationHandler = () => {
+    const checkData = {
+      userId: JSON.parse(sessionStorage.getItem('userInfo')).userId,
+    };
+    dispatch(checkMyInvitation(checkData));
+  };
 
   const handleToggle = () => {
     dispatch(toggleTab());
@@ -91,24 +105,35 @@ export const MainHeader = () => {
 
   if (isLogin) {
     return (
-      <HeadBox>
-        <FlexDiv>
-          <MenuBtn onClick={handleToggle}>
-            <Line line="0px"></Line>
-            <Line line="7px"></Line>
-            <Line line="14px"></Line>
-          </MenuBtn>
-        </FlexDiv>
-        <FlexDiv justify="end">
-          {/* <FlexDiv>
+      <>
+        <HeadBox>
+          <FlexDiv>
+            <MenuBtn onClick={handleToggle}>
+              <Line line="0px"></Line>
+              <Line line="7px"></Line>
+              <Line line="14px"></Line>
+            </MenuBtn>
+          </FlexDiv>
+          <FlexDiv justify="end">
+            {/* <FlexDiv>
             <input type="text" onChange={inviteHandler} />
             <button onClick={() => publish(email)}>share</button>
           </FlexDiv> */}
-          <Notification>
-            <NotiImg />
-          </Notification>
-        </FlexDiv>
-      </HeadBox>
+            <Notification
+              onClick={() => {
+                setIsNotiOpen(true);
+                checkMyInvitationHandler();
+              }}
+            >
+              <NotiImg />
+            </Notification>
+          </FlexDiv>
+        </HeadBox>
+        <NotificationModal
+          open={isNotiOpen}
+          onClose={() => setIsNotiOpen(false)}
+        />
+      </>
     );
   }
   return (

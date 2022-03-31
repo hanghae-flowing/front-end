@@ -48,7 +48,7 @@ export const OpenWorkSpace = createAsyncThunk(
 
 export const CreateNewProject = createAsyncThunk(
   'post/CreateNewProject',
-  async ({ sendingData, navigate }, { dispatch }, thunkAPI) => {
+  async ({ sendingData, navigate }, thunkAPI) => {
     return await URL.post('/project', sendingData)
       .then(res => {
         sessionStorage.setItem('projectInfo', JSON.stringify(res.data));

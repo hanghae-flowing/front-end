@@ -6,16 +6,15 @@ import { useQuery } from 'react-query';
 import { createNewLine } from '../../redux/slice/docSlice';
 import DefaultText from '../../components/textEditor/DefaultText';
 import { URL } from '../../API';
-
-const fetch = () => {
-  const documentId =
-    sessionStorage.getItem('docInfo') &&
-    JSON.parse(sessionStorage.getItem('docInfo')).documentId;
-
-  return URL.get(`/documentLines/${documentId}`);
-};
+import { useSelector } from 'react-redux';
 
 const ProposalPage = () => {
+  const documentId = useSelector(state => state.post.documentId);
+  console.log(documentId);
+
+  const fetch = () => {
+    return URL.get(`/documentLines/${documentId}`);
+  };
   // const dispatch = useDispatch();
 
   const { isLoading, data, isError, error, isFetching, isSuccess } = useQuery(

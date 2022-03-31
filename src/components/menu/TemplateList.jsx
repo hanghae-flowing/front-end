@@ -22,12 +22,13 @@ const TemplateList = props => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const projectId = props.projectId;
+
   const docOpenHandler = () => {
     const docSendingData = {
-      projectId: sessionStorage.getItem('projectInfo'),
+      projectId: projectId,
     };
-    console.log(docSendingData);
-    dispatch(openDoc({ docSendingData, navigate }));
+
+    dispatch(openDoc(docSendingData));
   };
   //한솔 dont touch
 

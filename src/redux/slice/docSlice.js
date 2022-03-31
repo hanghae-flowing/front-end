@@ -5,19 +5,19 @@ const docState = {
   docs: [],
 };
 
-export const createNewDocument = createAsyncThunk(
-  'doc/createNewDocument',
-  async (sendingData, thunkAPI) => {
-    try {
-      return await URL.post(`/document/${sendingData.projectId}`).then(res => {
-        console.log(res);
-        sessionStorage.setItem('docInfo', res.data.documentId);
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  },
-);
+// export const createNewDocument = createAsyncThunk(
+//   'doc/createNewDocument',
+//   async (sendingData, thunkAPI) => {
+//     try {
+//       return await URL.post(`/document/${sendingData.projectId}`).then(res => {
+//         console.log(res);
+//         sessionStorage.setItem('docInfo', res.data.documentId);
+//       });
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   },
+// );
 
 export const createNewLine = createAsyncThunk(
   'doc/createNewLine',
@@ -48,16 +48,11 @@ export const editLine = createAsyncThunk(
 
 export const openDoc = createAsyncThunk(
   'doc/openDoc',
-  async ({ docSendingData, navigate }, thunkAPI) => {
+  async (docSendingData, thunkAPI) => {
     try {
       const result = await URL.get(`/document/${docSendingData.projectId}`);
-      navigate('proposal');
-      console.log(result.data);
-
-      sessionStorage.setItem(
-        'docInfo',
-        JSON.stringify(result.data.documentIdList[0]),
-      );
+      console = result;
+      return result;
     } catch (err) {
       console.log(err);
     }

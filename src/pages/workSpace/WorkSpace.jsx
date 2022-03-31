@@ -9,6 +9,7 @@ import { updateProjectId } from '../../redux/slice/nodeSlice';
 const WorkSpace = props => {
   const dispatch = useDispatch();
   const projectInfo = useSelector(state => state.post.projectInfo);
+  console.log(projectInfo);
 
   const projectId = projectInfo.projectId;
 

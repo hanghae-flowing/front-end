@@ -36,7 +36,10 @@ export const OpenWorkSpace = createAsyncThunk(
   'post/OpenWorkSpace',
   async (projectId, thunkAPI) => {
     try {
-      return await URL.get(`/project/${projectId}`).then(res => res.data);
+      return await URL.get(`/project/${projectId}`).then(res => {
+        sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
+        return res.data;
+      });
     } catch (error) {
       console.error(error);
     }
@@ -45,10 +48,12 @@ export const OpenWorkSpace = createAsyncThunk(
 
 export const CreateNewProject = createAsyncThunk(
   'post/CreateNewProject',
-  async ({ sendingData, navigate }, { dispatch }, thunkAPI) => {
+  async ({ sendingData, navigate }, thunkAPI) => {
     return await URL.post('/project', sendingData)
       .then(res => {
-        navigate(`/workspace/${res.data.projectId}`);
+        sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
+        navigate(`/workspace/${res.data.projectInfo.projectId}`);
+        console.log(res.data);
         return res.data;
       })
       .catch(err => console.log(err));
@@ -59,6 +64,13 @@ export const DeleteProject = createAsyncThunk(
   'post/DeleteProject',
   async ({ projectId }, thunkAPI) => {
     await URL.delete(`/project/${projectId}`);
+  },
+);
+
+export const setProjectInfo = createAsyncThunk(
+  'post/setProjectInfo',
+  async (data, thunkAPI) => {
+    return data;
   },
 );
 
@@ -94,7 +106,14 @@ export const postSlice = createSlice({
       })
       .addCase(OpenWorkSpace.fulfilled, (state, action) => {
         console.log(action.payload);
-        state.projectInfo = action.payload;
+        state.projectInfo = action.payload.projectInfo;
+        state.documentId = action.payload.documentId;
+        state.gapTableId = action.payload.gapTableId;
+        state.nodeTable = action.payload.nodeTable;
+      })
+      .addCase(setProjectInfo.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.projectInfo = action.payload.projectInfo;
         state.documentId = action.payload.documentId;
         state.gapTableId = action.payload.gapTableId;
         state.nodeTable = action.payload.nodeTable;

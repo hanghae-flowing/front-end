@@ -1,15 +1,15 @@
-import { URL } from "../API";
-import { useQuery } from "react-query";
+import { URL } from '../API';
+import { useQuery } from 'react-query';
 
-const fetchNodeList = async (nodeTableId) => {
+const fetchNodeList = async nodeTableId => {
   if (!nodeTableId) return;
-  const { data } = await URL.get(`/node/all/${nodeTableId}`,);
+  const { data } = await URL.get(`/node/all/${nodeTableId}`);
   return data;
 };
 
-export const useNode = (nodeTableId) => {
+export const useNode = nodeTableId => {
   return useQuery(['node', nodeTableId], () => fetchNodeList(nodeTableId), {
     enabled: !!nodeTableId,
-    refetchInterval: 5000,
+    refetchInterval: 2000,
   });
 };

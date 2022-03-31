@@ -2,36 +2,56 @@ import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { createNewLine } from '../../redux/slice/docSlice';
 import DefaultText from '../../components/textEditor/DefaultText';
 import { URL } from '../../API';
 import { useSelector } from 'react-redux';
+import { useDoc } from '../../hooks/useDoc';
+import { useCallback } from 'react';
 
 const ProposalPage = () => {
   const documentId = useSelector(state => state.post.documentId);
-  console.log(documentId);
 
-  const fetch = () => {
-    return URL.get(`/documentLines/${documentId}`);
-  };
-  // const dispatch = useDispatch();
+  const {
+    status,
+    data: docList,
+    error,
+    isFetching,
+    onSuccess,
+  } = useDoc(documentId);
 
-  const { isLoading, data, isError, error, isFetching, isSuccess } = useQuery(
-    'data',
-    fetch,
-    {
-      refetchInterval: 7000,
-    },
-  );
-  console.log(data);
-  if (isLoading) {
-    return <h2>Loading....</h2>;
-  }
-  if (isError) {
-    return <h2>{error.message}</h2>;
-  }
+  const mutation = useMutation(newTodo => URL.post('', newTodo));
 
+  const renderByStatus = useCallback(() => {
+    switch (status) {
+      case 'loading':
+        return <div>loading</div>;
+      case 'error':
+        if (error instanceof Error) {
+          return <span>Error: {error.message}</span>;
+        }
+        break;
+      default:
+        return (
+          <>
+            {docList &&
+              docList.map((props, index) => (
+                <DefaultText
+                  key={index}
+                  lineId={props.lineId}
+                  documentId={props.documentId}
+                  text={props.text}
+                  weight={props.weight}
+                  fontSize={props.fontSize}
+                  color={props.color}
+                  indexNum={index}
+                />
+              ))}
+          </>
+        );
+    }
+  }, [status, isFetching]);
   // const h1Value = {
   //   text: ' ',
   //   weight: 700,
@@ -55,21 +75,7 @@ const ProposalPage = () => {
 
   return (
     <TextBoxDiv>
-      <TextEditorDiv>
-        {data.data &&
-          data.data.map((props, index) => (
-            <DefaultText
-              key={index}
-              lineId={props.lineId}
-              documentId={props.documentId}
-              text={props.text}
-              weight={props.weight}
-              fontSize={props.fontSize}
-              color={props.color}
-              indexNum={index}
-            />
-          ))}
-      </TextEditorDiv>
+      <TextEditorDiv>{renderByStatus()}</TextEditorDiv>
       {/* <AddingNewLineDiv>
         <button
           onClick={() => {

@@ -36,11 +36,11 @@ const tempSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(getTemplate.fulfilled, (state, action) => {
-      console.log(action.payload);
-      state.documentList = action.payload.documentIdList;
-      state.nodeTableList = action.payload.nodeTableIdList;
-      state.gapTableList = action.payload.gapTableIdList;
-      state.swotList = action.payload.swotIdList;
+      // console.log(action.payload);
+      // state.documentList = action.payload.documentIdList;
+      // state.nodeTableList = action.payload.nodeTableIdList;
+      // state.gapTableList = action.payload.gapTableIdList;
+      // state.swotList = action.payload.swotIdList;
     });
   },
 });

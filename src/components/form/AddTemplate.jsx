@@ -40,7 +40,7 @@ const AddTemplate = props => {
           <AddBox>갭분석</AddBox>
           <AddBox onClick={addNodeTable}>마인드맵</AddBox>
           <AddBox onClick={swotOpenHandler}>SWOT</AddBox>
-          <AddBox onClick={docOpenHandler}>기획서</AddBox>
+          {/* <AddBox onClick={docOpenHandler}>기획서</AddBox> */}
         </AddDiv>
       </StyledWrap>
     </StyledDiv>

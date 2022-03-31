@@ -1,30 +1,34 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { deleteLine, editLine } from '../../redux/slice/docSlice';
-
 import _ from 'lodash';
+import { useState } from 'react';
 
 const DefaultText = props => {
   const dispatch = useDispatch();
+  const [value, setValue] = useState(props.text);
 
   const throttle = _.throttle(e => {
     const lineId = props.lineId;
+    setValue(e.target.value);
+
     const sendingData = {
-      text: e.target.value + ' ',
+      text: value + ' ',
       indexNum: props.indexNum,
       weight: props.weight,
       fontSize: props.fontSize,
       color: props.color,
     };
     dispatch(editLine({ sendingData, lineId }));
-  }, 7000);
+  }, 5000);
 
   //마운트랜더링될때 언마운트될때 주소가같은 언마운트일때
 
   return (
     <InputText
       onChange={throttle}
-      defaultValue={props.text}
+      defaultValue={value}
+      value={value}
       color={props.color}
       weight={props.weight}
       fontSize={props.fontSize}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { useEffect } from 'react';
 import {
   editNode,
   deleteAction,
@@ -21,6 +22,12 @@ const Square = props => {
   const onTextChange = e => {
     setText(e.target.value);
   };
+
+  useEffect(() => {
+    setTransX(props.xval);
+    setTransY(props.yval);
+    setText(props.text);
+  }, [props.xval, props.yval, props.text]);
 
   const nodeTableId = props.nodeTableId;
   const nodeId = props.nodeId;
@@ -193,7 +200,7 @@ const Square = props => {
           type="text"
           fontSize={props.fontSize}
           onChange={onTextChange}
-          defaultValue={props.text}
+          value={text}
         />
       </StyledDiv>
     </div>

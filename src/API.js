@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useQuery } from 'react-query';
 
 export const userInfo =
   sessionStorage.getItem('userInfo') &&

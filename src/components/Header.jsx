@@ -128,26 +128,6 @@ export const MainHeader = () => {
 export const WorkHeader = props => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const client = useRef({});
-  client.current = new StompJs.Client({
-    webSocketFactory: () => new SockJS('http://52.79.250.142/websocket'),
-    connectHeaders: {
-      Accept: 'application/json',
-    },
-  });
-  const publish = () => {
-    if (!client.current.connected) {
-      return;
-    }
-    let content = {
-      senderEmail: `${userInfo.Email}`,
-      receiverEmail: 'wngus1473@naver.com',
-    };
-    client.current.publish({
-      destination: `/pub/invite`,
-      body: JSON.stringify(content),
-    });
-  };
 
   return (
     <HeadBox>

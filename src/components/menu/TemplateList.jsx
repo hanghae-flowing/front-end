@@ -13,11 +13,11 @@ const TemplateList = props => {
   const nodeTableList = useSelector(state => state.template.nodeTableList);
   const documentList = useSelector(state => state.template.documentList);
   const gapTableList = useSelector(state => state.template.gapTableList);
-  const swotList = useSelector(state => state.template.swotList);
-  console.log('nodeTableList', nodeTableList);
-  console.log('documentList', documentList);
-  console.log('gapTableList', gapTableList);
-  console.log('swotList', swotList[0]);
+  // const swotList = useSelector(state => state.template.swotList);
+  // console.log('nodeTableList', nodeTableList);
+  // console.log('documentList', documentList);
+  // console.log('gapTableList', gapTableList);
+  // console.log('swotList', swotList[0]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const projectId = props.projectId;

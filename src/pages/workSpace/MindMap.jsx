@@ -1,38 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import React, { useCallback } from 'react';
 import SpaceWrap from '../../components/container/SpaceWrap';
 import Frame from '../../components/container/Frame';
 import Viewport from '../../components/container/Viewport';
 import Square from '../../components/modules/Square';
 import { MindMapToolBox } from '../../components/tools/ToolBox';
-import { useDispatch, useSelector } from 'react-redux';
-import { getNode } from '../../redux/slice/nodeSlice';
-import { URL } from '../../API';
+import { useSelector } from 'react-redux';
 import Path from '../../components/modules/Path';
+import { useNode } from '../../hooks/useNode';
+import { usePath } from '../../hooks/usePath';
 
 const MindMap = () => {
-  // const dispatch = useDispatch();
   const nodeTableId = useSelector(state => state.node.nodeTableId);
-  // console.log(nodeTableId);
 
-  const fetchNodsList = async () => {
-    if (!nodeTableId) return;
-    return await URL.get(`/node/all/${nodeTableId}`);
-  };
-
-  const fetchPathList = async () => {
-    if (!nodeTableId) return;
-    return await URL.get(`/node/path/${nodeTableId}`);
-  };
-
-  const nodeQuery = useQuery('nodeData', fetchNodsList, {
-    refetchInterval: 5000,
-  });
-  const { isLoading, data: nodeList, isError, error } = nodeQuery;
-  const pathQurey = useQuery('pathData', fetchPathList);
-  const { data: pathList } = pathQurey;
-
-  // console.log(pathList.data);
+  const { status, data: nodeList, error, isFetching } = useNode(nodeTableId);
+  // console.log(nodeList);
+  const { data: pathList } = usePath(nodeTableId);
+  console.log(pathList);
 
   const pathArr = [
     {
@@ -41,29 +24,21 @@ const MindMap = () => {
     },
   ];
 
-  const [table, setTable] = useState('');
-
-  useEffect(() => {
-    if (!nodeList) return;
-    setTable(nodeList.data);
-  }, [nodeList]);
-
-  if (isLoading) {
-    return <h2>Loading</h2>;
-  }
-
-  if (isError) {
-    return <h2>{error.message}</h2>;
-  }
-
-  return (
-    <SpaceWrap>
-      <Frame>
-        <Viewport>
-          {table &&
-            table.map((data, index) => (
+  const renderByStatus = useCallback(() => {
+    switch (status) {
+      case 'loading':
+        return <div>loading</div>;
+      case 'error':
+        if (error instanceof Error) {
+          return <span>Error: {error.message}</span>;
+        }
+        break;
+      default:
+        return (
+          <>
+            {nodeList?.map(data => (
               <Square
-                key={index}
+                key={data.nodeId}
                 width={data.width}
                 height={data.height}
                 radius={data.radius}
@@ -77,8 +52,16 @@ const MindMap = () => {
                 nodeTableId={data.nodeTableId}
               />
             ))}
-        </Viewport>
-        {/* <Path /> */}
+          </>
+        );
+    }
+  }, [status, isFetching]);
+
+  return (
+    <SpaceWrap>
+      <Frame>
+        <Viewport>{renderByStatus()}</Viewport>
+        <Path />
       </Frame>
       <MindMapToolBox nodeTableId={nodeTableId} />
     </SpaceWrap>

@@ -5,9 +5,9 @@ import { createNewDocument } from './docSlice';
 const postState = {
   project: {},
   projectInfo: {},
-  documentId:0,
-  gapTableId:0,
-  nodeTable:0,
+  documentId: 0,
+  gapTableId: 0,
+  nodeTable: 0,
 };
 
 export const LoadPost = createAsyncThunk(
@@ -36,11 +36,7 @@ export const OpenWorkSpace = createAsyncThunk(
   'post/OpenWorkSpace',
   async (projectId, thunkAPI) => {
     try {
-      return await URL.get(`/project/${projectId}`).then(res => {
-        res = res.data;
-        sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
-        return res;
-      });
+      return await URL.get(`/project/${projectId}`).then(res => res.data);
     } catch (error) {
       console.error(error);
     }

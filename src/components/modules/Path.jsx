@@ -9,7 +9,7 @@ const Path = () => {
 
   const { data: nodeList } = useNode(nodeTableId);
   const { data: pathList } = usePath(nodeTableId);
-  console.log(pathList);
+  // console.log(pathList);
 
   let mergedArray = [];
   if (pathList) {
@@ -28,7 +28,7 @@ const Path = () => {
       mergedArray.push(resultObject);
     }
   }
-  console.log(mergedArray);
+  // console.log(mergedArray);
 
   return (
     <StyledDiv>

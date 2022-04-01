@@ -15,7 +15,7 @@ export const MindMapToolBox = props => {
 export const GapToolBox = props => {
   return (
     <StyledDiv>
-      <GapNode />
+      <GapNode gapTableId={props.gapTableId} />
       <MileStone />
     </StyledDiv>
   );

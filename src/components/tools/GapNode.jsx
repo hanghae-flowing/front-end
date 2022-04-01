@@ -1,8 +1,26 @@
 import React from 'react';
+import { useMutation } from 'react-query';
 import styled from 'styled-components';
+import { URL } from '../../API';
 
-const GapNode = () => {
-  return <StyledDiv></StyledDiv>;
+const GapNode = props => {
+  const gapTableId = props.gapTableId;
+
+  const mutation = useMutation(data => {
+    URL.post(`/gapNode`, data);
+  });
+
+  const sendingData = {
+    subject: '세부 과제명',
+    text: '해당 과제의 현안 및 문제점을 입력해주세요.',
+    targetText: '해당 과제의 이상적인 개선결과를 입력해주세요.',
+    gapTableId: gapTableId,
+  };
+
+  const onCreate = () => {
+    mutation.mutate(sendingData);
+  };
+  return <StyledDiv onClick={onCreate}></StyledDiv>;
 };
 
 const StyledDiv = styled.div`

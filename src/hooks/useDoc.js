@@ -9,6 +9,6 @@ const fetchDoc = async documentId => {
 export const useDoc = documentId => {
   return useQuery(['docs', documentId], () => fetchDoc(documentId), {
     enabled: !!documentId,
-    refetchInterval: 4000,
+    refetchInterval: 2000,
   });
 };

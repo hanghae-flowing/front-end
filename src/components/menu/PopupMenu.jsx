@@ -7,7 +7,7 @@ import { ReactComponent as LogoutImg } from '../../assets/icons/Sign_out.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { kakaoLogout } from '../../redux/slice/userSlice';
-import { userInfo } from '../../API';
+
 import { isOpen } from '../../redux/slice/tempSlice';
 import { sendInvite } from '../../redux/slice/inviteSlice';
 
@@ -16,9 +16,12 @@ const PopupMenu = props => {
   const navigate = useNavigate();
   const emailToSendInvitationRef = useRef();
   const projectId = useSelector(state => state.post.projectInfo.projectId);
+  const accessToken =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
 
   const Logout = () => {
-    dispatch(kakaoLogout(userInfo.accessToken)).then(() => {
+    dispatch(kakaoLogout(accessToken)).then(() => {
       navigate('/login');
     });
   };

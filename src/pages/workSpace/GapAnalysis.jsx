@@ -8,7 +8,7 @@ import { useGap } from '../../hooks/useGap';
 const GapAnalysis = () => {
   const gapTableId = useSelector(state => state.post.gapTableId);
   const { status, data: gapList, error, isFetching } = useGap(gapTableId);
-  console.log(gapList);
+  // console.log(gapList);
 
   const renderByStatus = useCallback(() => {
     switch (status) {

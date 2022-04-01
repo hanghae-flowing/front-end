@@ -10,6 +10,6 @@ const fetchGapList = async gapTableId => {
 export const useGap = gapTableId => {
   return useQuery(['gap', gapTableId], () => fetchGapList(gapTableId), {
     enabled: !!gapTableId,
-    refetchInterval: 2000,
+    refetchInterval: 5000,
   });
 };

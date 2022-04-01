@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as SaveImg } from '../../assets/icons/Save_light.svg';
 import { ReactComponent as DownloadImg } from '../../assets/icons/Download_light.svg';
@@ -15,7 +15,10 @@ const PopupMenu = props => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailToSendInvitationRef = useRef();
-  const projectId = useSelector(state => state.post.projectInfo.projectId);
+  // const projectId = useSelector(state => state.post.projectInfo.projectId);
+  const projectId =
+    sessionStorage.getItem('projectInfo') &&
+    JSON.parse(sessionStorage.getItem('projectInfo')).projectInfo.projectId;
   const accessToken =
     sessionStorage.getItem('userInfo') &&
     JSON.parse(sessionStorage.getItem('userInfo')).accessToken;

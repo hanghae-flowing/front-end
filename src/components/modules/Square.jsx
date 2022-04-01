@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 import {
   editNode,
-  deleteAction,
   deleteNode,
   postNode,
-  addNode,
   addPath,
 } from '../../redux/slice/nodeSlice';
 

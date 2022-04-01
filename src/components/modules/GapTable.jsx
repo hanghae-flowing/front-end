@@ -10,9 +10,15 @@ const GapTable = props => {
   const [targetText, setTargetText] = useState(props.targetText);
   const [visible, setVisible] = useState(false);
 
-  const subRef = useRef(null);
-  const textRef = useRef(null);
-  const targetRef = useRef(null);
+  useEffect(() => {
+    setSubject(props.subject);
+    setText(props.text);
+    setTargetText(props.targetText);
+  }, [props.subject, props.text, props.targetText]);
+
+  const subRef = useRef('');
+  const textRef = useRef('');
+  const targetRef = useRef('');
 
   const editGap = useMutation(data => {
     URL.put(`/gapNode/${gapNodeId}`, data);
@@ -21,12 +27,6 @@ const GapTable = props => {
   const deleteGap = useMutation(() => {
     URL.delete(`gapNode/${gapNodeId}`);
   });
-
-  useEffect(() => {
-    setSubject(props.subject);
-    setText(props.text);
-    setTargetText(props.targetText);
-  }, [props.subject, props.text, props.targetText]);
 
   const onChange = () => {
     setSubject(subRef.current.value);
@@ -59,7 +59,7 @@ const GapTable = props => {
             ref={subRef}
             onChange={onChange}
             placeholder="세부 과제명"
-            defaultValue={subject}
+            value={subject}
             maxLength={10}
           />
         </Subtitle>
@@ -72,7 +72,7 @@ const GapTable = props => {
             ref={textRef}
             onChange={onChange}
             placeholder="해당 과제의 현안 및 문제점을 입력해주세요."
-            defaultValue={text}
+            value={text}
           />
         </ContentBox>
       </GapWrap>
@@ -83,7 +83,7 @@ const GapTable = props => {
             ref={targetRef}
             onChange={onChange}
             placeholder="해당 과제의 이상적인 개선결과를 입력해주세요."
-            defaultValue={targetText}
+            value={targetText}
           />
         </ContentBox>
       </GapWrap>

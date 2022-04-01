@@ -126,7 +126,7 @@ const ToggleBtn = styled.button`
   position: fixed;
   top: 50%;
   left: ${props => (props.toggle ? '300px' : '0px')};
-  transition: left 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   transform: translateY(-50%);
   width: 25px;
   height: 80px;
@@ -137,6 +137,9 @@ const ToggleBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  &:hover {
+    transform: translateY(-50%) scale(1.25);
+  }
 `;
 
 const Line = styled.span`

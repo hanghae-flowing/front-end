@@ -24,14 +24,14 @@ const NewTemplateForm = props => {
         <GridWrap>
           <NewProject
             onClick={handleToggle}
-            width="275px"
+            width="calc(100% / 5 - 20px)"
             height="100%"
             marginRight="25px"
           />
+          {/* <TemplateProject width="275px" height="100%" marginRight="25px" />
           <TemplateProject width="275px" height="100%" marginRight="25px" />
           <TemplateProject width="275px" height="100%" marginRight="25px" />
-          <TemplateProject width="275px" height="100%" marginRight="25px" />
-          <TemplateProject width="275px" height="100%" marginRight="25px" />
+          <TemplateProject width="275px" height="100%" marginRight="25px" /> */}
         </GridWrap>
       </StyledDiv>
     </>
@@ -41,15 +41,15 @@ const NewTemplateForm = props => {
 const StyledDiv = styled.div`
   background-color: #e3e0ff;
   width: 100%;
-  height: 329px;
-  padding-top: 100px;
-  padding-bottom: 50px;
-  padding-left: 200px;
+  height: 250px;
+  padding: 20px;
+  padding-top: 70px;
 `;
 
 const GridWrap = styled.div`
-  width: 100%;
-  height: 200px;
+  width: 1240px;
+  margin: 0 auto;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: start;

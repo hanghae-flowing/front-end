@@ -1,14 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as SaveImg } from '../../assets/icons/Save_light.svg';
 import { ReactComponent as DownloadImg } from '../../assets/icons/Download_light.svg';
-import { ReactComponent as TamplateImg } from '../../assets/icons/Tamplate_line.svg';
 import { ReactComponent as LogoutImg } from '../../assets/icons/Sign_out.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { kakaoLogout } from '../../redux/slice/userSlice';
 
-import { isOpen } from '../../redux/slice/tempSlice';
 import { sendInvite } from '../../redux/slice/inviteSlice';
 
 const PopupMenu = props => {
@@ -43,30 +40,15 @@ const PopupMenu = props => {
     // 초대할사람이메일 초대한사람유저아이디 프로젝트아이디
   };
 
-  const opneTamplate = () => {
-    dispatch(isOpen());
-  };
-
   return (
     <StyledWrap>
-      <Tab>
-        <p>저장하기</p>
-        <SaveImg />
-      </Tab>
       <Tab>
         <p>다운로드</p>
         <DownloadImg />
       </Tab>
-      <Tab onClick={opneTamplate}>
-        <p>템플릿</p>
-        <TamplateImg />
-      </Tab>
       <Tab>
         <p onClick={invitationHandler}>초대하기</p>
         <input ref={emailToSendInvitationRef} placeholder="email"></input>
-      </Tab>
-      <Tab>
-        <p>히스토리</p>
       </Tab>
       <Line />
       <Tab onClick={Logout}>

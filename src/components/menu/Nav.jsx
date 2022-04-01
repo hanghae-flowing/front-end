@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { userInfo } from '../../API';
+
 import { ReactComponent as SearchImg } from '../../assets/icons/Search_duotone_line.svg';
 import { ReactComponent as LogoutImg } from '../../assets/icons/Sign_out.svg';
 import { ReactComponent as SettingImg } from '../../assets/icons/Setting_line_light.svg';
@@ -18,8 +18,12 @@ const Nav = () => {
   const tabbed = useSelector(state => state.nav.tabbed);
   const crtPage = useSelector(state => state.nav.currentPage);
 
+  const accessToken =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
+
   const Logout = () => {
-    dispatch(kakaoLogout(userInfo.accessToken)).then(() => {
+    dispatch(kakaoLogout(accessToken)).then(() => {
       navigate('/login');
     });
   };

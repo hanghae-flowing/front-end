@@ -1,13 +1,6 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
-export const userInfo = '';
-// sessionStorage.getItem('userInfo') &&
-// JSON.parse(sessionStorage.getItem('userInfo'));
-export const projectInfo = '';
-// sessionStorage.getItem('projectInfo') &&
-// JSON.parse(sessionStorage.getItem('projectInfo'));
-
 export const URL = axios.create({
   baseURL: 'http://52.79.220.93:8888',
   headers: {},

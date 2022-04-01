@@ -3,10 +3,8 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import {
   editNode,
-  deleteAction,
   deleteNode,
   postNode,
-  addNode,
   addPath,
 } from '../../redux/slice/nodeSlice';
 

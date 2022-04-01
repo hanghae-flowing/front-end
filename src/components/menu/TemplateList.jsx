@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getNodeTableId } from '../../redux/slice/nodeSlice';
-import { getTemplate, isModal } from '../../redux/slice/tempSlice';
+import { getTemplate, isModal, isOpen } from '../../redux/slice/tempSlice';
 import { NewProject, TemplateProject } from '../cards/NewProject';
 import AddTemplate from '../form/AddTemplate';
 import { openDoc } from '../../redux/slice/docSlice';
 
 const TemplateList = props => {
-  const isOpen = useSelector(state => state.template.tempOpen);
+  const tempOpen = useSelector(state => state.template.tempOpen);
   const addOpen = useSelector(state => state.template.addOpen);
   // const nodeTableList = useSelector(state => state.template.nodeTableList);
   // const documentList = useSelector(state => state.template.documentList);
@@ -40,28 +40,23 @@ const TemplateList = props => {
   }, [projectId]);
 
   return (
-    <StyledWrap toggle={isOpen}>
+    <StyledWrap toggle={tempOpen}>
+      <ToggleBtn
+        toggle={tempOpen}
+        onClick={() => {
+          dispatch(isOpen());
+        }}
+      >
+        <Line />
+        <Line />
+        <Line />
+      </ToggleBtn>
       {addOpen ? (
         <AddTemplate
           onClick={() => dispatch(isModal(false))}
           projectId={props.projectId}
         />
       ) : null}
-      {/* {nodeTableList &&
-        nodeTableList.map((data, index) => (
-          <TemplateProject
-            key={index}
-            width="100%"
-            height="180px"
-            marginBottom="20px"
-            title={`마인드맵 ${data.nodeTableId}번`}
-            onClick={() => {
-              navigate(`mindmap/${data.nodeTableId}`);
-              dispatch(getNodeTableId(data.nodeTableId));
-              sessionStorage.setItem('nodeTableId', data.nodeTableId);
-            }}
-          />
-        ))} */}
       <TemplateProject
         width="100%"
         height="180px"
@@ -112,7 +107,7 @@ const StyledWrap = styled.div`
   padding-top: 70px;
   padding-right: 10px;
   transition: left 0.2s ease-in-out;
-  z-index: 11;
+  z-index: 12;
   overflow-x: hidden;
   overflow-y: scroll;
   &::-webkit-scrollbar {
@@ -125,6 +120,30 @@ const StyledWrap = styled.div`
   &::-webkit-scrollbar-thumb:hover {
     background-color: rgba(0, 0, 0, 0.3);
   }
+`;
+
+const ToggleBtn = styled.button`
+  position: fixed;
+  top: 50%;
+  left: ${props => (props.toggle ? '300px' : '0px')};
+  transition: left 0.2s ease-in-out;
+  transform: translateY(-50%);
+  width: 25px;
+  height: 80px;
+  border: none;
+  background-color: #e3e0ff;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+`;
+
+const Line = styled.span`
+  width: 2px;
+  height: 20px;
+  background-color: #fff;
+  display: block;
 `;
 
 export default TemplateList;

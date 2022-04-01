@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import GapTable from '../../components/modules/GapTable';
@@ -7,8 +7,35 @@ import { useGap } from '../../hooks/useGap';
 
 const GapAnalysis = () => {
   const gapTableId = useSelector(state => state.post.gapTableId);
-  const { data: gapList } = useGap(gapTableId);
+  const { status, data: gapList, error, isFetching } = useGap(gapTableId);
   console.log(gapList);
+
+  const renderByStatus = useCallback(() => {
+    switch (status) {
+      case 'loading':
+        return <div>loading</div>;
+      case 'error':
+        if (error instanceof Error) {
+          return <span>Error: {error.message}</span>;
+        }
+        break;
+      default:
+        return (
+          <>
+            {gapList?.map(data => (
+              <GapTable
+                key={data.gapNodeId}
+                gapNodeId={data.gapNodeId}
+                subject={data.subject}
+                text={data.text}
+                targetText={data.targetText}
+              />
+            ))}
+          </>
+        );
+    }
+  }, [status, isFetching]);
+
   return (
     <StyledDiv>
       <StyledWrap>
@@ -22,16 +49,7 @@ const GapAnalysis = () => {
             <Title>TO-BE</Title>
           </TitleWrap>
         </StyledBox>
-        {gapList &&
-          gapList.map(data => (
-            <GapTable
-              key={data.gapNodeId}
-              gapNodeId={data.gapNodeId}
-              subject={data.subject}
-              text={data.text}
-              targetText={data.targetText}
-            />
-          ))}
+        {renderByStatus()}
       </StyledWrap>
       <GapToolBox gapTableId={gapTableId} />
     </StyledDiv>

@@ -71,7 +71,7 @@ const ToastGridForm = props => {
 
 const Wrapper = styled.div`
   position: relative;
-  width: 94%;
+  width: 100%;
   height: 26%;
   cursor: pointer;
 `;
@@ -80,7 +80,7 @@ const ToastImage = styled.div`
   background: #c4c4c4;
   background-size: cover;
   border-radius: 25px;
-  width: 230px;
+  width: calc(100% - 20px);
   height: 150px;
   overflow: hidden;
   margin-right: 25px;
@@ -110,8 +110,8 @@ const ToastDate = styled.p`
 
 const ToastMenu = styled.div`
   position: absolute;
-  left: 70%;
-  top: 6%;
+  right: 30px;
+  top: 10px;
   width: 24px;
   height: 24px;
   background: #fff;
@@ -120,12 +120,6 @@ const ToastMenu = styled.div`
     background: #000;
   }
   z-index: 10;
-  @media ${({ theme }) => theme.device.middle} {
-    left: 75%;
-  }
-  @media ${({ theme }) => theme.device.tablet} {
-    left: 63%;
-  }
 `;
 
 export default ToastGridForm;

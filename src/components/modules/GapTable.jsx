@@ -8,13 +8,18 @@ const GapTable = props => {
   const [subject, setSubject] = useState(props.subject);
   const [text, setText] = useState(props.text);
   const [targetText, setTargetText] = useState(props.targetText);
+  const [visible, setVisible] = useState(false);
 
   const subRef = useRef(null);
   const textRef = useRef(null);
   const targetRef = useRef(null);
 
-  const mutation = useMutation(data => {
+  const editGap = useMutation(data => {
     URL.put(`/gapNode/${gapNodeId}`, data);
+  });
+
+  const deleteGap = useMutation(() => {
+    URL.delete(`gapNode/${gapNodeId}`);
   });
 
   useEffect(() => {
@@ -32,11 +37,22 @@ const GapTable = props => {
       text: text,
       targetText: targetText,
     };
-    mutation.mutate(sendingData);
+    editGap.mutate(sendingData);
+  };
+
+  const onDelete = () => {
+    deleteGap.mutate();
   };
 
   return (
-    <StyledBox>
+    <StyledBox
+      onMouseOver={() => {
+        setVisible(true);
+      }}
+      onMouseOut={() => {
+        setVisible(false);
+      }}
+    >
       <GapWrap>
         <Subtitle>
           <SubInput
@@ -48,6 +64,10 @@ const GapTable = props => {
           />
         </Subtitle>
         <ContentBox>
+          <Delete visible={visible} onClick={onDelete}>
+            <Line1 />
+            <Line2 />
+          </Delete>
           <Content
             ref={textRef}
             onChange={onChange}
@@ -112,6 +132,7 @@ const EmptyBox = styled.div`
 `;
 
 const ContentBox = styled.div`
+  position: relative;
   width: 100%;
   background-color: #fff;
   border-radius: 10px;
@@ -128,6 +149,38 @@ const Content = styled.textarea`
   &:focus {
     outline: none;
   }
+`;
+const Delete = styled.button`
+  display: ${props => (props.visible ? 'block' : 'none')};
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  background-color: #c4c4c4;
+  border-radius: 30px;
+  border: none;
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+`;
+
+const Line1 = styled.div`
+  width: 15px;
+  height: 2px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+`;
+
+const Line2 = styled.div`
+  width: 15px;
+  height: 2px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(135deg);
 `;
 
 export default GapTable;

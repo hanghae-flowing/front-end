@@ -6,7 +6,6 @@ import { GapToolBox } from '../../components/tools/ToolBox';
 import { useGap } from '../../hooks/useGap';
 
 const GapAnalysis = () => {
-  const [visible, setVisible] = useState(false);
   const gapTableId = useSelector(state => state.post.gapTableId);
   const { data: gapList } = useGap(gapTableId);
   console.log(gapList);

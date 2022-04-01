@@ -82,12 +82,12 @@ const Square = props => {
     e.preventDefault();
     if (onPress === true) {
       const pos = e.target.getBoundingClientRect();
-      let posX = pos.x;
-      let posY = pos.y;
+      // let posX = pos.x;
+      // let posY = pos.y;
       let mouseX = e.clientX;
       let mouseY = e.clientY;
-      const shiftX = mouseX - posX;
-      const shiftY = mouseY - posY;
+      // const shiftX = mouseX - posX;
+      // const shiftY = mouseY - posY;
       const currentX = mouseX - pos.width / 2 + 60;
       const currentY = mouseY - pos.height / 2 + 30;
       // console.log(posX, posY);

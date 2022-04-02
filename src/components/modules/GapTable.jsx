@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import styled from 'styled-components';
 import { URL } from '../../API';
-import { debounce, throttle } from 'lodash';
+import { debounce } from 'lodash';
 
 const GapTable = props => {
   const gapNodeId = props.gapNodeId;

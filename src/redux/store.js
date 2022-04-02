@@ -7,6 +7,7 @@ import tempSlice from './slice/tempSlice';
 import userSlice from './slice/userSlice';
 import docSlice from './slice/docSlice';
 import swotSlice from './slice/swotSlice';
+import trashSlice from './slice/trashSlice';
 
 export default configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export default configureStore({
     doc: docSlice,
     template: tempSlice,
     swot: swotSlice,
+    trash: trashSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

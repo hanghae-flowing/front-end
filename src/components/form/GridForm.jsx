@@ -1,11 +1,16 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
 import { useDispatch } from 'react-redux';
-import { DeleteProject, OpenWorkSpace } from '../../redux/slice/postSlice';
+import { OpenWorkSpace } from '../../redux/slice/postSlice';
+import FileMenu from '../menu/FileMenu';
+import thumbnailImage from '../../assets/images/File.png';
 
-const ToastGridForm = props => {
+const GridForm = props => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const {
     projectName,
     modifiedAt,
@@ -13,6 +18,7 @@ const ToastGridForm = props => {
     bookmark,
     thumbnailNum,
     projectId,
+    trash,
   } = props;
 
   const navigate = useNavigate();
@@ -32,39 +38,33 @@ const ToastGridForm = props => {
     }
   };
 
-  const kakaoId =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).kakaoId;
-  const accessToken =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
-  const userId =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).userId;
-
-  const deleteProjectHandler = () => {
-    const sendingData = {
-      userId,
-      kakaoId,
-      accessToken,
-    };
-    console.log(sendingData);
-    dispatch(DeleteProject({ sendingData, projectId }));
-  };
-
   const onClickHandler = () => {
     navigate(`/workspace/${projectId}`, { state: props });
     dispatch(OpenWorkSpace(projectId));
   };
-
-  return (
-    <Wrapper>
-      <ToastMenu onClick={deleteProjectHandler} />
-      <ToastImage onClick={onClickHandler}></ToastImage>
-      <ToastTitle>{projectName}</ToastTitle>
-      <ToastDate>{displayCreatedAt(modifiedAt)}</ToastDate>
-    </Wrapper>
-  );
+  if (trash === false) {
+    return (
+      <Wrapper>
+        <MenuDiv onClick={() => setIsOpen(true)} />
+        <ImageDiv onClick={onClickHandler}></ImageDiv>
+        <Title>{projectName}</Title>
+        <DateP>{displayCreatedAt(modifiedAt)}</DateP>
+        <FileMenu
+          projectId={projectId}
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+        />
+      </Wrapper>
+    );
+  } else {
+    return (
+      <Wrapper>
+        <ImageDiv onClick={onClickHandler}></ImageDiv>
+        <Title>{projectName}</Title>
+        <DateP>{displayCreatedAt(modifiedAt)}</DateP>
+      </Wrapper>
+    );
+  }
 };
 
 //@media ${({ theme }) => theme.device.tablet} {}
@@ -75,9 +75,9 @@ const Wrapper = styled.div`
   height: 26%;
   cursor: pointer;
 `;
-const ToastImage = styled.div`
+const ImageDiv = styled.div`
   position: relative;
-  background: #c4c4c4;
+  background-image: url(${thumbnailImage});
   background-size: cover;
   border-radius: 25px;
   width: 100%;
@@ -86,7 +86,7 @@ const ToastImage = styled.div`
   margin-right: 25px;
 `;
 
-const ToastTitle = styled.h3`
+const Title = styled.h3`
   display: inline-block;
   white-space: nowrap;
   max-width: 147px;
@@ -99,7 +99,7 @@ const ToastTitle = styled.h3`
   color: #818181;
 `;
 
-const ToastDate = styled.p`
+const DateP = styled.p`
   position: relative;
   top: 0.4em;
   font-weight: 400;
@@ -108,18 +108,17 @@ const ToastDate = styled.p`
   color: #c4c4c4;
 `;
 
-const ToastMenu = styled.div`
+const MenuDiv = styled.div`
   position: absolute;
   right: 10px;
   top: 10px;
   width: 24px;
   height: 24px;
-  background: #fff;
+
   border-radius: 6px;
   &:hover {
-    background: #000;
   }
   z-index: 10;
 `;
 
-export default ToastGridForm;
+export default GridForm;

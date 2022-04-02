@@ -61,12 +61,10 @@ export const CreateNewProject = createAsyncThunk(
   },
 );
 
-export const DeleteProject = createAsyncThunk(
-  'post/DeleteProject',
-  async ({ sendingData, projectId }, thunkAPI) => {
-    console.log(sendingData);
-    await axios
-      .delete(`http://52.79.250.142/project/${projectId}`, sendingData)
+export const ThrowProject = createAsyncThunk(
+  'post/throwProject',
+  async (sendingData, thunkAPI) => {
+    await URL.post(`project/trash`, sendingData)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   },
@@ -106,9 +104,10 @@ export const postSlice = createSlice({
       .addCase(CreateNewProject.rejected, () => {
         console.log('create rejected');
       })
-      .addCase(DeleteProject.fulfilled, (state, action) => {
-        console.log('delete');
+      .addCase(ThrowProject.fulfilled, () => {
+        window.location.reload();
       })
+
       .addCase(OpenWorkSpace.fulfilled, (state, action) => {
         console.log(action.payload);
         state.projectInfo = action.payload.projectInfo;

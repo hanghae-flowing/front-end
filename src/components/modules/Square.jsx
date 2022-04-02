@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { URL } from '../../API';
 import {
   editNode,
-  deleteAction,
   deleteNode,
   postNode,
-  addNode,
   addPath,
 } from '../../redux/slice/nodeSlice';
 
@@ -17,6 +17,7 @@ const Square = props => {
   const [text, setText] = useState(props.text);
   const [visible, setVisible] = useState(false);
   const [isFocus, setIsFocus] = useState(false);
+  const [isCheck, setIsCheck] = useState(props.isChecked);
   const dispatch = useDispatch();
   const onTextChange = e => {
     setText(e.target.value);
@@ -26,7 +27,8 @@ const Square = props => {
     setTransX(props.xval);
     setTransY(props.yval);
     setText(props.text);
-  }, [props.xval, props.yval, props.text]);
+    setIsCheck(props.isChecked);
+  }, [props.xval, props.yval, props.text, props.isChecked]);
 
   const nodeTableId = props.nodeTableId;
   const nodeId = props.nodeId;
@@ -37,7 +39,7 @@ const Square = props => {
       height: '60px',
       radius: '80px',
       color: '#e3e3e3',
-      fontColor: '#222222',
+      fontColor: '#6c6c6c',
       fontSize: '16px',
       text: text,
       xval: `${transX}`,
@@ -48,12 +50,25 @@ const Square = props => {
     dispatch(editNode({ updateData, nodeId }));
   };
 
+  const pinNode = useMutation(data => {
+    URL.post(`/node/pin`, data);
+  });
+
+  const sendingData = {
+    nodeTableId: nodeTableId,
+    nodeId: nodeId,
+  };
+
+  const onPin = () => {
+    pinNode.mutate(sendingData);
+  };
+
   const node = {
     width: '120px',
     height: '60px',
     radius: '80px',
     color: '#e3e3e3',
-    fontColor: '#222222',
+    fontColor: '#6c6c6c',
     fontSize: '16px',
     text: '키워드',
     xval: `${transX + 20}`,
@@ -84,12 +99,12 @@ const Square = props => {
     e.preventDefault();
     if (onPress === true) {
       const pos = e.target.getBoundingClientRect();
-      let posX = pos.x;
-      let posY = pos.y;
+      // let posX = pos.x;
+      // let posY = pos.y;
       let mouseX = e.clientX;
       let mouseY = e.clientY;
-      const shiftX = mouseX - posX;
-      const shiftY = mouseY - posY;
+      // const shiftX = mouseX - posX;
+      // const shiftY = mouseY - posY;
       const currentX = mouseX - pos.width / 2 + 60;
       const currentY = mouseY - pos.height / 2 + 30;
       // console.log(posX, posY);
@@ -136,67 +151,27 @@ const Square = props => {
           dispatch(deleteNode(props.nodeId));
         }}
       >
-        <span
-          style={{
-            width: '10px',
-            height: '2px',
-            backgroundColor: '#222',
-            display: 'block',
-            position: 'absolute',
-            top: '10px',
-            left: '6px',
-            transform: 'rotate(45deg)',
-          }}
-        ></span>
-        <span
-          style={{
-            width: '10px',
-            height: '2px',
-            backgroundColor: '#222',
-            display: 'block',
-            position: 'absolute',
-            top: '10px',
-            left: '6px',
-            transform: 'rotate(135deg)',
-          }}
-        ></span>
+        <Line rotate="45deg" />
+        <Line rotate="135deg" />
       </Delete>
       <Create visible={visible} onClick={onCreate}>
-        <span
-          style={{
-            width: '10px',
-            height: '2px',
-            backgroundColor: '#222',
-            display: 'block',
-            position: 'absolute',
-            top: '10px',
-            left: '6px',
-          }}
-        ></span>
-        <span
-          style={{
-            width: '10px',
-            height: '2px',
-            backgroundColor: '#222',
-            display: 'block',
-            position: 'absolute',
-            top: '10px',
-            left: '6px',
-            transform: 'rotate(90deg)',
-          }}
-        ></span>
+        <Line rotate="0" />
+        <Line rotate="90deg" />
       </Create>
+      <Pin visible={visible} onClick={onPin}>
+        Pin
+      </Pin>
       <StyledDiv
         width={props.width}
         height={props.height}
         radius={props.radius}
-        color={props.color}
-        fontColor={props.fontColor}
+        color={isCheck}
         focus={isFocus}
         zIndex={onPress}
       >
         <Textarea
           type="text"
+          fontColor={props.fontColor}
           fontSize={props.fontSize}
           onChange={onTextChange}
           value={text}
@@ -210,8 +185,7 @@ const StyledDiv = styled.div`
   width: ${props => props.width};
   height: ${props => props.height};
   border-radius: ${props => props.radius};
-  background-color: ${props => props.color};
-  color: ${props => props.fontColor};
+  background-color: ${props => (props.color === 1 ? '#E3E0FF' : '#f2f2f2')};
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   border: ${props => (props.focus ? '2px solid #999' : 'none')};
   z-index: ${props => (props.zIndex ? '10' : '3')};
@@ -230,6 +204,7 @@ const Textarea = styled.input`
   overflow: auto;
   text-align: center;
   font-size: ${props => props.fontSize};
+  color: ${props => props.fontColor};
 
   &:focus {
     outline: none;
@@ -260,13 +235,40 @@ const Create = styled.div`
   cursor: pointer;
 `;
 
+const Pin = styled.div`
+  display: ${props => (props.visible ? 'flex' : 'none')};
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 22px;
+  border-radius: 50px;
+  background-color: #e3e3e3;
+  font-size: 13px;
+  color: #6c6c6c;
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  cursor: pointer;
+`;
+
+const Line = styled.span`
+  width: 10px;
+  height: 2px;
+  background-color: #222;
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 6px;
+  transform: rotate(${props => props.rotate});
+`;
+
 Square.defaultProps = {
   width: '120px',
   height: '60px',
   radius: '80px',
   color: '#f2f2f2',
   fontSize: '16px',
-  fontColor: '#222222',
+  fontColor: '#6c6c6c',
 };
 
 export default Square;

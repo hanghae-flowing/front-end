@@ -3,6 +3,7 @@ import { URL } from '../../API';
 
 const trashbinState = {
   trash: {},
+  pleaseThrowThoseProjects: {},
 };
 
 export const getProjectsInTrash = createAsyncThunk(
@@ -35,7 +36,11 @@ export const emptyMyTrashbin = createAsyncThunk(
 export const trashSlice = createSlice({
   name: 'trash',
   initialState: trashbinState,
-  reducer: {},
+  reducer: {
+    setChecked: (state, action) => {
+      state.pleaseThrowThoseProjects = [...action.payload];
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getProjectsInTrash.fulfilled, (state, action) => {
       console.log(action.payload);

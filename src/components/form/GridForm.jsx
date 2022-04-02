@@ -6,8 +6,11 @@ import 'moment/locale/ko';
 import { useDispatch } from 'react-redux';
 import { OpenWorkSpace } from '../../redux/slice/postSlice';
 import FileMenu from '../menu/FileMenu';
+import thumbnailImage from '../../assets/images/File.png';
+import projectMenuImage from '../../assets/images/Menu-S.png';
+import projectMenuHoverImage from '../../assets/images/Menu-S-hover.png';
 
-const ToastGridForm = props => {
+const GridForm = props => {
   const [isOpen, setIsOpen] = useState(false);
 
   const {
@@ -17,6 +20,7 @@ const ToastGridForm = props => {
     bookmark,
     thumbnailNum,
     projectId,
+    trash,
   } = props;
 
   const navigate = useNavigate();
@@ -40,20 +44,29 @@ const ToastGridForm = props => {
     navigate(`/workspace/${projectId}`, { state: props });
     dispatch(OpenWorkSpace(projectId));
   };
-
-  return (
-    <Wrapper>
-      <ToastMenu onClick={() => setIsOpen(true)} />
-      <ToastImage onClick={onClickHandler}></ToastImage>
-      <ToastTitle>{projectName}</ToastTitle>
-      <ToastDate>{displayCreatedAt(modifiedAt)}</ToastDate>
-      <FileMenu
-        projectId={projectId}
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-      />
-    </Wrapper>
-  );
+  if (trash === false) {
+    return (
+      <Wrapper>
+        <MenuDiv onClick={() => setIsOpen(true)} />
+        <ImageDiv onClick={onClickHandler}></ImageDiv>
+        <Title>{projectName}</Title>
+        <Date>{displayCreatedAt(modifiedAt)}</Date>
+        <FileMenu
+          projectId={projectId}
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+        />
+      </Wrapper>
+    );
+  } else {
+    return (
+      <Wrapper>
+        <ImageDiv onClick={onClickHandler}></ImageDiv>
+        <Title>{projectName}</Title>
+        <Date>{displayCreatedAt(modifiedAt)}</Date>
+      </Wrapper>
+    );
+  }
 };
 
 //@media ${({ theme }) => theme.device.tablet} {}
@@ -64,9 +77,9 @@ const Wrapper = styled.div`
   height: 26%;
   cursor: pointer;
 `;
-const ToastImage = styled.div`
+const ImageDiv = styled.div`
   position: relative;
-  background: #c4c4c4;
+  background-image: url(${thumbnailImage});
   background-size: cover;
   border-radius: 25px;
   width: 100%;
@@ -75,7 +88,7 @@ const ToastImage = styled.div`
   margin-right: 25px;
 `;
 
-const ToastTitle = styled.h3`
+const Title = styled.h3`
   display: inline-block;
   white-space: nowrap;
   max-width: 147px;
@@ -88,7 +101,7 @@ const ToastTitle = styled.h3`
   color: #818181;
 `;
 
-const ToastDate = styled.p`
+const Date = styled.p`
   position: relative;
   top: 0.4em;
   font-weight: 400;
@@ -97,18 +110,17 @@ const ToastDate = styled.p`
   color: #c4c4c4;
 `;
 
-const ToastMenu = styled.div`
+const MenuDiv = styled.div`
   position: absolute;
   right: 10px;
   top: 10px;
   width: 24px;
   height: 24px;
-  background: #fff;
+
   border-radius: 6px;
   &:hover {
-    background: #000;
   }
   z-index: 10;
 `;
 
-export default ToastGridForm;
+export default GridForm;

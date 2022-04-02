@@ -48,7 +48,7 @@ const GridForm = props => {
         <MenuDiv onClick={() => setIsOpen(true)} />
         <ImageDiv onClick={onClickHandler}></ImageDiv>
         <Title>{projectName}</Title>
-        <Date>{displayCreatedAt(modifiedAt)}</Date>
+        <DateP>{displayCreatedAt(modifiedAt)}</DateP>
         <FileMenu
           projectId={projectId}
           open={isOpen}
@@ -61,7 +61,7 @@ const GridForm = props => {
       <Wrapper>
         <ImageDiv onClick={onClickHandler}></ImageDiv>
         <Title>{projectName}</Title>
-        <Date>{displayCreatedAt(modifiedAt)}</Date>
+        <DateP>{displayCreatedAt(modifiedAt)}</DateP>
       </Wrapper>
     );
   }
@@ -99,7 +99,7 @@ const Title = styled.h3`
   color: #818181;
 `;
 
-const Date = styled.p`
+const DateP = styled.p`
   position: relative;
   top: 0.4em;
   font-weight: 400;

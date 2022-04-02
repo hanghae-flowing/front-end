@@ -152,7 +152,9 @@ export const MainHeader = () => {
 export const WorkHeader = props => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-
+  const projectTitle = JSON.parse(sessionStorage.getItem('projectInfo'))
+    .projectInfo.projectName;
+  console.log(projectTitle);
   return (
     <HeadBox>
       {isOpen ? <PopupMenu /> : null}
@@ -167,7 +169,7 @@ export const WorkHeader = props => {
         </Buttons>
       </FlexDiv>
       <FlexDiv justify="center">
-        <ProjectTitle>{props.title}</ProjectTitle>
+        <ProjectTitle>{projectTitle}</ProjectTitle>
       </FlexDiv>
       <FlexDiv justify="end">
         {/* <button onClick={() => publish()}>버튼</button> */}

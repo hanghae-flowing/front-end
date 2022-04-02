@@ -79,7 +79,7 @@ const GridForm = props => {
         >
           {isChecked ? <CheckedRing /> : <UnCheckedRing />}
         </MenuDiv>
-        <ImageDiv onClick={onClickHandler}></ImageDiv>
+        <ImageDiv></ImageDiv>
         <Title>{projectName}</Title>
         <DateP>{displayCreatedAt(modifiedAt)}</DateP>
       </Wrapper>

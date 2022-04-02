@@ -41,20 +41,22 @@ const MainPrac = () => {
       <SplitDiv>
         <CurrentDoc>최근문서</CurrentDoc>
       </SplitDiv>
-      <ProjectDiv>
-        {projectList.length > 0 &&
-          projectList.map((project, index) => (
-            <GridForm
-              key={index}
-              projectName={project.projectName}
-              modifiedAt={project.modifiedAt}
-              memberList={project.memberList}
-              bookmark={project.bookmark}
-              thumbnailNum={project.thumbnailNum}
-              projectId={project.projectId}
-            />
-          ))}
-      </ProjectDiv>
+      <ProjectWrap>
+        <ProjectDiv>
+          {projectList.length > 0 &&
+            projectList.map((project, index) => (
+              <GridForm
+                key={index}
+                projectName={project.projectName}
+                modifiedAt={project.modifiedAt}
+                memberList={project.memberList}
+                bookmark={project.bookmark}
+                thumbnailNum={project.thumbnailNum}
+                projectId={project.projectId}
+              />
+            ))}
+        </ProjectDiv>
+      </ProjectWrap>
       <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
@@ -62,7 +64,7 @@ const MainPrac = () => {
 
 const SplitDiv = styled.div`
   display: flex;
-  width: 77%;
+  width: 1240px;
   height: 46px;
   margin: 0 auto;
 `;
@@ -91,13 +93,19 @@ const DropdownMenu = styled.button`
   color: #818181;
 `;
 
+const ProjectWrap = styled.div`
+  width: 100%;
+  padding: 20px;
+`;
+
 const ProjectDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
   margin-top: 1.7rem;
   margin-left: auto;
   margin-right: auto;
-  width: 77%;
+  width: 1240px;
   height: 100%;
 `;
 

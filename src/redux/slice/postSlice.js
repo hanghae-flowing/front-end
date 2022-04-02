@@ -100,7 +100,7 @@ export const postSlice = createSlice({
         console.log(action.payload);
         state.documentId = action.payload.documentId;
         state.gapTableId = action.payload.gapTableId;
-        state.nodeTable = action.payload.nodeTableId;
+        state.nodeTable = action.payload.nodeTable;
         console.log('create fulfiled');
       })
       .addCase(CreateNewProject.rejected, () => {

@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { createNewLine } from '../../redux/slice/docSlice';
 import DefaultText from '../../components/textEditor/DefaultText';
 import { URL } from '../../API';

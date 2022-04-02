@@ -19,7 +19,7 @@ export const getTemplate = createAsyncThunk(
 const tempSlice = createSlice({
   name: 'template',
   initialState: {
-    tempOpen: false,
+    tempOpen: true,
     addOpen: false,
     nodeTableList: 0,
     documentList: 0,

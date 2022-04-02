@@ -10,7 +10,8 @@ export const NewProject = props => {
       marginRight={props.marginRight}
       marginBottom={props.marginBottom}
     >
-      <div>새 프로젝트</div>
+      <Line rotate="0" />
+      <Line rotate="90deg" />
     </StyledWrap>
   );
 };
@@ -30,6 +31,7 @@ export const TemplateProject = props => {
 };
 
 const StyledWrap = styled.div`
+  position: relative;
   width: ${props => props.width};
   height: ${props => props.height};
   background-color: #fff;
@@ -41,4 +43,15 @@ const StyledWrap = styled.div`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+`;
+
+const Line = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(${props => props.rotate});
+  background-color: #777;
+  width: 30px;
+  height: 3px;
+  border-radius: 10px;
 `;

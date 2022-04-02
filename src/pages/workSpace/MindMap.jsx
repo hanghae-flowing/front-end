@@ -10,18 +10,12 @@ import { useNode } from '../../hooks/useNode';
 // import { usePath } from '../../hooks/usePath';
 
 const MindMap = () => {
-  const nodeTableId = useSelector(state => state.node.nodeTableId);
+  const nodeTableId = useSelector(state => state.post.nodeTable);
+  console.log(nodeTableId);
 
   const { status, data: nodeList, error, isFetching } = useNode(nodeTableId);
-  // console.log(nodeList);
+  console.log(nodeList);
   // const { data: pathList } = usePath(nodeTableId);
-
-  const pathArr = [
-    {
-      parentNode: 2,
-      childNode: 6,
-    },
-  ];
 
   const renderByStatus = useCallback(() => {
     switch (status) {
@@ -49,6 +43,7 @@ const MindMap = () => {
                 yval={data.yval}
                 nodeId={data.nodeId}
                 nodeTableId={data.nodeTableId}
+                isChecked={data.isChecked}
               />
             ))}
           </>

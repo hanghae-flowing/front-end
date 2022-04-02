@@ -84,17 +84,6 @@ const Nav = () => {
             <GarbageImg />
           </TabIcon>
         </Tab>
-        <Tab
-          tab={crtPage === 'setting' ? true : false}
-          onClick={() => {
-            navigate('/setting');
-          }}
-        >
-          <p>환경설정</p>
-          <TabIcon>
-            <SettingImg />
-          </TabIcon>
-        </Tab>
         <Tab onClick={Logout}>
           <p>로그아웃</p>
           <TabIcon>

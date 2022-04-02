@@ -8,10 +8,9 @@ import { userInfo } from '../API';
 import { toggleTab } from '../redux/slice/navSlice';
 import { ReactComponent as NotiImg } from '../assets/icons/Bell_light.svg';
 import { ReactComponent as SaveImg } from '../assets/icons/Save_light.svg';
-import { ReactComponent as BackImg } from '../assets/icons/Back_light.svg';
-import { ReactComponent as ReturnImg } from '../assets/icons/Return_light.svg';
 import { ReactComponent as OutImg } from '../assets/icons/Out_light.svg';
 import { ReactComponent as LoginImg } from '../assets/icons/Sign_in.svg';
+import { ReactComponent as HomeImg } from '../assets/icons/Widget_light.svg';
 import PopupMenu from './menu/PopupMenu';
 import NotificationModal from './menu/NotificationModal';
 import { checkMyInvitation } from '../redux/slice/inviteSlice';
@@ -163,14 +162,8 @@ export const WorkHeader = props => {
           <Line line="7px"></Line>
           <Line line="14px"></Line>
         </MenuBtn>
-        <Buttons>
-          <SaveImg />
-        </Buttons>
-        <Buttons onClick={() => navigate(-1)}>
-          <BackImg />
-        </Buttons>
-        <Buttons onClick={() => navigate(+1)}>
-          <ReturnImg />
+        <Buttons onClick={() => navigate('/main')}>
+          <HomeImg />
         </Buttons>
       </FlexDiv>
       <FlexDiv justify="center">
@@ -178,12 +171,12 @@ export const WorkHeader = props => {
       </FlexDiv>
       <FlexDiv justify="end">
         {/* <button onClick={() => publish()}>버튼</button> */}
+        <Buttons>
+          <OutImg />
+        </Buttons>
         <Notification>
           <NotiImg />
         </Notification>
-        <Buttons onClick={() => navigate('/main')}>
-          <OutImg />
-        </Buttons>
       </FlexDiv>
     </HeadBox>
   );
@@ -245,6 +238,7 @@ const Notification = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  margin-left: 20px;
 `;
 
 const ProjectTitle = styled.div`

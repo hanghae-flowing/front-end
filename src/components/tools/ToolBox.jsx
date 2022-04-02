@@ -6,7 +6,7 @@ import Node from './Node';
 
 export const MindMapToolBox = props => {
   return (
-    <StyledDiv>
+    <StyledDiv bgColor="#E3E0FF">
       <Node nodeTableId={props.nodeTableId} />
     </StyledDiv>
   );
@@ -14,8 +14,8 @@ export const MindMapToolBox = props => {
 
 export const GapToolBox = props => {
   return (
-    <StyledDiv>
-      <GapNode />
+    <StyledDiv bgColor="#4a4a4a">
+      <GapNode gapTableId={props.gapTableId} />
       <MileStone />
     </StyledDiv>
   );
@@ -23,7 +23,7 @@ export const GapToolBox = props => {
 
 const StyledDiv = styled.div`
   height: 64px;
-  background-color: #4a4a4a;
+  background-color: ${props => props.bgColor};
   position: fixed;
   bottom: 30px;
   left: 50%;

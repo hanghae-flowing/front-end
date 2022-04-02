@@ -55,15 +55,24 @@ const Node = props => {
       onDrag={dragHandler}
       onDragEnd={dragEndHandler}
       onClick={onCreate}
-    ></Rect>
+    >
+      키워드
+    </Rect>
   );
 };
 
 const Rect = styled.div`
-  width: 40px;
-  height: 40px;
-  border: 2px solid #999;
-  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 38px;
+  border: none;
+  border-radius: 50px;
+  background-color: #fff;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  color: #6c6c6c;
+  cursor: pointer;
 `;
 
 export default Node;

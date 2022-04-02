@@ -72,6 +72,7 @@ const StyledWrap = styled.div`
 `;
 const StyeldDiv = styled.div`
   width: 100%;
+  padding-left: 258px;
 `;
 
 const SplitDiv = styled.div`

@@ -114,7 +114,7 @@ const MenuDiv = styled.div`
   top: 10px;
   width: 24px;
   height: 24px;
-
+  background-color: #fff;
   border-radius: 6px;
   &:hover {
   }

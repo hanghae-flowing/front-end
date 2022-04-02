@@ -110,7 +110,7 @@ const ToastDate = styled.p`
 
 const ToastMenu = styled.div`
   position: absolute;
-  right: 30px;
+  right: 10px;
   top: 10px;
   width: 24px;
   height: 24px;

@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import styled from 'styled-components';
 import { URL } from '../../API';
-import { debounce, throttle } from 'lodash';
+import { debounce } from 'lodash';
 
 const GapTable = props => {
   const gapNodeId = props.gapNodeId;
@@ -25,24 +25,31 @@ const GapTable = props => {
     URL.put(`/gapNode/${gapNodeId}`, data);
   });
 
-  const debounceHandler = debounce(sendingData => {
-    editGap.mutate(sendingData);
-  }, 500);
+  const debounceHandler = useCallback(
+    debounce(sendingData => {
+      editGap.mutate(sendingData);
+    }, 1000),
+    [],
+  );
+
+  // const debounceHandler = debounce(sendingData => {
+  //   editGap.mutate(sendingData);
+  // }, 500);
 
   const deleteGap = useMutation(() => {
     URL.delete(`gapNode/${gapNodeId}`);
   });
 
   const onChange = () => {
-    setSubject(subRef.current.value);
-    setText(textRef.current.value);
-    setTargetText(targetRef.current.value);
     const sendingData = {
       subject: subject,
       text: text,
       targetText: targetText,
     };
     debounceHandler(sendingData);
+    setSubject(subRef.current.value);
+    setText(textRef.current.value);
+    setTargetText(targetRef.current.value);
   };
 
   const onDelete = () => {

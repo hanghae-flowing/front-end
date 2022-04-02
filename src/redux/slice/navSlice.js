@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const navSlice = createSlice({
   name:"nav",
   initialState:{
-    tabbed:false,
+    tabbed:true,
     currentPage:"",
   },
   reducers:{

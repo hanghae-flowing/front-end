@@ -7,7 +7,6 @@ import WorkSpace from '../pages/workSpace/WorkSpace';
 import Login from '../pages/user/Login';
 import MindMap from '../pages/workSpace/MindMap';
 import LoginProgress from '../pages/user/LoginProgress';
-import Nav from '../components/menu/Nav';
 import TrashBin from '../pages/TrashBin';
 import Folder from '../pages/Folder';
 import Proposal from '../pages/workSpace/Proposal';
@@ -18,7 +17,6 @@ function AppRouter() {
   return (
     <BrowserRouter>
       <MainHeader />
-      <Nav />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/main" element={<Main />} />

@@ -52,7 +52,8 @@ const TrashBin = () => {
             ))}
         </ProjectDiv>
         <ButtonDiv>
-          <EmptyButton>휴지통 비우기</EmptyButton>
+          <RecoveryButton>복원</RecoveryButton>
+          <DeleteButton>영구삭제</DeleteButton>
         </ButtonDiv>
       </TrashDiv>
     );
@@ -94,18 +95,30 @@ const ButtonDiv = styled.div`
   width: 1496px;
 `;
 
-const EmptyButton = styled.button`
+const RecoveryButton = styled.button`
   width: 180px;
   height: 50px;
-  background: #5432d3;
-  border-radius: 20px;
+  border: 1px solid #5432d3;
+  box-sizing: border-box;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   margin-top: 33px;
+  background-color: transparent;
+  color: #5432d3;
+  border-radius: 30px;
+`;
 
+const DeleteButton = styled.button`
+  width: 180px;
+  height: 50px;
+  background: #5432d3;
+  border-radius: 30px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  margin-top: 33px;
   color: #ffffff;
-  float: right;
 `;
 
 const EmptyDiv = styled.div`

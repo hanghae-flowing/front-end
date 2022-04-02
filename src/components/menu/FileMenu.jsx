@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ThrowProject } from '../../redux/slice/postSlice';
+import { setBookmark, ThrowProject } from '../../redux/slice/postSlice';
 import { useNavigate } from 'react-router-dom';
 
 const FileMenu = ({ projectId, open, onClose, children }) => {
@@ -27,7 +27,14 @@ const FileMenu = ({ projectId, open, onClose, children }) => {
     dispatch(ThrowProject(sendingData));
   };
   const openProjectHandler = {};
-  const bookmarkHandler = {};
+  const bookmarkHandler = () => {
+    const sendingData = {
+      userId,
+      accessToken,
+      kakaoId,
+    };
+    dispatch(setBookmark({ sendingData, projectId }));
+  };
 
   if (!open) return null;
   else {
@@ -39,7 +46,7 @@ const FileMenu = ({ projectId, open, onClose, children }) => {
           </ListDiv>
           <ListDiv>
             <SeperationLine />
-            <ListName>북마크</ListName>
+            <ListName onClick={bookmarkHandler}>북마크</ListName>
           </ListDiv>
           <ListDiv>
             <SeperationLine />

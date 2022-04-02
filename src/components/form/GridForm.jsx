@@ -7,8 +7,6 @@ import { useDispatch } from 'react-redux';
 import { OpenWorkSpace } from '../../redux/slice/postSlice';
 import FileMenu from '../menu/FileMenu';
 import thumbnailImage from '../../assets/images/File.png';
-import projectMenuImage from '../../assets/images/Menu-S.png';
-import projectMenuHoverImage from '../../assets/images/Menu-S-hover.png';
 
 const GridForm = props => {
   const [isOpen, setIsOpen] = useState(false);

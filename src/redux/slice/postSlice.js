@@ -70,6 +70,15 @@ export const ThrowProject = createAsyncThunk(
   },
 );
 
+export const setBookmark = createAsyncThunk(
+  'post/setBookmark',
+  async ({ sendingData, projectId }, thunkAPI) => {
+    await URL.post(`/bookmark/${projectId}`, sendingData)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  },
+);
+
 export const setProjectInfo = createAsyncThunk(
   'post/setProjectInfo',
   async (data, thunkAPI) => {

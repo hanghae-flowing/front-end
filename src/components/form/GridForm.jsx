@@ -7,9 +7,15 @@ import { useDispatch } from 'react-redux';
 import { OpenWorkSpace } from '../../redux/slice/postSlice';
 import FileMenu from '../menu/FileMenu';
 import thumbnailImage from '../../assets/images/File.png';
+import { ReactComponent as UnCheckedRing } from '../../assets/icons/unChecked.svg';
+import { ReactComponent as CheckedRing } from '../../assets/icons/checked.svg';
+import { ReactComponent as DotImage } from '../../assets/icons/projectMenuDot.svg';
 
 const GridForm = props => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
+  const TodoList = [];
 
   const {
     projectName,
@@ -45,7 +51,9 @@ const GridForm = props => {
   if (trash === false) {
     return (
       <Wrapper>
-        <MenuDiv onClick={() => setIsOpen(true)} />
+        <MenuDiv onClick={() => setIsOpen(true)}>
+          <DotImage />
+        </MenuDiv>
         <ImageDiv onClick={onClickHandler}></ImageDiv>
         <Title>{projectName}</Title>
         <DateP>{displayCreatedAt(modifiedAt)}</DateP>
@@ -59,6 +67,18 @@ const GridForm = props => {
   } else {
     return (
       <Wrapper>
+        <MenuDiv
+          onClick={() => {
+            setIsChecked(!isChecked);
+            if (isChecked === true) {
+              //리스트에 담기
+            } else {
+              //리스트에서 빼기
+            }
+          }}
+        >
+          {isChecked ? <CheckedRing /> : <UnCheckedRing />}
+        </MenuDiv>
         <ImageDiv onClick={onClickHandler}></ImageDiv>
         <Title>{projectName}</Title>
         <DateP>{displayCreatedAt(modifiedAt)}</DateP>
@@ -110,11 +130,11 @@ const DateP = styled.p`
 
 const MenuDiv = styled.div`
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 8px;
+  top: 8px;
   width: 24px;
   height: 24px;
-  background-color: #fff;
+
   border-radius: 6px;
   &:hover {
   }

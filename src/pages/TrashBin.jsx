@@ -42,7 +42,7 @@ const TrashBin = () => {
         <StyeldDiv>
           <TrashDiv>
             <TitleDiv>
-              <Title>삭제된 문서</Title>
+              <Title>삭제목록</Title>
             </TitleDiv>
 
             <ProjectDiv>
@@ -81,8 +81,9 @@ const StyeldDiv = styled.div`
 `;
 
 const TitleDiv = styled.div`
-  width: 1496px;
-  height: 70px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
 `;
 
 const Title = styled.h3`
@@ -96,23 +97,26 @@ const Title = styled.h3`
 const ProjectDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  margin-top: 1.7rem;
+  gap: 60px;
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
-  width: 1240px;
+
   height: 100%;
 `;
 
 const TrashDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 1496px;
-  margin: 186px auto;
+  width: 100%;
+  max-width: 1280px;
+  margin: 184px auto;
+  padding: 0 20px;
 `;
 
 const ButtonDiv = styled.div`
-  width: 1496px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: end;
 `;
 
 const RecoveryButton = styled.button`
@@ -137,6 +141,7 @@ const DeleteButton = styled.button`
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
+  margin-left: 52px;
   margin-top: 33px;
   color: #ffffff;
 `;

@@ -56,6 +56,7 @@ const MainPrac = () => {
                   bookmark={project.bookmark}
                   thumbnailNum={project.thumbnailNum}
                   projectId={project.projectId}
+                  trash={project.trash}
                 />
               ))}
           </ProjectDiv>

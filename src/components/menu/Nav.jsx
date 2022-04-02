@@ -141,9 +141,9 @@ const Nav = () => {
 };
 
 const StyledWrap = styled.div`
-  // position: fixed;
-  // top: 0;
-  // left: ${props => (props.toggle ? '0' : '-260px')};
+  position: fixed;
+  top: 0;
+  left: 0;
   background-color: #5432d3;
   height: 100vh;
   width: 258px;

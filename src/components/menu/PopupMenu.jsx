@@ -15,7 +15,8 @@ const PopupMenu = props => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailToSendInvitationRef = useRef();
-  const projectId = useSelector(state => state.post.projectInfo.projectId);
+  const projectId = JSON.parse(sessionStorage.getItem('projectInfo'))
+    .projectInfo.projectId;
   const accessToken =
     sessionStorage.getItem('userInfo') &&
     JSON.parse(sessionStorage.getItem('userInfo')).accessToken;

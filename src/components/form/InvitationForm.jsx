@@ -25,8 +25,9 @@ const InvitationForm = props => {
     <NotiDiv>
       <ImgDiv />
       <NotiP>{invitation}</NotiP>
-      <button onClick={acceptInvitationHandler}>수락</button>
-      <button onClick={declineInvitationHandler}>거절</button>
+
+      <RefusingButton onClick={declineInvitationHandler}>거절</RefusingButton>
+      <AcceptingButton onClick={acceptInvitationHandler}>수락</AcceptingButton>
     </NotiDiv>
   );
 };
@@ -41,5 +42,19 @@ const ImgDiv = styled.div`
 `;
 
 const NotiP = styled.p``;
+
+const AcceptingButton = styled.button`
+  width: 80px;
+  height: 30px;
+  background: #5432d3;
+  border-radius: 20px;
+`;
+
+const RefusingButton = styled.button`
+  width: 80px;
+  height: 30px;
+  background: #c4c4c4;
+  border-radius: 20px;
+`;
 
 export default InvitationForm;

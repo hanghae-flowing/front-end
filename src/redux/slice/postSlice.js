@@ -66,7 +66,7 @@ export const DeleteProject = createAsyncThunk(
   async ({ sendingData, projectId }, thunkAPI) => {
     console.log(sendingData);
     await axios
-      .delete(`http://52.79.250.142/project/${projectId}`, sendingData)
+      .post(`http://52.79.250.142/project/delete/${projectId}`, sendingData)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   },

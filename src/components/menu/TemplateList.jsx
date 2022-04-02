@@ -18,7 +18,9 @@ const TemplateList = props => {
   const documentId = useSelector(state => state.post.documentId);
   const gapTableId = useSelector(state => state.post.gapTableId);
   const nodeTableId = useSelector(state => state.post.nodeTable);
-  console.log(documentId);
+  console.log('docs', documentId);
+  console.log('gap', gapTableId);
+  console.log('nodetable', nodeTableId);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const projectId = props.projectId;
@@ -64,7 +66,6 @@ const TemplateList = props => {
         title="마인드맵"
         onClick={() => {
           navigate(`mindmap/${nodeTableId}`);
-          dispatch(getNodeTableId(nodeTableId));
         }}
       />
       <TemplateProject

@@ -80,7 +80,7 @@ const ToastImage = styled.div`
   background: #c4c4c4;
   background-size: cover;
   border-radius: 25px;
-  width: calc(100% - 20px);
+  width: 100%;
   height: 150px;
   overflow: hidden;
   margin-right: 25px;
@@ -110,7 +110,7 @@ const ToastDate = styled.p`
 
 const ToastMenu = styled.div`
   position: absolute;
-  right: 30px;
+  right: 10px;
   top: 10px;
   width: 24px;
   height: 24px;

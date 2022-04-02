@@ -1,22 +1,26 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-
 import { ReactComponent as SearchImg } from '../../assets/icons/Search_duotone_line.svg';
 import { ReactComponent as LogoutImg } from '../../assets/icons/Sign_out.svg';
-import { ReactComponent as SettingImg } from '../../assets/icons/Setting_line_light.svg';
 import { ReactComponent as GarbageImg } from '../../assets/icons/Trash_light.svg';
 import { ReactComponent as AllImg } from '../../assets/icons/Widget_light.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { kakaoLogout } from '../../redux/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { debounce } from 'lodash';
+import { useMutation, useQueryClient } from 'react-query';
+import { URL } from '../../API';
 
 const Nav = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const isLogin = useSelector(state => state.user.isLogin);
   const tabbed = useSelector(state => state.nav.tabbed);
   const crtPage = useSelector(state => state.nav.currentPage);
+
+  const [searchValue, setSearchValue] = useState('');
 
   const accessToken =
     sessionStorage.getItem('userInfo') &&
@@ -37,6 +41,43 @@ const Nav = () => {
   const profileImg =
     sessionStorage.getItem('userInfo') &&
     JSON.parse(sessionStorage.getItem('userInfo')).ProfileImageURL;
+  const userId =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).userId;
+
+  const handleDebounce = useCallback(
+    debounce(value => {
+      console.log(value);
+    }, 500),
+    [],
+  );
+
+  const onChangeSearchValue = e => {
+    handleDebounce(e.target.value);
+    setSearchValue(e.target.value);
+  };
+
+  const searchMutation = useMutation(
+    sendingData => {
+      URL.post(`/project/searching`, sendingData);
+    },
+    {
+      onSuccess: data => {
+        queryClient.setQueryData(['searchList'], data);
+      },
+    },
+  );
+
+  const sendingData = {
+    userId: userId,
+    text: searchValue,
+  };
+
+  const inputEnter = e => {
+    if (e.keyCode === 13) {
+      searchMutation.mutate(sendingData);
+    }
+  };
 
   return (
     <StyledWrap toggle={tabbed}>
@@ -58,7 +99,11 @@ const Nav = () => {
       <FlexDiv padding="0 0 30px 0">
         <SearchWrap>
           <SearchImg />
-          <Search />
+          <Search
+            onChange={onChangeSearchValue}
+            value={searchValue}
+            onKeyUp={inputEnter}
+          />
         </SearchWrap>
       </FlexDiv>
       <FlexDiv grow="1" column={true}>
@@ -98,7 +143,7 @@ const Nav = () => {
 const StyledWrap = styled.div`
   position: fixed;
   top: 0;
-  left: ${props => (props.toggle ? '0' : '-260px')};
+  left: 0;
   background-color: #5432d3;
   height: 100vh;
   width: 258px;

@@ -6,6 +6,7 @@ import GridForm from '../components/form/GridForm';
 import { LoadPost } from '../redux/slice/postSlice';
 import NewTemplateForm from '../components/form/NewTemplateForm';
 import { switchPage } from '../redux/slice/navSlice';
+import Nav from '../components/menu/Nav';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
@@ -36,32 +37,43 @@ const MainPrac = () => {
   console.log(projectList);
 
   return (
-    <>
-      <NewTemplateForm />
-      <SplitDiv>
-        <CurrentDoc>최근문서</CurrentDoc>
-      </SplitDiv>
-      <ProjectWrap>
-        <ProjectDiv>
-          {projectList.length > 0 &&
-            projectList.map((project, index) => (
-              <GridForm
-                key={index}
-                projectName={project.projectName}
-                modifiedAt={project.modifiedAt}
-                memberList={project.memberList}
-                bookmark={project.bookmark}
-                thumbnailNum={project.thumbnailNum}
-                projectId={project.projectId}
-                trash={project.trash}
-              />
-            ))}
-        </ProjectDiv>
-      </ProjectWrap>
-      <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
-    </>
+    <StyledWrap>
+      <Nav />
+      <StyeldDiv>
+        <NewTemplateForm />
+        <SplitDiv>
+          <CurrentDoc>최근문서</CurrentDoc>
+        </SplitDiv>
+        <ProjectWrap>
+          <ProjectDiv>
+            {projectList.length > 0 &&
+              projectList.map((project, index) => (
+                <GridForm
+                  key={index}
+                  projectName={project.projectName}
+                  modifiedAt={project.modifiedAt}
+                  memberList={project.memberList}
+                  bookmark={project.bookmark}
+                  thumbnailNum={project.thumbnailNum}
+                  projectId={project.projectId}
+                />
+              ))}
+          </ProjectDiv>
+        </ProjectWrap>
+        <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
+      </StyeldDiv>
+    </StyledWrap>
   );
 };
+
+const StyledWrap = styled.div`
+  width: 100%;
+  display: flex;
+`;
+const StyeldDiv = styled.div`
+  width: 100%;
+  padding-left: 258px;
+`;
 
 const SplitDiv = styled.div`
   display: flex;

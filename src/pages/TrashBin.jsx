@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsInTrash } from '../redux/slice/trashSlice';
 import GridForm from '../components/form/GridForm';
 import { switchPage } from '../redux/slice/navSlice';
+import Nav from '../components/menu/Nav';
 
 const TrashBin = () => {
   const dispatch = useDispatch();
@@ -24,41 +25,60 @@ const TrashBin = () => {
 
   if (!trashList) {
     return (
-      <EmptyDiv>
-        <EmptyImgDiv></EmptyImgDiv>
-        <EmptyP>휴지통이 비어있습니다.</EmptyP>
-      </EmptyDiv>
+      <StyledWrap>
+        <Nav />
+        <StyeldDiv>
+          <EmptyDiv>
+            <EmptyImgDiv></EmptyImgDiv>
+            <EmptyP>휴지통이 비어있습니다.</EmptyP>
+          </EmptyDiv>
+        </StyeldDiv>
+      </StyledWrap>
     );
   } else {
     return (
-      <TrashDiv>
-        <TitleDiv>
-          <Title>삭제된 문서</Title>
-        </TitleDiv>
+      <StyledWrap>
+        <Nav />
+        <StyeldDiv>
+          <TrashDiv>
+            <TitleDiv>
+              <Title>삭제된 문서</Title>
+            </TitleDiv>
 
-        <ProjectDiv>
-          {trashList.length > 0 &&
-            trashList.map((project, index) => (
-              <GridForm
-                key={index}
-                projectName={project.projectName}
-                modifiedAt={project.modifiedAt}
-                memberList={project.memberList}
-                bookmark={project.bookmark}
-                thumbnailNum={project.thumbnailNum}
-                projectId={project.projectId}
-                trash={project.trash}
-              />
-            ))}
-        </ProjectDiv>
-        <ButtonDiv>
-          <RecoveryButton>복원</RecoveryButton>
-          <DeleteButton>영구삭제</DeleteButton>
-        </ButtonDiv>
-      </TrashDiv>
+            <ProjectDiv>
+              {trashList.length > 0 &&
+                trashList.map((project, index) => (
+                  <GridForm
+                    key={index}
+                    projectName={project.projectName}
+                    modifiedAt={project.modifiedAt}
+                    memberList={project.memberList}
+                    bookmark={project.bookmark}
+                    thumbnailNum={project.thumbnailNum}
+                    projectId={project.projectId}
+                    trash={project.trash}
+                  />
+                ))}
+            </ProjectDiv>
+            <ButtonDiv>
+              <RecoveryButton>복원</RecoveryButton>
+              <DeleteButton>영구삭제</DeleteButton>
+            </ButtonDiv>
+          </TrashDiv>
+        </StyeldDiv>
+      </StyledWrap>
     );
   }
 };
+
+const StyledWrap = styled.div`
+  width: 100%;
+  display: flex;
+`;
+const StyeldDiv = styled.div`
+  width: 100%;
+  padding-left: 258px;
+`;
 
 const TitleDiv = styled.div`
   width: 1496px;

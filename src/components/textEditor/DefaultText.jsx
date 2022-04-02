@@ -13,6 +13,7 @@ const DefaultText = props => {
   const mutation = useMutation(newTodo =>
     URL.put(`/documentLines/${lineId}`, newTodo),
   );
+
   useEffect(() => {
     setValue(props.text);
   }, [props.text]);
@@ -31,6 +32,7 @@ const DefaultText = props => {
 
   return (
     <InputText
+      maxRows={2}
       onChange={throttle}
       value={value}
       color={props.color}

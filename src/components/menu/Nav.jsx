@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 import { ReactComponent as SearchImg } from '../../assets/icons/Search_duotone_line.svg';
 import { ReactComponent as LogoutImg } from '../../assets/icons/Sign_out.svg';
-import { ReactComponent as SettingImg } from '../../assets/icons/Setting_line_light.svg';
 import { ReactComponent as GarbageImg } from '../../assets/icons/Trash_light.svg';
 import { ReactComponent as AllImg } from '../../assets/icons/Widget_light.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { kakaoLogout } from '../../redux/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { debounce } from 'lodash';
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -17,6 +17,20 @@ const Nav = () => {
   const isLogin = useSelector(state => state.user.isLogin);
   const tabbed = useSelector(state => state.nav.tabbed);
   const crtPage = useSelector(state => state.nav.currentPage);
+
+  const [searchValue, setSearchValue] = useState('');
+
+  const handleDebounce = useCallback(
+    debounce(value => {
+      console.log(value);
+    }, 500),
+    [],
+  );
+
+  const onChangeSearchValue = e => {
+    handleDebounce(e.target.value);
+    setSearchValue(e.target.value);
+  };
 
   const accessToken =
     sessionStorage.getItem('userInfo') &&
@@ -58,7 +72,7 @@ const Nav = () => {
       <FlexDiv padding="0 0 30px 0">
         <SearchWrap>
           <SearchImg />
-          <Search />
+          <Search onChange={onChangeSearchValue} value={searchValue} />
         </SearchWrap>
       </FlexDiv>
       <FlexDiv grow="1" column={true}>

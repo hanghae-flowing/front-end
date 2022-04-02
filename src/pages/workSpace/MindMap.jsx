@@ -11,6 +11,7 @@ import { useNode } from '../../hooks/useNode';
 
 const MindMap = () => {
   const nodeTableId = useSelector(state => state.post.nodeTable);
+  console.log(nodeTableId);
 
   const { status, data: nodeList, error, isFetching } = useNode(nodeTableId);
   console.log(nodeList);

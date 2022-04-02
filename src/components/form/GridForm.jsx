@@ -117,6 +117,7 @@ const MenuDiv = styled.div`
   background-color: #fff;
   border-radius: 6px;
   &:hover {
+    background-color: #000;
   }
   z-index: 10;
 `;

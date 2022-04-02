@@ -7,10 +7,17 @@ import { LoadPost } from '../redux/slice/postSlice';
 import NewTemplateForm from '../components/form/NewTemplateForm';
 import { switchPage } from '../redux/slice/navSlice';
 import Nav from '../components/menu/Nav';
+import { useQuery, useQueryClient } from 'react-query';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const queryClient = useQueryClient();
+
+  // const searchResult = queryClient.getQueryData(['searchResult']);
+  // console.log('검색', searchResult);
+
+  const { data: searchResult } = useQuery(['searchResult']);
 
   const kakaoId =
     sessionStorage.getItem('userInfo') &&
@@ -31,7 +38,7 @@ const MainPrac = () => {
   useEffect(() => {
     dispatch(LoadPost(sendingData));
     dispatch(switchPage('main'));
-  }, [dispatch]);
+  }, [dispatch, searchResult]);
 
   const projectList = useSelector(state => state.post.project);
   console.log(projectList);
@@ -40,28 +47,42 @@ const MainPrac = () => {
     <StyledWrap>
       <Nav />
       <StyeldDiv>
-        <NewTemplateForm />
-        <SplitDiv>
-          <CurrentDoc>최근문서</CurrentDoc>
-        </SplitDiv>
-        <ProjectWrap>
+        <Inner>
+          <NewTemplateForm />
+          <SplitDiv>
+            <CurrentDoc>최근문서</CurrentDoc>
+          </SplitDiv>
           <ProjectDiv>
-            {projectList.length > 0 &&
-              projectList.map((project, index) => (
-                <GridForm
-                  key={index}
-                  projectName={project.projectName}
-                  modifiedAt={project.modifiedAt}
-                  memberList={project.memberList}
-                  bookmark={project.bookmark}
-                  thumbnailNum={project.thumbnailNum}
-                  projectId={project.projectId}
-                  trash={project.trash}
-                />
-              ))}
+            {searchResult
+              ? searchResult.data.length > 0 &&
+                searchResult.data.map((data, index) => (
+                  <GridForm
+                    key={index}
+                    projectName={data.projectName}
+                    modifiedAt={data.modifiedAt}
+                    memberList={data.memberList}
+                    bookmark={data.bookmark}
+                    thumbnailNum={data.thumbnailNum}
+                    projectId={data.projectId}
+                    trash={data.trash}
+                  />
+                ))
+              : projectList.length > 0 &&
+                projectList.map((project, index) => (
+                  <GridForm
+                    key={index}
+                    projectName={project.projectName}
+                    modifiedAt={project.modifiedAt}
+                    memberList={project.memberList}
+                    bookmark={project.bookmark}
+                    thumbnailNum={project.thumbnailNum}
+                    projectId={project.projectId}
+                    trash={project.trash}
+                  />
+                ))}
           </ProjectDiv>
-        </ProjectWrap>
-        <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
+          <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
+        </Inner>
       </StyeldDiv>
     </StyledWrap>
   );
@@ -76,9 +97,15 @@ const StyeldDiv = styled.div`
   padding-left: 258px;
 `;
 
+const Inner = styled.div`
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+`;
+
 const SplitDiv = styled.div`
   display: flex;
-  width: 1240px;
   height: 46px;
   margin: 0 auto;
 `;
@@ -107,19 +134,14 @@ const DropdownMenu = styled.button`
   color: #818181;
 `;
 
-const ProjectWrap = styled.div`
-  width: 100%;
-  padding: 20px;
-`;
-
 const ProjectDiv = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  gap: 60px;
   margin-top: 1.7rem;
   margin-left: auto;
   margin-right: auto;
-  width: 1240px;
   height: 100%;
 `;
 

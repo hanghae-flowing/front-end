@@ -57,16 +57,11 @@ const Nav = () => {
     setSearchValue(e.target.value);
   };
 
-  const searchMutation = useMutation(
-    sendingData => {
-      URL.post(`/project/searching`, sendingData);
-    },
-    {
-      onSuccess: data => {
-        queryClient.setQueryData(['searchList'], data);
-      },
-    },
-  );
+  const searchMutation = useMutation(sendingData => {
+    URL.post(`/project/searching`, sendingData).then(res => {
+      queryClient.setQueryData(['searchResult'], res);
+    });
+  });
 
   const sendingData = {
     userId: userId,

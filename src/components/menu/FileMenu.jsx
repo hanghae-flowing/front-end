@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setBookmark, ThrowProject } from '../../redux/slice/postSlice';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const FileMenu = ({ projectId, open, onClose, children }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const kakaoId =
     sessionStorage.getItem('userInfo') &&
     JSON.parse(sessionStorage.getItem('userInfo')).kakaoId;

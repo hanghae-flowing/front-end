@@ -1,11 +1,15 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
 import { useDispatch } from 'react-redux';
-import { DeleteProject, OpenWorkSpace } from '../../redux/slice/postSlice';
+import { OpenWorkSpace } from '../../redux/slice/postSlice';
+import FileMenu from '../menu/FileMenu';
 
 const ToastGridForm = props => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const {
     projectName,
     modifiedAt,
@@ -32,26 +36,6 @@ const ToastGridForm = props => {
     }
   };
 
-  const kakaoId =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).kakaoId;
-  const accessToken =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
-  const userId =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).userId;
-
-  const deleteProjectHandler = () => {
-    const sendingData = {
-      userId,
-      kakaoId,
-      accessToken,
-    };
-    console.log(sendingData);
-    dispatch(DeleteProject({ sendingData, projectId }));
-  };
-
   const onClickHandler = () => {
     navigate(`/workspace/${projectId}`, { state: props });
     dispatch(OpenWorkSpace(projectId));
@@ -59,10 +43,15 @@ const ToastGridForm = props => {
 
   return (
     <Wrapper>
-      <ToastMenu onClick={deleteProjectHandler} />
+      <ToastMenu onClick={() => setIsOpen(true)} />
       <ToastImage onClick={onClickHandler}></ToastImage>
       <ToastTitle>{projectName}</ToastTitle>
       <ToastDate>{displayCreatedAt(modifiedAt)}</ToastDate>
+      <FileMenu
+        projectId={projectId}
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
     </Wrapper>
   );
 };

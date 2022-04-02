@@ -26,7 +26,6 @@ const AddForm = ({ open, onClose, children }) => {
       accessToken,
       userId,
       objectId,
-      trash: false,
     };
 
     dispatch(CreateNewProject({ sendingData, navigate }));

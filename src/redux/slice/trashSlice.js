@@ -36,11 +36,7 @@ export const emptyMyTrashbin = createAsyncThunk(
 export const trashSlice = createSlice({
   name: 'trash',
   initialState: trashbinState,
-  reducer: {
-    setChecked: (state, action) => {
-      state.pleaseThrowThoseProjects = [...action.payload];
-    },
-  },
+  reducer: {},
   extraReducers: builder => {
     builder.addCase(getProjectsInTrash.fulfilled, (state, action) => {
       console.log(action.payload);
@@ -48,5 +44,7 @@ export const trashSlice = createSlice({
     });
   },
 });
+
+export const {} = trashSlice.actions;
 
 export default trashSlice.reducer;

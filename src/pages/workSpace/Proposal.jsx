@@ -30,7 +30,7 @@ const ProposalPage = () => {
             {docList &&
               docList.map((props, index) => (
                 <DefaultText
-                  key={index}
+                  key={index + 1}
                   lineId={props.lineId}
                   documentId={props.documentId}
                   text={props.text}

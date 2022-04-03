@@ -150,37 +150,61 @@ export const MainHeader = () => {
 };
 
 export const WorkHeader = props => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const projectTitle = JSON.parse(sessionStorage.getItem('projectInfo'))
     .projectInfo.projectName;
   console.log(projectTitle);
+
+  const [isNotiOpen, setIsNotiOpen] = useState(false);
+  const handleNotification = () => {
+    setIsNotiOpen(!isNotiOpen);
+  };
+
+  const checkMyInvitationHandler = () => {
+    const checkData = {
+      userId: JSON.parse(sessionStorage.getItem('userInfo')).userId,
+    };
+    dispatch(checkMyInvitation(checkData));
+  };
   return (
-    <HeadBox>
-      {isOpen ? <PopupMenu /> : null}
-      <FlexDiv align="center">
-        <MenuBtn onClick={() => setIsOpen(!isOpen)}>
-          <Line line="0px"></Line>
-          <Line line="7px"></Line>
-          <Line line="14px"></Line>
-        </MenuBtn>
-        <Buttons onClick={() => navigate('/main')}>
-          <HomeImg />
-        </Buttons>
-      </FlexDiv>
-      <FlexDiv justify="center">
-        <ProjectTitle>{projectTitle}</ProjectTitle>
-      </FlexDiv>
-      <FlexDiv justify="end">
-        {/* <button onClick={() => publish()}>버튼</button> */}
-        <Buttons>
-          <OutImg />
-        </Buttons>
-        <Notification>
-          <NotiImg />
-        </Notification>
-      </FlexDiv>
-    </HeadBox>
+    <>
+      <HeadBox>
+        {isOpen ? <PopupMenu /> : null}
+        <FlexDiv align="center">
+          <MenuBtn onClick={() => setIsOpen(!isOpen)}>
+            <Line line="0px"></Line>
+            <Line line="7px"></Line>
+            <Line line="14px"></Line>
+          </MenuBtn>
+          <Buttons onClick={() => navigate('/main')}>
+            <HomeImg />
+          </Buttons>
+        </FlexDiv>
+        <FlexDiv justify="center">
+          <ProjectTitle>{projectTitle}</ProjectTitle>
+        </FlexDiv>
+        <FlexDiv justify="end">
+          {/* <button onClick={() => publish()}>버튼</button> */}
+          <Buttons>
+            <OutImg />
+          </Buttons>
+          <Notification
+            onClick={() => {
+              setIsNotiOpen(true);
+              checkMyInvitationHandler();
+            }}
+          >
+            <NotiImg />
+          </Notification>
+        </FlexDiv>
+      </HeadBox>
+      <NotificationModal
+        open={isNotiOpen}
+        onClose={() => setIsNotiOpen(false)}
+      />
+    </>
   );
 };
 

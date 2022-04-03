@@ -142,7 +142,7 @@ const StyledWrap = styled.div`
   background-color: #5432d3;
   height: 100vh;
   width: 258px;
-  padding: 80px 20px 20px;
+  padding: 120px 20px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -150,6 +150,7 @@ const StyledWrap = styled.div`
   transition: all 0.2s ease-in-out;
 `;
 const FlexDiv = styled.div`
+  position: relative;
   display: flex;
   flex-direction: ${props => (props.column ? 'column' : 'row')};
   justify-content: ${props => props.justify};
@@ -159,6 +160,9 @@ const FlexDiv = styled.div`
 `;
 
 const ProfileCircle = styled.div`
+  position: absolute;
+  top: -30px;
+  right: 10px;
   width: 48px;
   height: 48px;
   border-radius: 60px;

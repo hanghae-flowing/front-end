@@ -1,13 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProjectsInTrash } from '../redux/slice/trashSlice';
+import {
+  deleteSelectedProjects,
+  getProjectsInTrash,
+  recoverSelectedProjects,
+} from '../redux/slice/trashSlice';
 import GridForm from '../components/form/GridForm';
 import { switchPage } from '../redux/slice/navSlice';
 import Nav from '../components/menu/Nav';
 
 const TrashBin = () => {
   const dispatch = useDispatch();
+  const [allCheck, setAllCheck] = useState(false);
+
+  const allCheckHandler = () => {
+    setAllCheck(!allCheck);
+  };
+
   const userId =
     sessionStorage.getItem('userInfo') &&
     JSON.parse(sessionStorage.getItem('userInfo')).userId;
@@ -19,6 +29,25 @@ const TrashBin = () => {
     dispatch(getProjectsInTrash(sendingData));
     dispatch(switchPage('garbage'));
   }, [dispatch]);
+
+  const selectedProjectsList = useSelector(
+    state => state.trash.pleaseThrowThoseProjects,
+  );
+
+  const deleteSelectedProjectsHanlder = () => {
+    const sendingData = {
+      projectIdList: [...selectedProjectsList],
+    };
+    console.log(sendingData);
+    dispatch(deleteSelectedProjects(sendingData));
+  };
+  const recoverSelectedProjectsHanlder = () => {
+    const sendingData = {
+      projectIdList: [...selectedProjectsList],
+    };
+    console.log(sendingData);
+    dispatch(recoverSelectedProjects(sendingData));
+  };
 
   const trashList = useSelector(state => state.trash.trash);
   console.log(trashList);
@@ -41,6 +70,7 @@ const TrashBin = () => {
         <Nav />
         <StyeldDiv>
           <TrashDiv>
+            <button onClick={allCheckHandler}>모두 선택</button>
             <TitleDiv>
               <Title>삭제목록</Title>
             </TitleDiv>
@@ -59,12 +89,17 @@ const TrashBin = () => {
                     trash={project.trash}
                     width={'100%'}
                     height={'26%'}
+                    checked={allCheck}
                   />
                 ))}
             </ProjectDiv>
             <ButtonDiv>
-              <RecoveryButton>복원</RecoveryButton>
-              <DeleteButton>영구삭제</DeleteButton>
+              <RecoveryButton onClick={recoverSelectedProjectsHanlder}>
+                복원
+              </RecoveryButton>
+              <DeleteButton onClick={deleteSelectedProjectsHanlder}>
+                영구삭제
+              </DeleteButton>
             </ButtonDiv>
           </TrashDiv>
         </StyeldDiv>

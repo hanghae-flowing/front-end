@@ -44,13 +44,20 @@ const GridForm = props => {
     }
   };
 
+  function arrayRemove(arr, value) {
+    return arr.filter(function (ele) {
+      return ele != value;
+    });
+  }
+
   const onClickHandler = () => {
     navigate(`/workspace/${projectId}`, { state: props });
     dispatch(OpenWorkSpace(projectId));
   };
+
   if (trash === false) {
     return (
-      <Wrapper>
+      <Wrapper width={props.width} height={props.height}>
         <MenuDiv onClick={() => setIsOpen(true)}>
           <DotImage />
         </MenuDiv>
@@ -66,13 +73,15 @@ const GridForm = props => {
     );
   } else {
     return (
-      <Wrapper>
+      <Wrapper width={props.width} height={props.height}>
         <MenuDiv
           onClick={() => {
             setIsChecked(!isChecked);
             if (isChecked === true) {
+              TodoList.push(projectId);
               //리스트에 담기
             } else {
+              arrayRemove(TodoList, projectId);
               //리스트에서 빼기
             }
           }}
@@ -91,8 +100,8 @@ const GridForm = props => {
 
 const Wrapper = styled.div`
   position: relative;
-  width: 100%;
-  height: 26%;
+  width: ${props => props.width};
+  height: ${props => props.height};
   cursor: pointer;
 `;
 const ImageDiv = styled.div`

@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { deleteLine, editLine } from '../../redux/slice/docSlice';
 import _ from 'lodash';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { URL } from '../../API';
 
@@ -18,8 +18,14 @@ const DefaultText = props => {
     setValue(props.text);
   }, [props.text]);
 
-  const throttle = _.throttle(e => {
-    setValue(e.target.value);
+  const debounceHandler = useCallback(
+    _.debounce(sendingData => {
+      mutation.mutate(sendingData);
+    }, 2000),
+    [],
+  );
+
+  const onChange = e => {
     const sendingData = {
       text: e.target.value,
       indexNum: props.indexNum,
@@ -27,13 +33,13 @@ const DefaultText = props => {
       fontSize: props.fontSize,
       color: props.color,
     };
-    mutation.mutate(sendingData);
-  }, 3000);
+    debounceHandler(sendingData);
+    setValue(e.target.value);
+  };
 
   return (
     <InputText
-      maxRows={2}
-      onChange={throttle}
+      onChange={onChange}
       value={value}
       color={props.color}
       weight={props.weight}

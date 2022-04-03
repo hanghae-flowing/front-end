@@ -57,6 +57,8 @@ const TrashBin = () => {
                     thumbnailNum={project.thumbnailNum}
                     projectId={project.projectId}
                     trash={project.trash}
+                    width={'100%'}
+                    height={'26%'}
                   />
                 ))}
             </ProjectDiv>

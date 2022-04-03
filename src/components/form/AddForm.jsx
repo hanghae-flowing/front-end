@@ -37,10 +37,8 @@ const AddForm = ({ open, onClose, children }) => {
       <Wrapper>
         <Modal>
           <CloseButton onClick={onClose}>닫기</CloseButton>
-
           <ModalInner>
             {children}
-
             <TitleDiv>
               <TitleSpan>파일명</TitleSpan>
               <TitleInput placeholder="기존 토스트1" ref={projectNameRef} />

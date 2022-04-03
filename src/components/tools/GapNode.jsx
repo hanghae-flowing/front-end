@@ -11,9 +11,9 @@ const GapNode = props => {
   });
 
   const sendingData = {
-    subject: '세부 과제명',
-    text: '해당 과제의 현안 및 문제점을 입력해주세요.',
-    targetText: '해당 과제의 이상적인 개선결과를 입력해주세요.',
+    subject: '',
+    text: '',
+    targetText: '',
     gapTableId: gapTableId,
   };
 

@@ -116,7 +116,7 @@ const Nav = () => {
         <Tab
           tab={crtPage === 'garbage' ? true : false}
           onClick={() => {
-            navigate('/garbage');
+            navigate('/trash-bin');
           }}
         >
           <p>휴지통</p>
@@ -160,14 +160,12 @@ const FlexDiv = styled.div`
 `;
 
 const ProfileCircle = styled.div`
-  position: absolute;
-  top: -30px;
-  right: 10px;
   width: 48px;
   height: 48px;
   border-radius: 60px;
   background-color: #4222b9;
   overflow: hidden;
+  flex-shrink: 0;
 `;
 
 const ProfileImage = styled.div`
@@ -185,7 +183,7 @@ const Nickname = styled.p`
 
 const Email = styled.p`
   color: #bfbfbf;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
 `;
 

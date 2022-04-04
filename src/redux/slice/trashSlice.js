@@ -74,7 +74,7 @@ export const trashSlice = createSlice({
         project => project !== action.payload,
       );
       state.pleaseThrowThoseProjects = [...newProject];
-      console.log(state.pleaseThrowThoseProjects);
+      // console.log(state.pleaseThrowThoseProjects);
     },
   },
   extraReducers: builder => {

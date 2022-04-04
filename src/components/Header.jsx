@@ -7,17 +7,16 @@ import * as StompJs from '@stomp/stompjs';
 import { userInfo } from '../API';
 import { toggleTab } from '../redux/slice/navSlice';
 import { ReactComponent as NotiImg } from '../assets/icons/Bell_light.svg';
-import { ReactComponent as SaveImg } from '../assets/icons/Save_light.svg';
 import { ReactComponent as OutImg } from '../assets/icons/Out_light.svg';
 import { ReactComponent as LoginImg } from '../assets/icons/Sign_in.svg';
-import { ReactComponent as HomeImg } from '../assets/icons/Widget_light.svg';
+import { ReactComponent as Logo } from '../assets/icons/Logo.svg';
 import PopupMenu from './menu/PopupMenu';
 import NotificationModal from './menu/NotificationModal';
 import { checkMyInvitation } from '../redux/slice/inviteSlice';
 import InvitationModal from './form/InvitationModal';
 
 export const MainHeader = () => {
-  const location = useLocation();
+  const navigate = useNavigate();
 
   const [isNotiOpen, setIsNotiOpen] = useState(false);
   const handleNotification = () => {
@@ -108,11 +107,13 @@ export const MainHeader = () => {
       <>
         <HeadBox>
           <FlexDiv>
-            <MenuBtn onClick={handleToggle}>
-              <Line line="0px"></Line>
-              <Line line="7px"></Line>
-              <Line line="14px"></Line>
-            </MenuBtn>
+            <HomeBtn
+              onClick={() => {
+                navigate('/main');
+              }}
+            >
+              <Logo />
+            </HomeBtn>
           </FlexDiv>
           <FlexDiv justify="end">
             {/* <FlexDiv>
@@ -138,11 +139,13 @@ export const MainHeader = () => {
   }
   return (
     <HeadBox>
-      <MenuBtn onClick={handleToggle}>
-        <Line line="0px"></Line>
-        <Line line="7px"></Line>
-        <Line line="14px"></Line>
-      </MenuBtn>
+      <HomeBtn
+        onClick={() => {
+          navigate('/');
+        }}
+      >
+        <Logo />
+      </HomeBtn>
       <LoginBtn to="login">
         <LoginImg />
       </LoginBtn>
@@ -179,14 +182,18 @@ export const WorkHeader = props => {
       <HeadBox>
         {isOpen ? <PopupMenu /> : null}
         <FlexDiv align="center">
+          <HomeBtn
+            onClick={() => {
+              navigate('/main');
+            }}
+          >
+            <Logo />
+          </HomeBtn>
           <MenuBtn onClick={() => setIsOpen(!isOpen)}>
             <Line line="0px"></Line>
             <Line line="7px"></Line>
             <Line line="14px"></Line>
           </MenuBtn>
-          <Buttons onClick={() => navigate('/main')}>
-            <HomeImg />
-          </Buttons>
         </FlexDiv>
         <FlexDiv justify="center">
           <ProjectTitle>{projectTitle}</ProjectTitle>
@@ -243,6 +250,16 @@ const FlexDiv = styled.div`
   align-items: center;
   flex-grow: 1;
   flex-basis: 100%;
+`;
+const HomeBtn = styled.div`
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-right: 20px;
 `;
 const MenuBtn = styled.div`
   width: 24px;

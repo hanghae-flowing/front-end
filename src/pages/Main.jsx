@@ -4,15 +4,24 @@ import styled from 'styled-components';
 import AddForm from '../components/form/AddForm';
 import GridForm from '../components/form/GridForm';
 import { LoadPost } from '../redux/slice/postSlice';
-import NewTemplateForm from '../components/form/NewTemplateForm';
 import { switchPage } from '../redux/slice/navSlice';
 import Nav from '../components/menu/Nav';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
+import { NewProject } from '../components/cards/NewProject';
+import { ReactComponent as ArrowDownImg } from '../assets/icons/Arrow_down.svg';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const queryClient = useQueryClient();
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+    console.log(isOpen);
+  };
+  const [listOpen, setListOpen] = useState(false);
+
+  const listToggle = () => {
+    setListOpen(!listOpen);
+  };
 
   // const searchResult = queryClient.getQueryData(['searchResult']);
   // console.log('검색', searchResult);
@@ -48,11 +57,18 @@ const MainPrac = () => {
       <Nav />
       <StyeldDiv>
         <Inner>
-          <NewTemplateForm />
           <SplitDiv>
-            <CurrentDoc>최근문서</CurrentDoc>
+            <CurrentDoc onClick={listToggle} listToggle={listOpen}>
+              <p>최근문서</p>
+              <ArrowDownImg />
+            </CurrentDoc>
           </SplitDiv>
-          <ProjectDiv>
+          <ProjectDiv listToggle={listOpen}>
+            <NewProject
+              width="calc(100% / 5 - 60px)"
+              height="auto"
+              onClick={handleToggle}
+            />
             {searchResult
               ? searchResult.data.length > 0 &&
                 searchResult.data.map((data, index) => (
@@ -65,6 +81,8 @@ const MainPrac = () => {
                     thumbnailNum={data.thumbnailNum}
                     projectId={data.projectId}
                     trash={data.trash}
+                    width="calc(100% / 5 - 60px)"
+                    height="auto"
                   />
                 ))
               : projectList.length > 0 &&
@@ -78,9 +96,12 @@ const MainPrac = () => {
                     thumbnailNum={project.thumbnailNum}
                     projectId={project.projectId}
                     trash={project.trash}
+                    width="calc(100% / 5 - 60px)"
+                    height="auto"
                   />
                 ))}
           </ProjectDiv>
+          <BorderLine />
           <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
         </Inner>
       </StyeldDiv>
@@ -99,50 +120,52 @@ const StyeldDiv = styled.div`
 
 const Inner = styled.div`
   width: 100%;
-  max-width: 1280px;
+  max-width: 1340px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding-top: 130px;
 `;
 
 const SplitDiv = styled.div`
-  display: flex;
-  height: 46px;
-  margin: 0 auto;
+  width: 1280px;
+  margin: 0 30px;
 `;
 
-const CurrentDoc = styled.span`
+const CurrentDoc = styled.div`
   width: 100px;
-  height: 29px;
-  font-weight: 700;
-  font-size: 1.4em;
-  line-height: 2em;
-
-  color: #818181;
-`;
-
-const DropdownMenu = styled.button`
-  width: 122px;
-  height: 46px;
-
-  background: #ffffff;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 9px;
-
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  color: #818181;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  & p {
+    font-weight: 700;
+    font-size: 1.3em;
+    color: #818181;
+  }
+  & svg {
+    transform: ${props => (props.listToggle ? 'rotate(180deg)' : '')};
+  }
 `;
 
 const ProjectDiv = styled.div`
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 60px;
+  height: ${props => (props.listToggle ? '100%' : '210px')};
+  // display: grid;
+  // grid-template-columns: repeat(5, 1fr);
+  // gap: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
   margin-top: 1.7rem;
   margin-left: auto;
   margin-right: auto;
-  height: 100%;
+  overflow: hidden;
+`;
+
+const BorderLine = styled.div`
+  width: auto;
+  height: 2px;
+  background-color: #c4c4c4;
+  margin: 20px 30px;
 `;
 
 export default MainPrac;

@@ -21,3 +21,19 @@ a {
 button {
   cursor: pointer;
 }
+p,
+span,
+b,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea,
+div,
+button {
+  font-family: 'Spoqa Han Sans Neo';
+}

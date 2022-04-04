@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
@@ -10,12 +10,11 @@ import thumbnailImage from '../../assets/images/File.png';
 import { ReactComponent as UnCheckedRing } from '../../assets/icons/unChecked.svg';
 import { ReactComponent as CheckedRing } from '../../assets/icons/checked.svg';
 import { ReactComponent as DotImage } from '../../assets/icons/projectMenuDot.svg';
+import { setList, unSetList } from '../../redux/slice/trashSlice';
 
 const GridForm = props => {
   const [isOpen, setIsOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-
-  const TodoList = [];
 
   const {
     projectName,
@@ -29,6 +28,16 @@ const GridForm = props => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (props.checked) {
+      setIsChecked(true);
+      dispatch(setList(projectId));
+    } else {
+      setIsChecked(false);
+      dispatch(unSetList(projectId));
+    }
+  }, [props.checked]);
 
   const displayCreatedAt = createdAt => {
     let startTime = new Date(createdAt);
@@ -44,16 +53,19 @@ const GridForm = props => {
     }
   };
 
-  function arrayRemove(arr, value) {
-    return arr.filter(function (ele) {
-      return ele != value;
-    });
-  }
-
   const onClickHandler = () => {
     navigate(`/workspace/${projectId}`, { state: props });
     dispatch(OpenWorkSpace(projectId));
   };
+
+  const checkboxClickHandler = useCallback(() => {
+    setIsChecked(!isChecked);
+    if (!isChecked === true) {
+      dispatch(setList(projectId));
+    } else {
+      dispatch(unSetList(projectId));
+    }
+  }, [isChecked]);
 
   if (trash === false) {
     return (
@@ -76,14 +88,7 @@ const GridForm = props => {
       <Wrapper width={props.width} height={props.height}>
         <MenuDiv
           onClick={() => {
-            setIsChecked(!isChecked);
-            if (isChecked === true) {
-              TodoList.push(projectId);
-              //리스트에 담기
-            } else {
-              arrayRemove(TodoList, projectId);
-              //리스트에서 빼기
-            }
+            checkboxClickHandler();
           }}
         >
           {isChecked ? <CheckedRing /> : <UnCheckedRing />}

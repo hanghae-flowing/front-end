@@ -1,9 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { URL } from '../../API';
 
+function arrayRemove(arr, value) {
+  return arr.filter(function (ele) {
+    return ele != value;
+  });
+}
+
 const trashbinState = {
   trash: {},
-  pleaseThrowThoseProjects: {},
+  pleaseThrowThoseProjects: [],
 };
 
 export const getProjectsInTrash = createAsyncThunk(
@@ -14,6 +20,24 @@ export const getProjectsInTrash = createAsyncThunk(
         console.log(res);
         return res.data;
       })
+      .catch(err => console.log(err));
+  },
+);
+
+export const deleteSelectedProjects = createAsyncThunk(
+  'trash/deleteSelectedProjects',
+  async (sendingData, thunkAPI) => {
+    await URL.post('/project/trash/selection', sendingData)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  },
+);
+
+export const recoverSelectedProjects = createAsyncThunk(
+  'trash/deleteSelectedProjects',
+  async (sendingData, thunkAPI) => {
+    await URL.post('/project/trash/restore', sendingData)
+      .then(res => console.log(res))
       .catch(err => console.log(err));
   },
 );
@@ -36,7 +60,23 @@ export const emptyMyTrashbin = createAsyncThunk(
 export const trashSlice = createSlice({
   name: 'trash',
   initialState: trashbinState,
-  reducer: {},
+  reducers: {
+    setList: (state, action) => {
+      console.log(action.payload);
+      state.pleaseThrowThoseProjects = [
+        ...state.pleaseThrowThoseProjects,
+        action.payload,
+      ];
+      console.log(state.pleaseThrowThoseProjects);
+    },
+    unSetList: (state, action) => {
+      const newProject = state.pleaseThrowThoseProjects.filter(
+        project => project !== action.payload,
+      );
+      state.pleaseThrowThoseProjects = [...newProject];
+      console.log(state.pleaseThrowThoseProjects);
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getProjectsInTrash.fulfilled, (state, action) => {
       console.log(action.payload);
@@ -45,6 +85,6 @@ export const trashSlice = createSlice({
   },
 });
 
-export const {} = trashSlice.actions;
+export const { setList, unSetList } = trashSlice.actions;
 
 export default trashSlice.reducer;

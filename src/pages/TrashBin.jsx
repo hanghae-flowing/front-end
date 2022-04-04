@@ -9,10 +9,16 @@ import {
 import GridForm from '../components/form/GridForm';
 import { switchPage } from '../redux/slice/navSlice';
 import Nav from '../components/menu/Nav';
+import { ReactComponent as ArrowDownImg } from '../assets/icons/Arrow_down.svg';
 
 const TrashBin = () => {
   const dispatch = useDispatch();
   const [allCheck, setAllCheck] = useState(false);
+  const [listOpen, setListOpen] = useState(false);
+
+  const listToggle = () => {
+    setListOpen(!listOpen);
+  };
 
   const allCheckHandler = () => {
     setAllCheck(!allCheck);
@@ -69,39 +75,44 @@ const TrashBin = () => {
       <StyledWrap>
         <Nav />
         <StyeldDiv>
-          <TrashDiv>
-            <button onClick={allCheckHandler}>모두 선택</button>
-            <TitleDiv>
-              <Title>삭제목록</Title>
-            </TitleDiv>
-
-            <ProjectDiv>
-              {trashList.length > 0 &&
-                trashList.map((project, index) => (
-                  <GridForm
-                    key={index}
-                    projectName={project.projectName}
-                    modifiedAt={project.modifiedAt}
-                    memberList={project.memberList}
-                    bookmark={project.bookmark}
-                    thumbnailNum={project.thumbnailNum}
-                    projectId={project.projectId}
-                    trash={project.trash}
-                    width={'100%'}
-                    height={'26%'}
-                    checked={allCheck}
-                  />
-                ))}
-            </ProjectDiv>
-            <ButtonDiv>
-              <RecoveryButton onClick={recoverSelectedProjectsHanlder}>
-                복원
-              </RecoveryButton>
-              <DeleteButton onClick={deleteSelectedProjectsHanlder}>
-                영구삭제
-              </DeleteButton>
-            </ButtonDiv>
-          </TrashDiv>
+          <Inner>
+            <TrashDiv>
+              <button onClick={allCheckHandler}>모두 선택</button>
+              <SplitDiv>
+                <CurrentDoc onClick={listToggle} listToggle={listOpen}>
+                  <p>이번 달</p>
+                  <ArrowDownImg />
+                </CurrentDoc>
+              </SplitDiv>
+              <ProjectDiv listToggle={listOpen}>
+                {trashList.length > 0 &&
+                  trashList.map((project, index) => (
+                    <GridForm
+                      key={index}
+                      projectName={project.projectName}
+                      modifiedAt={project.modifiedAt}
+                      memberList={project.memberList}
+                      bookmark={project.bookmark}
+                      thumbnailNum={project.thumbnailNum}
+                      projectId={project.projectId}
+                      trash={project.trash}
+                      width="calc(100% / 5 - 60px)"
+                      height="auto"
+                      checked={allCheck}
+                    />
+                  ))}
+              </ProjectDiv>
+              <BorderLine />
+              <ButtonDiv>
+                <RecoveryButton onClick={recoverSelectedProjectsHanlder}>
+                  복원
+                </RecoveryButton>
+                <DeleteButton onClick={deleteSelectedProjectsHanlder}>
+                  영구삭제
+                </DeleteButton>
+              </ButtonDiv>
+            </TrashDiv>
+          </Inner>
         </StyeldDiv>
       </StyledWrap>
     );
@@ -115,6 +126,31 @@ const StyledWrap = styled.div`
 const StyeldDiv = styled.div`
   width: 100%;
   padding-left: 258px;
+`;
+const SplitDiv = styled.div`
+  width: 1280px;
+  margin: 0 30px;
+`;
+const CurrentDoc = styled.div`
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  & p {
+    font-weight: 700;
+    font-size: 1.3em;
+    color: #818181;
+  }
+  & svg {
+    transform: ${props => (props.listToggle ? 'rotate(180deg)' : '')};
+  }
+`;
+const Inner = styled.div`
+  width: 100%;
+  max-width: 1340px;
+  margin: 0 auto;
+  padding-top: 130px;
 `;
 
 const TitleDiv = styled.div`
@@ -132,21 +168,21 @@ const Title = styled.h3`
 `;
 
 const ProjectDiv = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 60px;
-  margin-top: 20px;
+  width: 100%;
+  height: ${props => (props.listToggle ? '100%' : '210px')};
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  margin-top: 1.7rem;
   margin-left: auto;
   margin-right: auto;
-
-  height: 100%;
+  overflow: hidden;
 `;
 
 const TrashDiv = styled.div`
   width: 100%;
-  max-width: 1280px;
-  margin: 184px auto;
-  padding: 0 20px;
+  max-width: 1340px;
+  margin: 0 auto;
 `;
 
 const ButtonDiv = styled.div`
@@ -154,6 +190,7 @@ const ButtonDiv = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: end;
+  padding: 0 30px;
 `;
 
 const RecoveryButton = styled.button`
@@ -208,6 +245,12 @@ const EmptyImgDiv = styled.div`
   margin: 0 auto 56px auto;
   border-radius: 50%;
   background-color: #e3e0ff;
+`;
+const BorderLine = styled.div`
+  width: auto;
+  height: 2px;
+  background-color: #c4c4c4;
+  margin: 20px 30px;
 `;
 
 export default TrashBin;

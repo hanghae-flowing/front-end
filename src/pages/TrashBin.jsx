@@ -10,6 +10,8 @@ import GridForm from '../components/form/GridForm';
 import { switchPage } from '../redux/slice/navSlice';
 import Nav from '../components/menu/Nav';
 import { ReactComponent as ArrowDownImg } from '../assets/icons/Arrow_down.svg';
+import { ReactComponent as UnCheckedRing } from '../assets/icons/unChecked.svg';
+import { ReactComponent as CheckedRing } from '../assets/icons/checked.svg';
 
 const TrashBin = () => {
   const dispatch = useDispatch();
@@ -77,10 +79,14 @@ const TrashBin = () => {
         <StyeldDiv>
           <Inner>
             <TrashDiv>
-              <button onClick={allCheckHandler}>모두 선택</button>
+              <AllCheckDiv onClick={allCheckHandler}>
+                {allCheck ? <CheckedRing /> : <UnCheckedRing />}
+                <AllCheckSpan>모두 선택</AllCheckSpan>
+              </AllCheckDiv>
+
               <SplitDiv>
                 <CurrentDoc onClick={listToggle} listToggle={listOpen}>
-                  <p>이번 달</p>
+                  <p>삭제 목록</p>
                   <ArrowDownImg />
                 </CurrentDoc>
               </SplitDiv>
@@ -126,6 +132,23 @@ const StyledWrap = styled.div`
 const StyeldDiv = styled.div`
   width: 100%;
   padding-left: 258px;
+`;
+
+const AllCheckSpan = styled.span`
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 29px;
+  /* identical to box height */
+
+  align-items: center;
+  margin-left: 13px;
+
+  color: #818181;
+`;
+const AllCheckDiv = styled.div`
+  width: 100%;
+  margin: 0 0 32px 28px;
+  hiehgt: 29px;
 `;
 const SplitDiv = styled.div`
   width: 1280px;

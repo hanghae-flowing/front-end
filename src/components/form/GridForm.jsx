@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
 import { useDispatch } from 'react-redux';
-import { OpenWorkSpace } from '../../redux/slice/postSlice';
+import { OpenWorkSpace, setBookmark } from '../../redux/slice/postSlice';
 import FileMenu from '../menu/FileMenu';
 import thumbnailImage from '../../assets/images/File.png';
 import { ReactComponent as UnCheckedRing } from '../../assets/icons/unChecked.svg';
@@ -12,9 +12,23 @@ import { ReactComponent as CheckedRing } from '../../assets/icons/checked.svg';
 import { ReactComponent as DotImage } from '../../assets/icons/projectMenuDot.svg';
 import { setList, unSetList } from '../../redux/slice/trashSlice';
 
+import { ReactComponent as BookmarkedImage } from '../../assets/icons/Bookmark_light.svg';
+import { ReactComponent as UnBookmarkedImage } from '../../assets/icons/Bookmark_light_blank.svg';
+
 const GridForm = props => {
   const [isOpen, setIsOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
+
+  const kakaoId =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).kakaoId;
+  const accessToken =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
+  const userId =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).userId;
 
   const {
     projectName,
@@ -58,6 +72,21 @@ const GridForm = props => {
     dispatch(OpenWorkSpace(projectId));
   };
 
+  const clickMenuHandler = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const clickBookmarkHandler = () => {
+    setBookmarked(!bookmarked);
+
+    const sendingData = {
+      userId,
+      accessToken,
+      kakaoId,
+    };
+    dispatch(setBookmark({ sendingData, projectId }));
+  };
+
   const checkboxClickHandler = useCallback(() => {
     setIsChecked(!isChecked);
     if (!isChecked === true) {
@@ -70,12 +99,15 @@ const GridForm = props => {
   if (trash === false) {
     return (
       <Wrapper width={props.width} height={props.height}>
-        <MenuDiv onClick={() => setIsOpen(true)}>
+        <MenuDiv onClick={() => clickMenuHandler()}>
           <DotImage />
         </MenuDiv>
         <ImageDiv onClick={onClickHandler}></ImageDiv>
         <Title>{projectName}</Title>
         <DateP>{displayCreatedAt(modifiedAt)}</DateP>
+        <BookmarkDiv onClick={clickBookmarkHandler}>
+          {bookmarked ? <BookmarkedImage /> : <UnBookmarkedImage />}
+        </BookmarkDiv>
         <FileMenu
           projectId={projectId}
           open={isOpen}
@@ -156,6 +188,14 @@ const MenuDiv = styled.div`
   &:hover {
   }
   z-index: 10;
+`;
+
+const BookmarkDiv = styled.div`
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 24px;
+  height: 24px;
 `;
 
 export default GridForm;

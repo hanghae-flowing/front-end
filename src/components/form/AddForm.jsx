@@ -8,7 +8,6 @@ const AddForm = ({ open, onClose, children }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [thumbNailNum, setThumbNailNum] = useState(0);
   const projectNameRef = useRef();
 
   const createWorkspace = () => {

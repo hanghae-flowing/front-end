@@ -14,6 +14,7 @@ import { ReactComponent as HomeImg } from '../assets/icons/Widget_light.svg';
 import PopupMenu from './menu/PopupMenu';
 import NotificationModal from './menu/NotificationModal';
 import { checkMyInvitation } from '../redux/slice/inviteSlice';
+import InvitationModal from './form/InvitationModal';
 
 export const MainHeader = () => {
   const location = useLocation();
@@ -120,7 +121,7 @@ export const MainHeader = () => {
           </FlexDiv> */}
             <Notification
               onClick={() => {
-                setIsNotiOpen(true);
+                handleNotification();
                 checkMyInvitationHandler();
               }}
             >
@@ -153,9 +154,14 @@ export const WorkHeader = props => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const projectTitle = JSON.parse(sessionStorage.getItem('projectInfo'))
-    .projectInfo.projectName;
-  console.log(projectTitle);
+  const projectTitle =
+    sessionStorage.getItem('projectInfo') &&
+    JSON.parse(sessionStorage.getItem('projectInfo')).projectInfo.projectName;
+
+  const [isInvtOpen, setIsInvtOpen] = useState(false);
+  const handleInvt = () => {
+    setIsInvtOpen(!isInvtOpen);
+  };
 
   const [isNotiOpen, setIsNotiOpen] = useState(false);
   const handleNotification = () => {
@@ -187,12 +193,16 @@ export const WorkHeader = props => {
         </FlexDiv>
         <FlexDiv justify="end">
           {/* <button onClick={() => publish()}>버튼</button> */}
-          <Buttons>
+          <Buttons
+            onClick={() => {
+              handleInvt();
+            }}
+          >
             <OutImg />
           </Buttons>
           <Notification
             onClick={() => {
-              setIsNotiOpen(true);
+              handleNotification();
               checkMyInvitationHandler();
             }}
           >
@@ -200,6 +210,12 @@ export const WorkHeader = props => {
           </Notification>
         </FlexDiv>
       </HeadBox>
+      <InvitationModal
+        open={isInvtOpen}
+        onClose={() => {
+          setIsInvtOpen(false);
+        }}
+      />
       <NotificationModal
         open={isNotiOpen}
         onClose={() => setIsNotiOpen(false)}

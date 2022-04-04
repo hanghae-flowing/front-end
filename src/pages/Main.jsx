@@ -149,9 +149,6 @@ const CurrentDoc = styled.div`
 const ProjectDiv = styled.div`
   width: 100%;
   height: ${props => (props.listToggle ? '100%' : '210px')};
-  // display: grid;
-  // grid-template-columns: repeat(5, 1fr);
-  // gap: 60px;
   display: flex;
   flex-wrap: wrap;
   justify-content: start;

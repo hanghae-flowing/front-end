@@ -1,8 +1,32 @@
 import React from 'react';
+import { useMutation } from 'react-query';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { URL } from '../../API';
 
 const MileStone = () => {
-  return <StyledDiv></StyledDiv>;
+  const getGapNode = useSelector(state => state.gap.gapNodeId);
+  // console.log(getGapNode);
+
+  const sendingData = {
+    xval: 180,
+    text: '',
+    gapNodeId: getGapNode,
+  };
+
+  const postMileStone = useMutation(sendingData => {
+    URL.post('/gapStone', sendingData).then(res => {
+      console.log(res);
+    });
+  });
+
+  return (
+    <StyledDiv
+      onClick={() => {
+        postMileStone.mutate(sendingData);
+      }}
+    ></StyledDiv>
+  );
 };
 
 const StyledDiv = styled.div`

@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { getNodeTableId } from '../../redux/slice/nodeSlice';
 import { getTemplate, isModal, isOpen } from '../../redux/slice/tempSlice';
-import { NewProject, TemplateProject } from '../cards/NewProject';
+import { TemplateProject } from '../cards/NewProject';
 import AddTemplate from '../form/AddTemplate';
 import { openDoc } from '../../redux/slice/docSlice';
+import MindmapThumbnail from '../../assets/images/img_thumb_mindmap.png';
+import GapThumbnail from '../../assets/images/img_thumb_gap.png';
+import DocsThumbnail from '../../assets/images/img_thumb_docs.png';
 
 const TemplateList = props => {
   const tempOpen = useSelector(state => state.template.tempOpen);
@@ -18,9 +20,9 @@ const TemplateList = props => {
   const documentId = useSelector(state => state.post.documentId);
   const gapTableId = useSelector(state => state.post.gapTableId);
   const nodeTableId = useSelector(state => state.post.nodeTable);
-  console.log('docs', documentId);
-  console.log('gap', gapTableId);
-  console.log('nodetable', nodeTableId);
+  // console.log('docs', documentId);
+  // console.log('gap', gapTableId);
+  // console.log('nodetable', nodeTableId);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const projectId = props.projectId;
@@ -36,9 +38,7 @@ const TemplateList = props => {
 
   useEffect(() => {
     if (!projectId) return;
-    dispatch(getTemplate(projectId)).then(res => {
-      console.log(res);
-    });
+    dispatch(getTemplate(projectId));
   }, [projectId]);
 
   return (
@@ -64,12 +64,14 @@ const TemplateList = props => {
         onClick={() => {
           navigate(`mindmap/${nodeTableId}`);
         }}
+        backgroundImage={MindmapThumbnail}
       />
       <TemplateProject
         title="갭분석"
         onClick={() => {
           navigate(`gap/${gapTableId}`);
         }}
+        backgroundImage={GapThumbnail}
       />
       <TemplateProject
         title="기획서"
@@ -77,6 +79,7 @@ const TemplateList = props => {
           navigate(`proposal/${documentId}`);
           docOpenHandler();
         }}
+        backgroundImage={DocsThumbnail}
       />
       {/* <NewProject
         onClick={() => dispatch(isModal(true))}
@@ -94,7 +97,7 @@ const StyledWrap = styled.div`
   position: fixed;
   top: 0;
   left: ${props => (props.toggle ? '0px' : '-300px')};
-  background-color: #e3e0ff;
+  background-color: #5432d3;
   padding: 20px;
   padding-top: 70px;
   padding-right: 10px;
@@ -118,25 +121,25 @@ const ToggleBtn = styled.button`
   position: fixed;
   top: 50%;
   left: ${props => (props.toggle ? '300px' : '0px')};
-  transition: all 0.2s ease-in-out;
+  transition: left 0.2s ease-in-out, transform 0.1s ease-in-out;
   transform: translateY(-50%);
-  width: 25px;
-  height: 80px;
+  width: 27px;
+  height: 100px;
   border: none;
-  background-color: #e3e0ff;
-  border-top-right-radius: 50px;
-  border-bottom-right-radius: 50px;
+  background-color: #5432d3;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   &:hover {
-    transform: translateY(-50%) scale(1.25);
+    transform: translateY(-50%) scale(1.15);
   }
 `;
 
 const Line = styled.span`
-  width: 2px;
-  height: 20px;
+  width: 1px;
+  height: 40px;
   background-color: #fff;
   display: block;
 `;

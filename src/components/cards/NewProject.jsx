@@ -18,8 +18,11 @@ export const NewProject = props => {
 
 export const TemplateProject = props => {
   return (
-    <TemplateWrap onClick={props.onClick}>
-      <div>{props.title}</div>
+    <TemplateWrap
+      onClick={props.onClick}
+      backgroundImage={props.backgroundImage}
+    >
+      {/* <div>{props.title}</div> */}
     </TemplateWrap>
   );
 };
@@ -50,7 +53,10 @@ const TemplateWrap = styled.div`
   position: relative;
   width: 100%;
   height: 180px;
-  background-color: #fff;
+  background-image: url(${props => props.backgroundImage});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   border-radius: 25px;
   margin-bottom: 20px;
   cursor: pointer;
@@ -58,6 +64,10 @@ const TemplateWrap = styled.div`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    transform: scale(1.03);
+  }
 `;
 
 const Line = styled.div`

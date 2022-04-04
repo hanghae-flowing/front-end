@@ -3,13 +3,21 @@ import { useMutation } from 'react-query';
 import styled from 'styled-components';
 import { URL } from '../../API';
 import { debounce } from 'lodash';
+import MileStone from './MileStone';
+import { useDispatch } from 'react-redux';
+import { setGapNodeId } from '../../redux/slice/gapSlice';
+import { useStone } from '../../hooks/useStone';
 
 const GapTable = props => {
+  const dispatch = useDispatch();
+
   const gapNodeId = props.gapNodeId;
   const [subject, setSubject] = useState(props.subject);
   const [text, setText] = useState(props.text);
   const [targetText, setTargetText] = useState(props.targetText);
   const [visible, setVisible] = useState(false);
+  const [isFocus, setIsFocus] = useState(false);
+  const offsetRef = useRef(0);
 
   useEffect(() => {
     setSubject(props.subject);
@@ -32,12 +40,8 @@ const GapTable = props => {
     [],
   );
 
-  // const debounceHandler = debounce(sendingData => {
-  //   editGap.mutate(sendingData);
-  // }, 500);
-
   const deleteGap = useMutation(() => {
-    URL.delete(`gapNode/${gapNodeId}`);
+    URL.delete(`/gapNode/${gapNodeId}`);
   });
 
   const onChange = () => {
@@ -56,6 +60,40 @@ const GapTable = props => {
     deleteGap.mutate();
   };
 
+  const setGapNode = () => {
+    dispatch(setGapNodeId(gapNodeId));
+  };
+
+  const { status, data: stoneList, error, isFetching } = useStone(gapNodeId);
+  // console.log(stoneList);
+
+  const renderByStatus = useCallback(() => {
+    switch (status) {
+      case 'loading':
+        return <div>loading</div>;
+      case 'error':
+        if (error instanceof Error) {
+          return <span>Error: {error.message}</span>;
+        }
+        break;
+      default:
+        return (
+          <>
+            {stoneList?.map(data => (
+              <MileStone
+                fieldRef={offsetRef}
+                key={data.gapStoneId}
+                xval={data.xval}
+                text={data.text}
+                gapStoneId={data.gapStoneId}
+                gapNodeId={gapNodeId}
+              />
+            ))}
+          </>
+        );
+    }
+  }, [status, isFetching]);
+
   return (
     <StyledBox
       onMouseOver={() => {
@@ -63,6 +101,13 @@ const GapTable = props => {
       }}
       onMouseOut={() => {
         setVisible(false);
+      }}
+      onFocus={() => {
+        setIsFocus(true);
+        setGapNode();
+      }}
+      onBlur={() => {
+        setIsFocus(false);
       }}
     >
       <GapWrap>
@@ -75,7 +120,7 @@ const GapTable = props => {
             maxLength={10}
           />
         </Subtitle>
-        <ContentBox>
+        <ContentBox focus={isFocus}>
           <Delete visible={visible} onClick={onDelete}>
             <Line1 />
             <Line2 />
@@ -88,9 +133,10 @@ const GapTable = props => {
           />
         </ContentBox>
       </GapWrap>
+      <MileStoneField ref={offsetRef}>{renderByStatus()}</MileStoneField>
       <GapWrap>
         <EmptyBox />
-        <ContentBox>
+        <ContentBox focus={isFocus}>
           <Content
             ref={targetRef}
             onChange={onChange}
@@ -108,6 +154,7 @@ const StyledBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 `;
 
 const GapWrap = styled.div`
@@ -148,6 +195,7 @@ const ContentBox = styled.div`
   width: 100%;
   background-color: #fff;
   border-radius: 10px;
+  border: ${props => (props.focus ? '1px solid #999' : 'none')};
   padding: 10px 20px;
   box-shadow: 2px 4px 7px rgba(0, 0, 0, 0.1);
 `;
@@ -193,6 +241,16 @@ const Line2 = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(135deg);
+`;
+
+const MileStoneField = styled.div`
+  width: 36%;
+  height: 3px;
+  background-color: #5432d3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export default GapTable;

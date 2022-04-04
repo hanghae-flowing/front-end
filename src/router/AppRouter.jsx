@@ -12,6 +12,7 @@ import Folder from '../pages/Folder';
 import Proposal from '../pages/workSpace/Proposal';
 import GapAnalysis from '../pages/workSpace/GapAnalysis';
 import SwotAnalysis from '../pages/workSpace/SwotAnalysis';
+import DefaultPage from '../pages/workSpace/DefaultPage';
 
 function AppRouter() {
   return (
@@ -23,8 +24,9 @@ function AppRouter() {
         <Route path="/login" element={<Login />} />
         <Route path="/member/kakao/callback" element={<LoginProgress />} />
         <Route path="/folder" element={<Folder />} />
-        <Route path="/garbage" element={<TrashBin />} />
+        <Route path="/trash-bin" element={<TrashBin />} />
         <Route path="workspace/:projecId/*" element={<WorkSpace />}>
+          <Route index element={<DefaultPage />} />
           <Route path="mindmap/:id" element={<MindMap />} />
           <Route path="gap/:id" element={<GapAnalysis />} />
           <Route path="proposal/:id" element={<Proposal />} />

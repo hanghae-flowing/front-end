@@ -26,7 +26,7 @@ const MainPrac = () => {
   // const searchResult = queryClient.getQueryData(['searchResult']);
   // console.log('검색', searchResult);
 
-  const { data: searchResult } = useQuery(['searchResult']);
+  const { data: searchResult } = useQuery(['searchResult'], () => {});
 
   const kakaoId =
     sessionStorage.getItem('userInfo') &&
@@ -50,7 +50,6 @@ const MainPrac = () => {
   }, [dispatch, searchResult]);
 
   const projectList = useSelector(state => state.post.project);
-  console.log(projectList);
 
   return (
     <StyledWrap>

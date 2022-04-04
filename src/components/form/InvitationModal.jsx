@@ -1,16 +1,21 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { checkNameByEmail, sendInvite } from '../../redux/slice/inviteSlice';
 import NegativeButton from './elements/NegativeButton';
 import PositiveButton from './elements/PositiveButton';
+import InvitationSecondModal from './InvitationSecondModal';
 
 const InvitationModal = ({ open, onClose }) => {
   const dispatch = useDispatch();
 
+  const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
+
   const emailToSendInvitationRef = useRef();
 
   const checkNameByEmailHandler = () => {
+    setIsSecondModalOpen(true);
+
     const sendingData = {
       email: emailToSendInvitationRef.current.value,
     };

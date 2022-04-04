@@ -8,6 +8,7 @@ import userSlice from './slice/userSlice';
 import docSlice from './slice/docSlice';
 import swotSlice from './slice/swotSlice';
 import trashSlice from './slice/trashSlice';
+import gapSlice from './slice/gapSlice';
 
 export default configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export default configureStore({
     nav: navSlice,
     doc: docSlice,
     template: tempSlice,
+    gap: gapSlice,
     swot: swotSlice,
     trash: trashSlice,
   },

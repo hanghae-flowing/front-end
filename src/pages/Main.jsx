@@ -122,7 +122,7 @@ const Inner = styled.div`
   width: 100%;
   max-width: 1340px;
   margin: 0 auto;
-  padding-top: 60px;
+  padding-top: 130px;
 `;
 
 const SplitDiv = styled.div`

@@ -28,14 +28,6 @@ const FileMenu = ({ projectId, open, onClose, children }) => {
     dispatch(ThrowProject(sendingData));
   };
   const openProjectHandler = {};
-  const bookmarkHandler = () => {
-    const sendingData = {
-      userId,
-      accessToken,
-      kakaoId,
-    };
-    dispatch(setBookmark({ sendingData, projectId }));
-  };
 
   if (!open) return null;
   else {
@@ -45,15 +37,11 @@ const FileMenu = ({ projectId, open, onClose, children }) => {
           <ListDiv>
             <ListName>열기</ListName>
           </ListDiv>
-          <ListDiv>
-            <SeperationLine />
-            <ListName onClick={bookmarkHandler}>북마크</ListName>
-          </ListDiv>
+
           <ListDiv>
             <SeperationLine />
             <Delete onClick={moveToTrashcanHandler}>삭제</Delete>
           </ListDiv>
-          <button onClick={onClose}>닫기</button>
         </ModalDiv>
       </>
     );
@@ -86,7 +74,7 @@ const ListDiv = styled.div`
 const ModalDiv = styled.div`
   position: absolute;
   width: 122px;
-  height: 146px;
+  height: 120px;
   top: 50px;
   right: 5px;
   padding: 21px 16px;

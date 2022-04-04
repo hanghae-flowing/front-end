@@ -31,7 +31,6 @@ const NotificationModal = ({ open, onClose, children }) => {
                 invitingId={noti.invitingId}
               />
             ))}
-          <button onClick={onClose}>닫기</button>
         </Modal>
       </>
     );

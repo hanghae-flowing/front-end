@@ -46,10 +46,6 @@ const PopupMenu = props => {
         <p>다운로드</p>
         <DownloadImg />
       </Tab>
-      <Tab>
-        <p onClick={invitationHandler}>초대하기</p>
-        <input ref={emailToSendInvitationRef} placeholder="email"></input>
-      </Tab>
       <Line />
       <Tab onClick={Logout}>
         <p>로그아웃</p>

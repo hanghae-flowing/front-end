@@ -60,27 +60,18 @@ const TemplateList = props => {
         />
       ) : null}
       <TemplateProject
-        width="100%"
-        height="180px"
-        marginBottom="20px"
         title="마인드맵"
         onClick={() => {
           navigate(`mindmap/${nodeTableId}`);
         }}
       />
       <TemplateProject
-        width="100%"
-        height="180px"
-        marginBottom="20px"
         title="갭분석"
         onClick={() => {
           navigate(`gap/${gapTableId}`);
         }}
       />
       <TemplateProject
-        width="100%"
-        height="180px"
-        marginBottom="20px"
         title="기획서"
         onClick={() => {
           navigate(`proposal/${documentId}`);

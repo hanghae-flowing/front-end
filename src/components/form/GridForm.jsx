@@ -107,7 +107,10 @@ const Wrapper = styled.div`
   position: relative;
   width: ${props => props.width};
   height: ${props => props.height};
+  min-width: 200px;
   cursor: pointer;
+  margin: 0 30px;
+  margin-bottom: 20px;
 `;
 const ImageDiv = styled.div`
   position: relative;
@@ -126,7 +129,7 @@ const Title = styled.h3`
   max-width: 147px;
   position: relative;
   font-weight: 400;
-  font-size: 1.4rem;
+  font-size: 1rem;
   line-height: 1.7em;
   top: 0.5em;
   overflow: hidden;
@@ -137,7 +140,7 @@ const DateP = styled.p`
   position: relative;
   top: 0.4em;
   font-weight: 400;
-  font-size: 1.1em;
+  font-size: 0.875rem;
   line-height: 1.3em;
   color: #c4c4c4;
 `;

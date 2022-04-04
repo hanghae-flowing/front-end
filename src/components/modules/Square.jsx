@@ -70,7 +70,7 @@ const Square = props => {
     color: '#e3e3e3',
     fontColor: '#6c6c6c',
     fontSize: '16px',
-    text: '키워드',
+    text: '',
     xval: `${transX + 20}`,
     yval: `${transY + 20}`,
     nodeTableId: `${props.nodeTableId}`,
@@ -175,6 +175,8 @@ const Square = props => {
           fontSize={props.fontSize}
           onChange={onTextChange}
           value={text}
+          placeholder="키워드"
+          maxLength={10}
         />
       </StyledDiv>
     </div>

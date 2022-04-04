@@ -86,7 +86,7 @@ const TrashBin = () => {
 
               <SplitDiv>
                 <CurrentDoc onClick={listToggle} listToggle={listOpen}>
-                  <p>이번 달</p>
+                  <p>삭제 목록</p>
                   <ArrowDownImg />
                 </CurrentDoc>
               </SplitDiv>

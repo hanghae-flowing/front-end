@@ -72,6 +72,10 @@ const GridForm = props => {
     dispatch(OpenWorkSpace(projectId));
   };
 
+  const clickMenuHandler = () => {
+    setIsOpen(!isOpen);
+  };
+
   const clickBookmarkHandler = () => {
     setBookmarked(!bookmarked);
 
@@ -95,7 +99,7 @@ const GridForm = props => {
   if (trash === false) {
     return (
       <Wrapper width={props.width} height={props.height}>
-        <MenuDiv onClick={() => setIsOpen(true)}>
+        <MenuDiv onClick={() => clickMenuHandler()}>
           <DotImage />
         </MenuDiv>
         <ImageDiv onClick={onClickHandler}></ImageDiv>

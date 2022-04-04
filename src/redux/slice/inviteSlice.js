@@ -3,6 +3,7 @@ import { URL } from '../../API';
 
 const inviteState = {
   invitations: {},
+  personToInvite: {},
 };
 
 export const sendInvite = createAsyncThunk(
@@ -59,6 +60,23 @@ export const declineInvitation = createAsyncThunk(
   },
 );
 
+export const checkNameByEmail = createAsyncThunk(
+  'invite/checkNameByEmail',
+  async (sendingData, thunkAPI) => {
+    try {
+      return await URL.get(`/checkingNameByEmail/${sendingData.email}`).then(
+        res => {
+          console.log(res);
+          return res.data;
+        },
+      );
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+);
+
 export const inviteSlice = createSlice({
   name: 'invite',
   initialState: inviteState,
@@ -66,6 +84,12 @@ export const inviteSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(checkMyInvitation.fulfilled, (state, action) => {
       state.invitations = action.payload;
+    });
+    builder.addCase(checkNameByEmail.rejected, (state, action) => {
+      window.alert('ddd');
+    });
+    builder.addCase(checkNameByEmail.fulfilled, (state, action) => {
+      state.personToInvite = action.payload;
     });
   },
 });

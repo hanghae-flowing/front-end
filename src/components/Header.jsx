@@ -153,8 +153,9 @@ export const WorkHeader = props => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const projectTitle = JSON.parse(sessionStorage.getItem('projectInfo'))
-    .projectInfo.projectName;
+  const projectTitle =
+    sessionStorage.getItem('projectInfo') &&
+    JSON.parse(sessionStorage.getItem('projectInfo')).projectInfo.projectName;
   console.log(projectTitle);
 
   const [isNotiOpen, setIsNotiOpen] = useState(false);

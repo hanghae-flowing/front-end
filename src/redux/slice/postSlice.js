@@ -71,10 +71,28 @@ export const ThrowProject = createAsyncThunk(
   },
 );
 
+export const ThrowFolder = createAsyncThunk(
+  'post/throwFolder',
+  async (sendingData, thunkAPI) => {
+    await URL.post(`folder/trash`, sendingData)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  },
+);
+
 export const setBookmark = createAsyncThunk(
   'post/setBookmark',
   async ({ sendingData, projectId }, thunkAPI) => {
     await URL.post(`/bookmark/${projectId}`, sendingData)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  },
+);
+
+export const setFolderBookmark = createAsyncThunk(
+  'post/setFolderBookmark',
+  async ({ sendingData }, thunkAPI) => {
+    await URL.post(`/bookmark`, sendingData)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   },

@@ -5,6 +5,7 @@ import {
   deleteSelectedProjects,
   getProjectsInTrash,
   recoverSelectedProjects,
+  setCountingToZero,
 } from '../redux/slice/trashSlice';
 import GridForm from '../components/form/GridForm';
 import { switchPage } from '../redux/slice/navSlice';

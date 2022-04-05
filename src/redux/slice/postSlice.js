@@ -91,8 +91,8 @@ export const setBookmark = createAsyncThunk(
 
 export const setFolderBookmark = createAsyncThunk(
   'post/setFolderBookmark',
-  async ({ sendingData }, thunkAPI) => {
-    await URL.post(`/bookmark`, sendingData)
+  async (sendingData, thunkAPI) => {
+    await URL.post(`/folder/bookmark`, sendingData)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   },

@@ -13,6 +13,7 @@ import { ReactComponent as ArrowDownImg } from '../assets/icons/Arrow_down.svg';
 import { ReactComponent as UnCheckedRing } from '../assets/icons/unChecked.svg';
 import { ReactComponent as CheckedRing } from '../assets/icons/checked.svg';
 import DeleteModal from '../components/form/DeleteModal';
+import { ReactComponent as EmptyTrashImage } from '../assets/icons/EmptyTrash.svg';
 
 const TrashBin = () => {
   const dispatch = useDispatch();
@@ -66,7 +67,9 @@ const TrashBin = () => {
         <Nav />
         <StyeldDiv>
           <EmptyDiv>
-            <EmptyImgDiv></EmptyImgDiv>
+            <EmptyImgDiv>
+              <EmptyTrashImage />
+            </EmptyImgDiv>
             <EmptyP>휴지통이 비어있습니다.</EmptyP>
           </EmptyDiv>
         </StyeldDiv>
@@ -269,25 +272,32 @@ const EmptyDiv = styled.div`
   position: aboslute;
 
   margin: 300px auto;
-  width: 202px;
-  height: 202px;
+  width: 350px;
+  height: 305px;
 `;
 const EmptyP = styled.p`
-  font-weight: 400;
-  font-size: 21px;
-  line-height: 26px;
+  font-family: 'Spoqa Han Sans Neo';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 45px;
+  /* identical to box height */
+
+  color: #7a7a7a;
+
   display: flex;
   justify-content: center;
-  color: #7a7a7a;
+  margin-top: 51px;
 `;
 
 const EmptyImgDiv = styled.div`
-  width: 120px;
-  height: 120px;
+  width: 209px;
+  height: 209px;
   display: flex;
   justify-content: center;
   align-content: center;
   margin: 0 auto 56px auto;
+  padding: 38px;
   border-radius: 50%;
   background-color: #e3e0ff;
 `;

@@ -4,9 +4,22 @@ import styled from 'styled-components';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
 import { useNavigate } from 'react-router-dom';
+import FileMenu from '../menu/FileMenu';
+import { useState } from 'react';
+import { setFolderBookmark, ThrowFolder } from '../../redux/slice/postSlice';
+import { useDispatch } from 'react-redux';
+
+import { ReactComponent as BookmarkedImage } from '../../assets/icons/Bookmark_light.svg';
+import { ReactComponent as UnBookmarkedImage } from '../../assets/icons/Bookmark_light_blank.svg';
 
 const FolderCard = props => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(props.bookmark);
+  const folderTableId = props.folderTableId;
+
   const displayCreatedAt = createdAt => {
     let startTime = new Date(createdAt);
     let nowTime = Date.now();
@@ -22,12 +35,34 @@ const FolderCard = props => {
   };
 
   const openFolder = () => {
-    navigate(`/folder/${props.folderTableId}`, { state: props });
+    navigate(`/folder/${folderTableId}`, { state: props });
+  };
+
+  const clickMenuHandler = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const moveToTrashcanHandler = () => {
+    const sendingData = {
+      folderTableId,
+    };
+    console.log(sendingData);
+    window.alert('삭제 완료');
+    dispatch(ThrowFolder(sendingData));
+  };
+
+  const clickBookmarkHandler = () => {
+    setBookmarked(!bookmarked);
+
+    const sendingData = {
+      folderTableId,
+    };
+    dispatch(setFolderBookmark({ sendingData }));
   };
 
   return (
     <StyledWrap>
-      <MenuBtn>
+      <MenuBtn onClick={clickMenuHandler}>
         <Dot />
         <Dot />
         <Dot />
@@ -37,6 +72,16 @@ const FolderCard = props => {
         <Title>{props.folderName}</Title>
         <DateP>{displayCreatedAt(props.modifiedAt)}</DateP>
       </ContentDiv>
+      <BookmarkDiv onClick={clickBookmarkHandler}>
+        {bookmarked ? <BookmarkedImage /> : <UnBookmarkedImage />}
+      </BookmarkDiv>
+      <FileMenu
+        projectId={props.folderTableId}
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        onClickHandler={openFolder}
+        deleteHandler={moveToTrashcanHandler}
+      />
     </StyledWrap>
   );
 };
@@ -100,6 +145,7 @@ const MenuBtn = styled.div`
   align-items: center;
   justify-content: space-evenly;
   cursor: pointer;
+  z-index: 110;
 `;
 
 const Dot = styled.div`
@@ -107,6 +153,14 @@ const Dot = styled.div`
   height: 5px;
   border-radius: 5px;
   background-color: #e3e0ff;
+`;
+
+const BookmarkDiv = styled.div`
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 24px;
+  height: 24px;
 `;
 
 export default FolderCard;

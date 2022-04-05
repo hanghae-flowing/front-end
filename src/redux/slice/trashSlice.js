@@ -63,7 +63,9 @@ export const trashSlice = createSlice({
         action.payload,
       ];
       console.log(state.pleaseThrowThoseProjects);
+
       state.counting += 1;
+
       console.log(state.counting);
     },
     unSetList: (state, action) => {
@@ -92,6 +94,6 @@ export const trashSlice = createSlice({
   },
 });
 
-export const { setList, unSetList } = trashSlice.actions;
+export const { setList, unSetList, setCountingToZero } = trashSlice.actions;
 
 export default trashSlice.reducer;

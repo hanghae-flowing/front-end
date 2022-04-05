@@ -8,6 +8,7 @@ import { setList, unSetList } from '../../redux/slice/trashSlice';
 import { OpenWorkSpace, setBookmark } from '../../redux/slice/postSlice';
 import FileMenu from '../menu/FileMenu';
 import thumbnailImage from '../../assets/images/File.png';
+import { ThrowProject } from '../../redux/slice/postSlice';
 import { ReactComponent as UnCheckedRing } from '../../assets/icons/unChecked.svg';
 import { ReactComponent as CheckedRing } from '../../assets/icons/checked.svg';
 import { ReactComponent as DotImage } from '../../assets/icons/projectMenuDot.svg';
@@ -97,6 +98,21 @@ const GridForm = props => {
     }
   }, [isChecked]);
 
+  const openProjectHandler = () => {
+    navigate(`/workspace/${projectId}`);
+    dispatch(OpenWorkSpace(projectId));
+  };
+
+  const moveToTrashcanHandler = () => {
+    const sendingData = {
+      projectId,
+      userId,
+    };
+    console.log(sendingData);
+    window.alert('삭제 완료');
+    dispatch(ThrowProject(sendingData));
+  };
+
   if (trash === false) {
     return (
       <Wrapper width={props.width} height={props.height}>
@@ -115,6 +131,8 @@ const GridForm = props => {
           projectId={projectId}
           open={isOpen}
           onClose={() => setIsOpen(false)}
+          onClickHandler={openProjectHandler}
+          deleteHandler={moveToTrashcanHandler}
         />
       </Wrapper>
     );

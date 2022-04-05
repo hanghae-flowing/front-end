@@ -12,7 +12,8 @@ import { ReactComponent as FileAddImg } from '../assets/icons/File_dock_light.sv
 import { ReactComponent as FolderAddImg } from '../assets/icons/Folder_add_light.svg';
 import AddFolderForm from '../components/form/AddFolderForm';
 import { useFolderList } from '../hooks/useFolderList';
-import Folder from '../components/cards/Folder';
+import FolderCard from '../components/cards/FolderCard';
+import Dropdown from '../components/modules/Dropdown';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
@@ -74,7 +75,7 @@ const MainPrac = () => {
         return (
           <>
             {folderList?.map(data => (
-              <Folder
+              <FolderCard
                 key={data.folderTableId}
                 folderTableId={data.folderTableId}
                 userId={data.userId}
@@ -110,6 +111,7 @@ const MainPrac = () => {
               <AddBtn>
                 <FolderAddImg onClick={() => setFolderOpen(true)} />
               </AddBtn>
+              <Dropdown />
             </FlexDiv>
           </SplitDiv>
           <ProjectDiv listToggle={currentListOpen}>
@@ -151,7 +153,24 @@ const MainPrac = () => {
               <ArrowDownImg />
             </CurrentDoc>
           </SplitDiv>
-          <ProjectDiv>{renderFolderList()}</ProjectDiv>
+          <ProjectDiv listToggle={allListOpen}>
+            {renderFolderList()}
+            {projectList.length > 0 &&
+              projectList.map((project, index) => (
+                <GridForm
+                  key={index}
+                  projectName={project.projectName}
+                  modifiedAt={project.modifiedAt}
+                  memberList={project.memberList}
+                  bookmark={project.bookmark}
+                  thumbnailNum={project.thumbnailNum}
+                  projectId={project.projectId}
+                  trash={project.trash}
+                  width="calc(100% / 5 - 60px)"
+                  height="auto"
+                />
+              ))}
+          </ProjectDiv>
           <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
           <AddFolderForm
             open={folderOpen}
@@ -221,7 +240,7 @@ const AddBtn = styled.div`
 
 const ProjectDiv = styled.div`
   width: 100%;
-  height: ${props => (props.listToggle ? '420px' : '210px')};
+  height: ${props => (props.listToggle ? '100%' : '210px')};
   display: flex;
   flex-wrap: wrap;
   justify-content: start;

@@ -1,19 +1,25 @@
 import styled from 'styled-components';
-import { useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { CreateNewProject } from '../../redux/slice/postSlice';
-import { useNavigate } from 'react-router-dom';
-import { useMutation } from 'react-query';
+import { useRef, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import { URL } from '../../API';
+import FolderAddModal from '../modal/FolderAddModal';
 
 const AddFolderForm = ({ open, onClose, children }) => {
+  const queryClient = useQueryClient();
   const folderNameRef = useRef();
+  const [success, setSuccess] = useState(false);
 
-  const createFolder = useMutation(data => {
-    URL.post(`/folder`, data).then(res => {
-      console.log(res);
-    });
-  });
+  const createFolder = useMutation(
+    data => {
+      URL.post(`/folder`, data);
+    },
+    {
+      onSuccess: async () => {
+        queryClient.invalidateQueries(['folder']);
+        setSuccess(true);
+      },
+    },
+  );
 
   const onCreate = () => {
     const userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
@@ -41,6 +47,14 @@ const AddFolderForm = ({ open, onClose, children }) => {
             </ButtonDiv>
           </ModalInner>
         </Modal>
+        {success ? (
+          <FolderAddModal
+            onClick={() => {
+              onClose();
+              setSuccess(false);
+            }}
+          />
+        ) : null}
       </Wrapper>
     );
   }

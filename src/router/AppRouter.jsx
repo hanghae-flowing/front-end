@@ -23,7 +23,7 @@ function AppRouter() {
         <Route path="/main" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/member/kakao/callback" element={<LoginProgress />} />
-        <Route path="/folder" element={<Folder />} />
+        <Route path="/folder/:id" element={<Folder />} />
         <Route path="/trash-bin" element={<TrashBin />} />
         <Route path="workspace/:projecId/*" element={<WorkSpace />}>
           <Route index element={<DefaultPage />} />

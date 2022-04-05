@@ -139,7 +139,7 @@ const Wrapper = styled.div`
   position: relative;
   width: ${props => props.width};
   height: ${props => props.height};
-  min-width: 200px;
+  min-width: 208px;
   cursor: pointer;
   margin: 0 30px;
   margin-bottom: 20px;
@@ -150,7 +150,7 @@ const ImageDiv = styled.div`
   background-size: cover;
   border-radius: 25px;
   width: 100%;
-  height: 150px;
+  height: 144px;
   overflow: hidden;
   margin-right: 25px;
 `;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AddForm from '../components/form/AddForm';
@@ -7,26 +7,16 @@ import { LoadPost } from '../redux/slice/postSlice';
 import { switchPage } from '../redux/slice/navSlice';
 import Nav from '../components/menu/Nav';
 import { useQuery } from 'react-query';
-import { NewProject } from '../components/cards/NewProject';
 import { ReactComponent as ArrowDownImg } from '../assets/icons/Arrow_down.svg';
+import { ReactComponent as FileAddImg } from '../assets/icons/File_dock_light.svg';
+import { ReactComponent as FolderAddImg } from '../assets/icons/Folder_add_light.svg';
+import AddFolderForm from '../components/form/AddFolderForm';
+import { useFolderList } from '../hooks/useFolderList';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-    console.log(isOpen);
-  };
-  const [listOpen, setListOpen] = useState(false);
-
-  const listToggle = () => {
-    setListOpen(!listOpen);
-  };
-
-  // const searchResult = queryClient.getQueryData(['searchResult']);
-  // console.log('검색', searchResult);
-
-  const { data: searchResult } = useQuery(['searchResult'], () => {});
+  const [folderOpen, setFolderOpen] = useState(false);
 
   const kakaoId =
     sessionStorage.getItem('userInfo') &&
@@ -37,6 +27,25 @@ const MainPrac = () => {
   const userId =
     sessionStorage.getItem('userInfo') &&
     JSON.parse(sessionStorage.getItem('userInfo')).userId;
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+    console.log(isOpen);
+  };
+  const [currentListOpen, setCurrentListOpen] = useState(false);
+  const [allListOpen, setAllListOpen] = useState(false);
+
+  const currentListToggle = () => {
+    setCurrentListOpen(!currentListOpen);
+  };
+  const allListToggle = () => {
+    setAllListOpen(!allListOpen);
+  };
+
+  const { data: searchResult } = useQuery(['searchResult'], () => {});
+
+  const { status, data: folderList, error, isFetching } = useFolderList(userId);
+  console.log(folderList);
 
   const sendingData = {
     kakaoId,
@@ -57,17 +66,28 @@ const MainPrac = () => {
       <StyeldDiv>
         <Inner>
           <SplitDiv>
-            <CurrentDoc onClick={listToggle} listToggle={listOpen}>
+            <CurrentDoc
+              onClick={currentListToggle}
+              listToggle={currentListOpen}
+            >
               <p>최근문서</p>
               <ArrowDownImg />
             </CurrentDoc>
+            <FlexDiv>
+              <AddBtn onClick={handleToggle}>
+                <FileAddImg />
+              </AddBtn>
+              <AddBtn>
+                <FolderAddImg onClick={() => setFolderOpen(true)} />
+              </AddBtn>
+            </FlexDiv>
           </SplitDiv>
-          <ProjectDiv listToggle={listOpen}>
-            <NewProject
+          <ProjectDiv listToggle={currentListOpen}>
+            {/* <NewProject
               width="calc(100% / 5 - 60px)"
               height="auto"
               onClick={handleToggle}
-            />
+            /> */}
             {searchResult
               ? searchResult.data.length > 0 &&
                 searchResult.data.map((data, index) => (
@@ -101,7 +121,18 @@ const MainPrac = () => {
                 ))}
           </ProjectDiv>
           <BorderLine />
+          <SplitDiv>
+            <CurrentDoc onClick={allListToggle} listToggle={allListOpen}>
+              <p>전체</p>
+              <ArrowDownImg />
+            </CurrentDoc>
+          </SplitDiv>
+          <ProjectDiv></ProjectDiv>
           <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
+          <AddFolderForm
+            open={folderOpen}
+            onClose={() => setFolderOpen(false)}
+          />
         </Inner>
       </StyeldDiv>
     </StyledWrap>
@@ -127,27 +158,46 @@ const Inner = styled.div`
 const SplitDiv = styled.div`
   max-width: 1280px;
   margin: 0 30px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const CurrentDoc = styled.div`
-  width: 100px;
+  width: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
   cursor: pointer;
   & p {
     font-weight: 700;
     font-size: 1.3em;
     color: #818181;
+    padding-right: 20px;
   }
   & svg {
     transform: ${props => (props.listToggle ? 'rotate(180deg)' : '')};
   }
 `;
 
+const FlexDiv = styled.div`
+  display: flex;
+  cursor: pointer;
+`;
+
+const AddBtn = styled.div`
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e3e0ff;
+  border-radius: 10px;
+  margin-left: 14px;
+`;
+
 const ProjectDiv = styled.div`
   width: 100%;
-  height: ${props => (props.listToggle ? '100%' : '210px')};
+  height: ${props => (props.listToggle ? '420px' : '210px')};
   display: flex;
   flex-wrap: wrap;
   justify-content: start;
@@ -161,7 +211,7 @@ const BorderLine = styled.div`
   width: auto;
   height: 2px;
   background-color: #c4c4c4;
-  margin: 20px 30px;
+  margin: 70px 30px 30px;
 `;
 
 export default MainPrac;

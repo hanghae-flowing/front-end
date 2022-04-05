@@ -13,7 +13,7 @@ const Node = props => {
     color: '#e3e3e3',
     fontColor: '#222222',
     fontSize: '16px',
-    text: '키워드',
+    text: '',
     xval: '400',
     yval: '400',
     nodeTableId: `${props.nodeTableId}`,

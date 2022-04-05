@@ -7,16 +7,19 @@ import { useNavigate } from 'react-router-dom';
 import FileMenu from '../menu/FileMenu';
 import { useState } from 'react';
 import { setFolderBookmark, ThrowFolder } from '../../redux/slice/postSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ReactComponent as BookmarkedImage } from '../../assets/icons/Bookmark_light.svg';
 import { ReactComponent as UnBookmarkedImage } from '../../assets/icons/Bookmark_light_blank.svg';
+import { useMutation, useQueryClient } from 'react-query';
+import { URL } from '../../API';
 
 const FolderCard = props => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isOver, setIsOver] = useState(false);
   const [bookmarked, setBookmarked] = useState(props.bookmark);
   const folderTableId = props.folderTableId;
 
@@ -61,14 +64,56 @@ const FolderCard = props => {
     dispatch(setFolderBookmark(sendingData));
   };
 
+  const projectId = useSelector(state => state.folder.projectId);
+  // console.log(projectId);
+
+  const addProject = useMutation(
+    data => {
+      URL.post(`/folder/addProject`, data).then(res => console.log(res));
+    },
+    {
+      onSuccess: () => {
+        // console.log('성공');
+      },
+    },
+  );
+
+  const sendingData = {
+    folderTableId: folderTableId,
+    projectId: projectId,
+  };
+
+  const onDragEnter = e => {
+    // console.log('catch!!');
+  };
+
+  const onDragOver = e => {
+    e.preventDefault();
+    setIsOver(true);
+  };
+  const onDragLeave = e => {
+    setIsOver(false);
+  };
+
+  const onDrop = e => {
+    // console.log('drop!', projectId);
+    addProject.mutate(sendingData);
+    setIsOver(false);
+  };
+
   return (
-    <StyledWrap>
+    <StyledWrap
+      onDragEnter={onDragEnter}
+      onDragOver={onDragOver}
+      onDragLeave={onDragLeave}
+      onDrop={onDrop}
+    >
       <MenuBtn onClick={clickMenuHandler}>
         <Dot />
         <Dot />
         <Dot />
       </MenuBtn>
-      <ImageDiv onClick={openFolder}></ImageDiv>
+      <ImageDiv onClick={openFolder} isOver={isOver}></ImageDiv>
       <ContentDiv>
         <Title>{props.folderName}</Title>
         <DateP>{displayCreatedAt(props.modifiedAt)}</DateP>
@@ -106,6 +151,8 @@ const ImageDiv = styled.div`
   height: 144px;
   overflow: hidden;
   margin-right: 25px;
+  transition: transform 0.2s ease-in-out;
+  transform: scale(${props => (props.isOver ? `1.15` : `1`)});
 `;
 
 const ContentDiv = styled.div`
@@ -159,7 +206,7 @@ const Dot = styled.div`
 const BookmarkDiv = styled.div`
   position: absolute;
   right: 20px;
-  bottom: 20px;
+  bottom: 33px;
   width: 24px;
   height: 24px;
 `;

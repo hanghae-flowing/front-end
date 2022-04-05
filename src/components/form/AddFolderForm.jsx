@@ -15,7 +15,6 @@ const AddFolderForm = ({ open, onClose, children }) => {
     },
     {
       onSuccess: async () => {
-        queryClient.invalidateQueries(['folder']);
         setSuccess(true);
       },
     },
@@ -50,8 +49,9 @@ const AddFolderForm = ({ open, onClose, children }) => {
         {success ? (
           <FolderAddModal
             onClick={() => {
-              onClose();
               setSuccess(false);
+              queryClient.invalidateQueries('folder');
+              onClose();
             }}
           />
         ) : null}

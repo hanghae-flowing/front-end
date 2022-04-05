@@ -3,31 +3,18 @@ import { createRef, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setBookmark, ThrowProject } from '../../redux/slice/postSlice';
 import { useNavigate } from 'react-router-dom';
+import { OpenWorkSpace } from '../../redux/slice/postSlice';
 
-const FileMenu = ({ projectId, open, onClose, children }) => {
+const FileMenu = ({
+  projectId,
+  open,
+  onClose,
+  children,
+  onClickHandler,
+  deleteHandler,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const kakaoId =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).kakaoId;
-  const accessToken =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
-  const userId =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).userId;
-
-  const moveToTrashcanHandler = () => {
-    const sendingData = {
-      projectId,
-      userId,
-    };
-    console.log(sendingData);
-    window.alert('삭제 완료');
-    dispatch(ThrowProject(sendingData));
-  };
-  const openProjectHandler = {};
 
   if (!open) return null;
   else {
@@ -35,12 +22,12 @@ const FileMenu = ({ projectId, open, onClose, children }) => {
       <>
         <ModalDiv>
           <ListDiv>
-            <ListName>열기</ListName>
+            <ListName onClick={onClickHandler}>열기</ListName>
           </ListDiv>
 
           <ListDiv>
             <SeperationLine />
-            <Delete onClick={moveToTrashcanHandler}>삭제</Delete>
+            <Delete onClick={deleteHandler}>삭제</Delete>
           </ListDiv>
         </ModalDiv>
       </>
@@ -74,7 +61,7 @@ const ListDiv = styled.div`
 const ModalDiv = styled.div`
   position: absolute;
   width: 122px;
-  height: 120px;
+  height: 100px;
   top: 50px;
   right: 5px;
   padding: 21px 16px;

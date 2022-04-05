@@ -44,7 +44,7 @@ const TableText = styled.input`
   width: 450px;
   color: #6c6c6c;
   margin-top: 18px;
-  opacity: 0.3;
+  background: none;
   border: none;
   &:focus {
     outline: none;

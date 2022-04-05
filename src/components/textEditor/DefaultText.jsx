@@ -39,6 +39,8 @@ const DefaultText = props => {
 
   return (
     <InputText
+      type="text"
+      maxLength={30}
       onChange={onChange}
       value={value}
       color={props.color}

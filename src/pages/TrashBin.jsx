@@ -12,12 +12,14 @@ import Nav from '../components/menu/Nav';
 import { ReactComponent as ArrowDownImg } from '../assets/icons/Arrow_down.svg';
 import { ReactComponent as UnCheckedRing } from '../assets/icons/unChecked.svg';
 import { ReactComponent as CheckedRing } from '../assets/icons/checked.svg';
+import DeleteModal from '../components/form/DeleteModal';
 
 const TrashBin = () => {
   const dispatch = useDispatch();
   const [allCheck, setAllCheck] = useState(false);
   const [listOpen, setListOpen] = useState(false);
-
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [wantDeletion, setWantDeletion] = useState(false);
   const listToggle = () => {
     setListOpen(!listOpen);
   };
@@ -46,14 +48,12 @@ const TrashBin = () => {
     const sendingData = {
       projectIdList: [...selectedProjectsList],
     };
-    console.log(sendingData);
     dispatch(deleteSelectedProjects(sendingData));
   };
   const recoverSelectedProjectsHanlder = () => {
     const sendingData = {
       projectIdList: [...selectedProjectsList],
     };
-    console.log(sendingData);
     dispatch(recoverSelectedProjects(sendingData));
   };
 
@@ -74,53 +74,75 @@ const TrashBin = () => {
     );
   } else {
     return (
-      <StyledWrap>
-        <Nav />
-        <StyeldDiv>
-          <Inner>
-            <TrashDiv>
-              <AllCheckDiv onClick={allCheckHandler}>
-                {allCheck ? <CheckedRing /> : <UnCheckedRing />}
-                <AllCheckSpan>모두 선택</AllCheckSpan>
-              </AllCheckDiv>
+      <>
+        <StyledWrap>
+          <Nav />
+          <StyeldDiv>
+            <Inner>
+              <TrashDiv>
+                <AllCheckDiv onClick={allCheckHandler}>
+                  {allCheck ? <CheckedRing /> : <UnCheckedRing />}
+                  <AllCheckSpan>모두 선택</AllCheckSpan>
+                </AllCheckDiv>
 
-              <SplitDiv>
-                <CurrentDoc onClick={listToggle} listToggle={listOpen}>
-                  <p>삭제 목록</p>
-                  <ArrowDownImg />
-                </CurrentDoc>
-              </SplitDiv>
-              <ProjectDiv listToggle={listOpen}>
-                {trashList.length > 0 &&
-                  trashList.map((project, index) => (
-                    <GridForm
-                      key={index}
-                      projectName={project.projectName}
-                      modifiedAt={project.modifiedAt}
-                      memberList={project.memberList}
-                      bookmark={project.bookmark}
-                      thumbnailNum={project.thumbnailNum}
-                      projectId={project.projectId}
-                      trash={project.trash}
-                      width="calc(100% / 5 - 60px)"
-                      height="auto"
-                      checked={allCheck}
-                    />
-                  ))}
-              </ProjectDiv>
-              <BorderLine />
-              <ButtonDiv>
-                <RecoveryButton onClick={recoverSelectedProjectsHanlder}>
-                  복원
-                </RecoveryButton>
-                <DeleteButton onClick={deleteSelectedProjectsHanlder}>
-                  영구삭제
-                </DeleteButton>
-              </ButtonDiv>
-            </TrashDiv>
-          </Inner>
-        </StyeldDiv>
-      </StyledWrap>
+                <SplitDiv>
+                  <CurrentDoc onClick={listToggle} listToggle={listOpen}>
+                    <p>삭제 목록</p>
+                    <ArrowDownImg />
+                  </CurrentDoc>
+                </SplitDiv>
+                <ProjectDiv listToggle={listOpen}>
+                  {trashList.length > 0 &&
+                    trashList.map((project, index) => (
+                      <GridForm
+                        key={index}
+                        projectName={project.projectName}
+                        modifiedAt={project.modifiedAt}
+                        memberList={project.memberList}
+                        bookmark={project.bookmark}
+                        thumbnailNum={project.thumbnailNum}
+                        projectId={project.projectId}
+                        trash={project.trash}
+                        width="calc(100% / 5 - 60px)"
+                        height="auto"
+                        checked={allCheck}
+                      />
+                    ))}
+                </ProjectDiv>
+                <BorderLine />
+                <ButtonDiv>
+                  <RecoveryButton
+                    onClick={() => {
+                      setDeleteModalOpen(true);
+                      setWantDeletion(false);
+                    }}
+                  >
+                    복원
+                  </RecoveryButton>
+                  <DeleteButton
+                    onClick={() => {
+                      setDeleteModalOpen(true);
+                      setWantDeletion(true);
+                    }}
+                  >
+                    영구삭제
+                  </DeleteButton>
+                </ButtonDiv>
+              </TrashDiv>
+            </Inner>
+          </StyeldDiv>
+        </StyledWrap>
+        <DeleteModal
+          open={deleteModalOpen}
+          onClickHandler={
+            wantDeletion
+              ? deleteSelectedProjectsHanlder
+              : recoverSelectedProjectsHanlder
+          }
+          onClose={() => setDeleteModalOpen(false)}
+          deletion={wantDeletion}
+        />
+      </>
     );
   }
 };

@@ -146,9 +146,9 @@ export const MainHeader = () => {
       >
         <Logo />
       </HomeBtn>
-      <LoginBtn to="login">
+      {/* <LoginBtn to="login">
         <LoginImg />
-      </LoginBtn>
+      </LoginBtn> */}
     </HeadBox>
   );
 };

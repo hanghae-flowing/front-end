@@ -20,7 +20,6 @@ const NotificationModal = ({ open, onClose, children }) => {
   else {
     return (
       <>
-        <TriangleForStyle />
         <Modal>
           <NotiTitle>알림</NotiTitle>
           <ShowingDate>{timestring}</ShowingDate>
@@ -30,7 +29,9 @@ const NotificationModal = ({ open, onClose, children }) => {
                 key={index}
                 yourName={noti.inviting}
                 myName={myName}
+                projectName={noti.projectName}
                 invitingId={noti.invitingId}
+                time={noti.modifiedAt}
               />
             ))}
         </Modal>
@@ -43,12 +44,13 @@ const Modal = styled.div`
   position: fixed;
   right: 22px;
   top: 70px;
-  width: 270px;
-  height: 716px;
+  width: 306px;
+  min-height: 230px;
   background: #ffffff;
   padding: 24px 29px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
   border-radius: 20px;
+
   z-index: 500;
 `;
 
@@ -63,21 +65,12 @@ const ShowingDate = styled.p`
   color: #c8c8c8;
 `;
 
-const TriangleForStyle = styled.div`
-  position: fixed;
-  width: 0;
-  height: 0;
-  right: 36px;
-  top: 54px;
-  border-bottom: 20px solid #fff;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  z-index: 600;
-`;
 const NotiTitle = styled.h2`
+  font-family: 'Spoqa Han Sans Neo';
+  font-style: normal;
   font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 20px;
   color: #818181;
 `;
 

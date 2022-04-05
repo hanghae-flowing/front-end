@@ -90,6 +90,9 @@ export const inviteSlice = createSlice({
     builder.addCase(checkNameByEmail.fulfilled, (state, action) => {
       state.personToInvite = action.payload;
     });
+    builder.addCase(sendInvite.fulfilled, (state, action) => {
+      window.location.reload();
+    });
   },
 });
 

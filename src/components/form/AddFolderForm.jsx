@@ -8,7 +8,6 @@ import { URL } from '../../API';
 
 const AddFolderForm = ({ open, onClose, children }) => {
   const folderNameRef = useRef();
-  const userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
 
   const createFolder = useMutation(data => {
     URL.post(`/folder`, data).then(res => {
@@ -17,6 +16,7 @@ const AddFolderForm = ({ open, onClose, children }) => {
   });
 
   const onCreate = () => {
+    const userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
     const sendingData = {
       folderName: folderNameRef.current.value,
       userId: userId,

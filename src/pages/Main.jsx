@@ -12,11 +12,14 @@ import { ReactComponent as FileAddImg } from '../assets/icons/File_dock_light.sv
 import { ReactComponent as FolderAddImg } from '../assets/icons/Folder_add_light.svg';
 import AddFolderForm from '../components/form/AddFolderForm';
 import { useFolderList } from '../hooks/useFolderList';
+import Folder from '../components/cards/Folder';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [folderOpen, setFolderOpen] = useState(false);
+
+  const { data: searchResult } = useQuery(['searchResult'], () => {});
 
   const kakaoId =
     sessionStorage.getItem('userInfo') &&
@@ -27,6 +30,20 @@ const MainPrac = () => {
   const userId =
     sessionStorage.getItem('userInfo') &&
     JSON.parse(sessionStorage.getItem('userInfo')).userId;
+
+  const sendingData = {
+    kakaoId: kakaoId,
+    accessToken: accessToken,
+    userId: userId,
+  };
+
+  useEffect(() => {
+    if (!kakaoId) return;
+    if (!accessToken) return;
+    if (!userId) return;
+    dispatch(LoadPost(sendingData));
+    dispatch(switchPage('main'));
+  }, [dispatch, searchResult, kakaoId, accessToken, userId]);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -42,21 +59,34 @@ const MainPrac = () => {
     setAllListOpen(!allListOpen);
   };
 
-  const { data: searchResult } = useQuery(['searchResult'], () => {});
-
   const { status, data: folderList, error, isFetching } = useFolderList(userId);
-  console.log(folderList);
 
-  const sendingData = {
-    kakaoId,
-    accessToken,
-    userId,
-  };
-
-  useEffect(() => {
-    dispatch(LoadPost(sendingData));
-    dispatch(switchPage('main'));
-  }, [dispatch, searchResult]);
+  const renderFolderList = useCallback(() => {
+    switch (status) {
+      case 'loading':
+        return <div>loading</div>;
+      case 'error':
+        if (error instanceof Error) {
+          return <span>Error: {error.message}</span>;
+        }
+        break;
+      default:
+        return (
+          <>
+            {folderList?.map(data => (
+              <Folder
+                key={data.folderTableId}
+                folderTableId={data.folderTableId}
+                userId={data.userId}
+                folderName={data.folderName}
+                modifiedAt={data.modifiedAt}
+                trash={data.modifiedAt}
+              />
+            ))}
+          </>
+        );
+    }
+  }, [status, isFetching]);
 
   const projectList = useSelector(state => state.post.project);
 
@@ -83,14 +113,8 @@ const MainPrac = () => {
             </FlexDiv>
           </SplitDiv>
           <ProjectDiv listToggle={currentListOpen}>
-            {/* <NewProject
-              width="calc(100% / 5 - 60px)"
-              height="auto"
-              onClick={handleToggle}
-            /> */}
             {searchResult
-              ? searchResult.data.length > 0 &&
-                searchResult.data.map((data, index) => (
+              ? searchResult?.data.map((data, index) => (
                   <GridForm
                     key={index}
                     projectName={data.projectName}
@@ -127,7 +151,7 @@ const MainPrac = () => {
               <ArrowDownImg />
             </CurrentDoc>
           </SplitDiv>
-          <ProjectDiv></ProjectDiv>
+          <ProjectDiv>{renderFolderList()}</ProjectDiv>
           <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
           <AddFolderForm
             open={folderOpen}

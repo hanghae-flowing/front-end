@@ -13,13 +13,31 @@ const InvitationModal = ({ open, onClose }) => {
 
   const emailToSendInvitationRef = useRef();
 
-  const checkNameByEmailHandler = () => {
-    setIsSecondModalOpen(true);
+  // const checkNameByEmailHandler = () => {
+  //   setIsSecondModalOpen(true);
 
-    const sendingData = {
+  //   const sendingData = {
+  //     email: emailToSendInvitationRef.current.value,
+  //   };
+  //   dispatch(checkNameByEmail(sendingData));
+  // };
+
+  const projectId =
+    sessionStorage.getItem('projectInfo') &&
+    JSON.parse(sessionStorage.getItem('projectInfo')).projectInfo.projectId;
+
+  const invitationHandler = () => {
+    const userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
+
+    const invitationData = {
+      projectId,
+      userId,
       email: emailToSendInvitationRef.current.value,
     };
-    dispatch(checkNameByEmail(sendingData));
+    console.log(invitationData);
+    dispatch(sendInvite(invitationData));
+
+    // 초대할사람이메일 초대한사람유저아이디 프로젝트아이디
   };
 
   if (!open) return null;
@@ -46,7 +64,7 @@ const InvitationModal = ({ open, onClose }) => {
             ></NegativeButton>
             <PositiveButton
               text={'초대하기'}
-              onClickHandler={checkNameByEmailHandler}
+              onClickHandler={invitationHandler}
             ></PositiveButton>
           </ButtonDiv>
         </Modal>

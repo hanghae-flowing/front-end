@@ -17,6 +17,8 @@ import Dropdown from '../components/modules/Dropdown';
 
 const MainPrac = () => {
   const dispatch = useDispatch();
+  const currentSort = useSelector(state => state.sort.currentSort);
+  console.log(currentSort);
   const [isOpen, setIsOpen] = useState(false);
   const [folderOpen, setFolderOpen] = useState(false);
 
@@ -56,6 +58,7 @@ const MainPrac = () => {
   const currentListToggle = () => {
     setCurrentListOpen(!currentListOpen);
   };
+
   const allListToggle = () => {
     setAllListOpen(!allListOpen);
   };
@@ -115,22 +118,8 @@ const MainPrac = () => {
             </FlexDiv>
           </SplitDiv>
           <ProjectDiv listToggle={currentListOpen}>
-            {searchResult
-              ? searchResult?.data.map((data, index) => (
-                  <GridForm
-                    key={index}
-                    projectName={data.projectName}
-                    modifiedAt={data.modifiedAt}
-                    memberList={data.memberList}
-                    bookmark={data.bookmark}
-                    thumbnailNum={data.thumbnailNum}
-                    projectId={data.projectId}
-                    trash={data.trash}
-                    width="calc(100% / 5 - 60px)"
-                    height="212px"
-                  />
-                ))
-              : projectList.length > 0 &&
+            {currentSort === '최신순'
+              ? projectList.length > 0 &&
                 projectList.map((project, index) => (
                   <GridForm
                     key={index}
@@ -144,7 +133,8 @@ const MainPrac = () => {
                     width="calc(100% / 5 - 60px)"
                     height="212px"
                   />
-                ))}
+                ))
+              : null}
           </ProjectDiv>
           <BorderLine />
           <SplitDiv>
@@ -154,22 +144,24 @@ const MainPrac = () => {
             </CurrentDoc>
           </SplitDiv>
           <ProjectDiv listToggle={allListOpen}>
-            {renderFolderList()}
-            {projectList.length > 0 &&
-              projectList.map((project, index) => (
-                <GridForm
-                  key={index}
-                  projectName={project.projectName}
-                  modifiedAt={project.modifiedAt}
-                  memberList={project.memberList}
-                  bookmark={project.bookmark}
-                  thumbnailNum={project.thumbnailNum}
-                  projectId={project.projectId}
-                  trash={project.trash}
-                  width="calc(100% / 5 - 60px)"
-                  height="auto"
-                />
-              ))}
+            {currentSort === '최신순' ? renderFolderList() : null}
+            {currentSort === '최신순'
+              ? projectList.length > 0 &&
+                projectList.map((project, index) => (
+                  <GridForm
+                    key={index}
+                    projectName={project.projectName}
+                    modifiedAt={project.modifiedAt}
+                    memberList={project.memberList}
+                    bookmark={project.bookmark}
+                    thumbnailNum={project.thumbnailNum}
+                    projectId={project.projectId}
+                    trash={project.trash}
+                    width="calc(100% / 5 - 60px)"
+                    height="212px"
+                  />
+                ))
+              : null}
           </ProjectDiv>
           <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
           <AddFolderForm

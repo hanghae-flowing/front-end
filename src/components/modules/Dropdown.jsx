@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { ReactComponent as DropdownIcon } from '../../assets/icons/Arrow_drop_down.svg';
+import { selectSort } from '../../redux/slice/sortSlice';
 
 const Dropdown = () => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [sort, setSort] = useState('최신순');
   return (
@@ -15,6 +18,7 @@ const Dropdown = () => {
         <Item
           onClick={() => {
             setSort('최신순');
+            dispatch(selectSort('최신순'));
             setIsOpen(false);
           }}
         >
@@ -23,6 +27,7 @@ const Dropdown = () => {
         <Item
           onClick={() => {
             setSort('북마크');
+            dispatch(selectSort('북마크'));
             setIsOpen(false);
           }}
         >

@@ -9,6 +9,7 @@ import docSlice from './slice/docSlice';
 import swotSlice from './slice/swotSlice';
 import trashSlice from './slice/trashSlice';
 import gapSlice from './slice/gapSlice';
+import sortSlice from './slice/sortSlice';
 
 export default configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export default configureStore({
     gap: gapSlice,
     swot: swotSlice,
     trash: trashSlice,
+    sort: sortSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

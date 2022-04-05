@@ -76,8 +76,6 @@ export const trashSlice = createSlice({
       if (state.counting > 0) {
         state.counting -= 1;
       }
-
-      console.log(state.counting);
     },
   },
   extraReducers: builder => {

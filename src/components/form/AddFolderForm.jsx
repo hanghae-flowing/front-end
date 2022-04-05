@@ -50,8 +50,8 @@ const AddFolderForm = ({ open, onClose, children }) => {
         {success ? (
           <FolderAddModal
             onClick={() => {
-              onClose();
               setSuccess(false);
+              onClose();
             }}
           />
         ) : null}

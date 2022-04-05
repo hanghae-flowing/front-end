@@ -6,6 +6,7 @@ import { createNewDocument } from './docSlice';
 const postState = {
   project: {},
   projectInfo: {},
+  bookmarkedList: {},
   documentId: 0,
   gapTableId: 0,
   nodeTable: 0,
@@ -105,6 +106,18 @@ export const setProjectInfo = createAsyncThunk(
   },
 );
 
+export const bookmarkedProject = createAsyncThunk(
+  'post/bookmarked',
+  async (data, {rejectWithValue}) => {
+    try {
+      return await URL.post(`/bookmarked`,data).then(res => res.data);
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue(error);
+    }
+  },
+)
+
 export const postSlice = createSlice({
   name: 'post',
   initialState: postState,
@@ -152,7 +165,10 @@ export const postSlice = createSlice({
         state.gapTableId = action.payload.gapTableId;
         state.nodeTable = action.payload.nodeTable;
         state.swotId = action.payload.swotId;
-      });
+      })
+      .addCase(bookmarkedProject.fulfilled, (state, action) => {
+        state.bookmarkedList = action.payload;
+      })
   },
 });
 export const { setThumbnail } = postSlice.actions;

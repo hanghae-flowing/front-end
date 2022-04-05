@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AddForm from '../components/form/AddForm';
 import GridForm from '../components/form/GridForm';
-import { LoadPost } from '../redux/slice/postSlice';
+import { bookmarkedProject, LoadPost } from '../redux/slice/postSlice';
 import { switchPage } from '../redux/slice/navSlice';
 import Nav from '../components/menu/Nav';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { ReactComponent as ArrowDownImg } from '../assets/icons/Arrow_down.svg';
 import { ReactComponent as FileAddImg } from '../assets/icons/File_dock_light.svg';
 import { ReactComponent as FolderAddImg } from '../assets/icons/Folder_add_light.svg';
@@ -14,11 +14,13 @@ import AddFolderForm from '../components/form/AddFolderForm';
 import { useFolderList } from '../hooks/useFolderList';
 import FolderCard from '../components/cards/FolderCard';
 import Dropdown from '../components/modules/Dropdown';
+import { URL } from '../API';
+import { useBookmarkedFolder } from '../hooks/useBookmarkFolder';
 
 const MainPrac = () => {
+  const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const currentSort = useSelector(state => state.sort.currentSort);
-  console.log(currentSort);
   const [isOpen, setIsOpen] = useState(false);
   const [folderOpen, setFolderOpen] = useState(false);
 
@@ -45,6 +47,7 @@ const MainPrac = () => {
     if (!accessToken) return;
     if (!userId) return;
     dispatch(LoadPost(sendingData));
+    dispatch(bookmarkedProject(sendingData));
     dispatch(switchPage('main'));
   }, [dispatch, searchResult, kakaoId, accessToken, userId]);
 
@@ -64,6 +67,8 @@ const MainPrac = () => {
   };
 
   const { status, data: folderList, error, isFetching } = useFolderList(userId);
+  const { data: bookmarkedFolderList } = useBookmarkedFolder(userId);
+  console.log(bookmarkedFolderList);
 
   const renderFolderList = useCallback(() => {
     switch (status) {
@@ -85,6 +90,7 @@ const MainPrac = () => {
                 folderName={data.folderName}
                 modifiedAt={data.modifiedAt}
                 trash={data.modifiedAt}
+                bookmark={data.bookmark}
               />
             ))}
           </>
@@ -93,6 +99,7 @@ const MainPrac = () => {
   }, [status, isFetching]);
 
   const projectList = useSelector(state => state.post.project);
+  const bookmarkedList = useSelector(state => state.post.bookmarkedList);
 
   return (
     <StyledWrap>
@@ -135,6 +142,23 @@ const MainPrac = () => {
                   />
                 ))
               : null}
+            {currentSort === '북마크'
+              ? bookmarkedList.length > 0 &&
+                bookmarkedList.map((project, index) => (
+                  <GridForm
+                    key={index}
+                    projectName={project.projectName}
+                    modifiedAt={project.modifiedAt}
+                    memberList={project.memberList}
+                    bookmark={true}
+                    thumbnailNum={project.thumbnailNum}
+                    projectId={project.projectId}
+                    trash={project.trash}
+                    width="calc(100% / 5 - 60px)"
+                    height="212px"
+                  />
+                ))
+              : null}
           </ProjectDiv>
           <BorderLine />
           <SplitDiv>
@@ -154,6 +178,36 @@ const MainPrac = () => {
                     modifiedAt={project.modifiedAt}
                     memberList={project.memberList}
                     bookmark={project.bookmark}
+                    thumbnailNum={project.thumbnailNum}
+                    projectId={project.projectId}
+                    trash={project.trash}
+                    width="calc(100% / 5 - 60px)"
+                    height="212px"
+                  />
+                ))
+              : null}
+            {currentSort === '북마크'
+              ? bookmarkedFolderList?.map(data => (
+                  <FolderCard
+                    key={data.folderTableId}
+                    folderTableId={data.folderTableId}
+                    userId={data.userId}
+                    folderName={data.folderName}
+                    modifiedAt={data.modifiedAt}
+                    trash={data.modifiedAt}
+                    bookmark={data.bookmark}
+                  />
+                ))
+              : null}
+            {currentSort === '북마크'
+              ? bookmarkedList.length > 0 &&
+                bookmarkedList.map((project, index) => (
+                  <GridForm
+                    key={index}
+                    projectName={project.projectName}
+                    modifiedAt={project.modifiedAt}
+                    memberList={project.memberList}
+                    bookmark={true}
                     thumbnailNum={project.thumbnailNum}
                     projectId={project.projectId}
                     trash={project.trash}

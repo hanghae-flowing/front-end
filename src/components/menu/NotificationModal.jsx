@@ -4,7 +4,9 @@ import InvitationForm from '../form/InvitationForm';
 
 const NotificationModal = ({ open, onClose, children }) => {
   const notiList = useSelector(state => state.invite.invitations);
-  const myName = JSON.parse(sessionStorage.getItem('userInfo')).nickname;
+  const myName =
+    sessionStorage.getItem('userInfo') &&
+    JSON.parse(sessionStorage.getItem('userInfo')).nickname;
 
   const today = new Date();
   let time = {

@@ -9,12 +9,16 @@ import { URL } from '../../API';
 import { useSelector } from 'react-redux';
 import { useDoc } from '../../hooks/useDoc';
 import { useCallback } from 'react';
+import { ReactComponent as BigT } from '../../assets/icons/T.svg';
+import { ReactComponent as SmallT } from '../../assets/icons/SmallT.svg';
+import { ReactComponent as Paragraph } from '../../assets/icons/Paragraph.svg';
 
 const ProposalPage = () => {
+  const dispatch = useDispatch();
   const documentId = useSelector(state => state.post.documentId);
 
   const { status, data: docList, error, isFetching } = useDoc(documentId);
-
+  console.log(docList);
   const renderByStatus = useCallback(() => {
     switch (status) {
       case 'loading':
@@ -37,13 +41,16 @@ const ProposalPage = () => {
                   weight={props.weight}
                   fontSize={props.fontSize}
                   color={props.color}
-                  indexNum={index}
+                  indexNum={index + 1}
+                  maxLength={props.maxLength}
+                  placeholder={props.placeholder}
                 />
               ))}
           </>
         );
     }
   }, [isFetching]);
+
   // const h1Value = {
   //   text: ' ',
   //   weight: 700,
@@ -67,23 +74,21 @@ const ProposalPage = () => {
 
   return (
     <TextBoxDiv>
-      <TextEditorDiv>{renderByStatus()}</TextEditorDiv>
+      <TextEditorDiv>
+        <SeperationLine />
+        {renderByStatus()}
+      </TextEditorDiv>
+
       {/* <AddingNewLineDiv>
-        <button
-          onClick={() => {
-            createNewLineHandler(h1Value);
-          }}
-        >
-          h1
-        </button>
-        <button>h2</button>
-        <button>ph1</button>
-        <button>ph2</button>
-        <button>date</button>
-        <button>p</button>
-        <button>l1</button>
-        <button>l2</button>
-        <button>l3</button>
+        <SeperationDiv onClick={createNewLineHandler}>
+          <BigT />
+        </SeperationDiv>
+        <SeperationDiv onClick={createNewLineHandler}>
+          <SmallT />
+        </SeperationDiv>
+        <SeperationDiv onClick={createNewLineHandler}>
+          <Paragraph />
+        </SeperationDiv>
       </AddingNewLineDiv> */}
     </TextBoxDiv>
   );
@@ -101,15 +106,27 @@ const TextEditorDiv = styled.div`
   margin: 155px auto;
 `;
 
-// const AddingNewLineDiv = styled.div`
-//   width: 380px;
-//   height: 100px;
-//   background-color: #4a4a4a;
-//   border-radius: 18px;
-//   margin-right: auto;
-//   margin-left: auto;
-//   margin-bottom: 30px;
-//   cursor: pointer;
-// `;
+const SeperationLine = styled.div`
+  position: absolute;
+  margin-top: 150px;
+  width: 945px;
+  border: 3px solid #e3e0ff;
+`;
 
+const AddingNewLineDiv = styled.div`
+  width: 200px;
+  height: 81px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #4a4a4a;
+  border-radius: 15px;
+  margin: 100px auto;
+  padding: 8px 54px;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
+`;
+
+const SeperationDiv = styled.div`
+  margin: 0 10px;
+`;
 export default ProposalPage;

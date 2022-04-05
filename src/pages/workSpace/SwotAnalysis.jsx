@@ -55,7 +55,7 @@ const SwotAnalysis = () => {
       </RowWrapper>
       <GridWrapper>
         <SwotDiv>
-          <TableTitle>Strength 내부 강점을 적어주세요</TableTitle>
+          <TableTitle>Strength</TableTitle>
           {swotStrengthList &&
             swotStrengthList.map((props, index) => (
               <StrengthTableText
@@ -66,7 +66,7 @@ const SwotAnalysis = () => {
             ))}
         </SwotDiv>
         <SwotDiv>
-          <TableTitle>Weakness 내부 약점을 적어주세요</TableTitle>
+          <TableTitle>Weakness</TableTitle>
           {swotWeaknessList &&
             swotWeaknessList.map((props, index) => (
               <WeaknessTableText
@@ -77,7 +77,7 @@ const SwotAnalysis = () => {
             ))}
         </SwotDiv>
         <SwotDiv>
-          <TableTitle>Opportunity 외부 기회를 적어주세요</TableTitle>
+          <TableTitle>Opportunity</TableTitle>
           {swotOpportunityhList &&
             swotOpportunityhList.map((props, index) => (
               <OpporTableText
@@ -88,7 +88,7 @@ const SwotAnalysis = () => {
             ))}
         </SwotDiv>
         <SwotDiv>
-          <TableTitle>Treat 외부 위협을 적어주세요</TableTitle>
+          <TableTitle>Treat</TableTitle>
           {swotThreatList &&
             swotThreatList.map((props, index) => (
               <ThreatTableText

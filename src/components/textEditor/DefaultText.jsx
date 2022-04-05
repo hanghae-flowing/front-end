@@ -40,14 +40,13 @@ const DefaultText = props => {
   return (
     <InputText
       type="text"
-      maxLength={30}
       onChange={onChange}
       value={value}
       color={props.color}
       weight={props.weight}
       fontSize={props.fontSize}
       id={props.documnetId}
-      placeholder="type"
+      placeholder={props.placeholder}
     />
   );
 };

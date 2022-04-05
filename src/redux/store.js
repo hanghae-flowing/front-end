@@ -10,6 +10,7 @@ import swotSlice from './slice/swotSlice';
 import trashSlice from './slice/trashSlice';
 import gapSlice from './slice/gapSlice';
 import sortSlice from './slice/sortSlice';
+import folderSlice from './slice/folderSlice';
 
 export default configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export default configureStore({
     swot: swotSlice,
     trash: trashSlice,
     sort: sortSlice,
+    folder: folderSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

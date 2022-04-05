@@ -18,7 +18,6 @@ export const LoadPost = createAsyncThunk(
   async (data, thunkAPI) => {
     const result = await URL.post('/project/detail', data)
       .then(res => {
-        console.log(res);
         return res.data;
       })
       .catch(err => console.log(err));
@@ -92,10 +91,14 @@ export const setBookmark = createAsyncThunk(
 
 export const setFolderBookmark = createAsyncThunk(
   'post/setFolderBookmark',
-  async (sendingData, thunkAPI) => {
-    await URL.post(`/folder/bookmark`, sendingData)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+  async (sendingData, {rejectWithValue}) => {
+    try{
+      return await URL.post(`/folder/bookmark`, sendingData)
+        .then(res => console.log(res))
+    } catch(error){
+      console.error(error);
+      return rejectWithValue(error);
+    }
   },
 );
 
@@ -129,7 +132,6 @@ export const postSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(LoadPost.pending, (state, action) => {
-        console.log('pending');
       })
       .addCase(LoadPost.fulfilled, (state, action) => {
         state.project = action.payload;
@@ -159,7 +161,6 @@ export const postSlice = createSlice({
         state.swotId = action.payload.swotId;
       })
       .addCase(setProjectInfo.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.projectInfo = action.payload.projectInfo;
         state.documentId = action.payload.documentId;
         state.gapTableId = action.payload.gapTableId;

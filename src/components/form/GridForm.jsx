@@ -15,10 +15,12 @@ import { ReactComponent as DotImage } from '../../assets/icons/projectMenuDot.sv
 
 import { ReactComponent as BookmarkedImage } from '../../assets/icons/Bookmark_light.svg';
 import { ReactComponent as UnBookmarkedImage } from '../../assets/icons/Bookmark_light_blank.svg';
+import { setProjectId } from '../../redux/slice/folderSlice';
 
 const GridForm = props => {
   const [isOpen, setIsOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [currentId, setCurrentId] = useState(0);
 
   const kakaoId =
     sessionStorage.getItem('userInfo') &&
@@ -113,13 +115,33 @@ const GridForm = props => {
     dispatch(ThrowProject(sendingData));
   };
 
+  const onDragStart = e => {
+    setCurrentId(projectId);
+  };
+
+  const onDrag = e => {
+    setCurrentId(projectId);
+    dispatch(setProjectId(currentId));
+  };
+
   if (trash === false) {
     return (
-      <Wrapper width={props.width} height={props.height}>
+      <Wrapper
+        // draggable
+        // onDragStart={onDragStart}
+        // onDrag={onDrag}
+        width={props.width}
+        height={props.height}
+      >
         <MenuDiv onClick={() => clickMenuHandler()}>
           <DotImage />
         </MenuDiv>
-        <ImageDiv onClick={onClickHandler}></ImageDiv>
+        <ImageDiv
+          draggable
+          onDragStart={onDragStart}
+          onDrag={onDrag}
+          onClick={onClickHandler}
+        ></ImageDiv>
         <ContentDiv>
           <Title>{projectName}</Title>
           <DateP>{displayCreatedAt(modifiedAt)}</DateP>
@@ -221,7 +243,7 @@ const MenuDiv = styled.div`
 const BookmarkDiv = styled.div`
   position: absolute;
   right: 20px;
-  bottom: 20px;
+  bottom: 33px;
   width: 24px;
   height: 24px;
 `;

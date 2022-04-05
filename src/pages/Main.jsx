@@ -6,7 +6,7 @@ import GridForm from '../components/form/GridForm';
 import { bookmarkedProject, LoadPost } from '../redux/slice/postSlice';
 import { switchPage } from '../redux/slice/navSlice';
 import Nav from '../components/menu/Nav';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { ReactComponent as ArrowDownImg } from '../assets/icons/Arrow_down.svg';
 import { ReactComponent as FileAddImg } from '../assets/icons/File_dock_light.svg';
 import { ReactComponent as FolderAddImg } from '../assets/icons/Folder_add_light.svg';
@@ -14,11 +14,9 @@ import AddFolderForm from '../components/form/AddFolderForm';
 import { useFolderList } from '../hooks/useFolderList';
 import FolderCard from '../components/cards/FolderCard';
 import Dropdown from '../components/modules/Dropdown';
-import { URL } from '../API';
 import { useBookmarkedFolder } from '../hooks/useBookmarkFolder';
 
 const MainPrac = () => {
-  const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const currentSort = useSelector(state => state.sort.currentSort);
   const [isOpen, setIsOpen] = useState(false);
@@ -68,7 +66,6 @@ const MainPrac = () => {
 
   const { status, data: folderList, error, isFetching } = useFolderList(userId);
   const { data: bookmarkedFolderList } = useBookmarkedFolder(userId);
-  console.log(bookmarkedFolderList);
 
   const renderFolderList = useCallback(() => {
     switch (status) {
@@ -293,6 +290,7 @@ const ProjectDiv = styled.div`
   margin-top: 1.7rem;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 10px;
   overflow: hidden;
 `;
 

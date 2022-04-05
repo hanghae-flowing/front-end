@@ -17,12 +17,78 @@ import Dropdown from '../components/modules/Dropdown';
 import { useBookmarkedFolder } from '../hooks/useBookmarkFolder';
 
 const MainPrac = () => {
-  const dispatch = useDispatch();
-  const currentSort = useSelector(state => state.sort.currentSort);
   const [isOpen, setIsOpen] = useState(false);
   const [folderOpen, setFolderOpen] = useState(false);
 
   const { data: searchResult } = useQuery(['searchResult'], () => {});
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+    console.log(isOpen);
+  };
+  const [currentListOpen, setCurrentListOpen] = useState(false);
+
+  const currentListToggle = () => {
+    setCurrentListOpen(!currentListOpen);
+  };
+
+  return (
+    <StyledWrap>
+      <Nav />
+      <StyeldDiv>
+        <Inner>
+          <SplitDiv>
+            <CurrentDoc
+              onClick={currentListToggle}
+              listToggle={currentListOpen}
+            >
+              <p>최근문서</p>
+              <ArrowDownImg />
+            </CurrentDoc>
+            <FlexDiv>
+              <AddBtn onClick={handleToggle}>
+                <FileAddImg />
+              </AddBtn>
+              <AddBtn>
+                <FolderAddImg onClick={() => setFolderOpen(true)} />
+              </AddBtn>
+              <Dropdown />
+            </FlexDiv>
+          </SplitDiv>
+          {searchResult ? (
+            <ProjectDiv listToggle={true}>
+              {searchResult?.data.map((data, index) => (
+                <GridForm
+                  key={index}
+                  projectName={data.projectName}
+                  modifiedAt={data.modifiedAt}
+                  memberList={data.memberList}
+                  bookmark={data.bookmark}
+                  thumbnailNum={data.thumbnailNum}
+                  projectId={data.projectId}
+                  trash={data.trash}
+                  width="calc(100% / 5 - 60px)"
+                  height="212px"
+                />
+              ))}
+            </ProjectDiv>
+          ) : (
+            <DefaultList listOpen={currentListOpen} />
+          )}
+          <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
+          <AddFolderForm
+            open={folderOpen}
+            onClose={() => setFolderOpen(false)}
+          />
+        </Inner>
+      </StyeldDiv>
+    </StyledWrap>
+  );
+};
+
+export const DefaultList = props => {
+  const dispatch = useDispatch();
+  const currentSort = useSelector(state => state.sort.currentSort);
 
   const kakaoId =
     sessionStorage.getItem('userInfo') &&
@@ -47,18 +113,9 @@ const MainPrac = () => {
     dispatch(LoadPost(sendingData));
     dispatch(bookmarkedProject(sendingData));
     dispatch(switchPage('main'));
-  }, [dispatch, searchResult, kakaoId, accessToken, userId]);
+  }, [dispatch, , kakaoId, accessToken, userId]);
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-    console.log(isOpen);
-  };
-  const [currentListOpen, setCurrentListOpen] = useState(false);
   const [allListOpen, setAllListOpen] = useState(false);
-
-  const currentListToggle = () => {
-    setCurrentListOpen(!currentListOpen);
-  };
 
   const allListToggle = () => {
     setAllListOpen(!allListOpen);
@@ -97,131 +154,102 @@ const MainPrac = () => {
 
   const projectList = useSelector(state => state.post.project);
   const bookmarkedList = useSelector(state => state.post.bookmarkedList);
-
   return (
-    <StyledWrap>
-      <Nav />
-      <StyeldDiv>
-        <Inner>
-          <SplitDiv>
-            <CurrentDoc
-              onClick={currentListToggle}
-              listToggle={currentListOpen}
-            >
-              <p>최근문서</p>
-              <ArrowDownImg />
-            </CurrentDoc>
-            <FlexDiv>
-              <AddBtn onClick={handleToggle}>
-                <FileAddImg />
-              </AddBtn>
-              <AddBtn>
-                <FolderAddImg onClick={() => setFolderOpen(true)} />
-              </AddBtn>
-              <Dropdown />
-            </FlexDiv>
-          </SplitDiv>
-          <ProjectDiv listToggle={currentListOpen}>
-            {currentSort === '최신순'
-              ? projectList.length > 0 &&
-                projectList.map((project, index) => (
-                  <GridForm
-                    key={index}
-                    projectName={project.projectName}
-                    modifiedAt={project.modifiedAt}
-                    memberList={project.memberList}
-                    bookmark={project.bookmark}
-                    thumbnailNum={project.thumbnailNum}
-                    projectId={project.projectId}
-                    trash={project.trash}
-                    width="calc(100% / 5 - 60px)"
-                    height="212px"
-                  />
-                ))
-              : null}
-            {currentSort === '북마크'
-              ? bookmarkedList.length > 0 &&
-                bookmarkedList.map((project, index) => (
-                  <GridForm
-                    key={index}
-                    projectName={project.projectName}
-                    modifiedAt={project.modifiedAt}
-                    memberList={project.memberList}
-                    bookmark={true}
-                    thumbnailNum={project.thumbnailNum}
-                    projectId={project.projectId}
-                    trash={project.trash}
-                    width="calc(100% / 5 - 60px)"
-                    height="212px"
-                  />
-                ))
-              : null}
-          </ProjectDiv>
-          <BorderLine />
-          <SplitDiv>
-            <CurrentDoc onClick={allListToggle} listToggle={allListOpen}>
-              <p>전체</p>
-              <ArrowDownImg />
-            </CurrentDoc>
-          </SplitDiv>
-          <ProjectDiv listToggle={allListOpen}>
-            {currentSort === '최신순' ? renderFolderList() : null}
-            {currentSort === '최신순'
-              ? projectList.length > 0 &&
-                projectList.map((project, index) => (
-                  <GridForm
-                    key={index}
-                    projectName={project.projectName}
-                    modifiedAt={project.modifiedAt}
-                    memberList={project.memberList}
-                    bookmark={project.bookmark}
-                    thumbnailNum={project.thumbnailNum}
-                    projectId={project.projectId}
-                    trash={project.trash}
-                    width="calc(100% / 5 - 60px)"
-                    height="212px"
-                  />
-                ))
-              : null}
-            {currentSort === '북마크'
-              ? bookmarkedFolderList?.map(data => (
-                  <FolderCard
-                    key={data.folderTableId}
-                    folderTableId={data.folderTableId}
-                    userId={data.userId}
-                    folderName={data.folderName}
-                    modifiedAt={data.modifiedAt}
-                    trash={data.modifiedAt}
-                    bookmark={data.bookmark}
-                  />
-                ))
-              : null}
-            {currentSort === '북마크'
-              ? bookmarkedList.length > 0 &&
-                bookmarkedList.map((project, index) => (
-                  <GridForm
-                    key={index}
-                    projectName={project.projectName}
-                    modifiedAt={project.modifiedAt}
-                    memberList={project.memberList}
-                    bookmark={true}
-                    thumbnailNum={project.thumbnailNum}
-                    projectId={project.projectId}
-                    trash={project.trash}
-                    width="calc(100% / 5 - 60px)"
-                    height="212px"
-                  />
-                ))
-              : null}
-          </ProjectDiv>
-          <AddForm open={isOpen} onClose={() => setIsOpen(false)} />
-          <AddFolderForm
-            open={folderOpen}
-            onClose={() => setFolderOpen(false)}
-          />
-        </Inner>
-      </StyeldDiv>
-    </StyledWrap>
+    <>
+      <ProjectDiv listToggle={props.listOpen}>
+        {currentSort === '최신순'
+          ? projectList.length > 0 &&
+            projectList.map((project, index) => (
+              <GridForm
+                key={index}
+                projectName={project.projectName}
+                modifiedAt={project.modifiedAt}
+                memberList={project.memberList}
+                bookmark={project.bookmark}
+                thumbnailNum={project.thumbnailNum}
+                projectId={project.projectId}
+                trash={project.trash}
+                width="calc(100% / 5 - 60px)"
+                height="212px"
+              />
+            ))
+          : null}
+        {currentSort === '북마크'
+          ? bookmarkedList.length > 0 &&
+            bookmarkedList.map((project, index) => (
+              <GridForm
+                key={index}
+                projectName={project.projectName}
+                modifiedAt={project.modifiedAt}
+                memberList={project.memberList}
+                bookmark={true}
+                thumbnailNum={project.thumbnailNum}
+                projectId={project.projectId}
+                trash={project.trash}
+                width="calc(100% / 5 - 60px)"
+                height="212px"
+              />
+            ))
+          : null}
+      </ProjectDiv>
+      <BorderLine />
+      <SplitDiv>
+        <CurrentDoc onClick={allListToggle} listToggle={allListOpen}>
+          <p>전체</p>
+          <ArrowDownImg />
+        </CurrentDoc>
+      </SplitDiv>
+      <ProjectDiv listToggle={allListOpen}>
+        {currentSort === '최신순' ? renderFolderList() : null}
+        {currentSort === '최신순'
+          ? projectList.length > 0 &&
+            projectList.map((project, index) => (
+              <GridForm
+                key={index}
+                projectName={project.projectName}
+                modifiedAt={project.modifiedAt}
+                memberList={project.memberList}
+                bookmark={project.bookmark}
+                thumbnailNum={project.thumbnailNum}
+                projectId={project.projectId}
+                trash={project.trash}
+                width="calc(100% / 5 - 60px)"
+                height="212px"
+              />
+            ))
+          : null}
+        {currentSort === '북마크'
+          ? bookmarkedFolderList?.map(data => (
+              <FolderCard
+                key={data.folderTableId}
+                folderTableId={data.folderTableId}
+                userId={data.userId}
+                folderName={data.folderName}
+                modifiedAt={data.modifiedAt}
+                trash={data.modifiedAt}
+                bookmark={data.bookmark}
+              />
+            ))
+          : null}
+        {currentSort === '북마크'
+          ? bookmarkedList.length > 0 &&
+            bookmarkedList.map((project, index) => (
+              <GridForm
+                key={index}
+                projectName={project.projectName}
+                modifiedAt={project.modifiedAt}
+                memberList={project.memberList}
+                bookmark={true}
+                thumbnailNum={project.thumbnailNum}
+                projectId={project.projectId}
+                trash={project.trash}
+                width="calc(100% / 5 - 60px)"
+                height="212px"
+              />
+            ))
+          : null}
+      </ProjectDiv>
+    </>
   );
 };
 

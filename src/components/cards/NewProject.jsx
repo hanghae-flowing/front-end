@@ -30,14 +30,14 @@ export const TemplateProject = props => {
 const StyeldDiv = styled.div`
   width: ${props => props.width};
   height: ${props => props.height};
-  min-width: 200px;
+  min-width: 208px;
   margin: 0 30px;
 `;
 
 const StyledWrap = styled.div`
   position: relative;
   width: 100%;
-  height: 150px;
+  height: 144px;
   background-color: #e3e0ff;
   border-radius: 25px;
   margin-right: ${props => props.marginRight};

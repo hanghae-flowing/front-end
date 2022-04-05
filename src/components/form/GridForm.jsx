@@ -104,8 +104,10 @@ const GridForm = props => {
           <DotImage />
         </MenuDiv>
         <ImageDiv onClick={onClickHandler}></ImageDiv>
-        <Title>{projectName}</Title>
-        <DateP>{displayCreatedAt(modifiedAt)}</DateP>
+        <ContentDiv>
+          <Title>{projectName}</Title>
+          <DateP>{displayCreatedAt(modifiedAt)}</DateP>
+        </ContentDiv>
         <BookmarkDiv onClick={clickBookmarkHandler}>
           {bookmarked ? <BookmarkedImage /> : <UnBookmarkedImage />}
         </BookmarkDiv>
@@ -127,8 +129,10 @@ const GridForm = props => {
           {isChecked ? <CheckedRing /> : <UnCheckedRing />}
         </MenuDiv>
         <ImageDiv></ImageDiv>
-        <Title>{projectName}</Title>
-        <DateP>{displayCreatedAt(modifiedAt)}</DateP>
+        <ContentDiv>
+          <Title>{projectName}</Title>
+          <DateP>{displayCreatedAt(modifiedAt)}</DateP>
+        </ContentDiv>
       </Wrapper>
     );
   }
@@ -140,7 +144,7 @@ const Wrapper = styled.div`
   position: relative;
   width: ${props => props.width};
   height: ${props => props.height};
-  min-width: 200px;
+  min-width: 208px;
   cursor: pointer;
   margin: 0 30px;
   margin-bottom: 20px;
@@ -151,9 +155,14 @@ const ImageDiv = styled.div`
   background-size: cover;
   border-radius: 25px;
   width: 100%;
-  height: 150px;
+  height: 144px;
   overflow: hidden;
   margin-right: 25px;
+`;
+const ContentDiv = styled.div`
+  width: 100%;
+  height: auto;
+  padding: 0 14px;
 `;
 
 const Title = styled.h3`

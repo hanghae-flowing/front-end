@@ -3,8 +3,10 @@ import folderThumbnail from '../../assets/images/img_folder.png';
 import styled from 'styled-components';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
+import { useNavigate } from 'react-router-dom';
 
-const Folder = props => {
+const FolderCard = props => {
+  const navigate = useNavigate();
   const displayCreatedAt = createdAt => {
     let startTime = new Date(createdAt);
     let nowTime = Date.now();
@@ -19,9 +21,18 @@ const Folder = props => {
     }
   };
 
+  const openFolder = () => {
+    navigate(`/folder/${props.folderTableId}`, { state: props });
+  };
+
   return (
     <StyledWrap>
-      <ImageDiv></ImageDiv>
+      <MenuBtn>
+        <Dot />
+        <Dot />
+        <Dot />
+      </MenuBtn>
+      <ImageDiv onClick={openFolder}></ImageDiv>
       <ContentDiv>
         <Title>{props.folderName}</Title>
         <DateP>{displayCreatedAt(props.modifiedAt)}</DateP>
@@ -33,11 +44,11 @@ const Folder = props => {
 const StyledWrap = styled.div`
   position: relative;
   width: calc(100% / 5 - 60px);
-  height: 100%;
+  height: auto;
   min-width: 208px;
   cursor: pointer;
   margin: 0 30px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;
 
 const ImageDiv = styled.div`
@@ -79,4 +90,23 @@ const DateP = styled.p`
   color: #c4c4c4;
 `;
 
-export default Folder;
+const MenuBtn = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  width: 28px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+`;
+
+const Dot = styled.div`
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: #e3e0ff;
+`;
+
+export default FolderCard;

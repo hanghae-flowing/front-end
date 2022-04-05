@@ -147,7 +147,7 @@ const Wrapper = styled.div`
   min-width: 208px;
   cursor: pointer;
   margin: 0 30px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;
 const ImageDiv = styled.div`
   position: relative;

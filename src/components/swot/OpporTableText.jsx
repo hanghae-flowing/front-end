@@ -11,7 +11,7 @@ const OpporTableText = props => {
   const [value, setValue] = useState(props.text);
 
   const mutation = useMutation(newTodo =>
-    URL.put(`/swot/strength/${lineId}`, newTodo),
+    URL.put(`/swot/opportunity/${lineId}`, newTodo),
   );
 
   useEffect(() => {

@@ -29,6 +29,7 @@ const SwotAnalysis = () => {
         return (
           <>
             <SwotDiv>
+              <BakcgroundText>S</BakcgroundText>
               <TableTitle>Strength</TableTitle>
               {swotStrengthList &&
                 swotStrengthList.map((props, index) => (
@@ -40,6 +41,7 @@ const SwotAnalysis = () => {
                 ))}
             </SwotDiv>
             <SwotDiv>
+              <BakcgroundText>W</BakcgroundText>
               <TableTitle>Weakness</TableTitle>
               {swotWeaknessList &&
                 swotWeaknessList.map((props, index) => (
@@ -51,6 +53,7 @@ const SwotAnalysis = () => {
                 ))}
             </SwotDiv>
             <SwotDiv>
+              <BakcgroundText>O</BakcgroundText>
               <TableTitle>Opportunity</TableTitle>
               {swotOpportunityhList &&
                 swotOpportunityhList.map((props, index) => (
@@ -62,6 +65,7 @@ const SwotAnalysis = () => {
                 ))}
             </SwotDiv>
             <SwotDiv>
+              <BakcgroundText>T</BakcgroundText>
               <TableTitle>Treat</TableTitle>
               {swotThreatList &&
                 swotThreatList.map((props, index) => (
@@ -97,8 +101,21 @@ const Wrapper = styled.div`
   display: flex;
   width: 1031px;
   height: 696px;
-  margin-top: 96px;
-  margin-left: 428px;
+
+  margin: 130px auto;
+`;
+
+const BakcgroundText = styled.h1`
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 128px;
+  line-height: 155px;
+
+  position: fixed;
+  margin: 90px 186px;
+
+  color: rgba(129, 129, 129, 0.25);
 `;
 
 const ColWrapper = styled.div`

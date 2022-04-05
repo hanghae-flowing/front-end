@@ -1,15 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { URL } from '../../API';
 
-function arrayRemove(arr, value) {
-  return arr.filter(function (ele) {
-    return ele != value;
-  });
-}
-
 const trashbinState = {
   trash: {},
   pleaseThrowThoseProjects: [],
+  counting: 0,
 };
 
 export const getProjectsInTrash = createAsyncThunk(
@@ -34,7 +29,7 @@ export const deleteSelectedProjects = createAsyncThunk(
 );
 
 export const recoverSelectedProjects = createAsyncThunk(
-  'trash/deleteSelectedProjects',
+  'trash/recoverSelectedProjects',
   async (sendingData, thunkAPI) => {
     await URL.post('/project/trash/restore', sendingData)
       .then(res => console.log(res))
@@ -68,19 +63,31 @@ export const trashSlice = createSlice({
         action.payload,
       ];
       console.log(state.pleaseThrowThoseProjects);
+      state.counting += 1;
+      console.log(state.counting);
     },
     unSetList: (state, action) => {
       const newProject = state.pleaseThrowThoseProjects.filter(
         project => project !== action.payload,
       );
       state.pleaseThrowThoseProjects = [...newProject];
-      // console.log(state.pleaseThrowThoseProjects);
+      if (state.counting > 0) {
+        state.counting -= 1;
+      }
+
+      console.log(state.counting);
     },
   },
   extraReducers: builder => {
     builder.addCase(getProjectsInTrash.fulfilled, (state, action) => {
       console.log(action.payload);
       state.trash = action.payload;
+    });
+    builder.addCase(recoverSelectedProjects.fulfilled, (state, action) => {
+      window.location.reload();
+    });
+    builder.addCase(deleteSelectedProjects.fulfilled, (state, action) => {
+      window.location.reload();
     });
   },
 });

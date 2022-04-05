@@ -19,7 +19,7 @@ const TrashBin = () => {
   const [allCheck, setAllCheck] = useState(false);
   const [listOpen, setListOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-
+  const [wantDeletion, setWantDeletion] = useState(false);
   const listToggle = () => {
     setListOpen(!listOpen);
   };
@@ -48,14 +48,12 @@ const TrashBin = () => {
     const sendingData = {
       projectIdList: [...selectedProjectsList],
     };
-    console.log(sendingData);
     dispatch(deleteSelectedProjects(sendingData));
   };
   const recoverSelectedProjectsHanlder = () => {
     const sendingData = {
       projectIdList: [...selectedProjectsList],
     };
-    console.log(sendingData);
     dispatch(recoverSelectedProjects(sendingData));
   };
 
@@ -116,6 +114,7 @@ const TrashBin = () => {
                   <RecoveryButton
                     onClick={() => {
                       setDeleteModalOpen(true);
+                      setWantDeletion(false);
                     }}
                   >
                     복원
@@ -123,6 +122,7 @@ const TrashBin = () => {
                   <DeleteButton
                     onClick={() => {
                       setDeleteModalOpen(true);
+                      setWantDeletion(true);
                     }}
                   >
                     영구삭제
@@ -132,7 +132,16 @@ const TrashBin = () => {
             </Inner>
           </StyeldDiv>
         </StyledWrap>
-        <DeleteModal open={deleteModalOpen} />
+        <DeleteModal
+          open={deleteModalOpen}
+          onClickHandler={
+            wantDeletion
+              ? deleteSelectedProjectsHanlder
+              : recoverSelectedProjectsHanlder
+          }
+          onClose={() => setDeleteModalOpen(false)}
+          deletion={wantDeletion}
+        />
       </>
     );
   }

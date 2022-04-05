@@ -1,24 +1,36 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import NegativeButton from '../elements/NegativeButton';
 import PositiveButton from '../elements/PositiveButton';
 
-const DeleteModal = ({ open, onClose, onClickHandler }) => {
-  const [counting, setCounting] = useState(0);
+const DeleteModal = ({ open, onClose, onClickHandler, deletion }) => {
+  const counting = useSelector(state => state.trash.counting);
+  const recoverString = `총 ${counting}개 항목을 복원하시겠습니까?`;
+  const secondRecoverString = '해당 항목은 삭제 전 경로로 복원됩니다.';
+
+  const deletionString = `총 ${counting}개 항목을 삭제하시겠습니까?`;
+  const secondDeletionString =
+    '해당 항목은 영구적으로 삭제되며 복원이 불가합니다.';
   if (!open) return null;
   else {
     return (
       <Wrapper>
         <Modal>
-          <FirstP>총 {counting}개 항목을 복원하시겠습니까?</FirstP>
-          <SecondP>해당 항목은 삭제 전 경로로 복원됩니다.</SecondP>
+          <FirstP>{deletion === true ? deletionString : recoverString}</FirstP>
+          <SecondP>
+            {deletion === true ? secondDeletionString : secondRecoverString}
+          </SecondP>
           <NegativeButton
             text={'취소'}
             onClickHandler={() => {
               onClose();
             }}
           />
-          <PositiveButton onClickHandler={onClickHandler} />
+          <PositiveButton
+            text={deletion === true ? '삭제하기' : '복원하기'}
+            onClickHandler={onClickHandler}
+          />
         </Modal>
       </Wrapper>
     );
@@ -42,12 +54,13 @@ const FirstP = styled.p`
 
 const SecondP = styled.p`
   font-weight: 400;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 23px;
   /* identical to box height */
 
   display: flex;
-  margin: 9px 95px 0 95px;
+  margin: 9px auto 30px auto;
+  justify-content: center;
   align-items: center;
   text-align: center;
 

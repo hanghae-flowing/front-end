@@ -9,6 +9,7 @@ const postState = {
   documentId: 0,
   gapTableId: 0,
   nodeTable: 0,
+  swotId: 0,
 };
 
 export const LoadPost = createAsyncThunk(
@@ -108,6 +109,7 @@ export const postSlice = createSlice({
         state.documentId = action.payload.documentId;
         state.gapTableId = action.payload.gapTableId;
         state.nodeTable = action.payload.nodeTable;
+        state.swotId = action.payload.swotId;
         console.log('create fulfiled');
       })
       .addCase(CreateNewProject.rejected, () => {
@@ -123,6 +125,7 @@ export const postSlice = createSlice({
         state.documentId = action.payload.documentId;
         state.gapTableId = action.payload.gapTableId;
         state.nodeTable = action.payload.nodeTable;
+        state.swotId = action.payload.swotId;
       })
       .addCase(setProjectInfo.fulfilled, (state, action) => {
         console.log(action.payload);
@@ -130,6 +133,7 @@ export const postSlice = createSlice({
         state.documentId = action.payload.documentId;
         state.gapTableId = action.payload.gapTableId;
         state.nodeTable = action.payload.nodeTable;
+        state.swotId = action.payload.swotId;
       });
   },
 });

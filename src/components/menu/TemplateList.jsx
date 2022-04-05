@@ -9,6 +9,7 @@ import { openDoc } from '../../redux/slice/docSlice';
 import MindmapThumbnail from '../../assets/images/img_thumb_mindmap.png';
 import GapThumbnail from '../../assets/images/img_thumb_gap.png';
 import DocsThumbnail from '../../assets/images/img_thumb_docs.png';
+import SwotThumbnail from '../../assets/images/img_thumb_swot.png';
 
 const TemplateList = props => {
   const tempOpen = useSelector(state => state.template.tempOpen);
@@ -20,6 +21,7 @@ const TemplateList = props => {
   const documentId = useSelector(state => state.post.documentId);
   const gapTableId = useSelector(state => state.post.gapTableId);
   const nodeTableId = useSelector(state => state.post.nodeTable);
+  const swotId = useSelector(state => state.post.swotId);
   // console.log('docs', documentId);
   // console.log('gap', gapTableId);
   // console.log('nodetable', nodeTableId);
@@ -65,6 +67,13 @@ const TemplateList = props => {
           navigate(`mindmap/${nodeTableId}`);
         }}
         backgroundImage={MindmapThumbnail}
+      />
+      <TemplateProject
+        title="SWOT"
+        onClick={() => {
+          navigate(`swot/${swotId}`);
+        }}
+        backgroundImage={SwotThumbnail}
       />
       <TemplateProject
         title="갭분석"

@@ -43,7 +43,7 @@ const ProposalPage = () => {
                   color={props.color}
                   indexNum={index + 1}
                   maxLength={props.maxLength}
-                  placeholder={props.placeholder}
+                  placeholder={props.placeHolder}
                 />
               ))}
           </>

@@ -21,13 +21,18 @@ export const GapToolBox = props => {
   );
 };
 
+const StyeldWrap = styled.div`
+  width: 100%;
+`;
+
 const StyledDiv = styled.div`
   height: 64px;
   background-color: ${props => props.bgColor};
   position: fixed;
   bottom: 30px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(20px);
+  transition: all 0.2s ease-in-out;
   border-radius: 20px;
   box-shadow: 0px 10px 30px -2px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -35,4 +40,7 @@ const StyledDiv = styled.div`
   justify-content: space-between;
   padding: 0 40px;
   z-index: 11;
+  &:hover {
+    transform: translateX(-50%) translateY(0);
+  }
 `;

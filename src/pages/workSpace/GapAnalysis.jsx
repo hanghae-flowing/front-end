@@ -79,7 +79,7 @@ const StyledBox = styled.div`
 const TableWrap = styled.div`
   width: 35%;
   height: 100%;
-  background-color: #e3e3e3;
+  background-color: #e3e0ff;
   position: absolute;
   top: 0;
   ${props => props.position} : 0;

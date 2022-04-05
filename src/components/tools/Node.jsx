@@ -56,12 +56,26 @@ const Node = props => {
       onDragEnd={dragEndHandler}
       onClick={onCreate}
     >
-      키워드
+      <Text>키워드</Text>
     </Rect>
   );
 };
 
+const Text = styled.p`
+  width: 100px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #878787;
+  display: none;
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 const Rect = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,6 +87,13 @@ const Rect = styled.div`
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
   color: #6c6c6c;
   cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    transform: scale(1.3) translateY(-10px);
+    ${Text} {
+      display: block;
+    }
+  }
 `;
 
 export default Node;

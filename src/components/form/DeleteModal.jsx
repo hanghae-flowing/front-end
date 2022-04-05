@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import NegativeButton from './elements/NegativeButton';
-import PositiveButton from './elements/PositiveButton';
+import NegativeButton from '../elements/NegativeButton';
+import PositiveButton from '../elements/PositiveButton';
 
 const DeleteModal = ({ open, onClose, onClickHandler }) => {
-  const [counting, setCounting] = useState();
+  const [counting, setCounting] = useState(0);
   if (!open) return null;
   else {
     return (
       <Wrapper>
         <Modal>
-          <FirstP>총 5개 항목을 복원하시겠습니까?</FirstP>
+          <FirstP>총 {counting}개 항목을 복원하시겠습니까?</FirstP>
           <SecondP>해당 항목은 삭제 전 경로로 복원됩니다.</SecondP>
           <NegativeButton
+            text={'취소'}
             onClickHandler={() => {
               onClose();
             }}
@@ -59,12 +60,15 @@ const Modal = styled.div`
   background: #ffffff;
   padding: 60px 50px 40px 50px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
-  border-radius: 3000px;
+  border-radius: 30px;
 `;
 
 const Wrapper = styled.div`
-  width: 1920px;
-  height: 1032px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(74, 74, 74, 0.75);
   display: flex;
   justify-content: center;

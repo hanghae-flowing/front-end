@@ -2,8 +2,8 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { sendInvite } from '../../redux/slice/inviteSlice';
 import HelloFromKirin from '../../assets/images/KirinHi.png';
-import NegativeButton from './elements/NegativeButton';
-import PositiveButton from './elements/PositiveButton';
+import NegativeButton from '../elements/NegativeButton';
+import PositiveButton from '../elements/PositiveButton';
 
 const InvitationSecondModal = ({ open, onClose, email }) => {
   const dispatch = useDispatch();

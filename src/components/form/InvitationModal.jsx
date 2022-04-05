@@ -2,8 +2,8 @@ import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { checkNameByEmail, sendInvite } from '../../redux/slice/inviteSlice';
-import NegativeButton from './elements/NegativeButton';
-import PositiveButton from './elements/PositiveButton';
+import NegativeButton from '../elements/NegativeButton';
+import PositiveButton from '../elements/PositiveButton';
 import InvitationSecondModal from './InvitationSecondModal';
 
 const InvitationModal = ({ open, onClose }) => {

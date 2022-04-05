@@ -10,7 +10,7 @@ const ThreatTableText = props => {
   const [value, setValue] = useState(props.text);
 
   const mutation = useMutation(newTodo =>
-    URL.put(`/swot/strength/${lineId}`, newTodo),
+    URL.put(`/swot/threat/${lineId}`, newTodo),
   );
 
   useEffect(() => {

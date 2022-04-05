@@ -57,7 +57,8 @@ const FolderCard = props => {
     const sendingData = {
       folderTableId,
     };
-    dispatch(setFolderBookmark({ sendingData }));
+    console.log(sendingData);
+    dispatch(setFolderBookmark(sendingData));
   };
 
   return (

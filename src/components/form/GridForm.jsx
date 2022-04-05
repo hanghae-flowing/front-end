@@ -18,7 +18,6 @@ import { ReactComponent as UnBookmarkedImage } from '../../assets/icons/Bookmark
 const GridForm = props => {
   const [isOpen, setIsOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [bookmarked, setBookmarked] = useState(false);
 
   const kakaoId =
     sessionStorage.getItem('userInfo') &&
@@ -42,6 +41,8 @@ const GridForm = props => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [bookmarked, setBookmarked] = useState(bookmark);
 
   useEffect(() => {
     if (props.checked) {

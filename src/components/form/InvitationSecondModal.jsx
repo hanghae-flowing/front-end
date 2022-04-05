@@ -1,7 +1,9 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { sendInvite } from '../../redux/slice/inviteSlice';
-import MainModalForm from './MainModalForm';
+import HelloFromKirin from '../../assets/images/KirinHi.png';
+import NegativeButton from '../elements/NegativeButton';
+import PositiveButton from '../elements/PositiveButton';
 
 const InvitationSecondModal = ({ open, onClose, email }) => {
   const dispatch = useDispatch();
@@ -26,10 +28,29 @@ const InvitationSecondModal = ({ open, onClose, email }) => {
   else {
     return (
       <>
-        <MainModalForm></MainModalForm>
+        <Modal>
+          <NegativeButton text="취소" />
+          <PositiveButton text="초대하기" />
+        </Modal>
       </>
     );
   }
 };
+
+const ImageDiv = styled.div`
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-image; url(${HelloFromKirin});
+  background-size: cover;
+`;
+
+const Modal = styled.div`
+  width: 480px;
+  height: 340px;
+  background: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 31px;
+`;
 
 export default InvitationSecondModal;

@@ -71,8 +71,7 @@ export const checkNameByEmail = createAsyncThunk(
         },
       );
     } catch (error) {
-      console.log(error);
-      return error;
+      window.alert('이메일이 존재하지 않습니다.');
     }
   },
 );
@@ -86,7 +85,7 @@ export const inviteSlice = createSlice({
       state.invitations = action.payload;
     });
     builder.addCase(checkNameByEmail.rejected, (state, action) => {
-      window.alert('ddd');
+      console.log(action.payload);
     });
     builder.addCase(checkNameByEmail.fulfilled, (state, action) => {
       state.personToInvite = action.payload;

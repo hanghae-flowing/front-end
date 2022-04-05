@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import Moment from 'react-moment';
 import 'moment/locale/ko';
 import { useDispatch } from 'react-redux';
+import { setList, unSetList } from '../../redux/slice/trashSlice';
 import { OpenWorkSpace, setBookmark } from '../../redux/slice/postSlice';
 import FileMenu from '../menu/FileMenu';
 import thumbnailImage from '../../assets/images/File.png';
 import { ReactComponent as UnCheckedRing } from '../../assets/icons/unChecked.svg';
 import { ReactComponent as CheckedRing } from '../../assets/icons/checked.svg';
 import { ReactComponent as DotImage } from '../../assets/icons/projectMenuDot.svg';
-import { setList, unSetList } from '../../redux/slice/trashSlice';
 
 import { ReactComponent as BookmarkedImage } from '../../assets/icons/Bookmark_light.svg';
 import { ReactComponent as UnBookmarkedImage } from '../../assets/icons/Bookmark_light_blank.svg';

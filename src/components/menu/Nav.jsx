@@ -12,7 +12,6 @@ import { useMutation, useQueryClient } from 'react-query';
 import { URL } from '../../API';
 
 const Nav = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -21,16 +20,6 @@ const Nav = () => {
   const crtPage = useSelector(state => state.nav.currentPage);
 
   const [searchValue, setSearchValue] = useState('');
-
-  const accessToken =
-    sessionStorage.getItem('userInfo') &&
-    JSON.parse(sessionStorage.getItem('userInfo')).accessToken;
-
-  const Logout = () => {
-    dispatch(kakaoLogout(accessToken)).then(() => {
-      navigate('/login');
-    });
-  };
 
   const nickname =
     sessionStorage.getItem('userInfo') &&
@@ -124,7 +113,7 @@ const Nav = () => {
             <GarbageImg />
           </TabIcon>
         </Tab>
-        <Tab onClick={Logout}>
+        <Tab onClick={() => navigate('/signout')}>
           <p>로그아웃</p>
           <TabIcon>
             <LogoutImg />

@@ -127,7 +127,7 @@ const MainPrac = () => {
                     projectId={data.projectId}
                     trash={data.trash}
                     width="calc(100% / 5 - 60px)"
-                    height="auto"
+                    height="212px"
                   />
                 ))
               : projectList.length > 0 &&
@@ -142,7 +142,7 @@ const MainPrac = () => {
                     projectId={project.projectId}
                     trash={project.trash}
                     width="calc(100% / 5 - 60px)"
-                    height="auto"
+                    height="212px"
                   />
                 ))}
           </ProjectDiv>

@@ -140,7 +140,9 @@ export const trashSlice = createSlice({
       state.folder = action.payload;
     });
     builder.addCase(recoverSelectedProjects.fulfilled, (state, action) => {});
-    builder.addCase(deleteSelectedProjects.fulfilled, (state, action) => {});
+    builder.addCase(deleteSelectedFolders.fulfilled, (state, action) => {
+      window.location.reload();
+    });
   },
 });
 

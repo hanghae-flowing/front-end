@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  deleteSelectedFolders,
   deleteSelectedProjects,
+  getFoldersInTrash,
   getProjectsInTrash,
+  recoverSelectedFolders,
   recoverSelectedProjects,
   setCountingToZero,
 } from '../redux/slice/trashSlice';
@@ -15,6 +18,7 @@ import { ReactComponent as UnCheckedRing } from '../assets/icons/unChecked.svg';
 import { ReactComponent as CheckedRing } from '../assets/icons/checked.svg';
 import DeleteModal from '../components/form/DeleteModal';
 import { ReactComponent as EmptyTrashImage } from '../assets/icons/EmptyTrash.svg';
+import FolderCard from '../components/cards/FolderCard';
 
 const TrashBin = () => {
   const dispatch = useDispatch();
@@ -38,6 +42,7 @@ const TrashBin = () => {
     const sendingData = {
       userId,
     };
+    dispatch(getFoldersInTrash(sendingData));
     dispatch(getProjectsInTrash(sendingData));
     dispatch(switchPage('garbage'));
   }, [dispatch]);
@@ -45,24 +50,43 @@ const TrashBin = () => {
   const selectedProjectsList = useSelector(
     state => state.trash.pleaseThrowThoseProjects,
   );
+  const selectedFoldersList = useSelector(
+    state => state.trash.pleaseThrowThoseFolders,
+  );
+
+  console.log(selectedFoldersList);
 
   const deleteSelectedProjectsHanlder = () => {
     const sendingData = {
       projectIdList: [...selectedProjectsList],
     };
-    dispatch(deleteSelectedProjects(sendingData));
+    const folderSendingData = {
+      folderTableIdList: [...selectedFoldersList],
+      userId,
+    };
+    dispatch(
+      deleteSelectedProjects({ sendingData, folderSendingData }, { dispatch }),
+    );
   };
   const recoverSelectedProjectsHanlder = () => {
     const sendingData = {
       projectIdList: [...selectedProjectsList],
     };
-    dispatch(recoverSelectedProjects(sendingData));
+    const folderSendingData = {
+      folderTableIdList: [...selectedFoldersList],
+      userId,
+    };
+    dispatch(
+      recoverSelectedProjects({ sendingData, folderSendingData }, { dispatch }),
+    );
   };
 
+  const folderList = useSelector(state => state.trash.folder);
+  console.log(folderList);
   const trashList = useSelector(state => state.trash.trash);
   console.log(trashList);
 
-  if (!trashList) {
+  if (!trashList || !folderList) {
     return (
       <StyledWrap>
         <Nav />
@@ -96,6 +120,17 @@ const TrashBin = () => {
                   </CurrentDoc>
                 </SplitDiv>
                 <ProjectDiv listToggle={listOpen}>
+                  {folderList.length > 0 &&
+                    folderList.map((folder, index) => (
+                      <FolderCard
+                        key={index}
+                        modifiedAt={folder.modifiedAt}
+                        folderName={folder.folderName}
+                        folderTableId={folder.folderTableId}
+                        checked={allCheck}
+                      />
+                    ))}
+
                   {trashList.length > 0 &&
                     trashList.map((project, index) => (
                       <GridForm

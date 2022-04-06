@@ -86,7 +86,7 @@ const TrashBin = () => {
   const trashList = useSelector(state => state.trash.trash);
   console.log(trashList);
 
-  if (!trashList || !folderList) {
+  if (trashList.length === 0 && folderList.length === 0) {
     return (
       <StyledWrap>
         <Nav />

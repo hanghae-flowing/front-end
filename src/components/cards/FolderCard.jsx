@@ -135,7 +135,7 @@ const FolderCard = props => {
 const StyledWrap = styled.div`
   position: relative;
   width: calc(100% / 5 - 60px);
-  height: auto;
+  height: 212px;
   min-width: 208px;
   cursor: pointer;
   margin: 0 30px;

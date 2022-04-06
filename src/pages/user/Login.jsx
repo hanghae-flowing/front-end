@@ -27,25 +27,22 @@ const ImageWrapper = styled.div`
 `;
 
 const BackgroundImage = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background: inherit;
   background-position: center;
   width: 100%;
   height: 100%;
   background-image: url(${LandingIllustration});
   background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const BtnWrapper = styled.div`
   width: 470px;
   height: 470px;
   display: flex;
-  margin: 15% auto 0 auto;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;

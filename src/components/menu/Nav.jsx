@@ -4,8 +4,7 @@ import { ReactComponent as SearchImg } from '../../assets/icons/Search_duotone_l
 import { ReactComponent as LogoutImg } from '../../assets/icons/Sign_out.svg';
 import { ReactComponent as GarbageImg } from '../../assets/icons/Trash_light.svg';
 import { ReactComponent as AllImg } from '../../assets/icons/Widget_light.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import { kakaoLogout } from '../../redux/slice/userSlice';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 import { useMutation, useQueryClient } from 'react-query';
@@ -78,7 +77,7 @@ const Nav = () => {
           </FlexDiv>
         </FlexDiv>
       ) : (
-        <FlexDiv>로그인 해주세여</FlexDiv>
+        <FlexDiv>정보가 없습니다</FlexDiv>
       )}
       <FlexDiv padding="0 0 30px 0">
         <SearchWrap>
@@ -128,7 +127,7 @@ const StyledWrap = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #5432d3;
+  background-color: #5b36e5;
   height: 100vh;
   width: 258px;
   padding: 120px 20px 20px;
@@ -180,7 +179,7 @@ const SearchWrap = styled.div`
   width: 100%;
   height: 43px;
   border-radius: 11px;
-  background-color: #4222b9;
+  background-color: #4929c1;
   box-shadow: -3px 4px 10px rgba(0, 0, 0, 0.04);
   display: flex;
   align-items: center;
@@ -191,7 +190,7 @@ const SearchWrap = styled.div`
 const Search = styled.input`
   width: 100%;
   font-size: 18px;
-  background-color: #4222b9;
+  background-color: #4929c1;
   border: none;
   padding-left: 10px;
   color: #bfbfbf;
@@ -203,7 +202,7 @@ const Search = styled.input`
 const Tab = styled.div`
   width: 100%;
   height: 38px;
-  background-color: ${props => (props.tab ? '#150f84' : '#5432d3')};
+  background-color: ${props => (props.tab ? '#4929C1' : 'none')};
   cursor: pointer;
   border-radius: 11px;
   display: flex;
@@ -212,7 +211,7 @@ const Tab = styled.div`
   padding: 10px;
   margin-bottom: 13px;
   &:hover {
-    background-color: #150f84;
+    background-color: #4929c1;
   }
   p {
     color: #fff;

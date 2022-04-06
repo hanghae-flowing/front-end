@@ -11,6 +11,7 @@ const postState = {
   gapTableId: 0,
   nodeTable: 0,
   swotId: 0,
+  memberList: [],
 };
 
 export const LoadPost = createAsyncThunk(
@@ -39,6 +40,7 @@ export const OpenWorkSpace = createAsyncThunk(
   async (projectId, thunkAPI) => {
     try {
       return await URL.get(`/project/${projectId}`).then(res => {
+        console.log(res);
         sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
         return res.data;
       });
@@ -91,11 +93,12 @@ export const setBookmark = createAsyncThunk(
 
 export const setFolderBookmark = createAsyncThunk(
   'post/setFolderBookmark',
-  async (sendingData, {rejectWithValue}) => {
-    try{
-      return await URL.post(`/folder/bookmark`, sendingData)
-        .then(res => console.log(res))
-    } catch(error){
+  async (sendingData, { rejectWithValue }) => {
+    try {
+      return await URL.post(`/folder/bookmark`, sendingData).then(res =>
+        console.log(res),
+      );
+    } catch (error) {
       console.error(error);
       return rejectWithValue(error);
     }
@@ -111,15 +114,15 @@ export const setProjectInfo = createAsyncThunk(
 
 export const bookmarkedProject = createAsyncThunk(
   'post/bookmarked',
-  async (data, {rejectWithValue}) => {
+  async (data, { rejectWithValue }) => {
     try {
-      return await URL.post(`/bookmarked`,data).then(res => res.data);
+      return await URL.post(`/bookmarked`, data).then(res => res.data);
     } catch (error) {
       console.error(error);
       return rejectWithValue(error);
     }
   },
-)
+);
 
 export const postSlice = createSlice({
   name: 'post',
@@ -131,8 +134,7 @@ export const postSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(LoadPost.pending, (state, action) => {
-      })
+      .addCase(LoadPost.pending, (state, action) => {})
       .addCase(LoadPost.fulfilled, (state, action) => {
         state.project = action.payload;
       })
@@ -159,6 +161,7 @@ export const postSlice = createSlice({
         state.gapTableId = action.payload.gapTableId;
         state.nodeTable = action.payload.nodeTable;
         state.swotId = action.payload.swotId;
+        state.memberList = action.payload.projectMemberInfoList;
       })
       .addCase(setProjectInfo.fulfilled, (state, action) => {
         state.projectInfo = action.payload.projectInfo;
@@ -166,10 +169,11 @@ export const postSlice = createSlice({
         state.gapTableId = action.payload.gapTableId;
         state.nodeTable = action.payload.nodeTable;
         state.swotId = action.payload.swotId;
+        state.memberList = action.payload.projectMemberInfoList;
       })
       .addCase(bookmarkedProject.fulfilled, (state, action) => {
         state.bookmarkedList = action.payload;
-      })
+      });
   },
 });
 export const { setThumbnail } = postSlice.actions;

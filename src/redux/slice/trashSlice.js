@@ -3,7 +3,9 @@ import { URL } from '../../API';
 
 const trashbinState = {
   trash: {},
+  folder: {},
   pleaseThrowThoseProjects: [],
+  pleaseThrowThoseFolders: [],
   counting: 0,
 };
 
@@ -19,10 +21,36 @@ export const getProjectsInTrash = createAsyncThunk(
   },
 );
 
+export const getFoldersInTrash = createAsyncThunk(
+  'trash/getFoldersInTrash',
+  async (sendingData, thunkAPI) => {
+    return await URL.get(`trash/folder/${sendingData.userId}`)
+      .then(res => {
+        console.log(res);
+        return res.data;
+      })
+      .catch(err => console.log(err));
+  },
+);
+
 export const deleteSelectedProjects = createAsyncThunk(
   'trash/deleteSelectedProjects',
-  async (sendingData, thunkAPI) => {
+  async ({ sendingData, folderSendingData }, { dispatch }, thunkAPI) => {
+    console.log(sendingData);
+    console.log(folderSendingData);
     await URL.post('/project/trash/selection', sendingData)
+      .then(res => {
+        console.log(res);
+        dispatch(deleteSelectedFolders(folderSendingData));
+      })
+      .catch(err => console.log(err));
+  },
+);
+
+export const deleteSelectedFolders = createAsyncThunk(
+  'trash/deleteSelectedFolders',
+  async (folderSendingData, thunkAPI) => {
+    await URL.post('/folder/trash/delete', folderSendingData)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   },
@@ -32,6 +60,15 @@ export const recoverSelectedProjects = createAsyncThunk(
   'trash/recoverSelectedProjects',
   async (sendingData, thunkAPI) => {
     await URL.post('/project/trash/restore', sendingData)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  },
+);
+
+export const recoverSelectedFolders = createAsyncThunk(
+  'trash/recoverSelectedFolders',
+  async (sendingData, thunkAPI) => {
+    await URL.post('/folder/restore', sendingData)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   },
@@ -57,16 +94,22 @@ export const trashSlice = createSlice({
   initialState: trashbinState,
   reducers: {
     setList: (state, action) => {
-      console.log(action.payload);
       state.pleaseThrowThoseProjects = [
         ...state.pleaseThrowThoseProjects,
         action.payload,
       ];
-      console.log(state.pleaseThrowThoseProjects);
 
       state.counting += 1;
+    },
+    setFolderList: (state, action) => {
+      console.log(action.payload);
+      state.pleaseThrowThoseFolders = [
+        ...state.pleaseThrowThoseFolders,
+        action.payload,
+      ];
+      console.log(state.pleaseThrowThoseFolders);
 
-      console.log(state.counting);
+      state.counting += 1;
     },
     unSetList: (state, action) => {
       const newProject = state.pleaseThrowThoseProjects.filter(
@@ -77,21 +120,38 @@ export const trashSlice = createSlice({
         state.counting -= 1;
       }
     },
+    unSetFolderList: (state, action) => {
+      const newFolder = state.pleaseThrowThoseFolders.filter(
+        project => project !== action.payload,
+      );
+      state.pleaseThrowThoseFolders = [...newFolder];
+      if (state.counting > 0) {
+        state.counting -= 1;
+      }
+    },
   },
   extraReducers: builder => {
     builder.addCase(getProjectsInTrash.fulfilled, (state, action) => {
       console.log(action.payload);
       state.trash = action.payload;
     });
-    builder.addCase(recoverSelectedProjects.fulfilled, (state, action) => {
-      window.location.reload();
+    builder.addCase(getFoldersInTrash.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.folder = action.payload;
     });
-    builder.addCase(deleteSelectedProjects.fulfilled, (state, action) => {
+    builder.addCase(recoverSelectedProjects.fulfilled, (state, action) => {});
+    builder.addCase(deleteSelectedFolders.fulfilled, (state, action) => {
       window.location.reload();
     });
   },
 });
 
-export const { setList, unSetList, setCountingToZero } = trashSlice.actions;
+export const {
+  setList,
+  unSetList,
+  setCountingToZero,
+  unSetFolderList,
+  setFolderList,
+} = trashSlice.actions;
 
 export default trashSlice.reducer;

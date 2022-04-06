@@ -143,7 +143,7 @@ export const DefaultList = props => {
                 userId={data.userId}
                 folderName={data.folderName}
                 modifiedAt={data.modifiedAt}
-                trash={data.modifiedAt}
+                trash={data.trash}
                 bookmark={data.bookmark}
               />
             ))}
@@ -226,7 +226,7 @@ export const DefaultList = props => {
                 userId={data.userId}
                 folderName={data.folderName}
                 modifiedAt={data.modifiedAt}
-                trash={data.modifiedAt}
+                trash={data.trash}
                 bookmark={data.bookmark}
               />
             ))

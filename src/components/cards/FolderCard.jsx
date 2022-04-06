@@ -8,21 +8,31 @@ import FileMenu from '../menu/FileMenu';
 import { useState } from 'react';
 import { setFolderBookmark, ThrowFolder } from '../../redux/slice/postSlice';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { useCallback } from 'react';
+import { ReactComponent as UnCheckedRing } from '../../assets/icons/unChecked.svg';
+import { ReactComponent as CheckedRing } from '../../assets/icons/checked.svg';
 import { ReactComponent as BookmarkedImage } from '../../assets/icons/Bookmark_light.svg';
 import { ReactComponent as UnBookmarkedImage } from '../../assets/icons/Bookmark_light_blank.svg';
 import { useMutation, useQueryClient } from 'react-query';
 import { URL } from '../../API';
+import {
+  setFolderList,
+  setList,
+  unSetFolderList,
+  unSetList,
+} from '../../redux/slice/trashSlice';
+import { useEffect } from 'react';
 
 const FolderCard = props => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+
   const [isOpen, setIsOpen] = useState(false);
   const [isOver, setIsOver] = useState(false);
   const [bookmarked, setBookmarked] = useState(props.bookmark);
   const folderTableId = props.folderTableId;
-
+  console.log('DDDD' + folderTableId);
+  const [isChecked, setIsChecked] = useState(false);
   const displayCreatedAt = createdAt => {
     let startTime = new Date(createdAt);
     let nowTime = Date.now();
@@ -78,6 +88,16 @@ const FolderCard = props => {
     },
   );
 
+  useEffect(() => {
+    if (props.checked) {
+      setIsChecked(true);
+      dispatch(setFolderList(folderTableId));
+    } else {
+      setIsChecked(false);
+      dispatch(unSetFolderList(folderTableId));
+    }
+  }, [props.checked]);
+
   const sendingData = {
     folderTableId: folderTableId,
     projectId: projectId,
@@ -101,35 +121,68 @@ const FolderCard = props => {
     setIsOver(false);
   };
 
-  return (
-    <StyledWrap
-      onDragEnter={onDragEnter}
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
-    >
-      <MenuBtn onClick={clickMenuHandler}>
-        <Dot />
-        <Dot />
-        <Dot />
-      </MenuBtn>
-      <ImageDiv onClick={openFolder} isOver={isOver}></ImageDiv>
-      <ContentDiv>
-        <Title>{props.folderName}</Title>
-        <DateP>{displayCreatedAt(props.modifiedAt)}</DateP>
-      </ContentDiv>
-      <BookmarkDiv onClick={clickBookmarkHandler}>
-        {bookmarked ? <BookmarkedImage /> : <UnBookmarkedImage />}
-      </BookmarkDiv>
-      <FileMenu
-        projectId={props.folderTableId}
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-        onClickHandler={openFolder}
-        deleteHandler={moveToTrashcanHandler}
-      />
-    </StyledWrap>
-  );
+  const checkboxClickHandler = useCallback(() => {
+    setIsChecked(!isChecked);
+    console.log(folderTableId);
+    if (!isChecked === true) {
+      dispatch(setFolderList(folderTableId));
+    } else {
+      dispatch(unSetFolderList(folderTableId));
+    }
+  }, [isChecked]);
+  if (props.trash == false) {
+    return (
+      <StyledWrap
+        onDragEnter={onDragEnter}
+        onDragOver={onDragOver}
+        onDragLeave={onDragLeave}
+        onDrop={onDrop}
+      >
+        <MenuBtn onClick={clickMenuHandler}>
+          <Dot />
+          <Dot />
+          <Dot />
+        </MenuBtn>
+        <ImageDiv onClick={openFolder} isOver={isOver}></ImageDiv>
+        <ContentDiv>
+          <Title>{props.folderName}</Title>
+          <DateP>{displayCreatedAt(props.modifiedAt)}</DateP>
+        </ContentDiv>
+        <BookmarkDiv onClick={clickBookmarkHandler}>
+          {bookmarked ? <BookmarkedImage /> : <UnBookmarkedImage />}
+        </BookmarkDiv>
+        <FileMenu
+          projectId={props.folderTableId}
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+          onClickHandler={openFolder}
+          deleteHandler={moveToTrashcanHandler}
+        />
+      </StyledWrap>
+    );
+  } else {
+    return (
+      <StyledWrap
+        onDragEnter={onDragEnter}
+        onDragOver={onDragOver}
+        onDragLeave={onDragLeave}
+        onDrop={onDrop}
+      >
+        <MenuBtn
+          onClick={() => {
+            checkboxClickHandler();
+          }}
+        >
+          {isChecked ? <CheckedRing /> : <UnCheckedRing />}
+        </MenuBtn>
+        <ImageDiv onClick={openFolder} isOver={isOver}></ImageDiv>
+        <ContentDiv>
+          <Title>{props.folderName}</Title>
+          <DateP>{displayCreatedAt(props.modifiedAt)}</DateP>
+        </ContentDiv>
+      </StyledWrap>
+    );
+  }
 };
 
 const StyledWrap = styled.div`

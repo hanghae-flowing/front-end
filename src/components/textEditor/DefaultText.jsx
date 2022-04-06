@@ -46,7 +46,7 @@ const DefaultText = props => {
       weight={props.weight}
       fontSize={props.fontSize}
       id={props.documnetId}
-      placeholder={props.placeholder}
+      placeholder={props.pla}
     />
   );
 };

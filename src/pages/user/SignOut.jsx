@@ -54,7 +54,7 @@ const BtnWrapper = styled.div`
   width: 470px;
   height: 470px;
   display: flex;
-  margin: 272px auto 330px auto;
+  margin: 15% auto 0 auto;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;

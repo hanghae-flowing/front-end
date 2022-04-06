@@ -10,6 +10,7 @@ import { ReactComponent as NotiImg } from '../assets/icons/Bell_light.svg';
 import { ReactComponent as OutImg } from '../assets/icons/Out_light.svg';
 import { ReactComponent as LoginImg } from '../assets/icons/Sign_in.svg';
 import { ReactComponent as Logo } from '../assets/icons/Logo.svg';
+import { ReactComponent as ProfileImage } from '../assets/icons/ProfileIcon.svg';
 import PopupMenu from './menu/PopupMenu';
 import NotificationModal from './menu/NotificationModal';
 import { checkMyInvitation } from '../redux/slice/inviteSlice';
@@ -160,7 +161,8 @@ export const WorkHeader = props => {
   const projectTitle =
     sessionStorage.getItem('projectInfo') &&
     JSON.parse(sessionStorage.getItem('projectInfo')).projectInfo.projectName;
-
+  const memberList = useSelector(state => state.post.memberList);
+  console.log(memberList);
   const [isInvtOpen, setIsInvtOpen] = useState(false);
   const handleInvt = () => {
     setIsInvtOpen(!isInvtOpen);
@@ -199,6 +201,10 @@ export const WorkHeader = props => {
           <ProjectTitle>{projectTitle}</ProjectTitle>
         </FlexDiv>
         <FlexDiv justify="end">
+          <UserImgDiv>
+            <ProfileImage />
+          </UserImgDiv>
+
           {/* <button onClick={() => publish()}>버튼</button> */}
           <Buttons
             onClick={() => {
@@ -230,6 +236,20 @@ export const WorkHeader = props => {
     </>
   );
 };
+
+const UserImgDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
+
+const Image = styled.div`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-image: url(${props => props.img});
+`;
 
 const HeadBox = styled.div`
   width: 100%;

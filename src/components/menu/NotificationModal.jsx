@@ -32,6 +32,7 @@ const NotificationModal = ({ open, onClose, children }) => {
                 projectName={noti.projectName}
                 invitingId={noti.invitingId}
                 time={noti.modifiedAt}
+                image={noti.image}
               />
             ))}
         </Modal>

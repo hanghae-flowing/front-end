@@ -44,7 +44,11 @@ const InvitationForm = props => {
       <NotiDiv>
         <Wrapper>
           <ImgDiv>
-            <ProfileImage />
+            {props.image === 'not exist' ? (
+              <ProfileImage />
+            ) : (
+              <Image img={props.image} />
+            )}
           </ImgDiv>
           <div>
             <NotiP>{invitation}</NotiP>
@@ -68,6 +72,13 @@ const InvitationForm = props => {
 const SeperationLine = styled.div`
   border: 1px solid #efefef;
   margin-bottom: 12px;
+`;
+
+const Image = styled.div`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-image: url(${props => props.img});
 `;
 
 const DateP = styled.p`

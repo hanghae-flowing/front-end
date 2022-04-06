@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as KirinBye } from '../../assets/icons/KirinBye.svg';
 import { kakaoLogout } from '../../redux/slice/userSlice';
+import SignoutImg from '../../assets/images/bg_sign_out.png';
 
 const SignOut = () => {
   const dispatch = useDispatch();
@@ -37,25 +38,20 @@ const ImageWrapper = styled.div`
 `;
 
 const BackgroundImage = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background: inherit;
   background-position: center;
   width: 100%;
   height: 100%;
-  background-image: url();
+  background-image: url(${SignoutImg});
   background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const BtnWrapper = styled.div`
-  width: 470px;
-  height: 470px;
   display: flex;
-  margin: 15% auto 0 auto;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -68,14 +64,13 @@ const KaKaoBtn = styled.a`
   align-items: center;
   border-radius: 34px;
   margin-top: 56px;
-  background: #221d7e;
+  background: #5432d3;
   font-family: 'Spoqa Han Sans Neo';
   font-style: normal;
   font-weight: 400;
   font-size: 21px;
   line-height: 26px;
   color: #ffffff;
-
   cursor: pointer;
   &:hover {
     box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);
@@ -84,17 +79,14 @@ const KaKaoBtn = styled.a`
 const StyledH = styled.h3`
   font-family: 'Spoqa Han Sans Neo';
   font-style: normal;
-  font-weight: 700;
-  font-size: 36px;
+  font-weight: 500;
+  font-size: 32px;
   line-height: 45px;
   /* identical to box height */
-
   display: flex;
   align-items: center;
   text-align: center;
-  margin-top: 36px;
-
-  color: #5432d3;
+  color: #e3e0ff;
 `;
 
 const StyledP = styled.p`
@@ -104,15 +96,10 @@ const StyledP = styled.p`
   font-size: 28px;
   line-height: 35px;
   /* identical to box height */
-
   display: flex;
   align-items: center;
   text-align: center;
-  margin-top: 29px;
-
-  color: #7a7a7a;
-
-  opacity: 0.4;
+  color: #afa4ff;
 `;
 
 export default SignOut;

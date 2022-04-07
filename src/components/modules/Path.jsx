@@ -27,6 +27,7 @@ const Path = () => {
       mergedArray.push(resultObject);
     }
   }
+  console.log(mergedArray);
 
   return (
     <StyledDiv>

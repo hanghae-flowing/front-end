@@ -1,8 +1,15 @@
 # Front-end
 
-항해5기 D반 5조 실전프로젝트 flowing
+![KakaoTalk_20220405_214246514](https://user-images.githubusercontent.com/94155128/161767560-76757978-4ac3-4f5a-ae27-0048c1980906.png)
+
+
+항해5기 D반 5조 실전프로젝트 기린이
 
 브레인 스토밍을 기반으로 한 협업 워크 스페이스
+<br>
+
+ <image src="https://img.shields.io/website?down_message=DOWN&up_message=UP&label=server&url=http://52.79.220.93:8888/health"/>  
+ <image src="https://img.shields.io/website?down_message=DOWN&up_message=UP&label=testServer&url=http://13.209.41.157"/>
 
 <br>
 

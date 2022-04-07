@@ -1,0 +1,32 @@
+{
+  "projectId": [
+    {
+      "projectName": "프로젝트1",
+      "modifiedAt": "1시간전",
+      "memberList": ["이한솔", "이주현", "정요한", "김효진"],
+      "bookmark": "false",
+      "thumbnailNum": "1"
+    },
+    {
+      "projectName": "프로젝트2",
+      "modifiedAt": "3일전",
+      "memberList": ["이한솔", "김효진"],
+      "bookmark": "false",
+      "thumbnailNum": "1"
+    },
+    {
+      "projectName": "프로젝트3",
+      "modifiedAt": "1달전",
+      "memberList": ["강전호", "이주현", "정요한", "김효진"],
+      "bookmark": "false",
+      "thumbnailNum": "1"
+    },
+    {
+      "projectName": "프로젝트4",
+      "modifiedAt": "20220317",
+      "memberList": ["선주짱", "이주현"],
+      "bookmark": "false",
+      "thumbnailNum": "1"
+    }
+  ]
+}

@@ -58,9 +58,12 @@ export const deleteSelectedFolders = createAsyncThunk(
 
 export const recoverSelectedProjects = createAsyncThunk(
   'trash/recoverSelectedProjects',
-  async (sendingData, thunkAPI) => {
+  async ({ sendingData, folderSendingData }, { dispatch }, thunkAPI) => {
     await URL.post('/project/trash/restore', sendingData)
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res);
+        dispatch(recoverSelectedFolders(folderSendingData));
+      })
       .catch(err => console.log(err));
   },
 );
@@ -139,7 +142,9 @@ export const trashSlice = createSlice({
       console.log(action.payload);
       state.folder = action.payload;
     });
-    builder.addCase(recoverSelectedProjects.fulfilled, (state, action) => {});
+    builder.addCase(recoverSelectedFolders.fulfilled, (state, action) => {
+      window.location.reload();
+    });
     builder.addCase(deleteSelectedFolders.fulfilled, (state, action) => {
       window.location.reload();
     });

@@ -174,7 +174,7 @@ const FolderCard = props => {
         >
           {isChecked ? <CheckedRing /> : <UnCheckedRing />}
         </MenuBtn>
-        <ImageDiv onClick={openFolder} isOver={isOver}></ImageDiv>
+        <ImageDiv isOver={isOver}></ImageDiv>
         <ContentDiv>
           <Title>{props.folderName}</Title>
           <DateP>{displayCreatedAt(props.modifiedAt)}</DateP>

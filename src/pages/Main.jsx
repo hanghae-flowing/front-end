@@ -24,7 +24,6 @@ const MainPrac = () => {
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
   };
   const [currentListOpen, setCurrentListOpen] = useState(false);
 

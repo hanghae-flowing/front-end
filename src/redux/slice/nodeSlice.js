@@ -52,7 +52,7 @@ export const deleteNode = createAsyncThunk(
   "node/delete",
   async(nodeId, {rejectWithValue}) => {
     try {
-      return await URL.delete(`/node/${nodeId}`).then((response) => console.log(response));
+      return await URL.delete(`/node/${nodeId}`)
     } catch (error) {
       console.error(error);
       return rejectWithValue(error.response);
@@ -94,7 +94,6 @@ export const nodeSlice = createSlice({
     },
     deleteAction: (state, action) => {
       const nodeId = action.payload;
-      console.log("nodeId ",nodeId);
       return {
         ...state,
         node: state.node.filter((node) => node.nodeId !== nodeId)
@@ -107,22 +106,17 @@ export const nodeSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(postNode.fulfilled, (state, action) => {
-        console.log(action.payload);
       })
       .addCase(getNode.fulfilled, (state, action) => {
         // state.node = action.payload;
       })
       .addCase(editNode.fulfilled, (state, action) => {
-        console.log(action.payload);
       })
       .addCase(deleteNode.fulfilled, (state, action) => {
-        console.log(action.payload);
       })
       .addCase(postNodeTable.fulfilled, (state, action) => {
-        console.log(action.payload);
       })
       .addCase(addPath.fulfilled, (state, action) => {
-        console.log(action.payload);
       })
   }
 })

@@ -15,9 +15,7 @@ const MileStone = () => {
   };
 
   const postMileStone = useMutation(sendingData => {
-    URL.post('/gapStone', sendingData).then(res => {
-      console.log(res);
-    });
+    URL.post('/gapStone', sendingData).then(res => {});
   });
 
   return (

@@ -34,7 +34,6 @@ const InvitationModal = ({ open, onClose }) => {
       userId,
       email: emailToSendInvitationRef.current.value,
     };
-    console.log(invitationData);
     dispatch(sendInvite(invitationData));
 
     // 초대할사람이메일 초대한사람유저아이디 프로젝트아이디

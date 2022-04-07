@@ -21,7 +21,7 @@ export const LoadPost = createAsyncThunk(
       .then(res => {
         return res.data;
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
     return result;
   },
 );
@@ -40,7 +40,6 @@ export const OpenWorkSpace = createAsyncThunk(
   async (projectId, thunkAPI) => {
     try {
       return await URL.get(`/project/${projectId}`).then(res => {
-        console.log(res);
         sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
         return res.data;
       });
@@ -57,10 +56,9 @@ export const CreateNewProject = createAsyncThunk(
       .then(res => {
         sessionStorage.setItem('projectInfo', JSON.stringify(res.data));
         navigate(`/workspace/${res.data.projectInfo.projectId}`);
-        console.log(res.data);
         return res.data;
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   },
 );
 
@@ -68,8 +66,7 @@ export const ThrowProject = createAsyncThunk(
   'post/throwProject',
   async (sendingData, thunkAPI) => {
     await URL.post(`project/trash`, sendingData)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   },
 );
 
@@ -77,8 +74,7 @@ export const ThrowFolder = createAsyncThunk(
   'post/throwFolder',
   async (sendingData, thunkAPI) => {
     await URL.post(`folder/trash`, sendingData)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   },
 );
 
@@ -86,8 +82,7 @@ export const setBookmark = createAsyncThunk(
   'post/setBookmark',
   async ({ sendingData, projectId }, thunkAPI) => {
     await URL.post(`/bookmark/${projectId}`, sendingData)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   },
 );
 
@@ -95,9 +90,7 @@ export const setFolderBookmark = createAsyncThunk(
   'post/setFolderBookmark',
   async (sendingData, { rejectWithValue }) => {
     try {
-      return await URL.post(`/folder/bookmark`, sendingData).then(res =>
-        console.log(res),
-      );
+      return await URL.post(`/folder/bookmark`, sendingData)
     } catch (error) {
       console.error(error);
       return rejectWithValue(error);
@@ -140,22 +133,18 @@ export const postSlice = createSlice({
       })
       .addCase(LoadPost.rejected, () => {})
       .addCase(CreateNewProject.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.documentId = action.payload.documentId;
         state.gapTableId = action.payload.gapTableId;
         state.nodeTable = action.payload.nodeTable;
         state.swotId = action.payload.swotId;
-        console.log('create fulfiled');
       })
       .addCase(CreateNewProject.rejected, () => {
-        console.log('create rejected');
       })
       .addCase(ThrowProject.fulfilled, () => {
         window.location.reload();
       })
 
       .addCase(OpenWorkSpace.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.projectInfo = action.payload.projectInfo;
         state.documentId = action.payload.documentId;
         state.gapTableId = action.payload.gapTableId;

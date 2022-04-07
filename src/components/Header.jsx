@@ -158,7 +158,6 @@ export const WorkHeader = props => {
     sessionStorage.getItem('projectInfo') &&
     JSON.parse(sessionStorage.getItem('projectInfo')).projectInfo.projectName;
   const memberList = useSelector(state => state.post.memberList);
-  console.log(memberList);
   const [isInvtOpen, setIsInvtOpen] = useState(false);
   const handleInvt = () => {
     setIsInvtOpen(!isInvtOpen);

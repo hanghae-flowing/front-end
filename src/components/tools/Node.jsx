@@ -50,11 +50,11 @@ const Node = props => {
 
   return (
     <Rect
-    // draggable
-    // onDragStart={dragStartHandler}
-    // onDrag={dragHandler}
-    // onDragEnd={dragEndHandler}
-    // onClick={onCreate}
+      // draggable
+      // onDragStart={dragStartHandler}
+      // onDrag={dragHandler}
+      // onDragEnd={dragEndHandler}
+      onClick={onCreate}
     >
       <Text>키워드</Text>
     </Rect>

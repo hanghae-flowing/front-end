@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const URL = axios.create({
-  baseURL: 'http://52.79.220.93:8888',
+  baseURL: 'https://girin.jeonbar2-1.shop',
   headers: {},
 });
 

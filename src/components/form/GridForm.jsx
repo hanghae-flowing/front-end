@@ -110,7 +110,6 @@ const GridForm = props => {
       projectId,
       userId,
     };
-    console.log(sendingData);
     window.alert('삭제 완료');
     dispatch(ThrowProject(sendingData));
   };

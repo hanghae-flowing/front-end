@@ -32,7 +32,6 @@ const Folder = () => {
   }, [folderTableId]);
 
   const { data: folderResult } = useQuery(['folderResult'], () => {});
-  console.log(folderResult);
 
   return (
     <StyledWrap>

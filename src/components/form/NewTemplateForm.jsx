@@ -8,7 +8,6 @@ const NewTemplateForm = props => {
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
   };
 
   return (

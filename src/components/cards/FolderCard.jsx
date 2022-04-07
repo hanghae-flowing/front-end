@@ -58,7 +58,6 @@ const FolderCard = props => {
     const sendingData = {
       folderTableId,
     };
-    console.log(sendingData);
     window.alert('삭제 완료');
     dispatch(ThrowFolder(sendingData));
   };
@@ -69,7 +68,6 @@ const FolderCard = props => {
     const sendingData = {
       folderTableId,
     };
-    console.log(sendingData);
     dispatch(setFolderBookmark(sendingData));
   };
 
@@ -78,7 +76,7 @@ const FolderCard = props => {
 
   const addProject = useMutation(
     data => {
-      URL.post(`/folder/addProject`, data).then(res => console.log(res));
+      URL.post(`/folder/addProject`, data);
     },
     {
       onSuccess: () => {
@@ -122,7 +120,6 @@ const FolderCard = props => {
 
   const checkboxClickHandler = useCallback(() => {
     setIsChecked(!isChecked);
-    console.log(folderTableId);
     if (!isChecked === true) {
       dispatch(setFolderList(folderTableId));
     } else {

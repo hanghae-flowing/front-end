@@ -40,7 +40,7 @@ const Node = props => {
     e.target.style.top = `${e.target.offsetTop + e.clientY - posY}px`;
     posX = e.clientX;
     posY = e.clientY;
-    console.log(e.target.style.left, e.target.style.top);
+    // console.log(e.target.style.left, e.target.style.top);
   };
 
   const dragEndHandler = e => {

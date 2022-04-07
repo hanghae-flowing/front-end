@@ -5,11 +5,10 @@ import { useNode } from '../../hooks/useNode';
 import { usePath } from '../../hooks/usePath';
 
 const Path = () => {
-  const nodeTableId = useSelector(state => state.post.nodeTable);
+  const nodeTableId = useSelector(state => state.node.nodeTableId);
 
   const { data: nodeList } = useNode(nodeTableId);
   const { data: pathList } = usePath(nodeTableId);
-  // console.log(pathList);
 
   let mergedArray = [];
   if (pathList) {
@@ -28,7 +27,6 @@ const Path = () => {
       mergedArray.push(resultObject);
     }
   }
-  // console.log(mergedArray);
 
   return (
     <StyledDiv>
@@ -39,8 +37,7 @@ const Path = () => {
               key={index}
               d={`M${data.parent.xval} ${data.parent.yval} L ${data.child.xval} ${data.child.yval}`}
               fill="transparent"
-              strokeWidth="4"
-              stroke="#f3f3f3"
+              stroke="black"
             />
           ))}
       </svg>

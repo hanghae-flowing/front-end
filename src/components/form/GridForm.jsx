@@ -229,11 +229,10 @@ const DateP = styled.p`
 
 const MenuDiv = styled.div`
   position: absolute;
-  right: 8px;
-  top: 8px;
+  right: 16px;
+  top: 1px;
   width: 24px;
   height: 24px;
-
   border-radius: 6px;
   &:hover {
   }

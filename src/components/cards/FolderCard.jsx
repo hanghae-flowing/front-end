@@ -252,7 +252,7 @@ const Dot = styled.div`
   width: 5px;
   height: 5px;
   border-radius: 5px;
-  background-color: #e3e0ff;
+  background-color: #5432d3;
 `;
 
 const BookmarkDiv = styled.div`

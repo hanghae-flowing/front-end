@@ -117,10 +117,6 @@ export const MainHeader = () => {
             </HomeBtn>
           </FlexDiv>
           <FlexDiv justify="end">
-            {/* <FlexDiv>
-            <input type="text" onChange={inviteHandler} />
-            <button onClick={() => publish(email)}>share</button>
-          </FlexDiv> */}
             <Notification
               onClick={() => {
                 handleNotification();
@@ -204,8 +200,6 @@ export const WorkHeader = props => {
           <UserImgDiv>
             <ProfileImage />
           </UserImgDiv>
-
-          {/* <button onClick={() => publish()}>버튼</button> */}
           <Buttons
             onClick={() => {
               handleInvt();
@@ -254,7 +248,7 @@ const Image = styled.div`
 const HeadBox = styled.div`
   width: 100%;
   height: 45px;
-  background-color: #221d7e;
+  background-color: #4426b1;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -31,7 +31,6 @@ const FolderCard = props => {
   const [isOver, setIsOver] = useState(false);
   const [bookmarked, setBookmarked] = useState(props.bookmark);
   const folderTableId = props.folderTableId;
-  console.log('DDDD' + folderTableId);
   const [isChecked, setIsChecked] = useState(false);
   const displayCreatedAt = createdAt => {
     let startTime = new Date(createdAt);

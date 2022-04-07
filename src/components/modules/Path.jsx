@@ -5,10 +5,11 @@ import { useNode } from '../../hooks/useNode';
 import { usePath } from '../../hooks/usePath';
 
 const Path = () => {
-  const nodeTableId = useSelector(state => state.node.nodeTableId);
+  const nodeTableId = useSelector(state => state.post.nodeTable);
 
   const { data: nodeList } = useNode(nodeTableId);
   const { data: pathList } = usePath(nodeTableId);
+  // console.log(pathList);
 
   let mergedArray = [];
   if (pathList) {
@@ -38,7 +39,8 @@ const Path = () => {
               key={index}
               d={`M${data.parent.xval} ${data.parent.yval} L ${data.child.xval} ${data.child.yval}`}
               fill="transparent"
-              stroke="black"
+              strokeWidth="4"
+              stroke="#f3f3f3"
             />
           ))}
       </svg>

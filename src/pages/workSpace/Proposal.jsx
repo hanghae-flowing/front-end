@@ -14,11 +14,9 @@ import { ReactComponent as SmallT } from '../../assets/icons/SmallT.svg';
 import { ReactComponent as Paragraph } from '../../assets/icons/Paragraph.svg';
 
 const ProposalPage = () => {
-  const dispatch = useDispatch();
   const documentId = useSelector(state => state.post.documentId);
 
   const { status, data: docList, error, isFetching } = useDoc(documentId);
-  console.log(docList);
   const renderByStatus = useCallback(() => {
     switch (status) {
       case 'loading':

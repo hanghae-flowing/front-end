@@ -14,10 +14,9 @@ export const getProjectsInTrash = createAsyncThunk(
   async (sendingData, thunkAPI) => {
     return await URL.get(`project/trash/${sendingData.userId}`)
       .then(res => {
-        console.log(res);
         return res.data;
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   },
 );
 
@@ -26,24 +25,20 @@ export const getFoldersInTrash = createAsyncThunk(
   async (sendingData, thunkAPI) => {
     return await URL.get(`trash/folder/${sendingData.userId}`)
       .then(res => {
-        console.log(res);
         return res.data;
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   },
 );
 
 export const deleteSelectedProjects = createAsyncThunk(
   'trash/deleteSelectedProjects',
   async ({ sendingData, folderSendingData }, { dispatch }, thunkAPI) => {
-    console.log(sendingData);
-    console.log(folderSendingData);
     await URL.post('/project/trash/selection', sendingData)
       .then(res => {
-        console.log(res);
         dispatch(deleteSelectedFolders(folderSendingData));
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   },
 );
 
@@ -51,8 +46,7 @@ export const deleteSelectedFolders = createAsyncThunk(
   'trash/deleteSelectedFolders',
   async (folderSendingData, thunkAPI) => {
     await URL.post('/folder/trash/delete', folderSendingData)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   },
 );
 
@@ -61,10 +55,9 @@ export const recoverSelectedProjects = createAsyncThunk(
   async ({ sendingData, folderSendingData }, { dispatch }, thunkAPI) => {
     await URL.post('/project/trash/restore', sendingData)
       .then(res => {
-        console.log(res);
         dispatch(recoverSelectedFolders(folderSendingData));
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   },
 );
 
@@ -72,8 +65,7 @@ export const recoverSelectedFolders = createAsyncThunk(
   'trash/recoverSelectedFolders',
   async (sendingData, thunkAPI) => {
     await URL.post('/folder/restore', sendingData)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   },
 );
 
@@ -81,11 +73,7 @@ export const emptyMyTrashbin = createAsyncThunk(
   'trash/emptyMyTrashbin',
   async (sendingData, thunkAPI) => {
     try {
-      return await URL.delete(`/project/trash/${sendingData.userId}`).then(
-        res => {
-          console.log(res);
-        },
-      );
+      return await URL.delete(`/project/trash/${sendingData.userId}`)
     } catch (err) {
       console.error(err);
     }
@@ -105,12 +93,10 @@ export const trashSlice = createSlice({
       state.counting += 1;
     },
     setFolderList: (state, action) => {
-      console.log(action.payload);
       state.pleaseThrowThoseFolders = [
         ...state.pleaseThrowThoseFolders,
         action.payload,
       ];
-      console.log(state.pleaseThrowThoseFolders);
 
       state.counting += 1;
     },
@@ -135,11 +121,9 @@ export const trashSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(getProjectsInTrash.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.trash = action.payload;
     });
     builder.addCase(getFoldersInTrash.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.folder = action.payload;
     });
     builder.addCase(recoverSelectedFolders.fulfilled, (state, action) => {

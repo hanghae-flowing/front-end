@@ -13,12 +13,11 @@ export const kakaoLogin = createAsyncThunk(
     await URL.get(`/member/kakao/callback?code=${code}`)
       .then(res => {
         alert('로그인 완료');
-        console.log(res);
         sessionStorage.setItem('userInfo', JSON.stringify(res.data));
         navigate('/main');
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
       });
   },
 );
@@ -28,10 +27,9 @@ export const kakaoLogout = createAsyncThunk(
   async (data, thunkAPI) => {
     await URL.post(`/logout`, data)
       .then(res => {
-        console.log(res);
         alert('로그아웃 완료');
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   },
 );
 
@@ -39,7 +37,6 @@ export const LoadMyInfo = createAsyncThunk(
   'user/loadMyPage',
   async (data, thunkAPI) => {
     const result = await URL.post(`/mypage`, data)
-      .then(res => console.log(res))
       .catch(err => err);
     return result;
   },

@@ -54,8 +54,6 @@ const TrashBin = () => {
     state => state.trash.pleaseThrowThoseFolders,
   );
 
-  console.log(selectedFoldersList);
-
   const deleteSelectedProjectsHanlder = () => {
     const sendingData = {
       projectIdList: [...selectedProjectsList],
@@ -82,9 +80,7 @@ const TrashBin = () => {
   };
 
   const folderList = useSelector(state => state.trash.folder);
-  console.log(folderList);
   const trashList = useSelector(state => state.trash.trash);
-  console.log(trashList);
 
   if (trashList.length === 0 && folderList.length === 0) {
     return (

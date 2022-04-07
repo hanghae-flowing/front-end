@@ -11,7 +11,6 @@ export const createNewSwot = createAsyncThunk(
   async (swotSendingData, thunkAPI) => {
     try {
       return await URL.post(`/swot/${swotSendingData.projectId}`).then(res => {
-        console.log(res);
         sessionStorage.setItem('swotInfo', res.data.swotId);
       });
     } catch (err) {
@@ -24,11 +23,9 @@ export const editStrTableText = createAsyncThunk(
   'swot/editSwotTableText',
   async ({ swotSendingData, lineId }, thunkAPI) => {
     try {
-      return await URL.put(`/swot/strength/${lineId}`, swotSendingData).then(
-        res => console.log(res),
-      );
+      return await URL.put(`/swot/strength/${lineId}`, swotSendingData)
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 );
@@ -36,11 +33,9 @@ export const editWeakTableText = createAsyncThunk(
   'swot/editSwotTableText',
   async ({ swotSendingData, lineId }, thunkAPI) => {
     try {
-      return await URL.put(`/swot/weakness/${lineId}`, swotSendingData).then(
-        res => console.log(res),
-      );
+      return await URL.put(`/swot/weakness/${lineId}`, swotSendingData)
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 );
@@ -48,11 +43,9 @@ export const editOpporTableText = createAsyncThunk(
   'swot/editSwotTableText',
   async ({ swotSendingData, lineId }, thunkAPI) => {
     try {
-      return await URL.put(`/swot/opportunity/${lineId}`, swotSendingData).then(
-        res => console.log(res),
-      );
+      return await URL.put(`/swot/opportunity/${lineId}`, swotSendingData)
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 );
@@ -60,11 +53,9 @@ export const editThreatTableText = createAsyncThunk(
   'swot/editSwotTableText',
   async ({ swotSendingData, lineId }, thunkAPI) => {
     try {
-      return await URL.put(`/swot/threat/${lineId}`, swotSendingData).then(
-        res => console.log(res),
-      );
+      return await URL.put(`/swot/threat/${lineId}`, swotSendingData)
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 );

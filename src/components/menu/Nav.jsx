@@ -34,9 +34,7 @@ const Nav = () => {
     JSON.parse(sessionStorage.getItem('userInfo')).userId;
 
   const handleDebounce = useCallback(
-    debounce(value => {
-      console.log(value);
-    }, 500),
+    debounce(value => {}, 500),
     [],
   );
 

@@ -22,10 +22,8 @@ const docState = {
 export const createNewLine = createAsyncThunk(
   'doc/createNewLine',
   async (sendingData, thunkAPI) => {
-    console.log(sendingData);
     try {
       return await URL.post('/documentLines', sendingData).then(res => {
-        console.log(res);
       });
     } catch (err) {
       console.error(err);
@@ -37,11 +35,9 @@ export const editLine = createAsyncThunk(
   'doc/editLine',
   async ({ sendingData, lineId }, thunkAPI) => {
     try {
-      return await URL.put(`/documentLines/${lineId}`, sendingData).then(res =>
-        console.log(res),
-      );
+      return await URL.put(`/documentLines/${lineId}`, sendingData)
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 );
@@ -54,7 +50,7 @@ export const openDoc = createAsyncThunk(
 
       return result;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 );
@@ -63,8 +59,7 @@ export const deleteLine = createAsyncThunk(
   'doc/deleteLine',
   async (sendingData, thunkAPI) => {
     await URL.delete(`documentLines/${sendingData}`)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   },
 );
 

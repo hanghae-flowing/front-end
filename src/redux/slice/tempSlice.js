@@ -5,10 +5,7 @@ export const getTemplate = createAsyncThunk(
   'template/get',
   async (projectId, { rejectWithValue }) => {
     try {
-      return await URL.get(`/project/${projectId}/templates`).then(
-        res => console.log(res),
-        // response => response.data,
-      );
+      return await URL.get(`/project/${projectId}/templates`)
     } catch (error) {
       console.error(error);
       return rejectWithValue(error.response);

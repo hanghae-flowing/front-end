@@ -10,9 +10,7 @@ export const sendInvite = createAsyncThunk(
   'invite/sendInvite',
   async (invitationData, thunkAPI) => {
     try {
-      return await URL.post('/inviting', invitationData).then(response => {
-        console.log(response);
-      });
+      return await URL.post('/inviting', invitationData)
     } catch (error) {
       console.error(error);
     }
@@ -24,11 +22,10 @@ export const checkMyInvitation = createAsyncThunk(
   async (sendData, thunkAPI) => {
     const result = await URL.get(`/inviting/${sendData.userId}`)
       .then(res => {
-        console.log(res.data);
         sessionStorage.setItem('invitingInfo', JSON.stringify(res.data));
         return res.data;
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
     return result;
   },
 );
@@ -36,13 +33,10 @@ export const checkMyInvitation = createAsyncThunk(
 export const acceptInvitation = createAsyncThunk(
   'invite/acceptInvitation',
   async (sendData, thunkAPI) => {
-    console.log(sendData);
     try {
-      return await URL.delete(`/accepting/${sendData.invitingId}`).then(res =>
-        console.log(res),
-      );
+      return await URL.delete(`/accepting/${sendData.invitingId}`)
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 );
@@ -51,11 +45,9 @@ export const declineInvitation = createAsyncThunk(
   'invite/acceptInvitation',
   async (sendData, thunkAPI) => {
     try {
-      return await URL.delete(`/refusing/${sendData.invitingId}`).then(res =>
-        console.log(res),
-      );
+      return await URL.delete(`/refusing/${sendData.invitingId}`)
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 );
@@ -66,7 +58,6 @@ export const checkNameByEmail = createAsyncThunk(
     try {
       return await URL.get(`/checkingNameByEmail/${sendingData.email}`).then(
         res => {
-          console.log(res);
           return res.data;
         },
       );
@@ -85,7 +76,6 @@ export const inviteSlice = createSlice({
       state.invitations = action.payload;
     });
     builder.addCase(checkNameByEmail.rejected, (state, action) => {
-      console.log(action.payload);
     });
     builder.addCase(checkNameByEmail.fulfilled, (state, action) => {
       state.personToInvite = action.payload;

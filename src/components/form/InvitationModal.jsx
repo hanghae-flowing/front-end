@@ -34,7 +34,7 @@ const InvitationModal = ({ open, onClose }) => {
       userId,
       email: emailToSendInvitationRef.current.value,
     };
-    dispatch(sendInvite(invitationData));
+    dispatch(sendInvite(invitationData)).then(res => console.log(res));
 
     // 초대할사람이메일 초대한사람유저아이디 프로젝트아이디
   };
@@ -75,55 +75,56 @@ const InvitationModal = ({ open, onClose }) => {
 const FirstP = styled.p`
   font-weight: 700;
   font-size: 22px;
-  line-height: 28px;
   /* identical to box height */
-  margin-left: 87px;
   display: flex;
   align-items: center;
   text-align: center;
-
   color: #767676;
+  padding-bottom: 20px;
 `;
 
 const SecondP = styled.p`
   font-weight: 400;
   font-size: 18px;
-  line-height: 23px;
   /* identical to box height */
-  margin-top: 9px;
-  margin-left: 59px;
   display: flex;
   align-items: center;
   text-align: center;
-
   color: #bebebe;
+  padding-bottom: 40px;
 `;
 
 const InputDiv = styled.div`
   width: 100%;
-  margin-top: 37px;
-  margin-left: 59px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 60px;
 `;
 
 const ThirdP = styled.span`
+  height: 30px;
   font-weight: 700;
   font-size: 22px;
-  line-height: 28px;
   /* identical to box height */
-
   color: #767676;
+  padding-right: 40px;
+  flex-shrink: 0;
 `;
 
 const InputBox = styled.input`
-  height: 26.88820457458496px;
-  width: 248px;
-  color: #bebebe;
-  margin-left: 67px;
+  height: 30px;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #bebebe;
+  font-size: 18px;
+  color: #222;
+  &::placeholder {
+    color: #bebebe;
+  }
 `;
 
-const ButtonDiv = styled.div`
-  margin: 66.11px 50px 40px 50px;
-`;
+const ButtonDiv = styled.div``;
 
 const Modal = styled.div`
   width: 480px;
@@ -131,9 +132,12 @@ const Modal = styled.div`
   background: #ffffff;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
   border-radius: 31px;
-  padding-top: 60px;
-
   z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
 `;
 
 const Wrapper = styled.div`

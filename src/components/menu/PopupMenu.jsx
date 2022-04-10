@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as DownloadImg } from '../../assets/icons/Download_light.svg';
 import { ReactComponent as LogoutImg } from '../../assets/icons/Sign_out.svg';
 
 import { useNavigate } from 'react-router-dom';
+import DownloadModal from '../modal/DownloadModal';
 
 const PopupMenu = props => {
   const navigate = useNavigate();
   // const projectId = useSelector(state => state.post.projectInfo.projectId);
+  const [dlOpen, setDlOpen] = useState(false);
 
   return (
     <StyledWrap>
-      <Tab>
+      {dlOpen ? <DownloadModal onClick={() => setDlOpen(false)} /> : null}
+      <Tab
+        onClick={() => {
+          setDlOpen(true);
+        }}
+      >
         <p>다운로드</p>
         <DownloadImg />
       </Tab>

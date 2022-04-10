@@ -266,6 +266,7 @@ const Inner = styled.div`
   max-width: 1340px;
   margin: 0 auto;
   padding-top: 130px;
+  padding-bottom: 60px;
 `;
 
 const SplitDiv = styled.div`

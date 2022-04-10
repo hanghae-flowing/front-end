@@ -10,7 +10,7 @@ export const sendInvite = createAsyncThunk(
   'invite/sendInvite',
   async (invitationData, thunkAPI) => {
     try {
-      return await URL.post('/inviting', invitationData)
+      return await URL.post('/inviting', invitationData).then((res) => console.log(res))
     } catch (error) {
       console.error(error);
     }
@@ -81,7 +81,8 @@ export const inviteSlice = createSlice({
       state.personToInvite = action.payload;
     });
     builder.addCase(sendInvite.fulfilled, (state, action) => {
-      window.location.reload();
+      // window.location.reload();
+      console.log(action);
     });
   },
 });

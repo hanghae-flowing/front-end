@@ -11,6 +11,7 @@ const PositiveButtonStyled = styled.button`
   height: 50px;
   background: #5432d3;
   border-radius: 30px;
+  border: none;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;

@@ -38,8 +38,15 @@ MVP 개발 : 2022년 3월 4일 - 2022년 4월 8일
 
 
 <br>
-<h2> 기술 스택 선정 이유
-
+<h2> 기술 스택 선정 이유 </h2>
+1.React
+2.React Query
+3.Redux-toolkit
+4.React-router-dom(V5)
+UI를 url에 따라 분기 처리하여 렌더링하기 위해 선택.
+5.axios
+6.react-dnd
+7.react-draggable
 <br>
 
 

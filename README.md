@@ -22,6 +22,9 @@ MVP 개발 : 2022년 3월 4일 - 2022년 4월 8일
 유지 보수 및 기능 개선 : 2022년 4월 18일 - 2022년 5월 29일 (변동 가능)
 
 <br>
+<h2>프로젝트 소개</h2>
+
+<br>
 
 ## ⚛️ 기술 스택
 <span><img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"></span>

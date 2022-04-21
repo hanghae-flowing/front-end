@@ -39,6 +39,7 @@ MVP 개발 : 2022년 3월 4일 - 2022년 4월 8일
 
 <br>
 <h2> 기술 스택 선정 이유 </h2>
+<br>
 1.React
 2.React Query
 3.Redux-toolkit

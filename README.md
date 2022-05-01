@@ -69,14 +69,6 @@ mvp까지의 개발 시간을 고려하여 데이터 폴링 방식으로 적용�
 <br>
 5.axios
 <br>
-6.react-dnd
-<br>
- - drag and drop을 구현하기 위해 프로젝트를 선택하고 drag 함수가 동작할 때 리덕스에 해당 프로젝트 Id 값을 저장하도록 하였고
-특정한 폴더 위에 겹쳐진 상태를 useState를 이용하여 감지한 후 폴더에 onDrop 함수가 실행되면 프로젝트 ID와 폴더 ID를 mutate하여 db에 저장해주도록 하였습니다.
-
-<br>
-7.react-draggable
-<br>
 
 
 ## 🏄‍ 팀원
